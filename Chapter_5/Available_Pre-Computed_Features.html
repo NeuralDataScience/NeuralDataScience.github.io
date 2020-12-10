@@ -1,0 +1,734 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>5.4. Available Pre-Computed Features &#8212; My Demo Book</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.5. Comparing Different Types of Cells" href="Comparing_Different_Types_of_Cells.html" />
+    <link rel="prev" title="5.3. Plotting a Signle Sweep of Data" href="Plotting_A_Single_Sweep_of_Data.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/demo_image.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">My Demo Book</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../landing_page.html">
+   A Hands-On Guide to Neural Data Science
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
+   1. Neural Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2/Data_Science_In_Python.html">
+   2. Data Science in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3/Neurodata_Without_Borders.html">
+   3. Neurodata Without Borders
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4/The_Allen_SDK.html">
+   4. The Allen SDK
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="Single-Cell_Electrophysiology.html">
+   5. Single-Cell Electrophysiology
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="About_The_Allen_Cell_Types_Dataset.html">
+     5.1. About The Allen Cell Types Dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Morphology_For_Single_Cells.html">
+     5.2. Morphology for Single Cells
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Plotting_A_Single_Sweep_of_Data.html">
+     5.3. Plotting a Signle Sweep of Data
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.4. Available Pre-Computed Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Comparing_Different_Types_of_Cells.html">
+     5.5. Comparing Different Types of Cells
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6/Large_Scale_Electrophysiology.html">
+   6. Large Scale Electrophysiology
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_7/Two-photon_Calcium_Imaging_Data.html">
+   7. Two-photon Calcium Imaging Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
+   8. Connectivity Atlas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
+   9. Brain Imaging Data Structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
+   10. Text Analyses of Neuroscience Literature
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
+   11. Approaches to Analyzing Large Datasets
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Chapter_5/Available_Pre-Computed_Features.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Chapter_5/Available_Pre-Computed_Features.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="available-pre-computed-features">
+<h1><span class="section-number">5.4. </span>Available Pre-Computed Features<a class="headerlink" href="#available-pre-computed-features" title="Permalink to this headline">¶</a></h1>
+<p>The Allen Institute also has many more precomputed features. Many of them give access to more information on the electrophysiology, morphology, and metadata on the cells available in the Allen. We will demonstrate some of these features below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import all the necessary packages and initalize an instance of the cache</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">allensdk.core.cell_types_cache</span> <span class="kn">import</span> <span class="n">CellTypesCache</span>
+<span class="kn">from</span> <span class="nn">allensdk.api.queries.cell_types_api</span> <span class="kn">import</span> <span class="n">CellTypesApi</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages succesfully downloaded.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages succesfully downloaded.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Below we have created a pandas dataframe from the data on mouse cells and set the row indices to be the <code class="docutils literal notranslate"><span class="pre">id</span></code> column. This will give us the metadata on mouse cells along and ID’s to choose from.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mouse_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_cells</span><span class="p">(</span><span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="n">CellTypesApi</span><span class="o">.</span><span class="n">MOUSE</span><span class="p">]))</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">ephys_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_features</span><span class="p">())</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;specimen_id&#39;</span><span class="p">)</span>
+<span class="n">mouse_ephys_df</span> <span class="o">=</span> <span class="n">mouse_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ephys_df</span><span class="p">)</span>
+<span class="n">mouse_ephys_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>reporter_status</th>
+      <th>cell_soma_location</th>
+      <th>species</th>
+      <th>name</th>
+      <th>structure_layer_name</th>
+      <th>structure_area_id</th>
+      <th>structure_area_abbrev</th>
+      <th>transgenic_line</th>
+      <th>dendrite_type</th>
+      <th>apical</th>
+      <th>...</th>
+      <th>trough_t_ramp</th>
+      <th>trough_t_short_square</th>
+      <th>trough_v_long_square</th>
+      <th>trough_v_ramp</th>
+      <th>trough_v_short_square</th>
+      <th>upstroke_downstroke_ratio_long_square</th>
+      <th>upstroke_downstroke_ratio_ramp</th>
+      <th>upstroke_downstroke_ratio_short_square</th>
+      <th>vm_for_sag</th>
+      <th>vrest</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>565871768</th>
+      <td>positive</td>
+      <td>[8966.56330957526, 1429.52689052075, 8567.3896...</td>
+      <td>Mus musculus</td>
+      <td>Oxtr-2A-Cre;Ai14-293837.03.01.02</td>
+      <td>5</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Oxtr-T2A-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>14.738000</td>
+      <td>1.391268</td>
+      <td>-59.281254</td>
+      <td>-57.468754</td>
+      <td>-75.756252</td>
+      <td>1.564027</td>
+      <td>1.304349</td>
+      <td>1.679550</td>
+      <td>-87.906258</td>
+      <td>-74.926987</td>
+    </tr>
+    <tr>
+      <th>469801138</th>
+      <td>positive</td>
+      <td>[7872.53138541818, 993.212032389272, 3127.1530...</td>
+      <td>Mus musculus</td>
+      <td>Pvalb-IRES-Cre;Ai14-170927.05.02.01</td>
+      <td>4</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Pvalb-IRES-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>11.763808</td>
+      <td>1.290815</td>
+      <td>-55.875000</td>
+      <td>-52.515627</td>
+      <td>-69.109379</td>
+      <td>1.162618</td>
+      <td>1.197155</td>
+      <td>1.369171</td>
+      <td>-80.156250</td>
+      <td>-72.042976</td>
+    </tr>
+    <tr>
+      <th>605889373</th>
+      <td>positive</td>
+      <td>[9400.0, 1520.74232706376, 2188.13845194139]</td>
+      <td>Mus musculus</td>
+      <td>Vipr2-IRES2-Cre;Slc32a1-T2A-FlpO;Ai65-337419.0...</td>
+      <td>2/3</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Slc32a1-T2A-FlpO|Vipr2-IRES2-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>8.432940</td>
+      <td>1.315510</td>
+      <td>-48.187500</td>
+      <td>-54.364586</td>
+      <td>-72.640628</td>
+      <td>3.379321</td>
+      <td>4.108774</td>
+      <td>2.680139</td>
+      <td>-83.593758</td>
+      <td>-72.712036</td>
+    </tr>
+    <tr>
+      <th>485909730</th>
+      <td>positive</td>
+      <td>[8881.0, 953.839501299405, 7768.22695782726]</td>
+      <td>Mus musculus</td>
+      <td>Cux2-CreERT2;Ai14-205530.03.02.01</td>
+      <td>5</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Cux2-CreERT2</td>
+      <td>spiny</td>
+      <td>intact</td>
+      <td>...</td>
+      <td>2.888133</td>
+      <td>1.520193</td>
+      <td>-54.031254</td>
+      <td>-57.385419</td>
+      <td>-77.750005</td>
+      <td>3.042933</td>
+      <td>3.517684</td>
+      <td>3.274181</td>
+      <td>-101.000000</td>
+      <td>-76.928391</td>
+    </tr>
+    <tr>
+      <th>323865917</th>
+      <td>positive</td>
+      <td>[8125.0, 904.841803028986, 7819.69986630448]</td>
+      <td>Mus musculus</td>
+      <td>Scnn1a-Tg3-Cre;Ai14-172530.06.01.01</td>
+      <td>5</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Scnn1a-Tg3-Cre</td>
+      <td>spiny</td>
+      <td>intact</td>
+      <td>...</td>
+      <td>3.467847</td>
+      <td>1.317042</td>
+      <td>-57.281254</td>
+      <td>-56.895833</td>
+      <td>-70.218751</td>
+      <td>2.974194</td>
+      <td>3.156117</td>
+      <td>2.946463</td>
+      <td>-88.406250</td>
+      <td>-69.402855</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 70 columns</p>
+</div></div></div>
+</div>
+<p>The Allen has many pre-computed features that you might consider comparing across cells. Some of these features include input resistance (‘input_resistance_mohm’), Adapation ratio (‘adaptation’), Average ISI (‘avg_isi’), and many others (you can find a complete glossary <a href = "https://docs.google.com/document/d/1YGLwkMTebwrXd_1E817LFbztMjSTCWh83Mlp3_3ZMEo/edit#heading=h.t0p3wngfkxc1"> here </a>).</p>
+<p>We must first select 2 or more cell types that we would like to compare. We can subset our electrophysiology dataframe to compare across transgenic lines, structure layer, and many more  columns. We created two dataframes to compare spiny dendrite types to aspiny dendrite types.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define your cell type variables below</span>
+<span class="n">mouse_spiny_df</span> <span class="o">=</span> <span class="n">mouse_ephys_df</span><span class="p">[</span><span class="n">mouse_ephys_df</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;spiny&#39;</span><span class="p">]</span>
+<span class="n">mouse_aspiny_df</span> <span class="o">=</span> <span class="n">mouse_ephys_df</span><span class="p">[</span><span class="n">mouse_ephys_df</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;aspiny&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have two cell types we would like to compare, we can now use the pre-computed features to plot some our cells’ characteristics. Lets use a boxplot. The syntax to access these precomputed features is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">([</span><span class="n">dataframe_1</span><span class="p">[</span><span class="s1">&#39;pre_computed_feature&#39;</span><span class="p">],</span><span class="n">dataframe_2</span><span class="p">[</span><span class="s1">&#39;pre_computed_feature]])</span>
+</pre></div>
+</div>
+<p>Let’s start by comparing the input Resistance between our two cell types.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot our figure and provide labels</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">([</span><span class="n">mouse_spiny_df</span><span class="p">[</span><span class="s1">&#39;input_resistance_mohm&#39;</span><span class="p">],</span> <span class="n">mouse_aspiny_df</span><span class="p">[</span><span class="s1">&#39;input_resistance_mohm&#39;</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Input Resistance (mohm)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Spiny&#39;</span><span class="p">,</span> <span class="s1">&#39;Aspiny&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Input Resistance of Mouse Spiny vs Aspiny Neuron Dendrite Types&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Available_Pre-Computed_Features_9_0.png" src="../_images/Available_Pre-Computed_Features_9_0.png" />
+</div>
+</div>
+<p><strong>Note</strong>: You cannot plot missing values. Be sure to remove rows that contain missing values before plotting your features. Below is an example of how to compare cell types that contain some missing values in our pre-computed features.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># download our Human cells data and combine with our electrophysiology data</span>
+<span class="n">human_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_cells</span><span class="p">(</span><span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="n">CellTypesApi</span><span class="o">.</span><span class="n">HUMAN</span><span class="p">]))</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">human_ephys_df</span> <span class="o">=</span> <span class="n">human_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ephys_df</span><span class="p">)</span>
+
+<span class="c1"># compare two different brain structures </span>
+<span class="n">human_MTG_df</span> <span class="o">=</span> <span class="n">human_ephys_df</span><span class="p">[</span><span class="n">human_ephys_df</span><span class="p">[</span><span class="s1">&#39;structure_area_abbrev&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;MTG&#39;</span><span class="p">]</span>
+<span class="n">human_MFG_df</span> <span class="o">=</span> <span class="n">human_ephys_df</span><span class="p">[</span><span class="n">human_ephys_df</span><span class="p">[</span><span class="s1">&#39;structure_area_abbrev&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;MFG&#39;</span><span class="p">]</span>
+
+<span class="c1"># drop all null values in our column of interest in order to plot</span>
+<span class="n">human_MTG_df</span> <span class="o">=</span> <span class="n">human_MTG_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span><span class="p">[</span><span class="s1">&#39;avg_isi&#39;</span><span class="p">])</span>
+<span class="n">human_MFG_df</span> <span class="o">=</span> <span class="n">human_MFG_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;avg_isi&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Null values dropped.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Null values dropped.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plot our figure </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">([</span><span class="n">human_MTG_df</span><span class="p">[</span><span class="s1">&#39;avg_isi&#39;</span><span class="p">],</span> <span class="n">human_MFG_df</span><span class="p">[</span><span class="s1">&#39;avg_isi&#39;</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Mean value of all interspike intervals in a sweep&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;MTG&#39;</span><span class="p">,</span> <span class="s1">&#39;MFG&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Average ISI of MTG Cells vs MFG Cells&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Available_Pre-Computed_Features_12_0.png" src="../_images/Available_Pre-Computed_Features_12_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">,</span> <span class="s1">&#39;Description&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;adaptation&#39;</span><span class="p">,</span> <span class="s1">&#39;The rate at which firing speeds up or slows down during a stimulus&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;avg_isi&#39;</span><span class="p">,</span> <span class="s1">&#39;The mean value of all interspike intervals in a sweep&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;fast_trough&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp (_t) or voltage (_v) of the trough within in the interval 5 ms after the peak  in response to a short square stimulus (_short_square), a long square (_long_square), a ramp (_ramp).&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;f_i_curve_slope&#39;</span><span class="p">,</span> <span class="s1">&#39;slope of the curve between firing rate (f) and current injected; see the Allen Institute Whitepaper for details&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;input_resistance_mohm&#39;</span><span class="p">,</span> <span class="s1">&#39;input resistance of the cell, in mega ohms&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;latency&#39;</span><span class="p">,</span> <span class="s1">&#39;time for the stimulus onset to the threshold of the first spike&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp (_t) or voltage (_v) of the maximum value of the membrane potential during the action potential (i.e., between the action potential’s threshold and the time of the next action potential, or end of the response) in response to a (_short_square), a long square (_long_square), a ramp (_ramp) stimulus&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;sag&#39;</span><span class="p">,</span> <span class="s1">&#39;measurement of sag, or the return to steady state divided by the peak deflection&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;slow_trough&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp (_t) or voltage (_v) of the membrane potential in the interval between the peak and the time of the next action potential in response to a short square stimulus (_short_square), a long square (_long_square), a ramp (_ramp)&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;membrane time constant, in ms&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;upstroke_downstroke_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;the ratio between the absolute values of the action potential peak upstroke and the action potential peak downstroke.during a short square (_short_square), a long square (_long_square), a ramp (_ramp) stimulus&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;vrest&#39;</span><span class="p">,</span> <span class="s1">&#39;resting membrane potential, in mV&#39;</span><span class="p">]]</span>
+
+<span class="n">principle_fts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span><span class="p">)</span>
+<span class="n">principle_fts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>adaptation</td>
+      <td>The rate at which firing speeds up or slows do...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>avg_isi</td>
+      <td>The mean value of all interspike intervals in ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>fast_trough</td>
+      <td>timestamp (_t) or voltage (_v) of the trough w...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>f_i_curve_slope</td>
+      <td>slope of the curve between firing rate (f) and...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>input_resistance_mohm</td>
+      <td>input resistance of the cell, in mega ohms</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>latency</td>
+      <td>time for the stimulus onset to the threshold o...</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>peak</td>
+      <td>timestamp (_t) or voltage (_v) of the maximum ...</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>sag</td>
+      <td>measurement of sag, or the return to steady st...</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>slow_trough</td>
+      <td>timestamp (_t) or voltage (_v) of the membrane...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>tau</td>
+      <td>membrane time constant, in ms</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>upstroke_downstroke_ratio</td>
+      <td>the ratio between the absolute values of the a...</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>vrest</td>
+      <td>resting membrane potential, in mV</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter_5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="Plotting_A_Single_Sweep_of_Data.html" title="previous page"><span class="section-number">5.3. </span>Plotting a Signle Sweep of Data</a>
+    <a class='right-next' id="next-link" href="Comparing_Different_Types_of_Cells.html" title="next page"><span class="section-number">5.5. </span>Comparing Different Types of Cells</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Victor Magdaleno-Garcia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

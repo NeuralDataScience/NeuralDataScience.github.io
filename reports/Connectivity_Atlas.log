@@ -1,0 +1,53 @@
+Traceback (most recent call last):
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/jupyter_cache/executors/utils.py", line 56, in single_nb_execution
+    record_timing=False,
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 1087, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/asyncio/base_events.py", line 583, in run_until_complete
+    return future.result()
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 541, in async_execute
+    cell, index, execution_count=self.code_cells_executed + 1
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 832, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# projection density: number of projecting pixels / voxel volume
+pd, pd_info = mcc.get_projection_density(experiment_id)
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+[0;32m<ipython-input-18-1f6d37729490>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;31m# projection density: number of projecting pixels / voxel volume[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 2[0;31m [0mpd[0m[0;34m,[0m [0mpd_info[0m [0;34m=[0m [0mmcc[0m[0;34m.[0m[0mget_projection_density[0m[0;34m([0m[0mexperiment_id[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m
+[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/mouse_connectivity_cache.py[0m in [0;36mget_projection_density[0;34m(self, experiment_id, file_name)[0m
+[1;32m    180[0m             file_name, experiment_id, self.resolution, strategy='lazy')
+[1;32m    181[0m [0;34m[0m[0m
+[0;32m--> 182[0;31m         [0;32mreturn[0m [0mnrrd[0m[0;34m.[0m[0mread[0m[0;34m([0m[0mfile_name[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    183[0m [0;34m[0m[0m
+[1;32m    184[0m     [0;32mdef[0m [0mget_injection_density[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mexperiment_id[0m[0;34m,[0m [0mfile_name[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.7/site-packages/nrrd/reader.py[0m in [0;36mread[0;34m(filename, custom_field_map, index_order)[0m
+[1;32m    506[0m     [0;32mwith[0m [0mopen[0m[0;34m([0m[0mfilename[0m[0;34m,[0m [0;34m'rb'[0m[0;34m)[0m [0;32mas[0m [0mfh[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    507[0m         [0mheader[0m [0;34m=[0m [0mread_header[0m[0;34m([0m[0mfh[0m[0;34m,[0m [0mcustom_field_map[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 508[0;31m         [0mdata[0m [0;34m=[0m [0mread_data[0m[0;34m([0m[0mheader[0m[0;34m,[0m [0mfh[0m[0;34m,[0m [0mfilename[0m[0;34m,[0m [0mindex_order[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    509[0m [0;34m[0m[0m
+[1;32m    510[0m     [0;32mreturn[0m [0mdata[0m[0;34m,[0m [0mheader[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/opt/anaconda3/lib/python3.7/site-packages/nrrd/reader.py[0m in [0;36mread_data[0;34m(header, fh, filename, index_order)[0m
+[1;32m    448[0m         [0;31m# Byte skip is applied AFTER the decompression. Skip first x bytes of the decompressed data and parse it using[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    449[0m         [0;31m# NumPy[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 450[0;31m         [0mdata[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0mfrombuffer[0m[0;34m([0m[0mdecompressed_data[0m[0;34m[[0m[0mbyte_skip[0m[0;34m:[0m[0;34m][0m[0;34m,[0m [0mdtype[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    451[0m [0;34m[0m[0m
+[1;32m    452[0m     [0;31m# Close the file, even if opened using "with" block, closing it manually does not hurt[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mValueError[0m: buffer size must be a multiple of element size
+ValueError: buffer size must be a multiple of element size
+

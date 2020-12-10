@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>5.3. Plotting a Signle Sweep of Data &#8212; My Demo Book</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.4. Available Pre-Computed Features" href="Available_Pre-Computed_Features.html" />
+    <link rel="prev" title="5.2. Morphology for Single Cells" href="Morphology_For_Single_Cells.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/demo_image.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">My Demo Book</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../landing_page.html">
+   A Hands-On Guide to Neural Data Science
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
+   1. Neural Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2/Data_Science_In_Python.html">
+   2. Data Science in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3/Neurodata_Without_Borders.html">
+   3. Neurodata Without Borders
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4/The_Allen_SDK.html">
+   4. The Allen SDK
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="Single-Cell_Electrophysiology.html">
+   5. Single-Cell Electrophysiology
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="About_The_Allen_Cell_Types_Dataset.html">
+     5.1. About The Allen Cell Types Dataset
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Morphology_For_Single_Cells.html">
+     5.2. Morphology for Single Cells
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     5.3. Plotting a Signle Sweep of Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Available_Pre-Computed_Features.html">
+     5.4. Available Pre-Computed Features
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Comparing_Different_Types_of_Cells.html">
+     5.5. Comparing Different Types of Cells
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6/Large_Scale_Electrophysiology.html">
+   6. Large Scale Electrophysiology
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_7/Two-photon_Calcium_Imaging_Data.html">
+   7. Two-photon Calcium Imaging Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
+   8. Connectivity Atlas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
+   9. Brain Imaging Data Structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
+   10. Text Analyses of Neuroscience Literature
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
+   11. Approaches to Analyzing Large Datasets
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Chapter_5/Plotting_A_Single_Sweep_of_Data.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Chapter_5/Plotting_A_Single_Sweep_of_Data.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="plotting-a-signle-sweep-of-data">
+<h1><span class="section-number">5.3. </span>Plotting a Signle Sweep of Data<a class="headerlink" href="#plotting-a-signle-sweep-of-data" title="Permalink to this headline">¶</a></h1>
+<p>In this section we will go over how to access electrophysiology data from our cells. Once downloaded, we will be able to plot our cells’ electrophysiology features to compare characteristics across specimen. We will also learn how to download electrophysiology traces of single cells and plot single sweeps of these cells.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import all necessay packages and initialize the cache as &#39;ctc&#39; (cell types cache)</span>
+<span class="kn">from</span> <span class="nn">allensdk.core.cell_types_cache</span> <span class="kn">import</span> <span class="n">CellTypesCache</span>
+
+<span class="kn">from</span> <span class="nn">allensdk.api.queries.cell_types_api</span> <span class="kn">import</span> <span class="n">CellTypesApi</span>
+
+<span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages successfully imported.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages successfully imported.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># redownload the metadata for all our cells</span>
+<span class="n">all_cells</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_cells</span><span class="p">()</span>
+<span class="n">all_cells_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_cells</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">all_cells_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>reporter_status</th>
+      <th>cell_soma_location</th>
+      <th>species</th>
+      <th>name</th>
+      <th>structure_layer_name</th>
+      <th>structure_area_id</th>
+      <th>structure_area_abbrev</th>
+      <th>transgenic_line</th>
+      <th>dendrite_type</th>
+      <th>apical</th>
+      <th>reconstruction_type</th>
+      <th>disease_state</th>
+      <th>donor_id</th>
+      <th>structure_hemisphere</th>
+      <th>normalized_depth</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>525011903</th>
+      <td>None</td>
+      <td>[273.0, 354.0, 216.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.03.003.01.14.02</td>
+      <td>3</td>
+      <td>12113</td>
+      <td>FroL</td>
+      <td></td>
+      <td>spiny</td>
+      <td>intact</td>
+      <td>None</td>
+      <td>epilepsy</td>
+      <td>524848408</td>
+      <td>right</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>565871768</th>
+      <td>positive</td>
+      <td>[8966.56330957526, 1429.52689052075, 8567.3896...</td>
+      <td>Mus musculus</td>
+      <td>Oxtr-2A-Cre;Ai14-293837.03.01.02</td>
+      <td>5</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Oxtr-T2A-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>None</td>
+      <td></td>
+      <td>563340157</td>
+      <td>left</td>
+      <td>0.582057</td>
+    </tr>
+    <tr>
+      <th>469801138</th>
+      <td>positive</td>
+      <td>[7872.53138541818, 993.212032389272, 3127.1530...</td>
+      <td>Mus musculus</td>
+      <td>Pvalb-IRES-Cre;Ai14-170927.05.02.01</td>
+      <td>4</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Pvalb-IRES-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>None</td>
+      <td></td>
+      <td>319194354</td>
+      <td>right</td>
+      <td>0.469578</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>At this point, you might have realized that this dataframe doesn’t contain any data about the electrophysiology of our cells either. In order to get information about the electrophysiological properties of these cells, we need to use the <code class="docutils literal notranslate"><span class="pre">get_ephys_features()</span></code> method on our instance of the cell types cache.</p>
+<p>Just as we did before, we will will assign the output of <code class="docutils literal notranslate"><span class="pre">get_ephys_features()</span></code> to a variable and then convert it into a pandas dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ephys_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_features</span><span class="p">())</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;specimen_id&#39;</span><span class="p">)</span>
+<span class="n">ephys_features</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adaptation</th>
+      <th>avg_isi</th>
+      <th>electrode_0_pa</th>
+      <th>f_i_curve_slope</th>
+      <th>fast_trough_t_long_square</th>
+      <th>fast_trough_t_ramp</th>
+      <th>fast_trough_t_short_square</th>
+      <th>fast_trough_v_long_square</th>
+      <th>fast_trough_v_ramp</th>
+      <th>fast_trough_v_short_square</th>
+      <th>...</th>
+      <th>trough_t_ramp</th>
+      <th>trough_t_short_square</th>
+      <th>trough_v_long_square</th>
+      <th>trough_v_ramp</th>
+      <th>trough_v_short_square</th>
+      <th>upstroke_downstroke_ratio_long_square</th>
+      <th>upstroke_downstroke_ratio_ramp</th>
+      <th>upstroke_downstroke_ratio_short_square</th>
+      <th>vm_for_sag</th>
+      <th>vrest</th>
+    </tr>
+    <tr>
+      <th>specimen_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>529878215</th>
+      <td>NaN</td>
+      <td>134.700000</td>
+      <td>22.697498</td>
+      <td>8.335459e-02</td>
+      <td>1.187680</td>
+      <td>13.295200</td>
+      <td>1.025916</td>
+      <td>-56.375004</td>
+      <td>-57.385420</td>
+      <td>-57.431251</td>
+      <td>...</td>
+      <td>13.295680</td>
+      <td>1.134780</td>
+      <td>-56.593754</td>
+      <td>-57.739586</td>
+      <td>-74.143753</td>
+      <td>3.029695</td>
+      <td>3.061646</td>
+      <td>2.969821</td>
+      <td>-80.468750</td>
+      <td>-73.553391</td>
+    </tr>
+    <tr>
+      <th>548459652</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-24.887498</td>
+      <td>-3.913630e-19</td>
+      <td>1.099840</td>
+      <td>20.650105</td>
+      <td>1.025460</td>
+      <td>-54.000000</td>
+      <td>-54.828129</td>
+      <td>-54.656254</td>
+      <td>...</td>
+      <td>20.650735</td>
+      <td>1.160940</td>
+      <td>-55.406254</td>
+      <td>-55.242191</td>
+      <td>-73.500000</td>
+      <td>2.441895</td>
+      <td>2.245653</td>
+      <td>2.231575</td>
+      <td>-84.406258</td>
+      <td>-73.056595</td>
+    </tr>
+    <tr>
+      <th>579978640</th>
+      <td>0.009770</td>
+      <td>39.044800</td>
+      <td>-46.765002</td>
+      <td>5.267857e-01</td>
+      <td>1.157840</td>
+      <td>2.551310</td>
+      <td>1.025387</td>
+      <td>-59.500000</td>
+      <td>-58.234378</td>
+      <td>-59.940975</td>
+      <td>...</td>
+      <td>2.551960</td>
+      <td>1.089851</td>
+      <td>-60.062500</td>
+      <td>-58.570314</td>
+      <td>-61.371531</td>
+      <td>2.023762</td>
+      <td>2.162878</td>
+      <td>2.006406</td>
+      <td>-93.375008</td>
+      <td>-60.277321</td>
+    </tr>
+    <tr>
+      <th>439024551</th>
+      <td>-0.007898</td>
+      <td>117.816429</td>
+      <td>5.996250</td>
+      <td>1.542553e-01</td>
+      <td>1.989165</td>
+      <td>9.572025</td>
+      <td>1.028733</td>
+      <td>-47.531250</td>
+      <td>-50.359375</td>
+      <td>-65.500000</td>
+      <td>...</td>
+      <td>9.576308</td>
+      <td>1.423229</td>
+      <td>-49.406254</td>
+      <td>-52.718752</td>
+      <td>-75.273443</td>
+      <td>3.105931</td>
+      <td>3.491663</td>
+      <td>1.733896</td>
+      <td>-87.656250</td>
+      <td>-75.205559</td>
+    </tr>
+    <tr>
+      <th>515188639</th>
+      <td>0.022842</td>
+      <td>68.321429</td>
+      <td>14.910000</td>
+      <td>1.714041e-01</td>
+      <td>1.081980</td>
+      <td>2.462880</td>
+      <td>1.025620</td>
+      <td>-48.437504</td>
+      <td>-46.520837</td>
+      <td>-51.406253</td>
+      <td>...</td>
+      <td>2.490433</td>
+      <td>1.479690</td>
+      <td>-53.000004</td>
+      <td>-54.645837</td>
+      <td>-64.250003</td>
+      <td>3.285760</td>
+      <td>3.363504</td>
+      <td>4.234701</td>
+      <td>-81.625008</td>
+      <td>-63.474991</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 55 columns</p>
+</div></div></div>
+</div>
+<p>Again, we can combine our dataframe that contians the metadata of our cells with our electrophysiology dataframe to create one single dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_ephys_features</span> <span class="o">=</span> <span class="n">all_cells_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ephys_features</span><span class="p">)</span>
+<span class="n">all_ephys_features</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>reporter_status</th>
+      <th>cell_soma_location</th>
+      <th>species</th>
+      <th>name</th>
+      <th>structure_layer_name</th>
+      <th>structure_area_id</th>
+      <th>structure_area_abbrev</th>
+      <th>transgenic_line</th>
+      <th>dendrite_type</th>
+      <th>apical</th>
+      <th>...</th>
+      <th>trough_t_ramp</th>
+      <th>trough_t_short_square</th>
+      <th>trough_v_long_square</th>
+      <th>trough_v_ramp</th>
+      <th>trough_v_short_square</th>
+      <th>upstroke_downstroke_ratio_long_square</th>
+      <th>upstroke_downstroke_ratio_ramp</th>
+      <th>upstroke_downstroke_ratio_short_square</th>
+      <th>vm_for_sag</th>
+      <th>vrest</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>525011903</th>
+      <td>None</td>
+      <td>[273.0, 354.0, 216.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.03.003.01.14.02</td>
+      <td>3</td>
+      <td>12113</td>
+      <td>FroL</td>
+      <td></td>
+      <td>spiny</td>
+      <td>intact</td>
+      <td>...</td>
+      <td>4.134987</td>
+      <td>1.375253</td>
+      <td>-53.968754</td>
+      <td>-59.510420</td>
+      <td>-71.197919</td>
+      <td>2.895461</td>
+      <td>2.559876</td>
+      <td>3.099787</td>
+      <td>-88.843758</td>
+      <td>-70.561035</td>
+    </tr>
+    <tr>
+      <th>565871768</th>
+      <td>positive</td>
+      <td>[8966.56330957526, 1429.52689052075, 8567.3896...</td>
+      <td>Mus musculus</td>
+      <td>Oxtr-2A-Cre;Ai14-293837.03.01.02</td>
+      <td>5</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Oxtr-T2A-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>14.738000</td>
+      <td>1.391268</td>
+      <td>-59.281254</td>
+      <td>-57.468754</td>
+      <td>-75.756252</td>
+      <td>1.564027</td>
+      <td>1.304349</td>
+      <td>1.679550</td>
+      <td>-87.906258</td>
+      <td>-74.926987</td>
+    </tr>
+    <tr>
+      <th>469801138</th>
+      <td>positive</td>
+      <td>[7872.53138541818, 993.212032389272, 3127.1530...</td>
+      <td>Mus musculus</td>
+      <td>Pvalb-IRES-Cre;Ai14-170927.05.02.01</td>
+      <td>4</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Pvalb-IRES-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>11.763808</td>
+      <td>1.290815</td>
+      <td>-55.875000</td>
+      <td>-52.515627</td>
+      <td>-69.109379</td>
+      <td>1.162618</td>
+      <td>1.197155</td>
+      <td>1.369171</td>
+      <td>-80.156250</td>
+      <td>-72.042976</td>
+    </tr>
+    <tr>
+      <th>528642047</th>
+      <td>None</td>
+      <td>[69.0, 254.0, 96.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.06.009.01.02.06.05</td>
+      <td>5</td>
+      <td>12141</td>
+      <td>MTG</td>
+      <td></td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>1.051160</td>
+      <td>-67.468758</td>
+      <td>NaN</td>
+      <td>-70.875002</td>
+      <td>1.891881</td>
+      <td>NaN</td>
+      <td>1.989616</td>
+      <td>-101.000000</td>
+      <td>-69.209610</td>
+    </tr>
+    <tr>
+      <th>605889373</th>
+      <td>positive</td>
+      <td>[9400.0, 1520.74232706376, 2188.13845194139]</td>
+      <td>Mus musculus</td>
+      <td>Vipr2-IRES2-Cre;Slc32a1-T2A-FlpO;Ai65-337419.0...</td>
+      <td>2/3</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Slc32a1-T2A-FlpO|Vipr2-IRES2-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>8.432940</td>
+      <td>1.315510</td>
+      <td>-48.187500</td>
+      <td>-54.364586</td>
+      <td>-72.640628</td>
+      <td>3.379321</td>
+      <td>4.108774</td>
+      <td>2.680139</td>
+      <td>-83.593758</td>
+      <td>-72.712036</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 70 columns</p>
+</div></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_ephys_data()</span></code> method can download electrophysiology traces for a single cell in the database. This method returns a class instance with helper methods for retrieving stimulus and response traces out of an NWB file. In order to use this method, you must specify the id of the cell specimen whose electrophysiology you would like to download.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_experiment_sweep_numbers()</span></code> method downloads all of the sweep numbers for experiments in the file. Each sweep contains metadata and electrophysiology data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select cell id </span>
+<span class="n">cell_id_2</span> <span class="o">=</span> <span class="mi">525011903</span>
+<span class="n">specimen_ephys_data</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_data</span><span class="p">(</span><span class="n">specimen_id</span> <span class="o">=</span> <span class="n">cell_id_2</span><span class="p">)</span>
+
+<span class="c1"># retrieve sweep numbers for cell id </span>
+<span class="n">sweep_numbers</span> <span class="o">=</span> <span class="n">specimen_ephys_data</span><span class="o">.</span><span class="n">get_experiment_sweep_numbers</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sweep_numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[10, 100, 101, 102, 103, 104, 105, 106, 107, 108]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have sweep numbers to choose from, we can take a look at a sweep’s metadata by calling <code class="docutils literal notranslate"><span class="pre">get_sweep_metadata()</span></code>. This return a dictionary contianing information such as stimulus paramaters and recording quality.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select a sweep number </span>
+<span class="n">sweep_number</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># retrieve metadata for selected sweep</span>
+<span class="n">specimen_metadata</span> <span class="o">=</span> <span class="n">specimen_ephys_data</span><span class="o">.</span><span class="n">get_sweep_metadata</span><span class="p">(</span><span class="n">sweep_number</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">specimen_metadata</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;aibs_stimulus_amplitude_pa&#39;: 830.000013163357, &#39;aibs_stimulus_name&#39;: &#39;Short Square - Triple&#39;, &#39;initial_access_resistance&#39;: 12.931512, &#39;seal&#39;: 1.125671168}
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:386: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  sweep_metadata[field] = stim_details[field].value
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_sweep()</span></code> downloads the stimulus, response, index_range, and sampling rate for a particular sweep.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sweep_data</span> <span class="o">=</span> <span class="n">specimen_ephys_data</span><span class="o">.</span><span class="n">get_sweep</span><span class="p">(</span><span class="n">sweep_number</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sweep_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;stimulus&#39;: array([0., 0., 0., ..., 0., 0., 0.], dtype=float32), &#39;response&#39;: array([-0.06978125, -0.06975   , -0.06975   , ..., -0.06981251,
+       -0.06984375, -0.06978125], dtype=float32), &#39;stimulus_unit&#39;: &#39;Amps&#39;, &#39;index_range&#39;: (37500, 183449), &#39;sampling_rate&#39;: 50000.0}
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:108: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  stimulus = stimulus_dataset.value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:109: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  response = swp[&#39;response&#39;][&#39;timeseries&#39;][&#39;data&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:125: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  swp_idx_start = swp[&#39;stimulus&#39;][&#39;idx_start&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:126: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  swp_length = swp[&#39;stimulus&#39;][&#39;count&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:135: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  exp_idx_start = exp[&#39;stimulus&#39;][&#39;idx_start&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:136: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  exp_length = exp[&#39;stimulus&#39;][&#39;count&#39;].value
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that you’ve pulled down some data, chosen a cell, and chosen a sweep number, let’s plot that data. We can look closer at the action potential by plotting the raw recording.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the stimulus trace (in amps) and convert to pA</span>
+<span class="n">stim_current</span> <span class="o">=</span> <span class="n">sweep_data</span><span class="p">[</span><span class="s1">&#39;stimulus&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e12</span>
+
+<span class="c1"># Get the voltage trace (in volts) and convert to mV</span>
+<span class="n">response_voltage</span> <span class="o">=</span> <span class="n">sweep_data</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e3</span>
+
+<span class="c1"># Get the sampling rate and can create a time axis for our data</span>
+<span class="n">sampling_rate</span> <span class="o">=</span> <span class="n">sweep_data</span><span class="p">[</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">]</span> <span class="c1"># in Hz</span>
+<span class="n">timestamps</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">response_voltage</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">sampling_rate</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">response_voltage</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cell Response (mV)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cell 525011903, Sweep 100 AP&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Plotting_A_Single_Sweep_of_Data_17_0.png" src="../_images/Plotting_A_Single_Sweep_of_Data_17_0.png" />
+</div>
+</div>
+<p>Without changing the limits on the x-axis, you won’t be able to see individual action potentials. To modify the x-axis using <code class="docutils literal notranslate"><span class="pre">plt.xlim([min,max])</span></code> to specify the limits (replace min and max with numbers that make sense for this x-axis)</p>
+<p>For more information on the helper methods that can be used on this NwbDataSet instance, please click <a href="https://allensdk.readthedocs.io/en/latest/allensdk.core.nwb_data_set.html">here</a></p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter_5"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="Morphology_For_Single_Cells.html" title="previous page"><span class="section-number">5.2. </span>Morphology for Single Cells</a>
+    <a class='right-next' id="next-link" href="Available_Pre-Computed_Features.html" title="next page"><span class="section-number">5.4. </span>Available Pre-Computed Features</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Victor Magdaleno-Garcia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
