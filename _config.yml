@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 title: A Hands-On Guid to Neural Data Science 
 logo: /Users/VictorMagdaleno/NeuralDataScience.github.io/brainz.jpeg
+=======
+title: A Hands-On Guide to Neural Data Science 
+logo: /Users/VictorMagdaleno/NeuralDataScience.github.io/_images/brainz.jpeg
+>>>>>>> 361b19e5ca8b8f0a21ea15c8ed9dcf312d0f7c1a
 author: Victor Magdaleno-Garcia
 only_build_toc_files: true
