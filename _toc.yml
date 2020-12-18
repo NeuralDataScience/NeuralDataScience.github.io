@@ -7,23 +7,19 @@
     - file: Chapter_1/What_is_Neural_Data_Science
     - file: Chapter_1/Thinking_From_a_Data_First_Perspective
     - file: Chapter_1/Exploratory_vs_Hypothesis_Driven_Approaches
-    - file: Chapter_1/Additional_Resources
 - file: Chapter_2/Data_Science_In_Python
   sections: 
-    - file: Chapter_2/NUMPY
-    - file: Chapter_2/PANDAS
-    - file: Chapter_2/SCIPY
-    - file: Chapter_2/GITHUB
+    - file: Chapter_2/NumPy
+    - file: Chapter_2/Pandas
+    - file: Chapter_2/SciPy
+    - file: Chapter_2/VersionControl
 - file: Chapter_3/Neurodata_Without_Borders
   sections:
-    - file: Chapter_3/What_is_NWB_format
     - file: Chapter_3/Working_with_NWB_format_in_Python
 - file: Chapter_4/The_Allen_SDK
   sections:
     - file: Chapter_4/Background_on_Allen_Institute_for_Brain_Science
-    - file: Chapter_4/The_Utility_of_Transgenic_Mice
     - file: Chapter_4/Interacting_with_the_AllenSDK
-    - file: Chapter_4/Other_Ways_to_Interact_with_the_Allen_Institute_Data
 - file: Chapter_5/Single-Cell_Electrophysiology
   sections: 
     - file: Chapter_5/About_The_Allen_Cell_Types_Dataset
