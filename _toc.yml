@@ -20,6 +20,8 @@
   sections:
     - file: Chapter_4/Background_on_Allen_Institute_for_Brain_Science
     - file: Chapter_4/Interacting_with_the_AllenSDK
+    - file: Chapter_4/Other_Ways_to_Interact_with_the_Allen_Institute_Data
+    - file: Chapter_4/The_Utility_of_Transgenic_Mice
 - file: Chapter_5/Single-Cell_Electrophysiology
   sections: 
     - file: Chapter_5/About_The_Allen_Cell_Types_Dataset
