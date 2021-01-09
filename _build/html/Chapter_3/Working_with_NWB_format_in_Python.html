@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>3.1. Working with NWB in Python &#8212; A Hands-On Guid to Neural Data Science</title>
+    <title>3.1. Working with NWB in Python &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -77,7 +77,7 @@
   <img src="../_static/brainz.jpeg" class="logo" alt="logo">
   
   
-  <h1 class="site-logo" id="site-title">A Hands-On Guid to Neural Data Science</h1>
+  <h1 class="site-logo" id="site-title">A Hands-On Guide to Neural Data Science</h1>
   
 </a>
 </div>
@@ -242,6 +242,45 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#about-nwb">
+   3.1.1. About NWB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goal">
+   3.1.2. Goal
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#current-conflict">
+   3.1.3. Current Conflict
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#neurodata-without-borders-neurophysiolgy">
+   3.1.4. Neurodata Without Borders: Neurophysiolgy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nwb-tutorials-object-ids">
+   3.1.5. NWB Tutorials: Object IDs
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nwb-tutorials-nwb-basics">
+   3.1.6. NWB Tutorials: NWB Basics
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -251,7 +290,362 @@
                 
   <div class="section" id="working-with-nwb-in-python">
 <h1><span class="section-number">3.1. </span>Working with NWB in Python<a class="headerlink" href="#working-with-nwb-in-python" title="Permalink to this headline">¶</a></h1>
-<p><em>Content to be added in later</em></p>
+<div class="section" id="about-nwb">
+<h2><span class="section-number">3.1.1. </span>About NWB<a class="headerlink" href="#about-nwb" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>many obstacles in data sharing, especially in neuroscience</p></li>
+<li><p>there is currently too much data in neuroscience to work with</p></li>
+<li><p>too much data makes it difficult to share and analyze with scientisits around the worls</p></li>
+<li><p>“The aim of Neurodata Without Borders is to standardize neuroscience data on an international scale”</p></li>
+<li><p>creating a standard format for neuroscience data will mamke it easier to share and contribute to open soruce projects which will accelerate discovery</p></li>
+</ul>
+</div>
+<div class="section" id="goal">
+<h2><span class="section-number">3.1.2. </span>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>develop a unified, extensible, open-source data format for cellular-based neurophysiology data</p></li>
+<li><p>create a standard for neuroscience datasets to imporve the collaboration of neuroscience projects around the world</p></li>
+</ul>
+</div>
+<div class="section" id="current-conflict">
+<h2><span class="section-number">3.1.3. </span>Current Conflict<a class="headerlink" href="#current-conflict" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>neuroscience does not have a standardized way to collect and share data</p></li>
+<li><p>no common standard means it is difficult for labs to share and compare results with one another</p></li>
+<li><p>not being able to compare results and replicate experiments slows down the overall progression of the field</p></li>
+</ul>
+</div>
+<div class="section" id="neurodata-without-borders-neurophysiolgy">
+<h2><span class="section-number">3.1.4. </span>Neurodata Without Borders: Neurophysiolgy<a class="headerlink" href="#neurodata-without-borders-neurophysiolgy" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>a common standard to share, store, and build analysis tools for neuroscience data</p></li>
+<li><p>contains software to stadardize data, API’s to read and write data, and important datasets in the neuroscience community that have been converted to NWB format</p></li>
+<li><p>takes into account experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions</p></li>
+</ul>
+</div>
+<div class="section" id="nwb-tutorials-object-ids">
+<h2><span class="section-number">3.1.5. </span>NWB Tutorials: Object IDs<a class="headerlink" href="#nwb-tutorials-object-ids" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBFile</span><span class="p">,</span> <span class="n">TimeSeries</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzlocal</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># set up the NWBFile</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tzlocal</span><span class="p">())</span>
+<span class="n">nwbfile</span> <span class="o">=</span> <span class="n">NWBFile</span><span class="p">(</span><span class="n">session_description</span><span class="o">=</span><span class="s1">&#39;demonstrate NWB object IDs&#39;</span><span class="p">,</span>
+                  <span class="n">identifier</span><span class="o">=</span><span class="s1">&#39;NWB456&#39;</span><span class="p">,</span>
+                  <span class="n">session_start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">)</span>
+
+<span class="c1"># make some fake data</span>
+<span class="n">timestamps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.333</span> <span class="o">*</span> <span class="n">timestamps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">timestamps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">))</span>
+<span class="n">test_ts</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;raw_timeseries&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps</span><span class="p">)</span>
+
+<span class="c1"># add it to the NWBFile</span>
+<span class="n">nwbfile</span><span class="o">.</span><span class="n">add_acquisition</span><span class="p">(</span><span class="n">test_ts</span><span class="p">)</span>
+
+<span class="c1"># print the object ID of the NWB file</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nwbfile</span><span class="o">.</span><span class="n">object_id</span><span class="p">)</span>
+
+<span class="c1"># print the object ID of the TimeSeries</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_ts</span><span class="o">.</span><span class="n">object_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>de5bd026-104d-4f20-91f9-d19616f97e9a
+e6238374-891a-4210-b605-b96d21ee07f9
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;de5bd026-104d-4f20-91f9-d19616f97e9a&#39;: root pynwb.file.NWBFile at 0x140427104138512
+ Fields:
+   acquisition: {
+     raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+   }
+   file_create_date: [datetime.datetime(2021, 1, 8, 20, 20, 39, 334526, tzinfo=tzlocal())]
+   identifier: NWB456
+   session_description: demonstrate NWB object IDs
+   session_start_time: 2019-04-03 11:00:00-07:00
+   timestamps_reference_time: 2019-04-03 11:00:00-07:00,
+ &#39;e6238374-891a-4210-b605-b96d21ee07f9&#39;: raw_timeseries pynwb.base.TimeSeries at 0x140427109729808
+ Fields:
+   comments: no comments
+   conversion: 1.0
+   data: [ 0.80394986  1.73303555  1.92593701 ...  0.07172483 -1.59537533
+   1.64695438]
+   description: no description
+   interval: 1
+   resolution: -1.0
+   timestamps: [0.00000000e+00 9.77517107e-02 1.95503421e-01 ... 9.98044966e+01
+  9.99022483e+01 1.00000000e+02]
+   timestamps_unit: seconds
+   unit: m}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">oid</span> <span class="ow">in</span> <span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">oid</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140427104138512
+Fields:
+  acquisition: {
+    raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+  file_create_date: [datetime.datetime(2021, 1, 8, 20, 20, 39, 334526, tzinfo=tzlocal())]
+  identifier: NWB456
+  session_description: demonstrate NWB object IDs
+  session_start_time: 2019-04-03 11:00:00-07:00
+  timestamps_reference_time: 2019-04-03 11:00:00-07:00
+
+raw_timeseries pynwb.base.TimeSeries at 0x140427109729808
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: [ 0.80394986  1.73303555  1.92593701 ...  0.07172483 -1.59537533
+  1.64695438]
+  description: no description
+  interval: 1
+  resolution: -1.0
+  timestamps: [0.00000000e+00 9.77517107e-02 1.95503421e-01 ... 9.98044966e+01
+ 9.99022483e+01 1.00000000e+02]
+  timestamps_unit: seconds
+  unit: m
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_id</span> <span class="o">=</span> <span class="n">test_ts</span><span class="o">.</span><span class="n">object_id</span>
+<span class="n">my_ts</span> <span class="o">=</span> <span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">ts_id</span><span class="p">]</span>  <span class="c1"># test_ts == my_ts</span>
+<span class="n">my_ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>raw_timeseries pynwb.base.TimeSeries at 0x140427109729808
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: [ 0.80394986  1.73303555  1.92593701 ...  0.07172483 -1.59537533
+  1.64695438]
+  description: no description
+  interval: 1
+  resolution: -1.0
+  timestamps: [0.00000000e+00 9.77517107e-02 1.95503421e-01 ... 9.98044966e+01
+ 9.99022483e+01 1.00000000e+02]
+  timestamps_unit: seconds
+  unit: m
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">object_id</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">neurodata_type</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>de5bd026-104d-4f20-91f9-d19616f97e9a: NWBFile &quot;root&quot;
+e6238374-891a-4210-b605-b96d21ee07f9: TimeSeries &quot;raw_timeseries&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="nwb-tutorials-nwb-basics">
+<h2><span class="section-number">3.1.6. </span>NWB Tutorials: NWB Basics<a class="headerlink" href="#nwb-tutorials-nwb-basics" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The NWB file </span>
+<span class="n">start_time2</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tzlocal</span><span class="p">())</span>
+<span class="n">create_date2</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tzlocal</span><span class="p">())</span>
+
+<span class="n">nwbfile2</span> <span class="o">=</span> <span class="n">NWBFile</span><span class="p">(</span><span class="n">session_description</span><span class="o">=</span><span class="s1">&#39;demonstrate NWBFile basics&#39;</span><span class="p">,</span>  <span class="c1"># required</span>
+                  <span class="n">identifier</span><span class="o">=</span><span class="s1">&#39;NWB123&#39;</span><span class="p">,</span>  <span class="c1"># required</span>
+                  <span class="n">session_start_time</span><span class="o">=</span><span class="n">start_time2</span><span class="p">,</span>  <span class="c1"># required</span>
+                  <span class="n">file_create_date</span><span class="o">=</span><span class="n">create_date2</span><span class="p">)</span>  <span class="c1"># optional</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nwbfile2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140427114115408
+Fields:
+  file_create_date: [datetime.datetime(2017, 4, 15, 12, 0, tzinfo=tzlocal())]
+  identifier: NWB123
+  session_description: demonstrate NWBFile basics
+  session_start_time: 2017-04-03 11:00:00-07:00
+  timestamps_reference_time: 2017-04-03 11:00:00-07:00
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Time Series Data</span>
+<span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">TimeSeries</span>
+
+<span class="n">data2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">timestamps2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">test_ts2</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">timestamps2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_ts2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+test_timeseries pynwb.base.TimeSeries at 0x140427072820368
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: [100 110 120 130 140 150 160 170 180 190]
+  description: no description
+  interval: 1
+  resolution: -1.0
+  timestamps: [0 1 2 3 4 5 6 7 8 9]
+  timestamps_unit: seconds
+  unit: m
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Uniform Sampled rate </span>
+<span class="n">rate_ts</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">starting_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">rate_ts</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_timeseries pynwb.base.TimeSeries at 0x140427072820880
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: [100 110 120 130 140 150 160 170 180 190]
+  description: no description
+  rate: 1.0
+  resolution: -1.0
+  starting_time: 0.0
+  starting_time_unit: seconds
+  unit: m
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span><span class="o">.</span><span class="n">add_acquisition</span><span class="p">(</span><span class="n">test_ts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140427114115408
+Fields:
+  acquisition: {
+    raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+  file_create_date: [datetime.datetime(2017, 4, 15, 12, 0, tzinfo=tzlocal())]
+  identifier: NWB123
+  session_description: demonstrate NWBFile basics
+  session_start_time: 2017-04-03 11:00:00-07:00
+  timestamps_reference_time: 2017-04-03 11:00:00-07:00
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="n">c7c538c793a6</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">nwbfile2</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">]</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">886</span>                 <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">887</span>         <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">888</span>             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">889</span> 
+<span class="g g-Whitespace">    </span><span class="mi">890</span>     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+
+<span class="ne">KeyError</span>: &#39;test_timeseries&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span><span class="o">.</span><span class="n">objects</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;45510545-f026-4d0a-bdab-748260b5f117&#39;: root pynwb.file.NWBFile at 0x140236634051536
+ Fields:
+   acquisition: {
+     test_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+   }
+   file_create_date: [datetime.datetime(2017, 4, 15, 12, 0, tzinfo=tzlocal())]
+   identifier: NWB123
+   session_description: demonstrate NWBFile basics
+   session_start_time: 2017-04-03 11:00:00-07:00
+   timestamps_reference_time: 2017-04-03 11:00:00-07:00,
+ &#39;5b5a6346-f27c-443a-8f17-b0f0dafb18b6&#39;: test_timeseries pynwb.base.TimeSeries at 0x140236634142608
+ Fields:
+   comments: no comments
+   conversion: 1.0
+   data: [100 110 120 130 140 150 160 170 180 190]
+   description: no description
+   interval: 1
+   resolution: -1.0
+   timestamps: [0 1 2 3 4 5 6 7 8 9]
+   timestamps_unit: seconds
+   unit: m}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Writing an NWB file </span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
