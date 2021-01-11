@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>2.1.2. Pandas &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>2.2. Pandas &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -54,8 +54,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.1.3. SciPy" href="SciPy.html" />
-    <link rel="prev" title="2.1.1. NumPy" href="NumPy.html" />
+    <link rel="next" title="2.3. SciPy" href="SciPy.html" />
+    <link rel="prev" title="2.1. NumPy" href="NumPy.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -108,22 +108,22 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="NumPy.html">
-     2.1.1. NumPy
+     2.1. NumPy
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.1.2. Pandas
+     2.2. Pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="SciPy.html">
-     2.1.3. SciPy
+     2.3. SciPy
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="VersionControl.html">
-     2.1.4. Version Control
+     2.4. Version Control
     </a>
    </li>
   </ul>
@@ -264,27 +264,27 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#create-and-manipulate-dataframes">
-   2.1.2.1. Create and Manipulate Dataframes
+   2.2.1. Create and Manipulate Dataframes
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#indexing-dataframes">
-   2.1.2.2. Indexing Dataframes
+   2.2.2. Indexing Dataframes
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#subsetting">
-   2.1.2.3. Subsetting
+   2.2.3. Subsetting
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dataframe-methods">
-   2.1.2.4. Dataframe Methods
+   2.2.4. Dataframe Methods
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-resources">
-   2.1.2.5. Additional resources
+   2.2.5. Additional resources
   </a>
  </li>
 </ul>
@@ -299,7 +299,7 @@
               <div>
                 
   <div class="section" id="pandas">
-<h1><span class="section-number">2.1.2. </span>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2.2. </span>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h1>
 <p>In this chapter we will be discussing the advatages to using the <em>Pandas</em> package to analyze large datasets. While NumPy is a useful package, it can only be used with data of the same datatype. NumPy also does not support axis lables. <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/index.html#user-guide">Pandas</a> is a package that helps us manipulate and analyze heterogenous data.</p>
 <p>We strongly recommend looking at <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html">“10 minutes to pandas”</a> for a broader overview, but here we’ll introduce the main concepts needed for the activities in this textbook.</p>
 <p>Before we can use pandas, we need to import it. We can also nickname the modules when we import them. The convention is to import <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">pd</span></code>.</p>
@@ -322,7 +322,7 @@ pd         module    &lt;module &#39;pandas&#39; from &#39;/U&lt;...&gt;ages/pan
 </div>
 </div>
 <div class="section" id="create-and-manipulate-dataframes">
-<h2><span class="section-number">2.1.2.1. </span>Create and Manipulate Dataframes<a class="headerlink" href="#create-and-manipulate-dataframes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2.1. </span>Create and Manipulate Dataframes<a class="headerlink" href="#create-and-manipulate-dataframes" title="Permalink to this headline">¶</a></h2>
 <p>The two data structures of Pandas are the <code class="docutils literal notranslate"><span class="pre">series</span></code> and the <code class="docutils literal notranslate"><span class="pre">dataframe</span></code>. A <code class="docutils literal notranslate"><span class="pre">series</span></code> is a one-dimensional onject similar to a list. A <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> can be thought of as a two-dimensional numpy array or a collection of <code class="docutils literal notranslate"><span class="pre">series</span></code> objects. Dataframes and Series can contain multiple different data types such as integers, strings, and floats, similar to an excel spreadsheet, unlike numpy arrays which can only contain values that are the same data type. Pandas also supports <code class="docutils literal notranslate"><span class="pre">string</span></code> lables unlike numpy arrays which only have numeric labels for their rows and columns. For a more in depth explanation, please visit the <a href = https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html> Intro to Data Structures</a> section in the Pandas User Guide.</p>
 <p>You can create a Pandas dataframe by inputting dictionaries into the Pandas funtion <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code>, by reading files, or through functions built into the Pandas package. The function <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> reads a comma-seperated file and returns it as a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code>. For more information on <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> please visit the <a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">documentation</a>.</p>
 <p>Below we will create a dataframe by reading the file <code class="docutils literal notranslate"><span class="pre">brainarea_vs_genes_exp_w_reannotations-Copy1.tsv</span></code> which contains information on gene expression accross multiple brain areas. This dataset was created by Derek Howard and Abigail Mayes for the purpose of accelerating advances in data mining of open brain transcriptome data for polygenetic brain disorders. The data comes from normalized microarray datasets of gene expression from 6 adult human brains that was released by the Allen Brain Atlas and then processed into the dataframe we will see below. For more information on this dataset please visit the <a href = "https://github.com/derekhoward/HBAsets"> HBAsets repository</a>.</p>
@@ -733,7 +733,7 @@ pd         module    &lt;module &#39;pandas&#39; from &#39;/U&lt;...&gt;ages/pan
 </div>
 </div>
 <div class="section" id="indexing-dataframes">
-<h2><span class="section-number">2.1.2.2. </span>Indexing Dataframes<a class="headerlink" href="#indexing-dataframes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2.2. </span>Indexing Dataframes<a class="headerlink" href="#indexing-dataframes" title="Permalink to this headline">¶</a></h2>
 <p>Indexing in Pandas works slightly different than in NumPy. Similar to a dictionary, we can index Dataframes by their names instead of using the specific index number like in NumPy.</p>
 <p>The syntax for indexing Dataframes is <code class="docutils literal notranslate"><span class="pre">dataframe.loc[row_label,column_label]</span></code>. To index an individual column, we use the shorthand syntax <code class="docutils literal notranslate"><span class="pre">df[column_label]</span></code>. To index an individual row, we use the syntax <code class="docutils literal notranslate"><span class="pre">df.loc[row_label]</span></code>. To index by index #, we use the syntax <code class="docutils literal notranslate"><span class="pre">df.iloc[index_number]</span></code>. Below are some examples on how to access rows, columns, and single values in our dataframe. For more information on indexing dataframes, visit the <a href = "https://pandas.pydata.org/docs/user_guide/indexing.html#indexing"> “Indexing and selecting data”</a> section in the Pandas User Guide.</p>
 <div class="cell docutils container">
@@ -929,7 +929,7 @@ Name: A1BG, Length: 232, dtype: float64
 </div>
 </div>
 <div class="section" id="subsetting">
-<h2><span class="section-number">2.1.2.3. </span>Subsetting<a class="headerlink" href="#subsetting" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2.3. </span>Subsetting<a class="headerlink" href="#subsetting" title="Permalink to this headline">¶</a></h2>
 <p>Like numpy arrays, subet our original dataframe to only include data that meets our criteria. Our dataframe has data on multiple different brain areas with many gene expression values. Filter your dataframe by using the following syntax:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_df</span> <span class="o">=</span> <span class="n">original_df</span><span class="p">[</span><span class="n">original_df</span><span class="p">[</span><span class="s1">&#39;Column of Interest&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Desired Value&#39;</span><span class="p">]</span>
 </pre></div>
@@ -1141,7 +1141,7 @@ Name: A1BG, Length: 232, dtype: float64
 </div>
 </div>
 <div class="section" id="dataframe-methods">
-<h2><span class="section-number">2.1.2.4. </span>Dataframe Methods<a class="headerlink" href="#dataframe-methods" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2.4. </span>Dataframe Methods<a class="headerlink" href="#dataframe-methods" title="Permalink to this headline">¶</a></h2>
 <p>Pandas has many useful methods that you can use on your data, including <code class="docutils literal notranslate"><span class="pre">describe</span></code>, <code class="docutils literal notranslate"><span class="pre">mean</span></code>, and more. To learn more about all the different methods that can be used to manipulate and analyze dataframes, please visit the <a href = "https://pandas.pydata.org/docs/user_guide/index.html"> Pandas User Guide </a>. We will demonstrate some of these methods below.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">describe</span></code> method returns descriptive statistics of all the columns in our dataframe.</p>
 <div class="cell docutils container">
@@ -1703,7 +1703,7 @@ Length: 232, dtype: float64
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h2><span class="section-number">2.1.2.5. </span>Additional resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2.5. </span>Additional resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>See the <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html">Python Data Science Handbook</a> for a more in depth exploration of Pandas, and of course, the original documentation.</p>
 </div>
 </div>
@@ -1736,8 +1736,8 @@ Length: 232, dtype: float64
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="NumPy.html" title="previous page"><span class="section-number">2.1.1. </span>NumPy</a>
-    <a class='right-next' id="next-link" href="SciPy.html" title="next page"><span class="section-number">2.1.3. </span>SciPy</a>
+    <a class='left-prev' id="prev-link" href="NumPy.html" title="previous page"><span class="section-number">2.1. </span>NumPy</a>
+    <a class='right-next' id="next-link" href="SciPy.html" title="next page"><span class="section-number">2.3. </span>SciPy</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

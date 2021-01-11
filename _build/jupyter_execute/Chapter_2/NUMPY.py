@@ -179,7 +179,7 @@ print('Row sums')
 print(array4.sum(axis = 1))
 
 
-# ### NumPy also includes some very useful array generating functions:
+# ## NumPy also includes some very useful array generating functions:
 # 
 # * `arange`: like `range` but gives you a useful NumPy array, instead of an interator, and can use more than just integers)
 # * `linspace` creates an array with given start and end points, and a desired number of points
@@ -240,3 +240,9 @@ print(my_new_matrix)
 
 # ## Additional Resources
 # See the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/02.00-introduction-to-numpy.html) for a more in depth exploration of NumPy, and of course, the original documentation.
+
+# In[ ]:
+
+
+
+

@@ -2,26 +2,31 @@
 
 - file: landing_page
   numbered: true
+
 - file: Chapter_1/Neural_Data_Science
   sections: 
     - file: Chapter_1/What_is_Neural_Data_Science
     - file: Chapter_1/Thinking_From_a_Data_First_Perspective
     - file: Chapter_1/Exploratory_vs_Hypothesis_Driven_Approaches
+    
 - file: Chapter_2/Data_Science_In_Python
   sections: 
     - file: Chapter_2/NumPy
     - file: Chapter_2/Pandas
     - file: Chapter_2/SciPy
     - file: Chapter_2/VersionControl
+    
 - file: Chapter_3/Neurodata_Without_Borders
   sections:
     - file: Chapter_3/Working_with_NWB_format_in_Python
+    
 - file: Chapter_4/The_Allen_SDK
   sections:
     - file: Chapter_4/Background_on_Allen_Institute_for_Brain_Science
     - file: Chapter_4/Interacting_with_the_AllenSDK
     - file: Chapter_4/Other_Ways_to_Interact_with_the_Allen_Institute_Data
     - file: Chapter_4/The_Utility_of_Transgenic_Mice
+    
 - file: Chapter_5/Single-Cell_Electrophysiology
   sections: 
     - file: Chapter_5/About_The_Allen_Cell_Types_Dataset
@@ -29,26 +34,32 @@
     - file: Chapter_5/Plotting_A_Single_Sweep_of_Data
     - file: Chapter_5/Available_Pre-Computed_Features
     - file: Chapter_5/Comparing_Different_Types_of_Cells
+    
 - file: Chapter_6/Large_Scale_Electrophysiology
   sections: 
     - file: Chapter_6/Large-scale_single_cell_electrophysiology_and_behavior
     - file: Chapter_6/Identifying_Cells_with_Optogenetics
     - file: Chapter_6/Modeling_Single_Trial_Data_With_Many_Recorded_Neurons
     - file: Chapter_6/Spike_Sorting_Neuropixels_Data
+    
 - file: Chapter_7/Two-photon_Calcium_Imaging_Data
   sections:
     - file: Chapter_7/Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex
     - file: Chapter_7/Converting_Calcium_Imaging_Data_into_Spikes
+    
 - file: Chapter_8/Connectivity_Atlas
+
 - file: Chapter_9/Brain_Imaging_Data_Structures
   sections: 
     - file: Chapter_9/Whole_Brain_Imaging_and_Recording
-    - file: Chapter_9/File_Formats 
+    - file: Chapter_9/File_Formats
+    
 - file: Chapter_10/Text_Analyses_of_Neuroscience_Literature
   sections: 
     - file: Chapter_10/Principles_of_Analyzing_Text
     - file: Chapter_10/Tools_for_Text_Analysis
     - file: Chapter_10/Beautiful_Soup
+    
 - file: Chapter_11/Approaches_to_Analyzing_Large_Datasets
   sections: 
     - file: Chapter_11/Integrating_Heterogeneous_Data
