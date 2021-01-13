@@ -225,13 +225,18 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Chapter_3/Working_with_NWB_format_in_Python.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_3/Working_with_NWB_format_in_Python.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_3/Working_with_NWB_format_in_Python.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
         
         
     </div>
@@ -355,8 +360,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ba4d69b8-e6a6-4ae3-9758-ba27c82e5071
-35183f15-a295-4350-8a7b-7a253c3ac637
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46c681ce-e1d6-45bf-9054-2a83357bfabf
+133c1bf2-fb80-4a49-9bf5-580be58135c4
 </pre></div>
 </div>
 </div>
@@ -368,22 +373,22 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;ba4d69b8-e6a6-4ae3-9758-ba27c82e5071&#39;: root pynwb.file.NWBFile at 0x140534244771152
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;46c681ce-e1d6-45bf-9054-2a83357bfabf&#39;: root pynwb.file.NWBFile at 0x140405521581392
  Fields:
    acquisition: {
      raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
    }
-   file_create_date: [datetime.datetime(2021, 1, 10, 13, 8, 2, 416489, tzinfo=tzlocal())]
+   file_create_date: [datetime.datetime(2021, 1, 12, 13, 52, 43, 634000, tzinfo=tzlocal())]
    identifier: NWB456
    session_description: demonstrate NWB object IDs
    session_start_time: 2019-04-03 11:00:00-07:00
    timestamps_reference_time: 2019-04-03 11:00:00-07:00,
- &#39;35183f15-a295-4350-8a7b-7a253c3ac637&#39;: raw_timeseries pynwb.base.TimeSeries at 0x140534244719376
+ &#39;133c1bf2-fb80-4a49-9bf5-580be58135c4&#39;: raw_timeseries pynwb.base.TimeSeries at 0x140405521581520
  Fields:
    comments: no comments
    conversion: 1.0
-   data: [ 0.80104012  2.69111734  0.61035326 ... -0.16002632 -0.65058431
-   0.02980784]
+   data: [ 0.31160188  0.73144022  1.64976411 ... -0.13749498 -1.04947376
+   0.52045905]
    description: no description
    interval: 1
    resolution: -1.0
@@ -403,23 +408,23 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140534244771152
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140405521581392
 Fields:
   acquisition: {
     raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
   }
-  file_create_date: [datetime.datetime(2021, 1, 10, 13, 8, 2, 416489, tzinfo=tzlocal())]
+  file_create_date: [datetime.datetime(2021, 1, 12, 13, 52, 43, 634000, tzinfo=tzlocal())]
   identifier: NWB456
   session_description: demonstrate NWB object IDs
   session_start_time: 2019-04-03 11:00:00-07:00
   timestamps_reference_time: 2019-04-03 11:00:00-07:00
 
-raw_timeseries pynwb.base.TimeSeries at 0x140534244719376
+raw_timeseries pynwb.base.TimeSeries at 0x140405521581520
 Fields:
   comments: no comments
   conversion: 1.0
-  data: [ 0.80104012  2.69111734  0.61035326 ... -0.16002632 -0.65058431
-  0.02980784]
+  data: [ 0.31160188  0.73144022  1.64976411 ... -0.13749498 -1.04947376
+  0.52045905]
   description: no description
   interval: 1
   resolution: -1.0
@@ -440,12 +445,12 @@ Fields:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>raw_timeseries pynwb.base.TimeSeries at 0x140534244719376
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>raw_timeseries pynwb.base.TimeSeries at 0x140405521581520
 Fields:
   comments: no comments
   conversion: 1.0
-  data: [ 0.80104012  2.69111734  0.61035326 ... -0.16002632 -0.65058431
-  0.02980784]
+  data: [ 0.31160188  0.73144022  1.64976411 ... -0.13749498 -1.04947376
+  0.52045905]
   description: no description
   interval: 1
   resolution: -1.0
@@ -465,8 +470,8 @@ Fields:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ba4d69b8-e6a6-4ae3-9758-ba27c82e5071: NWBFile &quot;root&quot;
-35183f15-a295-4350-8a7b-7a253c3ac637: TimeSeries &quot;raw_timeseries&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46c681ce-e1d6-45bf-9054-2a83357bfabf: NWBFile &quot;root&quot;
+133c1bf2-fb80-4a49-9bf5-580be58135c4: TimeSeries &quot;raw_timeseries&quot;
 </pre></div>
 </div>
 </div>
@@ -489,7 +494,7 @@ Fields:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140534286519952
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140405563555792
 Fields:
   file_create_date: [datetime.datetime(2017, 4, 15, 12, 0, tzinfo=tzlocal())]
   identifier: NWB123
@@ -515,7 +520,7 @@ Fields:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-test_timeseries pynwb.base.TimeSeries at 0x140534277300752
+test_timeseries pynwb.base.TimeSeries at 0x140405521580752
 Fields:
   comments: no comments
   conversion: 1.0
@@ -539,7 +544,7 @@ Fields:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_timeseries pynwb.base.TimeSeries at 0x140534286518800
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_timeseries pynwb.base.TimeSeries at 0x140405563554320
 Fields:
   comments: no comments
   conversion: 1.0
@@ -568,7 +573,7 @@ Fields:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140534286519952
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140405563555792
 Fields:
   acquisition: {
     raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;

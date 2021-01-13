@@ -240,13 +240,18 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Chapter_2/Pandas.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_2/Pandas.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_2/Pandas.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
         
         
     </div>
@@ -1442,9 +1447,10 @@ Length: 232, dtype: float64
 <p>There are different types of joins/merges you can do in Pandas, illustrated <a href="http://www.datasciencemadesimple.com/join-merge-data-frames-pandas-python/">above</a>. Here, we want to do an <strong>inner</strong> merge, where we’re only keeping entries with indices that are in both dataframes. We could do this merge based on columns, alternatively.</p>
 <p><strong>Inner</strong> is the default kind of join, so we do not need to specify it. And by default, join will use the ‘left’ dataframe, in other words, the dataframe that is executing the <code class="docutils literal notranslate"><span class="pre">join</span></code> method.</p>
 <p>If you need more information, look at the <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.join.html">join</a> and <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">merge</a> documentation: you can use either of these to unite your dataframes, though join will be simpler!</p>
+<p>Below is an example of how to join two separate dataframe into one, unified dataframe. We start with one dataframe with only entries from the <em>temporal pole</em> and another dataframe with only entries from the CA fields of the hippocampus. We can then join the two dataframes together using the syntax <code class="docutils literal notranslate"><span class="pre">unified_df</span> <span class="pre">=</span> <span class="pre">df_1.join(df_2)</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Temporal pole entries in our original dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dataframe w/ only Temporal Pole entries </span>
 <span class="n">temporal_pole_df</span> <span class="o">=</span> <span class="n">gene_df</span><span class="p">[[</span><span class="s1">&#39;temporal pole, inferior aspect&#39;</span><span class="p">,</span> 
                             <span class="s1">&#39;temporal pole, medial aspect&#39;</span><span class="p">,</span> 
                             <span class="s1">&#39;temporal pole, superior aspect&#39;</span><span class="p">]]</span>
@@ -1519,7 +1525,7 @@ Length: 232, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CA field entries in our original dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dataframe w/ only CA field entries </span>
 <span class="n">CA_field_df</span> <span class="o">=</span> <span class="n">gene_df</span><span class="p">[[</span><span class="s1">&#39;CA1 field&#39;</span><span class="p">,</span> 
                        <span class="s1">&#39;CA2 field&#39;</span><span class="p">,</span> 
                        <span class="s1">&#39;CA3 field&#39;</span><span class="p">,</span> 
@@ -1603,8 +1609,11 @@ Length: 232, dtype: float64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge/Join the two dataframes</span>
-<span class="n">united_df</span> <span class="o">=</span> <span class="n">temporal_pole_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CA_field_df</span><span class="p">)</span>
-<span class="n">united_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df_1</span> <span class="o">=</span> <span class="n">temporal_pole_df</span>
+<span class="n">df_2</span> <span class="o">=</span> <span class="n">CA_field_df</span>
+
+<span class="n">unified_df</span> <span class="o">=</span> <span class="n">df_1</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">df_2</span><span class="p">)</span>
+<span class="n">unified_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

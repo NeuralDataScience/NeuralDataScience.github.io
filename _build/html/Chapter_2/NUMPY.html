@@ -240,13 +240,18 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Chapter_2/NumPy.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_2/NumPy.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
                     alt="Interact on binder">Binder</button></a>
         
         
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_2/NumPy.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
         
         
     </div>
@@ -394,7 +399,7 @@ Array1 has a size of:
 </div>
 </div>
 </div>
-<p>Other attributes that might be of interest are <code class="docutils literal notranslate"><span class="pre">ndim</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> which  respectively return the number of dimensions of the array and the data types stored in the array. You can see the full list of ndarray methods in the <a href = "https://docs.scipy.org/doc/numpy-1.14.0/reference/arrays.ndarray.html#calculation"> NumPy ndarray documentation. </a></p>
+<p>Other attributes that might be of interest are <code class="docutils literal notranslate"><span class="pre">ndim</span></code> and <code class="docutils literal notranslate"><span class="pre">dtype</span></code> which  respectively return the number of dimensions of the array and the data types stored in the array. You can see the full list of ndarray attributes in the <a href = "https://numpy.org/doc/stable/reference/arrays.ndarray.html#array-attributes"> NumPy ndarray documentation</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Array1 dimensions:&#39;</span><span class="p">)</span>
@@ -487,6 +492,7 @@ The values stored in row 2 are:
 </div>
 </div>
 </div>
+<p>For further explanation of how to index Numpy arrays, please visit the <a href = "https://numpy.org/doc/stable/reference/arrays.indexing.html"> NumPy indexing documentation</a>.</p>
 </div>
 <div class="section" id="subsetting">
 <h2><span class="section-number">2.1.4. </span>Subsetting<a class="headerlink" href="#subsetting" title="Permalink to this headline">¶</a></h2>
@@ -583,6 +589,7 @@ Row sums
 </div>
 </div>
 </div>
+<p>For a full list of array methods, please visit the <a href = "https://numpy.org/doc/stable/reference/arrays.ndarray.html#array-methods"> NumPy array methods documentation</a>. You can also visit the <a href = ""> NumPy Reference</a> for more information on functions, modules, and objects in NumPy.</p>
 </div>
 <div class="section" id="numpy-also-includes-some-very-useful-array-generating-functions">
 <h2><span class="section-number">2.1.6. </span>NumPy also includes some very useful array generating functions:<a class="headerlink" href="#numpy-also-includes-some-very-useful-array-generating-functions" title="Permalink to this headline">¶</a></h2>
@@ -594,7 +601,7 @@ Row sums
 <li><p><code class="docutils literal notranslate"><span class="pre">concatenate</span></code> which can concatenate two arrays along an existing axis [<a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.concatenate.html">documentation</a>]</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">hstack</span></code> and <code class="docutils literal notranslate"><span class="pre">vstack</span></code> which can horizontally or vertically stack arrays</p></li>
 </ul>
-<p>Whenever we call these, we need to use whatever name we imported <code class="docutils literal notranslate"><span class="pre">numpy</span></code> as (here, <code class="docutils literal notranslate"><span class="pre">np</span></code>). We will demonstrate some of these functions below.</p>
+<p>Whenever we call these, we need to use whatever name we imported <code class="docutils literal notranslate"><span class="pre">numpy</span></code> as (here, <code class="docutils literal notranslate"><span class="pre">np</span></code>). We will demonstrate some of these functions below. For a full list of funtions used to create arrays, please visit the <a href = "https://numpy.org/doc/stable/reference/routines.array-creation.html"> NumPy array creation documentaion</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># When using linspace, both end points are included</span>
@@ -674,7 +681,7 @@ Row sums
 </div>
 <div class="section" id="additional-resources">
 <h2><span class="section-number">2.1.7. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
-<p>See the <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/02.00-introduction-to-numpy.html">Python Data Science Handbook</a> for a more in depth exploration of NumPy, and of course, the original documentation.</p>
+<p>See the <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/02.00-introduction-to-numpy.html">Python Data Science Handbook</a> for a more in depth exploration of NumPy, and of course, <a href = "https://numpy.org/doc/stable/contents.html#numpy-docs-mainpage">the original documentation</a>.</p>
 </div>
 </div>
 

@@ -158,12 +158,12 @@ gene_df.std()
 # 
 # If you need more information, look at the <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.join.html">join</a> and <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.merge.html">merge</a> documentation: you can use either of these to unite your dataframes, though join will be simpler!
 
-# 
+# Below is an example of how to join two separate dataframe into one, unified dataframe. We start with one dataframe with only entries from the *temporal pole* and another dataframe with only entries from the CA fields of the hippocampus. We can then join the two dataframes together using the syntax `unified_df = df_1.join(df_2)`
 
 # In[13]:
 
 
-# Temporal pole entries in our original dataframe
+# Dataframe w/ only Temporal Pole entries 
 temporal_pole_df = gene_df[['temporal pole, inferior aspect', 
                             'temporal pole, medial aspect', 
                             'temporal pole, superior aspect']]
@@ -173,7 +173,7 @@ temporal_pole_df.head()
 # In[14]:
 
 
-# CA field entries in our original dataframe
+# Dataframe w/ only CA field entries 
 CA_field_df = gene_df[['CA1 field', 
                        'CA2 field', 
                        'CA3 field', 
@@ -185,8 +185,11 @@ CA_field_df.head()
 
 
 # Merge/Join the two dataframes
-united_df = temporal_pole_df.join(CA_field_df)
-united_df.head()
+df_1 = temporal_pole_df
+df_2 = CA_field_df
+
+unified_df = df_1.join(df_2)
+unified_df.head()
 
 
 # ## Additional resources

@@ -61,7 +61,7 @@ print('\nArray1 has a size of:')
 print(array1.size)
 
 
-# Other attributes that might be of interest are `ndim` and `dtype` which  respectively return the number of dimensions of the array and the data types stored in the array. You can see the full list of ndarray methods in the <a href = "https://docs.scipy.org/doc/numpy-1.14.0/reference/arrays.ndarray.html#calculation"> NumPy ndarray documentation. </a>
+# Other attributes that might be of interest are `ndim` and `dtype` which  respectively return the number of dimensions of the array and the data types stored in the array. You can see the full list of ndarray attributes in the <a href = "https://numpy.org/doc/stable/reference/arrays.ndarray.html#array-attributes"> NumPy ndarray documentation</a>.
 
 # In[5]:
 
@@ -117,6 +117,8 @@ print(array1[:, columns])
 array1[0,:] = 100
 print(array1)
 
+
+# For further explanation of how to index Numpy arrays, please visit the <a href = "https://numpy.org/doc/stable/reference/arrays.indexing.html"> NumPy indexing documentation</a>.
 
 # ## Subsetting 
 
@@ -179,6 +181,8 @@ print('Row sums')
 print(array4.sum(axis = 1))
 
 
+# For a full list of array methods, please visit the <a href = "https://numpy.org/doc/stable/reference/arrays.ndarray.html#array-methods"> NumPy array methods documentation</a>. You can also visit the <a href = ""> NumPy Reference</a> for more information on functions, modules, and objects in NumPy. 
+
 # ## NumPy also includes some very useful array generating functions:
 # 
 # * `arange`: like `range` but gives you a useful NumPy array, instead of an interator, and can use more than just integers)
@@ -188,7 +192,7 @@ print(array4.sum(axis = 1))
 # * `concatenate` which can concatenate two arrays along an existing axis [<a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.concatenate.html">documentation</a>]
 # * `hstack` and `vstack` which can horizontally or vertically stack arrays
 # 
-# Whenever we call these, we need to use whatever name we imported `numpy` as (here, `np`). We will demonstrate some of these functions below.
+# Whenever we call these, we need to use whatever name we imported `numpy` as (here, `np`). We will demonstrate some of these functions below. For a full list of funtions used to create arrays, please visit the <a href = "https://numpy.org/doc/stable/reference/routines.array-creation.html"> NumPy array creation documentaion</a>.
 
 # In[13]:
 
@@ -239,7 +243,7 @@ print(my_new_matrix)
 
 
 # ## Additional Resources
-# See the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/02.00-introduction-to-numpy.html) for a more in depth exploration of NumPy, and of course, the original documentation.
+# See the [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/02.00-introduction-to-numpy.html) for a more in depth exploration of NumPy, and of course, <a href = "https://numpy.org/doc/stable/contents.html#numpy-docs-mainpage">the original documentation</a>.
 
 # In[ ]:
 
