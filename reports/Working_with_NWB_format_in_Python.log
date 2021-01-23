@@ -17,21 +17,25 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-nwbfile2.acquisition['test_timeseries']
+# select our dataset of interest 
+dataset = 'lickPiezo'
+lickPiezo_ds = nwb_file.acquisition[dataset]
+
+# return data array 
+lickPiezo_data_array = wheel_pos_in.data[:20]
+
+print(lickPiezo_data_array)
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mKeyError[0m                                  Traceback (most recent call last)
-[0;32m<ipython-input-11-c7c538c793a6>[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0mnwbfile2[0m[0;34m.[0m[0macquisition[0m[0;34m[[0m[0;34m'test_timeseries'[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
-[0m
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/hdmf/utils.py[0m in [0;36m__getitem__[0;34m(self, args)[0m
-[1;32m    886[0m                 [0;32mreturn[0m [0msuper[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m__getitem__[0m[0;34m([0m[0mval[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    887[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 888[0;31m             [0;32mreturn[0m [0msuper[0m[0;34m([0m[0;34m)[0m[0;34m.[0m[0m__getitem__[0m[0;34m([0m[0mkey[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    889[0m [0;34m[0m[0m
-[1;32m    890[0m     [0;32mdef[0m [0m__setitem__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mkey[0m[0;34m,[0m [0mvalue[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;31mNameError[0m                                 Traceback (most recent call last)
+[0;32m<ipython-input-9-0c27b7287873>[0m in [0;36m<module>[0;34m[0m
+[1;32m      4[0m [0;34m[0m[0m
+[1;32m      5[0m [0;31m# return data array[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 6[0;31m [0mlickPiezo_data_array[0m [0;34m=[0m [0mwheel_pos_in[0m[0;34m.[0m[0mdata[0m[0;34m[[0m[0;34m:[0m[0;36m20[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      7[0m [0;34m[0m[0m
+[1;32m      8[0m [0mprint[0m[0;34m([0m[0mlickPiezo_data_array[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mKeyError[0m: 'test_timeseries'
-KeyError: 'test_timeseries'
+[0;31mNameError[0m: name 'wheel_pos_in' is not defined
+NameError: name 'wheel_pos_in' is not defined
 
