@@ -3,153 +3,150 @@
 
 # # Working with NWB in Python 
 
-# ## About NWB
-
-# - many obstacles in data sharing, especially in neuroscience 
-# - there is currently too much data in neuroscience to work with 
-# - too much data makes it difficult to share and analyze with scientisits around the worls 
-# - "The aim of Neurodata Without Borders is to standardize neuroscience data on an international scale"
-# - creating a standard format for neuroscience data will mamke it easier to share and contribute to open soruce projects which will accelerate discovery 
-
-# ## Goal
-
-# - develop a unified, extensible, open-source data format for cellular-based neurophysiology data
-# - create a standard for neuroscience datasets to imporve the collaboration of neuroscience projects around the world 
-
-# ## Current Conflict 
-
-# - neuroscience does not have a standardized way to collect and share data
-# - no common standard means it is difficult for labs to share and compare results with one another 
-# - not being able to compare results and replicate experiments slows down the overall progression of the field 
-
-# ## Neurodata Without Borders: Neurophysiolgy 
-
-# - a common standard to share, store, and build analysis tools for neuroscience data 
-# - contains software to stadardize data, API's to read and write data, and important datasets in the neuroscience community that have been converted to NWB format 
-# - takes into account experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions 
-
-# ## NWB Tutorials: Object IDs 
-
 # In[1]:
 
 
-from pynwb import NWBFile, TimeSeries
-from datetime import datetime
-from dateutil.tz import tzlocal
 import numpy as np
+import pandas as pd 
+from matplotlib import pyplot as plt
+from pynwb import NWBHDF5IO
 
-# set up the NWBFile
-start_time = datetime(2019, 4, 3, 11, tzinfo=tzlocal())
-nwbfile = NWBFile(session_description='demonstrate NWB object IDs',
-                  identifier='NWB456',
-                  session_start_time=start_time)
 
-# make some fake data
-timestamps = np.linspace(0, 100, 1024)
-data = np.sin(0.333 * timestamps) + np.cos(0.1 * timestamps) + np.random.randn(len(timestamps))
-test_ts = TimeSeries(name='raw_timeseries', data=data, unit='m', timestamps=timestamps)
+# ## Reading our NWB file
 
-# add it to the NWBFile
-nwbfile.add_acquisition(test_ts)
-
-# print the object ID of the NWB file
-print(nwbfile.object_id)
-
-# print the object ID of the TimeSeries
-print(test_ts.object_id)
-
+# To access the data in our nwb file we must read the file. This is done in two steps:
+# - assign our file as an `NWBHDF5IO` object
+# - read our file 
+# 
+# The first step is done using the `NWBHDF5IO` class to create our `NWBHDF5IO` object and map our file to HDF5 format. Once we have done this, we can use the `read()` method to return our nwb file. For more information on how to read NWB files, please visit the *Reading data from an NWB file* section from the <a href = 'https://pynwb.readthedocs.io/en/latest/tutorials/general/file.html'> NWB Basics Tutorial</a>. For more information on the `NWBHDF5IO` class, please visit the <a href = 'https://pynwb.readthedocs.io/en/latest/pynwb.html#pynwb.NWBHDF5IO'> original documentation</a>.
 
 # In[2]:
 
 
-nwbfile.objects
+# first read the file 
+io = NWBHDF5IO('000017/sub-Cori/sub-Cori_ses-20161214T120000.nwb', 'r')
+nwb_file = io.read()
+nwb_file
 
 
 # In[3]:
 
 
-for oid in nwbfile.objects:
-    print(nwbfile.objects[oid])
+# dictionary of all neurodata_type objects in the NWBFile
+print(nwb_file.objects)
 
 
 # In[4]:
 
 
-ts_id = test_ts.object_id
-my_ts = nwbfile.objects[ts_id]  # test_ts == my_ts
-my_ts
+# loop though objections dictionary 
+# returns the obeject ID along with the type 
+# and the object name 
+for obj in nwb_file.objects.values():
+    print('%s: %s "%s"' % (obj.object_id, obj.neurodata_type, obj.name))
 
+
+# ## File Hierarchy: Groups, Datasets, and Attributes
+
+# The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The `fields` attribute returns a dictionary contiaining the metadata of the Groups of our nwb file. The dictionary `keys` are the various Groups within the file which we will use to access our datasets.
 
 # In[5]:
 
 
-for obj in nwbfile.objects.values():
-    print('%s: %s "%s"' % (obj.object_id, obj.neurodata_type, obj.name))
+# nwb_file.fields
 
-
-# ## NWB Tutorials: NWB Basics 
 
 # In[6]:
 
 
-# The NWB file 
-start_time2 = datetime(2017, 4, 3, 11, tzinfo=tzlocal())
-create_date2 = datetime(2017, 4, 15, 12, tzinfo=tzlocal())
+# Get the Groups for the nwb file 
+nwb_fields = nwb_file.fields
+print(nwb_fields.keys())
 
-nwbfile2 = NWBFile(session_description='demonstrate NWBFile basics',  # required
-                  identifier='NWB123',  # required
-                  session_start_time=start_time2,  # required
-                  file_create_date=create_date2)  # optional
-print(nwbfile2)
 
+# Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. This information can be accessed using `institution`, `lab`, and `description`, attributes on our `nwb_file`, respectively. 
 
 # In[7]:
 
 
-# Time Series Data
-from pynwb import TimeSeries
+# Get Meta-Data from NWB file 
+print('The experiment within this NWB file was conducted at {} in the lab of {}. The experiment is detailed as follows: {}'.format(nwb_file.institution, nwb_file.lab, nwb_file.experiment_description))
 
-data2 = list(range(100, 200, 10))
-timestamps2 = list(range(10))
-test_ts2 = TimeSeries(name='test_timeseries', data=data2, unit='m', timestamps=timestamps2)
-print(timestamps2)
-print(test_ts2)
 
+# We can access metadata from each group in our `nwb_file` with the following syntax: `nwb_file.group`. This is no different than executing a method and/or attribute. The `acquisition` group contains datasets of acquisition data. We can look at the look at the `description` field in the metadata to understand what each dataset in the group contains. 
 
 # In[8]:
 
 
-# Uniform Sampled rate 
-rate_ts = TimeSeries(name='test_timeseries', data=data2, unit='m', starting_time=0.0, rate=1.0)
-rate_ts
+# example showing how to return meta data from groups in nwb file 
+# 'acquisition' is the first group in our file 
+nwb_file.acquisition
 
+
+# In this file, the acquisition group contains two different dataets, `lickPiezo` and `wheel_position`. To access the actual data array of these datasets we must first subset our dataset of interest from the group. We can then use `data[:]` to return our actual data array. 
 
 # In[9]:
 
 
-nwbfile2.add_acquisition(test_ts)
+# select our dataset of interest 
+dataset = 'lickPiezo'
+lickPiezo_ds = nwb_file.acquisition[dataset]
+
+# return data array 
+lickPiezo_data_array = wheel_pos_in.data[:20]
+
+print(lickPiezo_data_array)
 
 
-# In[10]:
+# In[12]:
 
 
-nwbfile2
+# testing out each key for nwb file 
+# 'units' seems to return data that was recorded 
+nwb_file.processing['behavior']
 
 
-# In[11]:
+# The `trials` Group contains data from our experimental trials such as start/stop time, response time, feedback time, etc. You can return the trials data as a dataframe by using the `to_dataframe` method.
+
+# In[34]:
 
 
-nwbfile2.acquisition['test_timeseries']
+# trials table
+trials = nwb_file.trials
+trials_df = trials.to_dataframe()
+trials_df.head()
 
 
-# In[28]:
+# The `intervals` group also contains a `trials` dataset and can be used to access the experimental trials similar to what was accomplished in the cell above. 
+
+# In[18]:
 
 
-nwbfile2.objects
+# Select the group of interest 
+intervals = nwb_file.intervals
+
+# Subset the dataset from the group and assign it as a dataframe
+interval_trials_df = intervals['trials'].to_dataframe()
+interval_trials_df.head()
+
+
+# The `description` attribute provides a short description on each column of the dataframe. 
+
+# In[22]:
+
+
+print(intervals['trials']['feedback_type'].description)
+
+
+# In[23]:
+
+
+# test cell 
+nwb_file.intervals
 
 
 # In[ ]:
 
 
-# Writing an NWB file 
+
 

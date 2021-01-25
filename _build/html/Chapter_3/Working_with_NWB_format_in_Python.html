@@ -253,33 +253,13 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#about-nwb">
-   3.1.1. About NWB
+  <a class="reference internal nav-link" href="#reading-our-nwb-file">
+   3.1.1. Reading our NWB file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#goal">
-   3.1.2. Goal
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#current-conflict">
-   3.1.3. Current Conflict
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#neurodata-without-borders-neurophysiolgy">
-   3.1.4. Neurodata Without Borders: Neurophysiolgy
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nwb-tutorials-object-ids">
-   3.1.5. NWB Tutorials: Object IDs
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#nwb-tutorials-nwb-basics">
-   3.1.6. NWB Tutorials: NWB Basics
+  <a class="reference internal nav-link" href="#file-hierarchy-groups-datasets-and-attributes">
+   3.1.2. File Hierarchy: Groups, Datasets, and Attributes
   </a>
  </li>
 </ul>
@@ -295,357 +275,982 @@
                 
   <div class="section" id="working-with-nwb-in-python">
 <h1><span class="section-number">3.1. </span>Working with NWB in Python<a class="headerlink" href="#working-with-nwb-in-python" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="about-nwb">
-<h2><span class="section-number">3.1.1. </span>About NWB<a class="headerlink" href="#about-nwb" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>many obstacles in data sharing, especially in neuroscience</p></li>
-<li><p>there is currently too much data in neuroscience to work with</p></li>
-<li><p>too much data makes it difficult to share and analyze with scientisits around the worls</p></li>
-<li><p>“The aim of Neurodata Without Borders is to standardize neuroscience data on an international scale”</p></li>
-<li><p>creating a standard format for neuroscience data will mamke it easier to share and contribute to open soruce projects which will accelerate discovery</p></li>
-</ul>
-</div>
-<div class="section" id="goal">
-<h2><span class="section-number">3.1.2. </span>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>develop a unified, extensible, open-source data format for cellular-based neurophysiology data</p></li>
-<li><p>create a standard for neuroscience datasets to imporve the collaboration of neuroscience projects around the world</p></li>
-</ul>
-</div>
-<div class="section" id="current-conflict">
-<h2><span class="section-number">3.1.3. </span>Current Conflict<a class="headerlink" href="#current-conflict" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>neuroscience does not have a standardized way to collect and share data</p></li>
-<li><p>no common standard means it is difficult for labs to share and compare results with one another</p></li>
-<li><p>not being able to compare results and replicate experiments slows down the overall progression of the field</p></li>
-</ul>
-</div>
-<div class="section" id="neurodata-without-borders-neurophysiolgy">
-<h2><span class="section-number">3.1.4. </span>Neurodata Without Borders: Neurophysiolgy<a class="headerlink" href="#neurodata-without-borders-neurophysiolgy" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>a common standard to share, store, and build analysis tools for neuroscience data</p></li>
-<li><p>contains software to stadardize data, API’s to read and write data, and important datasets in the neuroscience community that have been converted to NWB format</p></li>
-<li><p>takes into account experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions</p></li>
-</ul>
-</div>
-<div class="section" id="nwb-tutorials-object-ids">
-<h2><span class="section-number">3.1.5. </span>NWB Tutorials: Object IDs<a class="headerlink" href="#nwb-tutorials-object-ids" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBFile</span><span class="p">,</span> <span class="n">TimeSeries</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">dateutil.tz</span> <span class="kn">import</span> <span class="n">tzlocal</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="c1"># set up the NWBFile</span>
-<span class="n">start_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2019</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tzlocal</span><span class="p">())</span>
-<span class="n">nwbfile</span> <span class="o">=</span> <span class="n">NWBFile</span><span class="p">(</span><span class="n">session_description</span><span class="o">=</span><span class="s1">&#39;demonstrate NWB object IDs&#39;</span><span class="p">,</span>
-                  <span class="n">identifier</span><span class="o">=</span><span class="s1">&#39;NWB456&#39;</span><span class="p">,</span>
-                  <span class="n">session_start_time</span><span class="o">=</span><span class="n">start_time</span><span class="p">)</span>
-
-<span class="c1"># make some fake data</span>
-<span class="n">timestamps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.333</span> <span class="o">*</span> <span class="n">timestamps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="n">timestamps</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">timestamps</span><span class="p">))</span>
-<span class="n">test_ts</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;raw_timeseries&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps</span><span class="p">)</span>
-
-<span class="c1"># add it to the NWBFile</span>
-<span class="n">nwbfile</span><span class="o">.</span><span class="n">add_acquisition</span><span class="p">(</span><span class="n">test_ts</span><span class="p">)</span>
-
-<span class="c1"># print the object ID of the NWB file</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nwbfile</span><span class="o">.</span><span class="n">object_id</span><span class="p">)</span>
-
-<span class="c1"># print the object ID of the TimeSeries</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">test_ts</span><span class="o">.</span><span class="n">object_id</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBHDF5IO</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="reading-our-nwb-file">
+<h2><span class="section-number">3.1.1. </span>Reading our NWB file<a class="headerlink" href="#reading-our-nwb-file" title="Permalink to this headline">¶</a></h2>
+<p>To access the data in our nwb file we must read the file. This is done in two steps:</p>
+<ul class="simple">
+<li><p>assign our file as an <code class="docutils literal notranslate"><span class="pre">NWBHDF5IO</span></code> object</p></li>
+<li><p>read our file</p></li>
+</ul>
+<p>The first step is done using the <code class="docutils literal notranslate"><span class="pre">NWBHDF5IO</span></code> class to create our <code class="docutils literal notranslate"><span class="pre">NWBHDF5IO</span></code> object and map our file to HDF5 format. Once we have done this, we can use the <code class="docutils literal notranslate"><span class="pre">read()</span></code> method to return our nwb file. For more information on how to read NWB files, please visit the <em>Reading data from an NWB file</em> section from the <a href = 'https://pynwb.readthedocs.io/en/latest/tutorials/general/file.html'> NWB Basics Tutorial</a>. For more information on the <code class="docutils literal notranslate"><span class="pre">NWBHDF5IO</span></code> class, please visit the <a href = 'https://pynwb.readthedocs.io/en/latest/pynwb.html#pynwb.NWBHDF5IO'> original documentation</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first read the file </span>
+<span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000017/sub-Cori/sub-Cori_ses-20161214T120000.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">nwb_file</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46c681ce-e1d6-45bf-9054-2a83357bfabf
-133c1bf2-fb80-4a49-9bf5-580be58135c4
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;46c681ce-e1d6-45bf-9054-2a83357bfabf&#39;: root pynwb.file.NWBFile at 0x140405521581392
- Fields:
-   acquisition: {
-     raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-   }
-   file_create_date: [datetime.datetime(2021, 1, 12, 13, 52, 43, 634000, tzinfo=tzlocal())]
-   identifier: NWB456
-   session_description: demonstrate NWB object IDs
-   session_start_time: 2019-04-03 11:00:00-07:00
-   timestamps_reference_time: 2019-04-03 11:00:00-07:00,
- &#39;133c1bf2-fb80-4a49-9bf5-580be58135c4&#39;: raw_timeseries pynwb.base.TimeSeries at 0x140405521581520
- Fields:
-   comments: no comments
-   conversion: 1.0
-   data: [ 0.31160188  0.73144022  1.64976411 ... -0.13749498 -1.04947376
-   0.52045905]
-   description: no description
-   interval: 1
-   resolution: -1.0
-   timestamps: [0.00000000e+00 9.77517107e-02 1.95503421e-01 ... 9.98044966e+01
-  9.99022483e+01 1.00000000e+02]
-   timestamps_unit: seconds
-   unit: m}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">oid</span> <span class="ow">in</span> <span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">oid</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140405521581392
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140457060178576
 Fields:
   acquisition: {
-    raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+    lickPiezo &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    wheel_position &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
   }
-  file_create_date: [datetime.datetime(2021, 1, 12, 13, 52, 43, 634000, tzinfo=tzlocal())]
-  identifier: NWB456
-  session_description: demonstrate NWB object IDs
-  session_start_time: 2019-04-03 11:00:00-07:00
-  timestamps_reference_time: 2019-04-03 11:00:00-07:00
-
-raw_timeseries pynwb.base.TimeSeries at 0x140405521581520
+  devices: {
+    0 &lt;class &#39;pynwb.device.Device&#39;&gt;,
+    1 &lt;class &#39;pynwb.device.Device&#39;&gt;
+  }
+  electrode_groups: {
+    Probe1 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;,
+    Probe2 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;
+  }
+  electrodes: electrodes &lt;class &#39;hdmf.common.table.DynamicTable&#39;&gt;
+  experiment_description: Large-scale Neuropixels recordings across brain regions of mice during a head-fixed visual discrimination task. 
+  experimenter: [&#39;Nick Steinmetz&#39;]
+  file_create_date: [datetime.datetime(2019, 11, 26, 13, 54, 42, 972670, tzinfo=tzoffset(None, -28800))]
+  identifier: Cori_2016-12-14
+  institution: University College London
+  intervals: {
+    spontaneous &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;,
+    trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
+  }
+  keywords: &lt;HDF5 dataset &quot;keywords&quot;: shape (7,), type &quot;|O&quot;&gt;
+  lab: The Carandini and Harris Lab
+  processing: {
+    behavior &lt;class &#39;pynwb.base.ProcessingModule&#39;&gt;
+  }
+  related_publications: [&#39;DOI 10.1038/s41586-019-1787-x&#39;]
+  session_description: Neuropixels recording during visual discrimination in awake mice.
+  session_start_time: 2016-12-14 12:00:00+00:00
+  stimulus: {
+    passive_beeps &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_click_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_left_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_right_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_white_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    receptive_field_mapping_sparse_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+  subject: subject pynwb.file.Subject at 0x140457108236240
 Fields:
-  comments: no comments
-  conversion: 1.0
-  data: [ 0.31160188  0.73144022  1.64976411 ... -0.13749498 -1.04947376
-  0.52045905]
-  description: no description
-  interval: 1
-  resolution: -1.0
-  timestamps: [0.00000000e+00 9.77517107e-02 1.95503421e-01 ... 9.98044966e+01
- 9.99022483e+01 1.00000000e+02]
-  timestamps_unit: seconds
-  unit: m
+  age: 77 days
+  description: strain: C57Bl6/J
+  genotype: tetO-G6s x CaMK-tTA
+  sex: F
+  species: Mus musculus
+  subject_id: Cori
+
+  timestamps_reference_time: 2016-12-14 12:00:00+00:00
+  trials: trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
+  units: units &lt;class &#39;pynwb.misc.Units&#39;&gt;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ts_id</span> <span class="o">=</span> <span class="n">test_ts</span><span class="o">.</span><span class="n">object_id</span>
-<span class="n">my_ts</span> <span class="o">=</span> <span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">ts_id</span><span class="p">]</span>  <span class="c1"># test_ts == my_ts</span>
-<span class="n">my_ts</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dictionary of all neurodata_type objects in the NWBFile</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nwb_file</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>raw_timeseries pynwb.base.TimeSeries at 0x140405521581520
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;f9d101b7-2424-450b-9826-78367d4d4789&#39;: root pynwb.file.NWBFile at 0x140457060178576
+Fields:
+  acquisition: {
+    lickPiezo &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    wheel_position &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+  devices: {
+    0 &lt;class &#39;pynwb.device.Device&#39;&gt;,
+    1 &lt;class &#39;pynwb.device.Device&#39;&gt;
+  }
+  electrode_groups: {
+    Probe1 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;,
+    Probe2 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;
+  }
+  electrodes: electrodes &lt;class &#39;hdmf.common.table.DynamicTable&#39;&gt;
+  experiment_description: Large-scale Neuropixels recordings across brain regions of mice during a head-fixed visual discrimination task. 
+  experimenter: [&#39;Nick Steinmetz&#39;]
+  file_create_date: [datetime.datetime(2019, 11, 26, 13, 54, 42, 972670, tzinfo=tzoffset(None, -28800))]
+  identifier: Cori_2016-12-14
+  institution: University College London
+  intervals: {
+    spontaneous &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;,
+    trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
+  }
+  keywords: &lt;HDF5 dataset &quot;keywords&quot;: shape (7,), type &quot;|O&quot;&gt;
+  lab: The Carandini and Harris Lab
+  processing: {
+    behavior &lt;class &#39;pynwb.base.ProcessingModule&#39;&gt;
+  }
+  related_publications: [&#39;DOI 10.1038/s41586-019-1787-x&#39;]
+  session_description: Neuropixels recording during visual discrimination in awake mice.
+  session_start_time: 2016-12-14 12:00:00+00:00
+  stimulus: {
+    passive_beeps &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_click_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_left_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_right_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    passive_white_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    receptive_field_mapping_sparse_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+  subject: subject pynwb.file.Subject at 0x140457108236240
+Fields:
+  age: 77 days
+  description: strain: C57Bl6/J
+  genotype: tetO-G6s x CaMK-tTA
+  sex: F
+  species: Mus musculus
+  subject_id: Cori
+
+  timestamps_reference_time: 2016-12-14 12:00:00+00:00
+  trials: trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
+  units: units &lt;class &#39;pynwb.misc.Units&#39;&gt;
+, &#39;9534de6d-c9a2-4306-ad4c-b60b70d8ae4b&#39;: units pynwb.misc.Units at 0x140457108278352
+Fields:
+  colnames: [&#39;peak_channel&#39; &#39;waveform_duration&#39; &#39;phy_annotations&#39; &#39;cluster_depths&#39;
+ &#39;sampling_rate&#39; &#39;spike_times&#39; &#39;electrodes&#39; &#39;electrode_group&#39;
+ &#39;waveform_mean&#39; &#39;spike_amps&#39; &#39;spike_depths&#39;]
+  columns: (
+    peak_channel &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    waveform_duration &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    phy_annotations &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    cluster_depths &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    sampling_rate &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    spike_times_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
+    spike_times &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    electrodes_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
+    electrodes &lt;class &#39;hdmf.common.table.DynamicTableRegion&#39;&gt;,
+    electrode_group &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    waveform_mean &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    spike_amps_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
+    spike_amps &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    spike_depths_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
+    spike_depths &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
+  )
+  description: Autogenerated by NWBFile
+  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
+  waveform_unit: volts
+, &#39;c4e74cad-fecd-4445-a148-d1a3f9f1336a&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d93d0&gt;, &#39;ea2f8bd7-0248-45cf-b164-5edca411c5eb&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80d94d0&gt;, &#39;252aa4db-072c-4934-bc9b-b2a248be7502&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d92d0&gt;, &#39;14378ac2-a755-48df-b930-fb47738ee0ec&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80d9390&gt;, &#39;a6a600f7-0018-4411-8d36-873218e1a878&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cbd50&gt;, &#39;53d491c8-4abc-4584-a0ff-f142805f5b4f&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cbcd0&gt;, &#39;96c9443d-2a36-4229-b731-9a73dc63a57f&#39;: electrodes hdmf.common.table.DynamicTableRegion at 0x140457108356048
+    Target table: electrodes hdmf.common.table.DynamicTable at 0x140457108234512
+, &#39;28e40a56-4578-45a2-8c3c-9bac8fbf6168&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80cb890&gt;, &#39;3a9a3535-d574-4e0d-b547-f5e93b4c03c5&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb7d0&gt;, &#39;83a61368-49c5-4a34-914b-c5661736491e&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80cb390&gt;, &#39;654c5fad-188b-493c-896f-b4aa61bb330e&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9210&gt;, &#39;706e6dca-7742-4da7-9b99-cd72b3806ba0&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cbf50&gt;, &#39;c2da8ac8-bc8c-4209-bf5e-01762a9be25c&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9150&gt;, &#39;06cfe852-7554-40d9-8a71-0c2aa65d2dee&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9590&gt;, &#39;464a84f1-b148-4207-bd69-3a44e013c087&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9050&gt;, &#39;512bbeea-434e-4388-a787-d5514894641c&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80cbe10&gt;, &#39;25871dc0-7cce-40ea-8c95-0868907e417c&#39;: subject pynwb.file.Subject at 0x140457108236240
+Fields:
+  age: 77 days
+  description: strain: C57Bl6/J
+  genotype: tetO-G6s x CaMK-tTA
+  sex: F
+  species: Mus musculus
+  subject_id: Cori
+, &#39;fdfd97fd-cbb4-4e47-9a49-7d50a50bafdc&#39;: trials pynwb.epoch.TimeIntervals at 0x140457108276432
+Fields:
+  colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;included&#39; &#39;go_cue&#39; &#39;visual_stimulus_time&#39;
+ &#39;visual_stimulus_left_contrast&#39; &#39;visual_stimulus_right_contrast&#39;
+ &#39;response_time&#39; &#39;response_choice&#39; &#39;feedback_time&#39; &#39;feedback_type&#39;
+ &#39;rep_num&#39;]
+  columns: (
+    start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    included &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    go_cue &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    visual_stimulus_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    visual_stimulus_left_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    visual_stimulus_right_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    response_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    response_choice &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    feedback_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    feedback_type &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    rep_num &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
+  )
+  description: experimental trials
+  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
+, &#39;5ebd7fe8-f88e-452d-bea5-83c585e4d26d&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb190&gt;, &#39;b8c8babd-b375-41e2-951c-0e7d746d3ede&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8990&gt;, &#39;7f36bd86-e494-4467-831d-f62ae26d8535&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8fd0&gt;, &#39;ab38a2ba-fcfc-4a4b-bf01-c3692fd9f32f&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb3d0&gt;, &#39;baefa44b-fc37-4cf1-b903-5aeca7213ee3&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb2d0&gt;, &#39;97d67c70-6acb-4b47-b198-2e131b8073d0&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb810&gt;, &#39;c97b0a88-02f8-452e-ad16-d02735539138&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb250&gt;, &#39;b2c81eef-c1d3-4a08-a98c-b786e0c565a1&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb8d0&gt;, &#39;4c1242cf-49a7-44d7-9125-fab69652698d&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8bd0&gt;, &#39;dfc1cf35-49ee-4dda-bba2-f37bff54b767&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8f10&gt;, &#39;6d19ab8e-761b-44cb-a80b-7d147ce68192&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8a90&gt;, &#39;43b09b91-3eb3-4caf-8444-a24807e7051d&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8d50&gt;, &#39;3058a290-1b90-4058-935f-ccc802391855&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80b87d0&gt;, &#39;7a881b6c-1e07-4083-9523-021d2bddbd6d&#39;: spontaneous pynwb.epoch.TimeIntervals at 0x140457108279184
+Fields:
+  colnames: [&#39;start_time&#39; &#39;stop_time&#39;]
+  columns: (
+    start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
+  )
+  description: Intervals of sufficient duration when nothing else is going on (no task or stimulus presentation
+  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
+, &#39;3d12e243-df4e-4319-83d9-ab302c472c32&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8c10&gt;, &#39;02019da0-aa7c-4789-ba44-33b171c7a2ec&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8610&gt;, &#39;6016cda5-6636-4193-bd9c-227ffa85c5fb&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80b8b10&gt;, &#39;3381260e-26e2-4a70-87d2-5c833e0dc04e&#39;: 1 pynwb.device.Device at 0x140457108275664, &#39;e32ff3fa-8c72-4049-879c-20de5d73adb4&#39;: 0 pynwb.device.Device at 0x140457108045584, &#39;7ca74dbb-4052-4f23-8dbf-e1a131aff667&#39;: Probe2 pynwb.ecephys.ElectrodeGroup at 0x140457108237584
+Fields:
+  description: Neuropixels Phase3A opt3
+  device: 1 pynwb.device.Device at 0x140457108275664
+, &#39;9330a605-35ec-490a-a480-57289d55248a&#39;: Probe1 pynwb.ecephys.ElectrodeGroup at 0x140457108238096
+Fields:
+  description: Neuropixels Phase3A opt3
+  device: 0 pynwb.device.Device at 0x140457108045584
+, &#39;2034fa87-2a33-49c7-8752-6ae9af6645fe&#39;: electrodes hdmf.common.table.DynamicTable at 0x140457108234512
+Fields:
+  colnames: [&#39;x&#39; &#39;y&#39; &#39;z&#39; &#39;imp&#39; &#39;location&#39; &#39;filtering&#39; &#39;group&#39; &#39;group_name&#39; &#39;site_id&#39;
+ &#39;site_position&#39; &#39;ccf_ap&#39; &#39;ccf_dv&#39; &#39;ccf_lr&#39; &#39;entry_point_rl&#39;
+ &#39;entry_point_ap&#39; &#39;vertical_angle&#39; &#39;horizontal_angle&#39; &#39;axial_angle&#39;
+ &#39;distance_advanced&#39;]
+  columns: (
+    x &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    y &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    z &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    imp &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    location &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    filtering &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    group &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    group_name &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    site_id &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    site_position &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    ccf_ap &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    ccf_dv &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    ccf_lr &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    entry_point_rl &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    entry_point_ap &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    vertical_angle &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    horizontal_angle &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    axial_angle &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+    distance_advanced &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
+  )
+  description: metadata about extracellular electrodes
+  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
+, &#39;a2fbe18e-2c17-410b-8d54-fae9194e8d19&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8910&gt;, &#39;df116c6c-8cdf-435e-96ca-7aab377a7fa7&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8650&gt;, &#39;6a56c0d8-62f0-4e4c-8153-77fe86745064&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8dd0&gt;, &#39;7108497f-f17f-493f-b616-13b6cd360f56&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb1d0&gt;, &#39;e8b53461-c02f-4659-945b-97c5bd81c9f1&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8a10&gt;, &#39;06bac8b1-0226-4d24-89c1-9c6548a4978a&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8ad0&gt;, &#39;f19c234c-b343-4a05-9ba5-d4cc8250507a&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8850&gt;, &#39;af4579bb-219c-4dd3-a459-790f96e975a8&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8790&gt;, &#39;ea98b1f3-b7b5-473c-872b-4b72403bb6ed&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b86d0&gt;, &#39;a458bed1-02db-4955-bbc9-dfc6a212ea07&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb110&gt;, &#39;39fa1809-03ac-44f7-9f17-378e1b9cb1bb&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb050&gt;, &#39;f226ce51-ac75-40c8-b7a1-10de9734e425&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8d90&gt;, &#39;695ca7d7-261f-4072-b051-ced2fb6c3497&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8cd0&gt;, &#39;ff79fae1-6e98-4c60-b6df-196357902338&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8b90&gt;, &#39;979cb1ab-3720-4042-8405-4e634de63a28&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8f50&gt;, &#39;7528c019-4746-4c57-811e-36a921cefd98&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8e90&gt;, &#39;c1a6b67e-f98c-4135-a8a1-01d55a81e481&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb410&gt;, &#39;0aa13cee-a8f2-455a-94d1-858b9685ace8&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb350&gt;, &#39;2ef3d762-1d95-43cf-b9b8-5c22da37f6c7&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb290&gt;, &#39;bcc97c5f-f00b-401e-9059-2d95eb2e831b&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80b8090&gt;, &#39;08c8bf42-99b8-4136-a62e-2fe1c4481e4e&#39;: behavior pynwb.base.ProcessingModule at 0x140457108043472
+Fields:
+  data_interfaces: {
+    BehavioralEpochs &lt;class &#39;pynwb.behavior.BehavioralEpochs&#39;&gt;,
+    BehavioralEvents &lt;class &#39;pynwb.behavior.BehavioralEvents&#39;&gt;,
+    BehavioralTimeSeries &lt;class &#39;pynwb.behavior.BehavioralTimeSeries&#39;&gt;,
+    PupilTracking &lt;class &#39;pynwb.behavior.PupilTracking&#39;&gt;
+  }
+  description: behavior module
+, &#39;b70d3330-301c-4870-8a40-f81b7b2d6c28&#39;: PupilTracking pynwb.behavior.PupilTracking at 0x140457108235280
+Fields:
+  time_series: {
+    eye_area &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    eye_xy_positions &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+, &#39;cf65a692-c210-49df-ab4d-abc7e89dc790&#39;: eye_xy_positions pynwb.base.TimeSeries at 0x140457108235728
+Fields:
+  comments: The 2D position of the center of the pupil in the video frame. This is not registered to degrees visual angle, but could be used to detect saccades or other changes in eye position.
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (267759, 2), type &quot;&lt;f8&quot;&gt;
+  description: Features extracted from the video of the right eye.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (267759,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: arb. unit
+, &#39;fa8d3f7e-3d35-4ca6-85fd-c3f714a8c640&#39;: eye_area pynwb.base.TimeSeries at 0x140457108235408
+Fields:
+  comments: The area of the pupil extracted with DeepLabCut. Note that it is relatively very small during the discrimination task and during the passive replay because the three screens are medium-grey at this time and black elsewhere - so the much brighter overall luminance levels lead to relatively constricted pupils.
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (267759,), type &quot;&lt;f8&quot;&gt;
+  description: Features extracted from the video of the right eye.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (267759,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: arb. unit
+, &#39;0a026b53-a3a0-4d04-80f1-ce63caadc46f&#39;: BehavioralTimeSeries pynwb.behavior.BehavioralTimeSeries at 0x140457108044944
+Fields:
+  time_series: {
+    face_motion_energy &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+, &#39;2c33f81b-4bc2-4f61-bcc5-640eaa91f8d6&#39;: face_motion_energy pynwb.base.TimeSeries at 0x140457108234960
+Fields:
+  comments: The integrated motion energy across the whole frame, i.e. sum( (thisFrame-lastFrame)^2 ). Some smoothing is applied before this operation.
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (106067,), type &quot;&lt;f8&quot;&gt;
+  description: Features extracted from the video of the frontal aspect of the subject, including the subject&#39;s face and forearms.
+  rate: 0.025246256960525466
+  resolution: -1.0
+  starting_time: 16.07188294974754
+  starting_time_unit: seconds
+  unit: arb. unit
+, &#39;7cc6299d-5706-4aa5-a903-e922ec20f260&#39;: BehavioralEvents pynwb.behavior.BehavioralEvents at 0x140457108045328
+Fields:
+  time_series: {
+    lick_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
+  }
+, &#39;e28aaea4-0f29-4025-a22a-34fbea8acf4d&#39;: lick_times pynwb.base.TimeSeries at 0x140457108044688
 Fields:
   comments: no comments
   conversion: 1.0
-  data: [ 0.31160188  0.73144022  1.64976411 ... -0.13749498 -1.04947376
-  0.52045905]
-  description: no description
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (3190,), type &quot;|b1&quot;&gt;
+  description: Extracted times of licks, from the lickPiezo signal.
   interval: 1
   resolution: -1.0
-  timestamps: [0.00000000e+00 9.77517107e-02 1.95503421e-01 ... 9.98044966e+01
- 9.99022483e+01 1.00000000e+02]
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (3190,), type &quot;&lt;f8&quot;&gt;
   timestamps_unit: seconds
-  unit: m
+  unit: n/a
+, &#39;68bd58ae-f7bd-4572-b883-cb740d351bff&#39;: BehavioralEpochs pynwb.behavior.BehavioralEpochs at 0x140457108044240
+Fields:
+  interval_series: {
+    wheel_moves &lt;class &#39;pynwb.misc.IntervalSeries&#39;&gt;
+  }
+, &#39;ac2f0e4d-1f97-4b95-8980-2b9ccb77585d&#39;: wheel_moves pynwb.misc.IntervalSeries at 0x140457108044432
+Fields:
+  comments: 0 for &#39;flinches&#39; or otherwise unclassified movements, 1 for left/clockwise turns, 2 for right/counter-clockwise turns (where again &quot;left&quot; means &quot;would be the correct direction for a stimulus presented on the left). A detected movement is counted as &#39;left&#39; or &#39;right&#39; only if it was sufficient amplitude that it would have registered a correct response (and possibly did), within a minimum amount of time from the start of the movement. Movements failing those criteria are flinch/unclassified type.
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (507,), type &quot;&lt;i8&quot;&gt;
+  description: Detected wheel movements.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (1014,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: n/a
+, &#39;efa475e4-51db-49cb-9ded-3db16a97ce17&#39;: receptive_field_mapping_sparse_noise pynwb.base.TimeSeries at 0x140457108275536
+Fields:
+  comments: The altitude (first column) and azimuth (second column) of the square.
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (7962, 2), type &quot;&lt;f8&quot;&gt;
+  description: White squares shown on the screen with randomized positions and timing - see manuscript Methods.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (7962,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: degrees visual angle
+, &#39;51516f1d-29fd-488b-873f-120556d5278d&#39;: passive_white_noise pynwb.base.TimeSeries at 0x140457108237840
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
+  description: The sound that accompanies an incorrect response during the discrimination task.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: n/a
+, &#39;5d7093d2-d1c0-468f-a505-25d0e0af9c05&#39;: passive_right_contrast pynwb.base.TimeSeries at 0x140457108237328
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+  description: Gratings of the same size, spatial freq, position, etc as during the discrimination task.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: proportion contrast
+, &#39;3688d0e3-e5ec-4941-8ece-9e0bf440dfb9&#39;: passive_left_contrast pynwb.base.TimeSeries at 0x140457108236816
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+  description: Gratings of the same size, spatial freq, position, etc as during the discrimination task.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: proportion contrast
+, &#39;6f83cca5-e979-40a7-83ce-70148e322a0b&#39;: passive_click_times pynwb.base.TimeSeries at 0x140457108235536
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
+  description: Opening of the reward valve, but with a clamp in place such that no water flows. Therefore the auditory sound of the valve is heard, but no water reward is obtained.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: n/a
+, &#39;c59934ee-c7b2-43e7-80b8-cb97f86b334c&#39;: passive_beeps pynwb.base.TimeSeries at 0x140457108043728
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
+  description: Auditory tones of the same frequency as the auditory tone cue in the task
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: n/a
+, &#39;16a7b133-a24c-4357-9011-95849d03d3d2&#39;: wheel_position pynwb.base.TimeSeries at 0x140457108043152
+Fields:
+  comments: The wheel has radius 31 mm and 1440 ticks per revolution, so multiply by 2*pi*r/tpr=0.135 to convert to millimeters. Positive velocity (increasing numbers) correspond to clockwise turns (if looking at the wheel from behind the mouse), i.e. turns that are in the correct direction for stimuli presented to the left. Likewise negative velocity corresponds to right choices.
+  conversion: 0.135
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (6570000,), type &quot;&lt;f8&quot;&gt;
+  description: The position reading of the rotary encoder attached to the rubber wheel that the mouse pushes left and right with his forelimbs.
+  rate: 0.00040000637758912496
+  resolution: -1.0
+  starting_time: 33.65250410481991
+  starting_time_unit: seconds
+  unit: mm
+, &#39;0a2a38d9-6ac3-47fb-9988-26035274605c&#39;: lickPiezo pynwb.base.TimeSeries at 0x140457108043024
+Fields:
+  comments: no comments
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (1314000,), type &quot;&lt;f8&quot;&gt;
+  description: Voltage values from a thin-film piezo connected to the lick spout, so that values are proportional to deflection of the spout and licks can be detected as peaks of the signal.
+  rate: 0.002000031887945625
+  resolution: -1.0
+  starting_time: 33.65250410481991
+  starting_time_unit: seconds
+  unit: V
+}
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">nwbfile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># loop though objections dictionary </span>
+<span class="c1"># returns the obeject ID along with the type </span>
+<span class="c1"># and the object name </span>
+<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">object_id</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">neurodata_type</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>46c681ce-e1d6-45bf-9054-2a83357bfabf: NWBFile &quot;root&quot;
-133c1bf2-fb80-4a49-9bf5-580be58135c4: TimeSeries &quot;raw_timeseries&quot;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>f9d101b7-2424-450b-9826-78367d4d4789: NWBFile &quot;root&quot;
+9534de6d-c9a2-4306-ad4c-b60b70d8ae4b: Units &quot;units&quot;
+c4e74cad-fecd-4445-a148-d1a3f9f1336a: VectorData &quot;spike_depths&quot;
+ea2f8bd7-0248-45cf-b164-5edca411c5eb: VectorIndex &quot;spike_depths_index&quot;
+252aa4db-072c-4934-bc9b-b2a248be7502: VectorData &quot;spike_amps&quot;
+14378ac2-a755-48df-b930-fb47738ee0ec: VectorIndex &quot;spike_amps_index&quot;
+a6a600f7-0018-4411-8d36-873218e1a878: VectorData &quot;waveform_mean&quot;
+53d491c8-4abc-4584-a0ff-f142805f5b4f: VectorData &quot;electrode_group&quot;
+96c9443d-2a36-4229-b731-9a73dc63a57f: DynamicTableRegion &quot;electrodes&quot;
+28e40a56-4578-45a2-8c3c-9bac8fbf6168: VectorIndex &quot;electrodes_index&quot;
+3a9a3535-d574-4e0d-b547-f5e93b4c03c5: VectorData &quot;spike_times&quot;
+83a61368-49c5-4a34-914b-c5661736491e: VectorIndex &quot;spike_times_index&quot;
+654c5fad-188b-493c-896f-b4aa61bb330e: VectorData &quot;sampling_rate&quot;
+706e6dca-7742-4da7-9b99-cd72b3806ba0: VectorData &quot;cluster_depths&quot;
+c2da8ac8-bc8c-4209-bf5e-01762a9be25c: VectorData &quot;phy_annotations&quot;
+06cfe852-7554-40d9-8a71-0c2aa65d2dee: VectorData &quot;waveform_duration&quot;
+464a84f1-b148-4207-bd69-3a44e013c087: VectorData &quot;peak_channel&quot;
+512bbeea-434e-4388-a787-d5514894641c: ElementIdentifiers &quot;id&quot;
+25871dc0-7cce-40ea-8c95-0868907e417c: Subject &quot;subject&quot;
+fdfd97fd-cbb4-4e47-9a49-7d50a50bafdc: TimeIntervals &quot;trials&quot;
+5ebd7fe8-f88e-452d-bea5-83c585e4d26d: VectorData &quot;rep_num&quot;
+b8c8babd-b375-41e2-951c-0e7d746d3ede: VectorData &quot;feedback_type&quot;
+7f36bd86-e494-4467-831d-f62ae26d8535: VectorData &quot;feedback_time&quot;
+ab38a2ba-fcfc-4a4b-bf01-c3692fd9f32f: VectorData &quot;response_choice&quot;
+baefa44b-fc37-4cf1-b903-5aeca7213ee3: VectorData &quot;response_time&quot;
+97d67c70-6acb-4b47-b198-2e131b8073d0: VectorData &quot;visual_stimulus_right_contrast&quot;
+c97b0a88-02f8-452e-ad16-d02735539138: VectorData &quot;visual_stimulus_left_contrast&quot;
+b2c81eef-c1d3-4a08-a98c-b786e0c565a1: VectorData &quot;visual_stimulus_time&quot;
+4c1242cf-49a7-44d7-9125-fab69652698d: VectorData &quot;go_cue&quot;
+dfc1cf35-49ee-4dda-bba2-f37bff54b767: VectorData &quot;included&quot;
+6d19ab8e-761b-44cb-a80b-7d147ce68192: VectorData &quot;stop_time&quot;
+43b09b91-3eb3-4caf-8444-a24807e7051d: VectorData &quot;start_time&quot;
+3058a290-1b90-4058-935f-ccc802391855: ElementIdentifiers &quot;id&quot;
+7a881b6c-1e07-4083-9523-021d2bddbd6d: TimeIntervals &quot;spontaneous&quot;
+3d12e243-df4e-4319-83d9-ab302c472c32: VectorData &quot;stop_time&quot;
+02019da0-aa7c-4789-ba44-33b171c7a2ec: VectorData &quot;start_time&quot;
+6016cda5-6636-4193-bd9c-227ffa85c5fb: ElementIdentifiers &quot;id&quot;
+3381260e-26e2-4a70-87d2-5c833e0dc04e: Device &quot;1&quot;
+e32ff3fa-8c72-4049-879c-20de5d73adb4: Device &quot;0&quot;
+7ca74dbb-4052-4f23-8dbf-e1a131aff667: ElectrodeGroup &quot;Probe2&quot;
+9330a605-35ec-490a-a480-57289d55248a: ElectrodeGroup &quot;Probe1&quot;
+2034fa87-2a33-49c7-8752-6ae9af6645fe: DynamicTable &quot;electrodes&quot;
+a2fbe18e-2c17-410b-8d54-fae9194e8d19: VectorData &quot;distance_advanced&quot;
+df116c6c-8cdf-435e-96ca-7aab377a7fa7: VectorData &quot;axial_angle&quot;
+6a56c0d8-62f0-4e4c-8153-77fe86745064: VectorData &quot;horizontal_angle&quot;
+7108497f-f17f-493f-b616-13b6cd360f56: VectorData &quot;vertical_angle&quot;
+e8b53461-c02f-4659-945b-97c5bd81c9f1: VectorData &quot;entry_point_ap&quot;
+06bac8b1-0226-4d24-89c1-9c6548a4978a: VectorData &quot;entry_point_rl&quot;
+f19c234c-b343-4a05-9ba5-d4cc8250507a: VectorData &quot;ccf_lr&quot;
+af4579bb-219c-4dd3-a459-790f96e975a8: VectorData &quot;ccf_dv&quot;
+ea98b1f3-b7b5-473c-872b-4b72403bb6ed: VectorData &quot;ccf_ap&quot;
+a458bed1-02db-4955-bbc9-dfc6a212ea07: VectorData &quot;site_position&quot;
+39fa1809-03ac-44f7-9f17-378e1b9cb1bb: VectorData &quot;site_id&quot;
+f226ce51-ac75-40c8-b7a1-10de9734e425: VectorData &quot;group_name&quot;
+695ca7d7-261f-4072-b051-ced2fb6c3497: VectorData &quot;group&quot;
+ff79fae1-6e98-4c60-b6df-196357902338: VectorData &quot;filtering&quot;
+979cb1ab-3720-4042-8405-4e634de63a28: VectorData &quot;location&quot;
+7528c019-4746-4c57-811e-36a921cefd98: VectorData &quot;imp&quot;
+c1a6b67e-f98c-4135-a8a1-01d55a81e481: VectorData &quot;z&quot;
+0aa13cee-a8f2-455a-94d1-858b9685ace8: VectorData &quot;y&quot;
+2ef3d762-1d95-43cf-b9b8-5c22da37f6c7: VectorData &quot;x&quot;
+bcc97c5f-f00b-401e-9059-2d95eb2e831b: ElementIdentifiers &quot;id&quot;
+08c8bf42-99b8-4136-a62e-2fe1c4481e4e: ProcessingModule &quot;behavior&quot;
+b70d3330-301c-4870-8a40-f81b7b2d6c28: PupilTracking &quot;PupilTracking&quot;
+cf65a692-c210-49df-ab4d-abc7e89dc790: TimeSeries &quot;eye_xy_positions&quot;
+fa8d3f7e-3d35-4ca6-85fd-c3f714a8c640: TimeSeries &quot;eye_area&quot;
+0a026b53-a3a0-4d04-80f1-ce63caadc46f: BehavioralTimeSeries &quot;BehavioralTimeSeries&quot;
+2c33f81b-4bc2-4f61-bcc5-640eaa91f8d6: TimeSeries &quot;face_motion_energy&quot;
+7cc6299d-5706-4aa5-a903-e922ec20f260: BehavioralEvents &quot;BehavioralEvents&quot;
+e28aaea4-0f29-4025-a22a-34fbea8acf4d: TimeSeries &quot;lick_times&quot;
+68bd58ae-f7bd-4572-b883-cb740d351bff: BehavioralEpochs &quot;BehavioralEpochs&quot;
+ac2f0e4d-1f97-4b95-8980-2b9ccb77585d: IntervalSeries &quot;wheel_moves&quot;
+efa475e4-51db-49cb-9ded-3db16a97ce17: TimeSeries &quot;receptive_field_mapping_sparse_noise&quot;
+51516f1d-29fd-488b-873f-120556d5278d: TimeSeries &quot;passive_white_noise&quot;
+5d7093d2-d1c0-468f-a505-25d0e0af9c05: TimeSeries &quot;passive_right_contrast&quot;
+3688d0e3-e5ec-4941-8ece-9e0bf440dfb9: TimeSeries &quot;passive_left_contrast&quot;
+6f83cca5-e979-40a7-83ce-70148e322a0b: TimeSeries &quot;passive_click_times&quot;
+c59934ee-c7b2-43e7-80b8-cb97f86b334c: TimeSeries &quot;passive_beeps&quot;
+16a7b133-a24c-4357-9011-95849d03d3d2: TimeSeries &quot;wheel_position&quot;
+0a2a38d9-6ac3-47fb-9988-26035274605c: TimeSeries &quot;lickPiezo&quot;
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="nwb-tutorials-nwb-basics">
-<h2><span class="section-number">3.1.6. </span>NWB Tutorials: NWB Basics<a class="headerlink" href="#nwb-tutorials-nwb-basics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="file-hierarchy-groups-datasets-and-attributes">
+<h2><span class="section-number">3.1.2. </span>File Hierarchy: Groups, Datasets, and Attributes<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
+<p>The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute returns a dictionary contiaining the metadata of the Groups of our nwb file. The dictionary <code class="docutils literal notranslate"><span class="pre">keys</span></code> are the various Groups within the file which we will use to access our datasets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The NWB file </span>
-<span class="n">start_time2</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tzlocal</span><span class="p">())</span>
-<span class="n">create_date2</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=</span><span class="n">tzlocal</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># nwb_file.fields</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the Groups for the nwb file </span>
+<span class="n">nwb_fields</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">fields</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nwb_fields</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;acquisition&#39;, &#39;analysis&#39;, &#39;scratch&#39;, &#39;stimulus&#39;, &#39;stimulus_template&#39;, &#39;processing&#39;, &#39;devices&#39;, &#39;electrode_groups&#39;, &#39;imaging_planes&#39;, &#39;icephys_electrodes&#39;, &#39;ogen_sites&#39;, &#39;intervals&#39;, &#39;lab_meta_data&#39;, &#39;session_description&#39;, &#39;identifier&#39;, &#39;session_start_time&#39;, &#39;timestamps_reference_time&#39;, &#39;file_create_date&#39;, &#39;keywords&#39;, &#39;epoch_tags&#39;, &#39;electrodes&#39;, &#39;subject&#39;, &#39;trials&#39;, &#39;units&#39;, &#39;experiment_description&#39;, &#39;lab&#39;, &#39;institution&#39;, &#39;experimenter&#39;, &#39;related_publications&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. This information can be accessed using <code class="docutils literal notranslate"><span class="pre">institution</span></code>, <code class="docutils literal notranslate"><span class="pre">lab</span></code>, and <code class="docutils literal notranslate"><span class="pre">description</span></code>, attributes on our <code class="docutils literal notranslate"><span class="pre">nwb_file</span></code>, respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get Meta-Data from NWB file </span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The experiment within this NWB file was conducted at </span><span class="si">{}</span><span class="s1"> in the lab of </span><span class="si">{}</span><span class="s1">. The experiment is detailed as follows: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nwb_file</span><span class="o">.</span><span class="n">institution</span><span class="p">,</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">lab</span><span class="p">,</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">experiment_description</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The experiment within this NWB file was conducted at University College London in the lab of The Carandini and Harris Lab. The experiment is detailed as follows: Large-scale Neuropixels recordings across brain regions of mice during a head-fixed visual discrimination task. 
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can access metadata from each group in our <code class="docutils literal notranslate"><span class="pre">nwb_file</span></code> with the following syntax: <code class="docutils literal notranslate"><span class="pre">nwb_file.group</span></code>. This is no different than executing a method and/or attribute. The <code class="docutils literal notranslate"><span class="pre">acquisition</span></code> group contains datasets of acquisition data. We can look at the look at the <code class="docutils literal notranslate"><span class="pre">description</span></code> field in the metadata to understand what each dataset in the group contains.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example showing how to return meta data from groups in nwb file </span>
+<span class="c1"># &#39;acquisition&#39; is the first group in our file </span>
+<span class="n">nwb_file</span><span class="o">.</span><span class="n">acquisition</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lickPiezo&#39;: lickPiezo pynwb.base.TimeSeries at 0x140457108043024
+ Fields:
+   comments: no comments
+   conversion: 1.0
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (1314000,), type &quot;&lt;f8&quot;&gt;
+   description: Voltage values from a thin-film piezo connected to the lick spout, so that values are proportional to deflection of the spout and licks can be detected as peaks of the signal.
+   rate: 0.002000031887945625
+   resolution: -1.0
+   starting_time: 33.65250410481991
+   starting_time_unit: seconds
+   unit: V,
+ &#39;wheel_position&#39;: wheel_position pynwb.base.TimeSeries at 0x140457108043152
+ Fields:
+   comments: The wheel has radius 31 mm and 1440 ticks per revolution, so multiply by 2*pi*r/tpr=0.135 to convert to millimeters. Positive velocity (increasing numbers) correspond to clockwise turns (if looking at the wheel from behind the mouse), i.e. turns that are in the correct direction for stimuli presented to the left. Likewise negative velocity corresponds to right choices.
+   conversion: 0.135
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (6570000,), type &quot;&lt;f8&quot;&gt;
+   description: The position reading of the rotary encoder attached to the rubber wheel that the mouse pushes left and right with his forelimbs.
+   rate: 0.00040000637758912496
+   resolution: -1.0
+   starting_time: 33.65250410481991
+   starting_time_unit: seconds
+   unit: mm}
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this file, the acquisition group contains two different dataets, <code class="docutils literal notranslate"><span class="pre">lickPiezo</span></code> and <code class="docutils literal notranslate"><span class="pre">wheel_position</span></code>. To access the actual data array of these datasets we must first subset our dataset of interest from the group. We can then use <code class="docutils literal notranslate"><span class="pre">data[:]</span></code> to return our actual data array.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select our dataset of interest </span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;lickPiezo&#39;</span>
+<span class="n">lickPiezo_ds</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
 
-<span class="n">nwbfile2</span> <span class="o">=</span> <span class="n">NWBFile</span><span class="p">(</span><span class="n">session_description</span><span class="o">=</span><span class="s1">&#39;demonstrate NWBFile basics&#39;</span><span class="p">,</span>  <span class="c1"># required</span>
-                  <span class="n">identifier</span><span class="o">=</span><span class="s1">&#39;NWB123&#39;</span><span class="p">,</span>  <span class="c1"># required</span>
-                  <span class="n">session_start_time</span><span class="o">=</span><span class="n">start_time2</span><span class="p">,</span>  <span class="c1"># required</span>
-                  <span class="n">file_create_date</span><span class="o">=</span><span class="n">create_date2</span><span class="p">)</span>  <span class="c1"># optional</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nwbfile2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140405563555792
-Fields:
-  file_create_date: [datetime.datetime(2017, 4, 15, 12, 0, tzinfo=tzlocal())]
-  identifier: NWB123
-  session_description: demonstrate NWBFile basics
-  session_start_time: 2017-04-03 11:00:00-07:00
-  timestamps_reference_time: 2017-04-03 11:00:00-07:00
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Time Series Data</span>
-<span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">TimeSeries</span>
+<span class="c1"># return data array </span>
+<span class="n">lickPiezo_data_array</span> <span class="o">=</span> <span class="n">wheel_pos_in</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
 
-<span class="n">data2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">timestamps2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-<span class="n">test_ts2</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">timestamps</span><span class="o">=</span><span class="n">timestamps2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">timestamps2</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">test_ts2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-test_timeseries pynwb.base.TimeSeries at 0x140405521580752
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: [100 110 120 130 140 150 160 170 180 190]
-  description: no description
-  interval: 1
-  resolution: -1.0
-  timestamps: [0 1 2 3 4 5 6 7 8 9]
-  timestamps_unit: seconds
-  unit: m
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Uniform Sampled rate </span>
-<span class="n">rate_ts</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data2</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">starting_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-<span class="n">rate_ts</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>test_timeseries pynwb.base.TimeSeries at 0x140405563554320
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: [100 110 120 130 140 150 160 170 180 190]
-  description: no description
-  rate: 1.0
-  resolution: -1.0
-  starting_time: 0.0
-  starting_time_unit: seconds
-  unit: m
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span><span class="o">.</span><span class="n">add_acquisition</span><span class="p">(</span><span class="n">test_ts</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140405563555792
-Fields:
-  acquisition: {
-    raw_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-  file_create_date: [datetime.datetime(2017, 4, 15, 12, 0, tzinfo=tzlocal())]
-  identifier: NWB123
-  session_description: demonstrate NWBFile basics
-  session_start_time: 2017-04-03 11:00:00-07:00
-  timestamps_reference_time: 2017-04-03 11:00:00-07:00
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">lickPiezo_data_array</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="n">c7c538c793a6</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">nwbfile2</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="s1">&#39;test_timeseries&#39;</span><span class="p">]</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="mi">0</span><span class="n">c27b7287873</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># return data array</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">lickPiezo_data_array</span> <span class="o">=</span> <span class="n">wheel_pos_in</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> 
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="nb">print</span><span class="p">(</span><span class="n">lickPiezo_data_array</span><span class="p">)</span>
 
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">886</span>                 <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">887</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">888</span>             <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">889</span> 
-<span class="g g-Whitespace">    </span><span class="mi">890</span>     <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-
-<span class="ne">KeyError</span>: &#39;test_timeseries&#39;
+<span class="ne">NameError</span>: name &#39;wheel_pos_in&#39; is not defined
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwbfile2</span><span class="o">.</span><span class="n">objects</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># testing out each key for nwb file </span>
+<span class="c1"># &#39;units&#39; seems to return data that was recorded </span>
+<span class="n">nwb_file</span><span class="o">.</span><span class="n">processing</span><span class="p">[</span><span class="s1">&#39;behavior&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;45510545-f026-4d0a-bdab-748260b5f117&#39;: root pynwb.file.NWBFile at 0x140236634051536
- Fields:
-   acquisition: {
-     test_timeseries &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-   }
-   file_create_date: [datetime.datetime(2017, 4, 15, 12, 0, tzinfo=tzlocal())]
-   identifier: NWB123
-   session_description: demonstrate NWBFile basics
-   session_start_time: 2017-04-03 11:00:00-07:00
-   timestamps_reference_time: 2017-04-03 11:00:00-07:00,
- &#39;5b5a6346-f27c-443a-8f17-b0f0dafb18b6&#39;: test_timeseries pynwb.base.TimeSeries at 0x140236634142608
- Fields:
-   comments: no comments
-   conversion: 1.0
-   data: [100 110 120 130 140 150 160 170 180 190]
-   description: no description
-   interval: 1
-   resolution: -1.0
-   timestamps: [0 1 2 3 4 5 6 7 8 9]
-   timestamps_unit: seconds
-   unit: m}
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>behavior pynwb.base.ProcessingModule at 0x140350722931408
+Fields:
+  data_interfaces: {
+    BehavioralEpochs &lt;class &#39;pynwb.behavior.BehavioralEpochs&#39;&gt;,
+    BehavioralEvents &lt;class &#39;pynwb.behavior.BehavioralEvents&#39;&gt;,
+    BehavioralTimeSeries &lt;class &#39;pynwb.behavior.BehavioralTimeSeries&#39;&gt;,
+    PupilTracking &lt;class &#39;pynwb.behavior.PupilTracking&#39;&gt;
+  }
+  description: behavior module
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">trials</span></code> Group contains data from our experimental trials such as start/stop time, response time, feedback time, etc. You can return the trials data as a dataframe by using the <code class="docutils literal notranslate"><span class="pre">to_dataframe</span></code> method.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># trials table</span>
+<span class="n">trials</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">trials</span>
+<span class="n">trials_df</span> <span class="o">=</span> <span class="n">trials</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span class="n">trials_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>start_time</th>
+      <th>stop_time</th>
+      <th>included</th>
+      <th>go_cue</th>
+      <th>visual_stimulus_time</th>
+      <th>visual_stimulus_left_contrast</th>
+      <th>visual_stimulus_right_contrast</th>
+      <th>response_time</th>
+      <th>response_choice</th>
+      <th>feedback_time</th>
+      <th>feedback_type</th>
+      <th>rep_num</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>62.900284</td>
+      <td>67.423484</td>
+      <td>True</td>
+      <td>66.296625</td>
+      <td>65.269408</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>66.419612</td>
+      <td>1.0</td>
+      <td>66.456227</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>68.420838</td>
+      <td>73.604476</td>
+      <td>True</td>
+      <td>72.077117</td>
+      <td>71.202703</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>72.602206</td>
+      <td>-1.0</td>
+      <td>72.640326</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>74.602902</td>
+      <td>78.006757</td>
+      <td>True</td>
+      <td>76.877593</td>
+      <td>76.052380</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>77.001671</td>
+      <td>1.0</td>
+      <td>77.038396</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>79.003653</td>
+      <td>84.506778</td>
+      <td>True</td>
+      <td>81.996875</td>
+      <td>81.235263</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>83.502065</td>
+      <td>0.0</td>
+      <td>83.531699</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>85.501795</td>
+      <td>88.621336</td>
+      <td>True</td>
+      <td>87.462962</td>
+      <td>86.800952</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>87.617727</td>
+      <td>1.0</td>
+      <td>87.628565</td>
+      <td>-1</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group also contains a <code class="docutils literal notranslate"><span class="pre">trials</span></code> dataset and can be used to access the experimental trials similar to what was accomplished in the cell above.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the group of interest </span>
+<span class="n">intervals</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">intervals</span>
+
+<span class="c1"># Subset the dataset from the group and assign it as a dataframe</span>
+<span class="n">interval_trials_df</span> <span class="o">=</span> <span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span class="n">interval_trials_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>start_time</th>
+      <th>stop_time</th>
+      <th>included</th>
+      <th>go_cue</th>
+      <th>visual_stimulus_time</th>
+      <th>visual_stimulus_left_contrast</th>
+      <th>visual_stimulus_right_contrast</th>
+      <th>response_time</th>
+      <th>response_choice</th>
+      <th>feedback_time</th>
+      <th>feedback_type</th>
+      <th>rep_num</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>62.900284</td>
+      <td>67.423484</td>
+      <td>True</td>
+      <td>66.296625</td>
+      <td>65.269408</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>66.419612</td>
+      <td>1.0</td>
+      <td>66.456227</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>68.420838</td>
+      <td>73.604476</td>
+      <td>True</td>
+      <td>72.077117</td>
+      <td>71.202703</td>
+      <td>0.0</td>
+      <td>0.5</td>
+      <td>72.602206</td>
+      <td>-1.0</td>
+      <td>72.640326</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>74.602902</td>
+      <td>78.006757</td>
+      <td>True</td>
+      <td>76.877593</td>
+      <td>76.052380</td>
+      <td>1.0</td>
+      <td>0.5</td>
+      <td>77.001671</td>
+      <td>1.0</td>
+      <td>77.038396</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>79.003653</td>
+      <td>84.506778</td>
+      <td>True</td>
+      <td>81.996875</td>
+      <td>81.235263</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>83.502065</td>
+      <td>0.0</td>
+      <td>83.531699</td>
+      <td>1</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>85.501795</td>
+      <td>88.621336</td>
+      <td>True</td>
+      <td>87.462962</td>
+      <td>86.800952</td>
+      <td>0.5</td>
+      <td>1.0</td>
+      <td>87.617727</td>
+      <td>1.0</td>
+      <td>87.628565</td>
+      <td>-1</td>
+      <td>1.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">description</span></code> attribute provides a short description on each column of the dataframe.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="s1">&#39;feedback_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Enumerated type. -1 for negative feedback (white noise burst); +1 for positive feedback (water reward delivery).
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Writing an NWB file </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test cell </span>
+<span class="n">nwb_file</span><span class="o">.</span><span class="n">intervals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;spontaneous&#39;: spontaneous pynwb.epoch.TimeIntervals at 0x140350724349648
+ Fields:
+   colnames: [&#39;start_time&#39; &#39;stop_time&#39;]
+   columns: (
+     start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
+   )
+   description: Intervals of sufficient duration when nothing else is going on (no task or stimulus presentation
+   id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;,
+ &#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140350724348176
+ Fields:
+   colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;included&#39; &#39;go_cue&#39; &#39;visual_stimulus_time&#39;
+  &#39;visual_stimulus_left_contrast&#39; &#39;visual_stimulus_right_contrast&#39;
+  &#39;response_time&#39; &#39;response_choice&#39; &#39;feedback_time&#39; &#39;feedback_type&#39;
+  &#39;rep_num&#39;]
+   columns: (
+     start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     included &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     go_cue &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     visual_stimulus_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     visual_stimulus_left_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     visual_stimulus_right_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     response_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     response_choice &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     feedback_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     feedback_type &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
+     rep_num &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
+   )
+   description: experimental trials
+   id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;}
 </pre></div>
 </div>
 </div>
