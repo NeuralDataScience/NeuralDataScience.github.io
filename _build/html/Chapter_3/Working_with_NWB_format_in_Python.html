@@ -262,6 +262,11 @@
    3.1.2. File Hierarchy: Groups, Datasets, and Attributes
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#possible-analyses">
+   3.1.3. Possible Analyses
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -298,499 +303,48 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first read the file </span>
 <span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000017/sub-Cori/sub-Cori_ses-20161214T120000.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="n">nwb_file</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root pynwb.file.NWBFile at 0x140457060178576
-Fields:
-  acquisition: {
-    lickPiezo &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    wheel_position &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-  devices: {
-    0 &lt;class &#39;pynwb.device.Device&#39;&gt;,
-    1 &lt;class &#39;pynwb.device.Device&#39;&gt;
-  }
-  electrode_groups: {
-    Probe1 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;,
-    Probe2 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;
-  }
-  electrodes: electrodes &lt;class &#39;hdmf.common.table.DynamicTable&#39;&gt;
-  experiment_description: Large-scale Neuropixels recordings across brain regions of mice during a head-fixed visual discrimination task. 
-  experimenter: [&#39;Nick Steinmetz&#39;]
-  file_create_date: [datetime.datetime(2019, 11, 26, 13, 54, 42, 972670, tzinfo=tzoffset(None, -28800))]
-  identifier: Cori_2016-12-14
-  institution: University College London
-  intervals: {
-    spontaneous &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;,
-    trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
-  }
-  keywords: &lt;HDF5 dataset &quot;keywords&quot;: shape (7,), type &quot;|O&quot;&gt;
-  lab: The Carandini and Harris Lab
-  processing: {
-    behavior &lt;class &#39;pynwb.base.ProcessingModule&#39;&gt;
-  }
-  related_publications: [&#39;DOI 10.1038/s41586-019-1787-x&#39;]
-  session_description: Neuropixels recording during visual discrimination in awake mice.
-  session_start_time: 2016-12-14 12:00:00+00:00
-  stimulus: {
-    passive_beeps &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_click_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_left_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_right_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_white_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    receptive_field_mapping_sparse_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-  subject: subject pynwb.file.Subject at 0x140457108236240
-Fields:
-  age: 77 days
-  description: strain: C57Bl6/J
-  genotype: tetO-G6s x CaMK-tTA
-  sex: F
-  species: Mus musculus
-  subject_id: Cori
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">UnsupportedOperation</span><span class="g g-Whitespace">                      </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">17</span><span class="n">c83d068239</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># first read the file</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000017/sub-Cori/sub-Cori_ses-20161214T120000.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
 
-  timestamps_reference_time: 2016-12-14 12:00:00+00:00
-  trials: trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
-  units: units &lt;class &#39;pynwb.misc.Units&#39;&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># dictionary of all neurodata_type objects in the NWBFile</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nwb_file</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;f9d101b7-2424-450b-9826-78367d4d4789&#39;: root pynwb.file.NWBFile at 0x140457060178576
-Fields:
-  acquisition: {
-    lickPiezo &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    wheel_position &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-  devices: {
-    0 &lt;class &#39;pynwb.device.Device&#39;&gt;,
-    1 &lt;class &#39;pynwb.device.Device&#39;&gt;
-  }
-  electrode_groups: {
-    Probe1 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;,
-    Probe2 &lt;class &#39;pynwb.ecephys.ElectrodeGroup&#39;&gt;
-  }
-  electrodes: electrodes &lt;class &#39;hdmf.common.table.DynamicTable&#39;&gt;
-  experiment_description: Large-scale Neuropixels recordings across brain regions of mice during a head-fixed visual discrimination task. 
-  experimenter: [&#39;Nick Steinmetz&#39;]
-  file_create_date: [datetime.datetime(2019, 11, 26, 13, 54, 42, 972670, tzinfo=tzoffset(None, -28800))]
-  identifier: Cori_2016-12-14
-  institution: University College London
-  intervals: {
-    spontaneous &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;,
-    trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
-  }
-  keywords: &lt;HDF5 dataset &quot;keywords&quot;: shape (7,), type &quot;|O&quot;&gt;
-  lab: The Carandini and Harris Lab
-  processing: {
-    behavior &lt;class &#39;pynwb.base.ProcessingModule&#39;&gt;
-  }
-  related_publications: [&#39;DOI 10.1038/s41586-019-1787-x&#39;]
-  session_description: Neuropixels recording during visual discrimination in awake mice.
-  session_start_time: 2016-12-14 12:00:00+00:00
-  stimulus: {
-    passive_beeps &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_click_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_left_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_right_contrast &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    passive_white_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    receptive_field_mapping_sparse_noise &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-  subject: subject pynwb.file.Subject at 0x140457108236240
-Fields:
-  age: 77 days
-  description: strain: C57Bl6/J
-  genotype: tetO-G6s x CaMK-tTA
-  sex: F
-  species: Mus musculus
-  subject_id: Cori
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">func_call</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">560</span>                 <span class="n">pargs</span> <span class="o">=</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">561</span>                 <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">pargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">562</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">563</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-  timestamps_reference_time: 2016-12-14 12:00:00+00:00
-  trials: trials &lt;class &#39;pynwb.epoch.TimeIntervals&#39;&gt;
-  units: units &lt;class &#39;pynwb.misc.Units&#39;&gt;
-, &#39;9534de6d-c9a2-4306-ad4c-b60b70d8ae4b&#39;: units pynwb.misc.Units at 0x140457108278352
-Fields:
-  colnames: [&#39;peak_channel&#39; &#39;waveform_duration&#39; &#39;phy_annotations&#39; &#39;cluster_depths&#39;
- &#39;sampling_rate&#39; &#39;spike_times&#39; &#39;electrodes&#39; &#39;electrode_group&#39;
- &#39;waveform_mean&#39; &#39;spike_amps&#39; &#39;spike_depths&#39;]
-  columns: (
-    peak_channel &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    waveform_duration &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    phy_annotations &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    cluster_depths &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    sampling_rate &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    spike_times_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
-    spike_times &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    electrodes_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
-    electrodes &lt;class &#39;hdmf.common.table.DynamicTableRegion&#39;&gt;,
-    electrode_group &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    waveform_mean &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    spike_amps_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
-    spike_amps &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    spike_depths_index &lt;class &#39;hdmf.common.table.VectorIndex&#39;&gt;,
-    spike_depths &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
-  )
-  description: Autogenerated by NWBFile
-  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
-  waveform_unit: volts
-, &#39;c4e74cad-fecd-4445-a148-d1a3f9f1336a&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d93d0&gt;, &#39;ea2f8bd7-0248-45cf-b164-5edca411c5eb&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80d94d0&gt;, &#39;252aa4db-072c-4934-bc9b-b2a248be7502&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d92d0&gt;, &#39;14378ac2-a755-48df-b930-fb47738ee0ec&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80d9390&gt;, &#39;a6a600f7-0018-4411-8d36-873218e1a878&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cbd50&gt;, &#39;53d491c8-4abc-4584-a0ff-f142805f5b4f&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cbcd0&gt;, &#39;96c9443d-2a36-4229-b731-9a73dc63a57f&#39;: electrodes hdmf.common.table.DynamicTableRegion at 0x140457108356048
-    Target table: electrodes hdmf.common.table.DynamicTable at 0x140457108234512
-, &#39;28e40a56-4578-45a2-8c3c-9bac8fbf6168&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80cb890&gt;, &#39;3a9a3535-d574-4e0d-b547-f5e93b4c03c5&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb7d0&gt;, &#39;83a61368-49c5-4a34-914b-c5661736491e&#39;: &lt;hdmf.common.table.VectorIndex object at 0x7fbeb80cb390&gt;, &#39;654c5fad-188b-493c-896f-b4aa61bb330e&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9210&gt;, &#39;706e6dca-7742-4da7-9b99-cd72b3806ba0&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cbf50&gt;, &#39;c2da8ac8-bc8c-4209-bf5e-01762a9be25c&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9150&gt;, &#39;06cfe852-7554-40d9-8a71-0c2aa65d2dee&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9590&gt;, &#39;464a84f1-b148-4207-bd69-3a44e013c087&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80d9050&gt;, &#39;512bbeea-434e-4388-a787-d5514894641c&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80cbe10&gt;, &#39;25871dc0-7cce-40ea-8c95-0868907e417c&#39;: subject pynwb.file.Subject at 0x140457108236240
-Fields:
-  age: 77 days
-  description: strain: C57Bl6/J
-  genotype: tetO-G6s x CaMK-tTA
-  sex: F
-  species: Mus musculus
-  subject_id: Cori
-, &#39;fdfd97fd-cbb4-4e47-9a49-7d50a50bafdc&#39;: trials pynwb.epoch.TimeIntervals at 0x140457108276432
-Fields:
-  colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;included&#39; &#39;go_cue&#39; &#39;visual_stimulus_time&#39;
- &#39;visual_stimulus_left_contrast&#39; &#39;visual_stimulus_right_contrast&#39;
- &#39;response_time&#39; &#39;response_choice&#39; &#39;feedback_time&#39; &#39;feedback_type&#39;
- &#39;rep_num&#39;]
-  columns: (
-    start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    included &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    go_cue &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    visual_stimulus_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    visual_stimulus_left_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    visual_stimulus_right_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    response_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    response_choice &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    feedback_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    feedback_type &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    rep_num &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
-  )
-  description: experimental trials
-  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
-, &#39;5ebd7fe8-f88e-452d-bea5-83c585e4d26d&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb190&gt;, &#39;b8c8babd-b375-41e2-951c-0e7d746d3ede&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8990&gt;, &#39;7f36bd86-e494-4467-831d-f62ae26d8535&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8fd0&gt;, &#39;ab38a2ba-fcfc-4a4b-bf01-c3692fd9f32f&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb3d0&gt;, &#39;baefa44b-fc37-4cf1-b903-5aeca7213ee3&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb2d0&gt;, &#39;97d67c70-6acb-4b47-b198-2e131b8073d0&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb810&gt;, &#39;c97b0a88-02f8-452e-ad16-d02735539138&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb250&gt;, &#39;b2c81eef-c1d3-4a08-a98c-b786e0c565a1&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb8d0&gt;, &#39;4c1242cf-49a7-44d7-9125-fab69652698d&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8bd0&gt;, &#39;dfc1cf35-49ee-4dda-bba2-f37bff54b767&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8f10&gt;, &#39;6d19ab8e-761b-44cb-a80b-7d147ce68192&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8a90&gt;, &#39;43b09b91-3eb3-4caf-8444-a24807e7051d&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8d50&gt;, &#39;3058a290-1b90-4058-935f-ccc802391855&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80b87d0&gt;, &#39;7a881b6c-1e07-4083-9523-021d2bddbd6d&#39;: spontaneous pynwb.epoch.TimeIntervals at 0x140457108279184
-Fields:
-  colnames: [&#39;start_time&#39; &#39;stop_time&#39;]
-  columns: (
-    start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
-  )
-  description: Intervals of sufficient duration when nothing else is going on (no task or stimulus presentation
-  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
-, &#39;3d12e243-df4e-4319-83d9-ab302c472c32&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8c10&gt;, &#39;02019da0-aa7c-4789-ba44-33b171c7a2ec&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8610&gt;, &#39;6016cda5-6636-4193-bd9c-227ffa85c5fb&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80b8b10&gt;, &#39;3381260e-26e2-4a70-87d2-5c833e0dc04e&#39;: 1 pynwb.device.Device at 0x140457108275664, &#39;e32ff3fa-8c72-4049-879c-20de5d73adb4&#39;: 0 pynwb.device.Device at 0x140457108045584, &#39;7ca74dbb-4052-4f23-8dbf-e1a131aff667&#39;: Probe2 pynwb.ecephys.ElectrodeGroup at 0x140457108237584
-Fields:
-  description: Neuropixels Phase3A opt3
-  device: 1 pynwb.device.Device at 0x140457108275664
-, &#39;9330a605-35ec-490a-a480-57289d55248a&#39;: Probe1 pynwb.ecephys.ElectrodeGroup at 0x140457108238096
-Fields:
-  description: Neuropixels Phase3A opt3
-  device: 0 pynwb.device.Device at 0x140457108045584
-, &#39;2034fa87-2a33-49c7-8752-6ae9af6645fe&#39;: electrodes hdmf.common.table.DynamicTable at 0x140457108234512
-Fields:
-  colnames: [&#39;x&#39; &#39;y&#39; &#39;z&#39; &#39;imp&#39; &#39;location&#39; &#39;filtering&#39; &#39;group&#39; &#39;group_name&#39; &#39;site_id&#39;
- &#39;site_position&#39; &#39;ccf_ap&#39; &#39;ccf_dv&#39; &#39;ccf_lr&#39; &#39;entry_point_rl&#39;
- &#39;entry_point_ap&#39; &#39;vertical_angle&#39; &#39;horizontal_angle&#39; &#39;axial_angle&#39;
- &#39;distance_advanced&#39;]
-  columns: (
-    x &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    y &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    z &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    imp &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    location &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    filtering &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    group &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    group_name &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    site_id &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    site_position &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    ccf_ap &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    ccf_dv &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    ccf_lr &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    entry_point_rl &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    entry_point_ap &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    vertical_angle &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    horizontal_angle &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    axial_angle &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-    distance_advanced &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
-  )
-  description: metadata about extracellular electrodes
-  id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;
-, &#39;a2fbe18e-2c17-410b-8d54-fae9194e8d19&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8910&gt;, &#39;df116c6c-8cdf-435e-96ca-7aab377a7fa7&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8650&gt;, &#39;6a56c0d8-62f0-4e4c-8153-77fe86745064&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8dd0&gt;, &#39;7108497f-f17f-493f-b616-13b6cd360f56&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb1d0&gt;, &#39;e8b53461-c02f-4659-945b-97c5bd81c9f1&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8a10&gt;, &#39;06bac8b1-0226-4d24-89c1-9c6548a4978a&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8ad0&gt;, &#39;f19c234c-b343-4a05-9ba5-d4cc8250507a&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8850&gt;, &#39;af4579bb-219c-4dd3-a459-790f96e975a8&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8790&gt;, &#39;ea98b1f3-b7b5-473c-872b-4b72403bb6ed&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b86d0&gt;, &#39;a458bed1-02db-4955-bbc9-dfc6a212ea07&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb110&gt;, &#39;39fa1809-03ac-44f7-9f17-378e1b9cb1bb&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb050&gt;, &#39;f226ce51-ac75-40c8-b7a1-10de9734e425&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8d90&gt;, &#39;695ca7d7-261f-4072-b051-ced2fb6c3497&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8cd0&gt;, &#39;ff79fae1-6e98-4c60-b6df-196357902338&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8b90&gt;, &#39;979cb1ab-3720-4042-8405-4e634de63a28&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8f50&gt;, &#39;7528c019-4746-4c57-811e-36a921cefd98&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80b8e90&gt;, &#39;c1a6b67e-f98c-4135-a8a1-01d55a81e481&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb410&gt;, &#39;0aa13cee-a8f2-455a-94d1-858b9685ace8&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb350&gt;, &#39;2ef3d762-1d95-43cf-b9b8-5c22da37f6c7&#39;: &lt;hdmf.common.table.VectorData object at 0x7fbeb80cb290&gt;, &#39;bcc97c5f-f00b-401e-9059-2d95eb2e831b&#39;: &lt;hdmf.common.table.ElementIdentifiers object at 0x7fbeb80b8090&gt;, &#39;08c8bf42-99b8-4136-a62e-2fe1c4481e4e&#39;: behavior pynwb.base.ProcessingModule at 0x140457108043472
-Fields:
-  data_interfaces: {
-    BehavioralEpochs &lt;class &#39;pynwb.behavior.BehavioralEpochs&#39;&gt;,
-    BehavioralEvents &lt;class &#39;pynwb.behavior.BehavioralEvents&#39;&gt;,
-    BehavioralTimeSeries &lt;class &#39;pynwb.behavior.BehavioralTimeSeries&#39;&gt;,
-    PupilTracking &lt;class &#39;pynwb.behavior.PupilTracking&#39;&gt;
-  }
-  description: behavior module
-, &#39;b70d3330-301c-4870-8a40-f81b7b2d6c28&#39;: PupilTracking pynwb.behavior.PupilTracking at 0x140457108235280
-Fields:
-  time_series: {
-    eye_area &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
-    eye_xy_positions &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-, &#39;cf65a692-c210-49df-ab4d-abc7e89dc790&#39;: eye_xy_positions pynwb.base.TimeSeries at 0x140457108235728
-Fields:
-  comments: The 2D position of the center of the pupil in the video frame. This is not registered to degrees visual angle, but could be used to detect saccades or other changes in eye position.
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (267759, 2), type &quot;&lt;f8&quot;&gt;
-  description: Features extracted from the video of the right eye.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (267759,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: arb. unit
-, &#39;fa8d3f7e-3d35-4ca6-85fd-c3f714a8c640&#39;: eye_area pynwb.base.TimeSeries at 0x140457108235408
-Fields:
-  comments: The area of the pupil extracted with DeepLabCut. Note that it is relatively very small during the discrimination task and during the passive replay because the three screens are medium-grey at this time and black elsewhere - so the much brighter overall luminance levels lead to relatively constricted pupils.
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (267759,), type &quot;&lt;f8&quot;&gt;
-  description: Features extracted from the video of the right eye.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (267759,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: arb. unit
-, &#39;0a026b53-a3a0-4d04-80f1-ce63caadc46f&#39;: BehavioralTimeSeries pynwb.behavior.BehavioralTimeSeries at 0x140457108044944
-Fields:
-  time_series: {
-    face_motion_energy &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-, &#39;2c33f81b-4bc2-4f61-bcc5-640eaa91f8d6&#39;: face_motion_energy pynwb.base.TimeSeries at 0x140457108234960
-Fields:
-  comments: The integrated motion energy across the whole frame, i.e. sum( (thisFrame-lastFrame)^2 ). Some smoothing is applied before this operation.
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (106067,), type &quot;&lt;f8&quot;&gt;
-  description: Features extracted from the video of the frontal aspect of the subject, including the subject&#39;s face and forearms.
-  rate: 0.025246256960525466
-  resolution: -1.0
-  starting_time: 16.07188294974754
-  starting_time_unit: seconds
-  unit: arb. unit
-, &#39;7cc6299d-5706-4aa5-a903-e922ec20f260&#39;: BehavioralEvents pynwb.behavior.BehavioralEvents at 0x140457108045328
-Fields:
-  time_series: {
-    lick_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
-  }
-, &#39;e28aaea4-0f29-4025-a22a-34fbea8acf4d&#39;: lick_times pynwb.base.TimeSeries at 0x140457108044688
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (3190,), type &quot;|b1&quot;&gt;
-  description: Extracted times of licks, from the lickPiezo signal.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (3190,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: n/a
-, &#39;68bd58ae-f7bd-4572-b883-cb740d351bff&#39;: BehavioralEpochs pynwb.behavior.BehavioralEpochs at 0x140457108044240
-Fields:
-  interval_series: {
-    wheel_moves &lt;class &#39;pynwb.misc.IntervalSeries&#39;&gt;
-  }
-, &#39;ac2f0e4d-1f97-4b95-8980-2b9ccb77585d&#39;: wheel_moves pynwb.misc.IntervalSeries at 0x140457108044432
-Fields:
-  comments: 0 for &#39;flinches&#39; or otherwise unclassified movements, 1 for left/clockwise turns, 2 for right/counter-clockwise turns (where again &quot;left&quot; means &quot;would be the correct direction for a stimulus presented on the left). A detected movement is counted as &#39;left&#39; or &#39;right&#39; only if it was sufficient amplitude that it would have registered a correct response (and possibly did), within a minimum amount of time from the start of the movement. Movements failing those criteria are flinch/unclassified type.
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (507,), type &quot;&lt;i8&quot;&gt;
-  description: Detected wheel movements.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (1014,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: n/a
-, &#39;efa475e4-51db-49cb-9ded-3db16a97ce17&#39;: receptive_field_mapping_sparse_noise pynwb.base.TimeSeries at 0x140457108275536
-Fields:
-  comments: The altitude (first column) and azimuth (second column) of the square.
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (7962, 2), type &quot;&lt;f8&quot;&gt;
-  description: White squares shown on the screen with randomized positions and timing - see manuscript Methods.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (7962,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: degrees visual angle
-, &#39;51516f1d-29fd-488b-873f-120556d5278d&#39;: passive_white_noise pynwb.base.TimeSeries at 0x140457108237840
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
-  description: The sound that accompanies an incorrect response during the discrimination task.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: n/a
-, &#39;5d7093d2-d1c0-468f-a505-25d0e0af9c05&#39;: passive_right_contrast pynwb.base.TimeSeries at 0x140457108237328
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
-  description: Gratings of the same size, spatial freq, position, etc as during the discrimination task.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: proportion contrast
-, &#39;3688d0e3-e5ec-4941-8ece-9e0bf440dfb9&#39;: passive_left_contrast pynwb.base.TimeSeries at 0x140457108236816
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
-  description: Gratings of the same size, spatial freq, position, etc as during the discrimination task.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: proportion contrast
-, &#39;6f83cca5-e979-40a7-83ce-70148e322a0b&#39;: passive_click_times pynwb.base.TimeSeries at 0x140457108235536
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
-  description: Opening of the reward valve, but with a clamp in place such that no water flows. Therefore the auditory sound of the valve is heard, but no water reward is obtained.
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: n/a
-, &#39;c59934ee-c7b2-43e7-80b8-cb97f86b334c&#39;: passive_beeps pynwb.base.TimeSeries at 0x140457108043728
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
-  description: Auditory tones of the same frequency as the auditory tone cue in the task
-  interval: 1
-  resolution: -1.0
-  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
-  timestamps_unit: seconds
-  unit: n/a
-, &#39;16a7b133-a24c-4357-9011-95849d03d3d2&#39;: wheel_position pynwb.base.TimeSeries at 0x140457108043152
-Fields:
-  comments: The wheel has radius 31 mm and 1440 ticks per revolution, so multiply by 2*pi*r/tpr=0.135 to convert to millimeters. Positive velocity (increasing numbers) correspond to clockwise turns (if looking at the wheel from behind the mouse), i.e. turns that are in the correct direction for stimuli presented to the left. Likewise negative velocity corresponds to right choices.
-  conversion: 0.135
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (6570000,), type &quot;&lt;f8&quot;&gt;
-  description: The position reading of the rotary encoder attached to the rubber wheel that the mouse pushes left and right with his forelimbs.
-  rate: 0.00040000637758912496
-  resolution: -1.0
-  starting_time: 33.65250410481991
-  starting_time_unit: seconds
-  unit: mm
-, &#39;0a2a38d9-6ac3-47fb-9988-26035274605c&#39;: lickPiezo pynwb.base.TimeSeries at 0x140457108043024
-Fields:
-  comments: no comments
-  conversion: 1.0
-  data: &lt;HDF5 dataset &quot;data&quot;: shape (1314000,), type &quot;&lt;f8&quot;&gt;
-  description: Voltage values from a thin-film piezo connected to the lick spout, so that values are proportional to deflection of the spout and licks can be detected as peaks of the signal.
-  rate: 0.002000031887945625
-  resolution: -1.0
-  starting_time: 33.65250410481991
-  starting_time_unit: seconds
-  unit: V
-}
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># loop though objections dictionary </span>
-<span class="c1"># returns the obeject ID along with the type </span>
-<span class="c1"># and the object name </span>
-<span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1"> &quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">object_id</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">neurodata_type</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>f9d101b7-2424-450b-9826-78367d4d4789: NWBFile &quot;root&quot;
-9534de6d-c9a2-4306-ad4c-b60b70d8ae4b: Units &quot;units&quot;
-c4e74cad-fecd-4445-a148-d1a3f9f1336a: VectorData &quot;spike_depths&quot;
-ea2f8bd7-0248-45cf-b164-5edca411c5eb: VectorIndex &quot;spike_depths_index&quot;
-252aa4db-072c-4934-bc9b-b2a248be7502: VectorData &quot;spike_amps&quot;
-14378ac2-a755-48df-b930-fb47738ee0ec: VectorIndex &quot;spike_amps_index&quot;
-a6a600f7-0018-4411-8d36-873218e1a878: VectorData &quot;waveform_mean&quot;
-53d491c8-4abc-4584-a0ff-f142805f5b4f: VectorData &quot;electrode_group&quot;
-96c9443d-2a36-4229-b731-9a73dc63a57f: DynamicTableRegion &quot;electrodes&quot;
-28e40a56-4578-45a2-8c3c-9bac8fbf6168: VectorIndex &quot;electrodes_index&quot;
-3a9a3535-d574-4e0d-b547-f5e93b4c03c5: VectorData &quot;spike_times&quot;
-83a61368-49c5-4a34-914b-c5661736491e: VectorIndex &quot;spike_times_index&quot;
-654c5fad-188b-493c-896f-b4aa61bb330e: VectorData &quot;sampling_rate&quot;
-706e6dca-7742-4da7-9b99-cd72b3806ba0: VectorData &quot;cluster_depths&quot;
-c2da8ac8-bc8c-4209-bf5e-01762a9be25c: VectorData &quot;phy_annotations&quot;
-06cfe852-7554-40d9-8a71-0c2aa65d2dee: VectorData &quot;waveform_duration&quot;
-464a84f1-b148-4207-bd69-3a44e013c087: VectorData &quot;peak_channel&quot;
-512bbeea-434e-4388-a787-d5514894641c: ElementIdentifiers &quot;id&quot;
-25871dc0-7cce-40ea-8c95-0868907e417c: Subject &quot;subject&quot;
-fdfd97fd-cbb4-4e47-9a49-7d50a50bafdc: TimeIntervals &quot;trials&quot;
-5ebd7fe8-f88e-452d-bea5-83c585e4d26d: VectorData &quot;rep_num&quot;
-b8c8babd-b375-41e2-951c-0e7d746d3ede: VectorData &quot;feedback_type&quot;
-7f36bd86-e494-4467-831d-f62ae26d8535: VectorData &quot;feedback_time&quot;
-ab38a2ba-fcfc-4a4b-bf01-c3692fd9f32f: VectorData &quot;response_choice&quot;
-baefa44b-fc37-4cf1-b903-5aeca7213ee3: VectorData &quot;response_time&quot;
-97d67c70-6acb-4b47-b198-2e131b8073d0: VectorData &quot;visual_stimulus_right_contrast&quot;
-c97b0a88-02f8-452e-ad16-d02735539138: VectorData &quot;visual_stimulus_left_contrast&quot;
-b2c81eef-c1d3-4a08-a98c-b786e0c565a1: VectorData &quot;visual_stimulus_time&quot;
-4c1242cf-49a7-44d7-9125-fab69652698d: VectorData &quot;go_cue&quot;
-dfc1cf35-49ee-4dda-bba2-f37bff54b767: VectorData &quot;included&quot;
-6d19ab8e-761b-44cb-a80b-7d147ce68192: VectorData &quot;stop_time&quot;
-43b09b91-3eb3-4caf-8444-a24807e7051d: VectorData &quot;start_time&quot;
-3058a290-1b90-4058-935f-ccc802391855: ElementIdentifiers &quot;id&quot;
-7a881b6c-1e07-4083-9523-021d2bddbd6d: TimeIntervals &quot;spontaneous&quot;
-3d12e243-df4e-4319-83d9-ab302c472c32: VectorData &quot;stop_time&quot;
-02019da0-aa7c-4789-ba44-33b171c7a2ec: VectorData &quot;start_time&quot;
-6016cda5-6636-4193-bd9c-227ffa85c5fb: ElementIdentifiers &quot;id&quot;
-3381260e-26e2-4a70-87d2-5c833e0dc04e: Device &quot;1&quot;
-e32ff3fa-8c72-4049-879c-20de5d73adb4: Device &quot;0&quot;
-7ca74dbb-4052-4f23-8dbf-e1a131aff667: ElectrodeGroup &quot;Probe2&quot;
-9330a605-35ec-490a-a480-57289d55248a: ElectrodeGroup &quot;Probe1&quot;
-2034fa87-2a33-49c7-8752-6ae9af6645fe: DynamicTable &quot;electrodes&quot;
-a2fbe18e-2c17-410b-8d54-fae9194e8d19: VectorData &quot;distance_advanced&quot;
-df116c6c-8cdf-435e-96ca-7aab377a7fa7: VectorData &quot;axial_angle&quot;
-6a56c0d8-62f0-4e4c-8153-77fe86745064: VectorData &quot;horizontal_angle&quot;
-7108497f-f17f-493f-b616-13b6cd360f56: VectorData &quot;vertical_angle&quot;
-e8b53461-c02f-4659-945b-97c5bd81c9f1: VectorData &quot;entry_point_ap&quot;
-06bac8b1-0226-4d24-89c1-9c6548a4978a: VectorData &quot;entry_point_rl&quot;
-f19c234c-b343-4a05-9ba5-d4cc8250507a: VectorData &quot;ccf_lr&quot;
-af4579bb-219c-4dd3-a459-790f96e975a8: VectorData &quot;ccf_dv&quot;
-ea98b1f3-b7b5-473c-872b-4b72403bb6ed: VectorData &quot;ccf_ap&quot;
-a458bed1-02db-4955-bbc9-dfc6a212ea07: VectorData &quot;site_position&quot;
-39fa1809-03ac-44f7-9f17-378e1b9cb1bb: VectorData &quot;site_id&quot;
-f226ce51-ac75-40c8-b7a1-10de9734e425: VectorData &quot;group_name&quot;
-695ca7d7-261f-4072-b051-ced2fb6c3497: VectorData &quot;group&quot;
-ff79fae1-6e98-4c60-b6df-196357902338: VectorData &quot;filtering&quot;
-979cb1ab-3720-4042-8405-4e634de63a28: VectorData &quot;location&quot;
-7528c019-4746-4c57-811e-36a921cefd98: VectorData &quot;imp&quot;
-c1a6b67e-f98c-4135-a8a1-01d55a81e481: VectorData &quot;z&quot;
-0aa13cee-a8f2-455a-94d1-858b9685ace8: VectorData &quot;y&quot;
-2ef3d762-1d95-43cf-b9b8-5c22da37f6c7: VectorData &quot;x&quot;
-bcc97c5f-f00b-401e-9059-2d95eb2e831b: ElementIdentifiers &quot;id&quot;
-08c8bf42-99b8-4136-a62e-2fe1c4481e4e: ProcessingModule &quot;behavior&quot;
-b70d3330-301c-4870-8a40-f81b7b2d6c28: PupilTracking &quot;PupilTracking&quot;
-cf65a692-c210-49df-ab4d-abc7e89dc790: TimeSeries &quot;eye_xy_positions&quot;
-fa8d3f7e-3d35-4ca6-85fd-c3f714a8c640: TimeSeries &quot;eye_area&quot;
-0a026b53-a3a0-4d04-80f1-ce63caadc46f: BehavioralTimeSeries &quot;BehavioralTimeSeries&quot;
-2c33f81b-4bc2-4f61-bcc5-640eaa91f8d6: TimeSeries &quot;face_motion_energy&quot;
-7cc6299d-5706-4aa5-a903-e922ec20f260: BehavioralEvents &quot;BehavioralEvents&quot;
-e28aaea4-0f29-4025-a22a-34fbea8acf4d: TimeSeries &quot;lick_times&quot;
-68bd58ae-f7bd-4572-b883-cb740d351bff: BehavioralEpochs &quot;BehavioralEpochs&quot;
-ac2f0e4d-1f97-4b95-8980-2b9ccb77585d: IntervalSeries &quot;wheel_moves&quot;
-efa475e4-51db-49cb-9ded-3db16a97ce17: TimeSeries &quot;receptive_field_mapping_sparse_noise&quot;
-51516f1d-29fd-488b-873f-120556d5278d: TimeSeries &quot;passive_white_noise&quot;
-5d7093d2-d1c0-468f-a505-25d0e0af9c05: TimeSeries &quot;passive_right_contrast&quot;
-3688d0e3-e5ec-4941-8ece-9e0bf440dfb9: TimeSeries &quot;passive_left_contrast&quot;
-6f83cca5-e979-40a7-83ce-70148e322a0b: TimeSeries &quot;passive_click_times&quot;
-c59934ee-c7b2-43e7-80b8-cb97f86b334c: TimeSeries &quot;passive_beeps&quot;
-16a7b133-a24c-4357-9011-95849d03d3d2: TimeSeries &quot;wheel_position&quot;
-0a2a38d9-6ac3-47fb-9988-26035274605c: TimeSeries &quot;lickPiezo&quot;
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/pynwb/__init__.py</span> in <span class="ni">__init__</span><span class="nt">(self, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span>             <span class="k">elif</span> <span class="n">manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">245</span>                 <span class="n">manager</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span>
+<span class="ne">--&gt; </span><span class="mi">246</span>         <span class="nb">super</span><span class="p">(</span><span class="n">NWBHDF5IO</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="n">manager</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file_obj</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="n">comm</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">247</span> 
+<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="nd">@docval</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;src_io&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">HDMFIO</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;the HDMFIO object for reading the data to export&#39;</span><span class="p">},</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">func_call</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">559</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">560</span>                 <span class="n">pargs</span> <span class="o">=</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">561</span>                 <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">pargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">562</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">563</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/hdmf/backends/hdf5/h5tools.py</span> in <span class="ni">__init__</span><span class="nt">(self, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">53</span>         <span class="k">if</span> <span class="n">file_obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r+&#39;</span><span class="p">):</span>
+<span class="nn">     54             msg = &quot;Unable to open file %s</span> in <span class="ni">&#39;%s&#39; mode. File does not exist.&quot; % </span><span class="nt">(path, mode)</span>
+<span class="ne">---&gt; </span><span class="mi">55</span>             <span class="k">raise</span> <span class="n">UnsupportedOperation</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span> 
+<span class="g g-Whitespace">     </span><span class="mi">57</span>         <span class="k">if</span> <span class="n">file_obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;w-&#39;</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">):</span>
+
+<span class="ne">UnsupportedOperation</span>: Unable to open file 000017/sub-Cori/sub-Cori_ses-20161214T120000.nwb in &#39;r&#39; mode. File does not exist.
 </pre></div>
 </div>
 </div>
@@ -844,7 +398,7 @@ c59934ee-c7b2-43e7-80b8-cb97f86b334c: TimeSeries &quot;passive_beeps&quot;
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lickPiezo&#39;: lickPiezo pynwb.base.TimeSeries at 0x140457108043024
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lickPiezo&#39;: lickPiezo pynwb.base.TimeSeries at 0x140437403596048
  Fields:
    comments: no comments
    conversion: 1.0
@@ -855,7 +409,7 @@ c59934ee-c7b2-43e7-80b8-cb97f86b334c: TimeSeries &quot;passive_beeps&quot;
    starting_time: 33.65250410481991
    starting_time_unit: seconds
    unit: V,
- &#39;wheel_position&#39;: wheel_position pynwb.base.TimeSeries at 0x140457108043152
+ &#39;wheel_position&#39;: wheel_position pynwb.base.TimeSeries at 0x140437403596176
  Fields:
    comments: The wheel has radius 31 mm and 1440 ticks per revolution, so multiply by 2*pi*r/tpr=0.135 to convert to millimeters. Positive velocity (increasing numbers) correspond to clockwise turns (if looking at the wheel from behind the mouse), i.e. turns that are in the correct direction for stimuli presented to the left. Likewise negative velocity corresponds to right choices.
    conversion: 0.135
@@ -877,189 +431,109 @@ c59934ee-c7b2-43e7-80b8-cb97f86b334c: TimeSeries &quot;passive_beeps&quot;
 <span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;lickPiezo&#39;</span>
 <span class="n">lickPiezo_ds</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
 
-<span class="c1"># return data array </span>
-<span class="n">lickPiezo_data_array</span> <span class="o">=</span> <span class="n">wheel_pos_in</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+<span class="c1"># return first 20 values in data array </span>
+<span class="n">lickPiezo_data_array</span> <span class="o">=</span> <span class="n">lickPiezo_ds</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">lickPiezo_data_array</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">9</span><span class="o">-</span><span class="mi">0</span><span class="n">c27b7287873</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># return data array</span>
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">lickPiezo_data_array</span> <span class="o">=</span> <span class="n">wheel_pos_in</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> 
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="nb">print</span><span class="p">(</span><span class="n">lickPiezo_data_array</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;wheel_pos_in&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[3.18436567 3.4575181  3.63766762 3.71285813 3.68129979 3.55107522
+ 3.33830297 3.06425065 2.75209663 2.42396281 2.09870512 1.7906713
+ 1.50938029 1.25993802 1.04387904 0.85846741 0.69874522 0.56921781
+ 0.46425845 0.37914098]
 </pre></div>
 </div>
 </div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">processing</span></code> group in our <code class="docutils literal notranslate"><span class="pre">nwb_file</span></code> contains all of our processed data for scientific analysis. Within the procesing group there are mulitple subgroups that belong to the <code class="docutils literal notranslate"><span class="pre">behavior</span></code> module. <code class="docutils literal notranslate"><span class="pre">BehavioralEpochs</span></code>, <code class="docutils literal notranslate"><span class="pre">BehavioralEvents</span></code>, <code class="docutils literal notranslate"><span class="pre">BehavioralEvents</span></code>, and <code class="docutils literal notranslate"><span class="pre">PupilTracking</span></code> are seperate groups encapsulated within <code class="docutils literal notranslate"><span class="pre">behavior</span></code> and contain their own datasets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># testing out each key for nwb file </span>
-<span class="c1"># &#39;units&#39; seems to return data that was recorded </span>
-<span class="n">nwb_file</span><span class="o">.</span><span class="n">processing</span><span class="p">[</span><span class="s1">&#39;behavior&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># return meta data for prcessing group</span>
+<span class="n">nwb_file</span><span class="o">.</span><span class="n">processing</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>behavior pynwb.base.ProcessingModule at 0x140350722931408
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;behavior&#39;: behavior pynwb.base.ProcessingModule at 0x140437403596496
+ Fields:
+   data_interfaces: {
+     BehavioralEpochs &lt;class &#39;pynwb.behavior.BehavioralEpochs&#39;&gt;,
+     BehavioralEvents &lt;class &#39;pynwb.behavior.BehavioralEvents&#39;&gt;,
+     BehavioralTimeSeries &lt;class &#39;pynwb.behavior.BehavioralTimeSeries&#39;&gt;,
+     PupilTracking &lt;class &#39;pynwb.behavior.PupilTracking&#39;&gt;
+   }
+   description: behavior module}
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we subset <code class="docutils literal notranslate"><span class="pre">PupilTracking</span></code> from <code class="docutils literal notranslate"><span class="pre">behavior</span></code> we can see that it contains two datasets. We can do as we did before and subset our dataset of interst and return the actual data array by executing <code class="docutils literal notranslate"><span class="pre">data[:]</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># assign behavior group to variable </span>
+<span class="n">behavior</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">processing</span><span class="p">[</span><span class="s1">&#39;behavior&#39;</span><span class="p">]</span>
+
+<span class="c1"># subset PupilTracking group from behavior group </span>
+<span class="n">pupil_tracking</span> <span class="o">=</span> <span class="n">behavior</span><span class="p">[</span><span class="s1">&#39;PupilTracking&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pupil_tracking</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PupilTracking pynwb.behavior.PupilTracking at 0x140437405881424
 Fields:
-  data_interfaces: {
-    BehavioralEpochs &lt;class &#39;pynwb.behavior.BehavioralEpochs&#39;&gt;,
-    BehavioralEvents &lt;class &#39;pynwb.behavior.BehavioralEvents&#39;&gt;,
-    BehavioralTimeSeries &lt;class &#39;pynwb.behavior.BehavioralTimeSeries&#39;&gt;,
-    PupilTracking &lt;class &#39;pynwb.behavior.PupilTracking&#39;&gt;
+  time_series: {
+    eye_area &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
+    eye_xy_positions &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;
   }
-  description: behavior module
 </pre></div>
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">trials</span></code> Group contains data from our experimental trials such as start/stop time, response time, feedback time, etc. You can return the trials data as a dataframe by using the <code class="docutils literal notranslate"><span class="pre">to_dataframe</span></code> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># trials table</span>
-<span class="n">trials</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">trials</span>
-<span class="n">trials_df</span> <span class="o">=</span> <span class="n">trials</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
-<span class="n">trials_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># subset the eye_xy_positions dataset</span>
+<span class="n">eye_xy_positions</span> <span class="o">=</span> <span class="n">pupil_tracking</span><span class="p">[</span><span class="s1">&#39;eye_xy_positions&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eye_xy_positions</span><span class="p">)</span>
+
+<span class="c1"># return firsy 10 entires in actual data array</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Eye (x,y) positions:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eye_xy_positions</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>eye_xy_positions pynwb.base.TimeSeries at 0x140437405881872
+Fields:
+  comments: The 2D position of the center of the pupil in the video frame. This is not registered to degrees visual angle, but could be used to detect saccades or other changes in eye position.
+  conversion: 1.0
+  data: &lt;HDF5 dataset &quot;data&quot;: shape (267759, 2), type &quot;&lt;f8&quot;&gt;
+  description: Features extracted from the video of the right eye.
+  interval: 1
+  resolution: -1.0
+  timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (267759,), type &quot;&lt;f8&quot;&gt;
+  timestamps_unit: seconds
+  unit: arb. unit
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>start_time</th>
-      <th>stop_time</th>
-      <th>included</th>
-      <th>go_cue</th>
-      <th>visual_stimulus_time</th>
-      <th>visual_stimulus_left_contrast</th>
-      <th>visual_stimulus_right_contrast</th>
-      <th>response_time</th>
-      <th>response_choice</th>
-      <th>feedback_time</th>
-      <th>feedback_type</th>
-      <th>rep_num</th>
-    </tr>
-    <tr>
-      <th>id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>62.900284</td>
-      <td>67.423484</td>
-      <td>True</td>
-      <td>66.296625</td>
-      <td>65.269408</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>66.419612</td>
-      <td>1.0</td>
-      <td>66.456227</td>
-      <td>1</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>68.420838</td>
-      <td>73.604476</td>
-      <td>True</td>
-      <td>72.077117</td>
-      <td>71.202703</td>
-      <td>0.0</td>
-      <td>0.5</td>
-      <td>72.602206</td>
-      <td>-1.0</td>
-      <td>72.640326</td>
-      <td>1</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>74.602902</td>
-      <td>78.006757</td>
-      <td>True</td>
-      <td>76.877593</td>
-      <td>76.052380</td>
-      <td>1.0</td>
-      <td>0.5</td>
-      <td>77.001671</td>
-      <td>1.0</td>
-      <td>77.038396</td>
-      <td>1</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>79.003653</td>
-      <td>84.506778</td>
-      <td>True</td>
-      <td>81.996875</td>
-      <td>81.235263</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>83.502065</td>
-      <td>0.0</td>
-      <td>83.531699</td>
-      <td>1</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>85.501795</td>
-      <td>88.621336</td>
-      <td>True</td>
-      <td>87.462962</td>
-      <td>86.800952</td>
-      <td>0.5</td>
-      <td>1.0</td>
-      <td>87.617727</td>
-      <td>1.0</td>
-      <td>87.628565</td>
-      <td>-1</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+ Eye (x,y) positions:
+[[1.56599408 0.06802196]
+ [1.58213078 0.05515582]
+ [1.5796662  0.14542675]
+ [1.57286532 0.13382707]
+ [1.57185696 0.01200337]
+ [1.58985626 0.08226199]
+ [1.62204413 0.26782588]
+ [1.59213104 0.13432399]
+ [1.6127692  0.33010592]
+ [1.63706748 0.28426869]]
+</pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group also contains a <code class="docutils literal notranslate"><span class="pre">trials</span></code> dataset and can be used to access the experimental trials similar to what was accomplished in the cell above.</p>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">intervals</span></code> Group contains datasets from trials of our experiment, sub-experiments that were conducted, and/or epochs. For the example below, we will look into the <code class="docutils literal notranslate"><span class="pre">trials</span></code> dataset. You can return the <code class="docutils literal notranslate"><span class="pre">trials</span></code> data as a dataframe by using the <code class="docutils literal notranslate"><span class="pre">to_dataframe</span></code> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the group of interest </span>
@@ -1202,12 +676,23 @@ Fields:
 <p>The <code class="docutils literal notranslate"><span class="pre">description</span></code> attribute provides a short description on each column of the dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="s1">&#39;feedback_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="s1">&#39;response_choice&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Enumerated type. -1 for negative feedback (white noise burst); +1 for positive feedback (water reward delivery).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Enumerated type. The response registered at the end of the trial, which determines the feedback according to the contrast condition. Note that in a small percentage of cases (~4%, see manuscript Methods) the initial wheel turn was in the opposite direction. -1 for Right choice (i.e. correct when stimuli are on the right); +1 for left choice; 0 for Nogo choice.
+</pre></div>
+</div>
+</div>
+</div>
+<p>For more information on all the different Groups and hierarchal structure of an NWB file, please visit the <a href = 'https://nwb-schema.readthedocs.io/en/latest/format.html#nwb-n-file'> NWB:N file section</a> of the NWB Format documentation. For a list of all the attributes and methods for a <code class="docutils literal notranslate"><span class="pre">pynwb.file.NWBfile</span></code> obeject, please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.file.html'> module documentation</a>.</p>
+</div>
+<div class="section" id="possible-analyses">
+<h2><span class="section-number">3.1.3. </span>Possible Analyses<a class="headerlink" href="#possible-analyses" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># nwb_file</span>
 </pre></div>
 </div>
 </div>
@@ -1215,42 +700,500 @@ Fields:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test cell </span>
-<span class="n">nwb_file</span><span class="o">.</span><span class="n">intervals</span>
+<span class="n">nwb_file</span><span class="o">.</span><span class="n">session_description</span> 
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;spontaneous&#39;: spontaneous pynwb.epoch.TimeIntervals at 0x140350724349648
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Neuropixels recording during visual discrimination in awake mice.&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test cell</span>
+<span class="n">stimulus_dict</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">stimulus</span> 
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">stimulus_dict</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">stimulus_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>passive_beeps:
+Auditory tones of the same frequency as the auditory tone cue in the task
+
+
+passive_click_times:
+Opening of the reward valve, but with a clamp in place such that no water flows. Therefore the auditory sound of the valve is heard, but no water reward is obtained.
+
+
+passive_left_contrast:
+Gratings of the same size, spatial freq, position, etc as during the discrimination task.
+
+
+passive_right_contrast:
+Gratings of the same size, spatial freq, position, etc as during the discrimination task.
+
+
+passive_white_noise:
+The sound that accompanies an incorrect response during the discrimination task.
+
+
+receptive_field_mapping_sparse_noise:
+White squares shown on the screen with randomized positions and timing - see manuscript Methods.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">electrode_groups</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">electrode_groups</span>
+
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">electrode_groups</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">electrode_groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">electrode_groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">location</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Probe1:
+Neuropixels Phase3A opt3
+
+
+
+Probe2:
+Neuropixels Phase3A opt3
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># electrode positions </span>
+<span class="n">electrodes</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">electrodes</span>
+<span class="n">electrodes</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+      <th>imp</th>
+      <th>location</th>
+      <th>filtering</th>
+      <th>group</th>
+      <th>group_name</th>
+      <th>site_id</th>
+      <th>site_position</th>
+      <th>ccf_ap</th>
+      <th>ccf_dv</th>
+      <th>ccf_lr</th>
+      <th>entry_point_rl</th>
+      <th>entry_point_ap</th>
+      <th>vertical_angle</th>
+      <th>horizontal_angle</th>
+      <th>axial_angle</th>
+      <th>distance_advanced</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LS</td>
+      <td>none</td>
+      <td>Probe1 pynwb.ecephys.ElectrodeGroup at 0x14043...</td>
+      <td>Probe1</td>
+      <td>0</td>
+      <td>[43.0, 20.0]</td>
+      <td>4432.3</td>
+      <td>4699.7</td>
+      <td>5002.3</td>
+      <td>-640</td>
+      <td>1500</td>
+      <td>81.400131</td>
+      <td>172.959797</td>
+      <td>0</td>
+      <td>3800</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LS</td>
+      <td>none</td>
+      <td>Probe1 pynwb.ecephys.ElectrodeGroup at 0x14043...</td>
+      <td>Probe1</td>
+      <td>1</td>
+      <td>[11.0, 20.0]</td>
+      <td>4428.4</td>
+      <td>4699.7</td>
+      <td>4970.6</td>
+      <td>-640</td>
+      <td>1500</td>
+      <td>81.400131</td>
+      <td>172.959797</td>
+      <td>0</td>
+      <td>3800</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LS</td>
+      <td>none</td>
+      <td>Probe1 pynwb.ecephys.ElectrodeGroup at 0x14043...</td>
+      <td>Probe1</td>
+      <td>2</td>
+      <td>[59.0, 40.0]</td>
+      <td>4431.3</td>
+      <td>4680.0</td>
+      <td>5018.6</td>
+      <td>-640</td>
+      <td>1500</td>
+      <td>81.400131</td>
+      <td>172.959797</td>
+      <td>0</td>
+      <td>3800</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LS</td>
+      <td>none</td>
+      <td>Probe1 pynwb.ecephys.ElectrodeGroup at 0x14043...</td>
+      <td>Probe1</td>
+      <td>3</td>
+      <td>[27.0, 40.0]</td>
+      <td>4427.3</td>
+      <td>4680.0</td>
+      <td>4986.8</td>
+      <td>-640</td>
+      <td>1500</td>
+      <td>81.400131</td>
+      <td>172.959797</td>
+      <td>0</td>
+      <td>3800</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>LS</td>
+      <td>none</td>
+      <td>Probe1 pynwb.ecephys.ElectrodeGroup at 0x14043...</td>
+      <td>Probe1</td>
+      <td>4</td>
+      <td>[43.0, 60.0]</td>
+      <td>4426.3</td>
+      <td>4660.2</td>
+      <td>5003.1</td>
+      <td>-640</td>
+      <td>1500</td>
+      <td>81.400131</td>
+      <td>172.959797</td>
+      <td>0</td>
+      <td>3800</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># description of each column in electrodes </span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">electrodes</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span> <span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">electrodes</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x:
+the x coordinate of the channel location
+
+
+y:
+the y coordinate of the channel location
+
+
+z:
+the z coordinate of the channel location
+
+
+imp:
+the impedance of the channel
+
+
+location:
+the location of channel within the subject e.g. brain region
+
+
+filtering:
+description of hardware filtering
+
+
+group:
+a reference to the ElectrodeGroup this electrode is a part of
+
+
+group_name:
+the name of the ElectrodeGroup this electrode is a part of
+
+
+site_id:
+The site number, in within-probe numbering, of the channel (in practice for this dataset this always starts at zero and counts up to 383 on each probe so is equivalent to the channel number - but if switches had been used, the site number could have been different than the channel number).
+
+
+site_position:
+The x- and y-position of the site relative to the face of the probe (where the first column is across the face of the probe laterally and the second is the position along the length of the probe; the sites nearest the tip have second column=0).
+
+
+ccf_ap:
+The AP position in Allen Institute&#39;s Common Coordinate Framework.
+
+
+ccf_dv:
+The DV position in Allen Institute&#39;s Common Coordinate Framework.
+
+
+ccf_lr:
+The LR position in Allen Institute&#39;s Common Coordinate Framework.
+
+
+entry_point_rl:
+mediolateral position of probe entry point relative to midline (microns). Positive means right
+
+
+entry_point_ap:
+anteroposterior position of probe entry point relative to bregma (microns). Positive means anterior
+
+
+vertical_angle:
+vertical angle of probe (degrees). Zero means horizontal. Positive means pointing down
+
+
+horizontal_angle:
+horizontal angle of probe (degrees), after vertical rotation. Zero means anterior. Positive means counterclockwise (i.e. left).
+
+
+axial_angle:
+axial angle of probe (degrees). Zero means that without vertical and horizontal rotations, the probe contacts would be pointing up. Positive means &quot;counterclockwise.
+
+
+distance_advanced:
+How far the probe was moved forward from its entry point. (microns).
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># all electrode locations </span>
+<span class="n">electrode_df</span> <span class="o">=</span> <span class="n">electrodes</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">electrode_df</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;LS&#39; &#39;root&#39; &#39;ACA&#39; &#39;MOs&#39; &#39;CA3&#39; &#39;DG&#39; &#39;SUB&#39; &#39;VISp&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stimulus_dict</span><span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;passive_beeps&#39;: passive_beeps pynwb.base.TimeSeries at 0x140437403596752
  Fields:
-   colnames: [&#39;start_time&#39; &#39;stop_time&#39;]
-   columns: (
-     start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
-   )
-   description: Intervals of sufficient duration when nothing else is going on (no task or stimulus presentation
-   id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;,
- &#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140350724348176
+   comments: no comments
+   conversion: 1.0
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
+   description: Auditory tones of the same frequency as the auditory tone cue in the task
+   interval: 1
+   resolution: -1.0
+   timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
+   timestamps_unit: seconds
+   unit: n/a,
+ &#39;passive_click_times&#39;: passive_click_times pynwb.base.TimeSeries at 0x140437405881680
  Fields:
-   colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;included&#39; &#39;go_cue&#39; &#39;visual_stimulus_time&#39;
-  &#39;visual_stimulus_left_contrast&#39; &#39;visual_stimulus_right_contrast&#39;
-  &#39;response_time&#39; &#39;response_choice&#39; &#39;feedback_time&#39; &#39;feedback_type&#39;
-  &#39;rep_num&#39;]
-   columns: (
-     start_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     stop_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     included &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     go_cue &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     visual_stimulus_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     visual_stimulus_left_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     visual_stimulus_right_contrast &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     response_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     response_choice &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     feedback_time &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     feedback_type &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;,
-     rep_num &lt;class &#39;hdmf.common.table.VectorData&#39;&gt;
-   )
-   description: experimental trials
-   id: id &lt;class &#39;hdmf.common.table.ElementIdentifiers&#39;&gt;}
+   comments: no comments
+   conversion: 1.0
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
+   description: Opening of the reward valve, but with a clamp in place such that no water flows. Therefore the auditory sound of the valve is heard, but no water reward is obtained.
+   interval: 1
+   resolution: -1.0
+   timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
+   timestamps_unit: seconds
+   unit: n/a,
+ &#39;passive_left_contrast&#39;: passive_left_contrast pynwb.base.TimeSeries at 0x140437405882960
+ Fields:
+   comments: no comments
+   conversion: 1.0
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+   description: Gratings of the same size, spatial freq, position, etc as during the discrimination task.
+   interval: 1
+   resolution: -1.0
+   timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+   timestamps_unit: seconds
+   unit: proportion contrast,
+ &#39;passive_right_contrast&#39;: passive_right_contrast pynwb.base.TimeSeries at 0x140437405883472
+ Fields:
+   comments: no comments
+   conversion: 1.0
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+   description: Gratings of the same size, spatial freq, position, etc as during the discrimination task.
+   interval: 1
+   resolution: -1.0
+   timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (150,), type &quot;&lt;f8&quot;&gt;
+   timestamps_unit: seconds
+   unit: proportion contrast,
+ &#39;passive_white_noise&#39;: passive_white_noise pynwb.base.TimeSeries at 0x140437405883984
+ Fields:
+   comments: no comments
+   conversion: 1.0
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (25,), type &quot;|b1&quot;&gt;
+   description: The sound that accompanies an incorrect response during the discrimination task.
+   interval: 1
+   resolution: -1.0
+   timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (25,), type &quot;&lt;f8&quot;&gt;
+   timestamps_unit: seconds
+   unit: n/a,
+ &#39;receptive_field_mapping_sparse_noise&#39;: receptive_field_mapping_sparse_noise pynwb.base.TimeSeries at 0x140437405933968
+ Fields:
+   comments: The altitude (first column) and azimuth (second column) of the square.
+   conversion: 1.0
+   data: &lt;HDF5 dataset &quot;data&quot;: shape (7962, 2), type &quot;&lt;f8&quot;&gt;
+   description: White squares shown on the screen with randomized positions and timing - see manuscript Methods.
+   interval: 1
+   resolution: -1.0
+   timestamps: &lt;HDF5 dataset &quot;timestamps&quot;: shape (7962,), type &quot;&lt;f8&quot;&gt;
+   timestamps_unit: seconds
+   unit: degrees visual angle}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># test cell</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>start_time:
+Start time of epoch, in seconds
+
+
+stop_time:
+Stop time of epoch, in seconds
+
+
+included:
+Importantly, while this variable gives inclusion criteria according to the definition of disengagement (see manuscript Methods), it does not give inclusion criteria based on the time of response, as used for most analyses in the paper.
+
+
+go_cue:
+The &#39;goCue&#39; is referred to as the &#39;auditory tone cue&#39; in the manuscript.
+
+
+visual_stimulus_time:
+Times are relative to the same time base as every other time in the dataset, not to the start of the trial.
+
+
+visual_stimulus_left_contrast:
+Proportion contrast. A value of 0.5 means 50% contrast. 0 is a blank screen: no change to any pixel values on that side (completely undetectable).
+
+
+visual_stimulus_right_contrast:
+Proportion contrast. A value of 0.5 means 50% contrast. 0 is a blank screen: no change to any pixel values on that side (completely undetectable).
+
+
+response_time:
+Times are relative to the same time base as every other time in the dataset, not to the start of the trial.
+
+
+response_choice:
+Enumerated type. The response registered at the end of the trial, which determines the feedback according to the contrast condition. Note that in a small percentage of cases (~4%, see manuscript Methods) the initial wheel turn was in the opposite direction. -1 for Right choice (i.e. correct when stimuli are on the right); +1 for left choice; 0 for Nogo choice.
+
+
+feedback_time:
+Times are relative to the same time base as every other time in the dataset, not to the start of the trial.
+
+
+feedback_type:
+Enumerated type. -1 for negative feedback (white noise burst); +1 for positive feedback (water reward delivery).
+
+
+rep_num:
+Trials are repeated if they are &quot;easy&quot; trials (high contrast stimuli with large difference between the two sides, or the blank screen condition) and this keeps track of how many times the current trial&#39;s condition has been repeated.
 </pre></div>
 </div>
 </div>

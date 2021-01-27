@@ -26,37 +26,20 @@ from pynwb import NWBHDF5IO
 # first read the file 
 io = NWBHDF5IO('000017/sub-Cori/sub-Cori_ses-20161214T120000.nwb', 'r')
 nwb_file = io.read()
-nwb_file
-
-
-# In[3]:
-
-
-# dictionary of all neurodata_type objects in the NWBFile
-print(nwb_file.objects)
-
-
-# In[4]:
-
-
-# loop though objections dictionary 
-# returns the obeject ID along with the type 
-# and the object name 
-for obj in nwb_file.objects.values():
-    print('%s: %s "%s"' % (obj.object_id, obj.neurodata_type, obj.name))
+print(type(nwb_file))
 
 
 # ## File Hierarchy: Groups, Datasets, and Attributes
 
 # The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The `fields` attribute returns a dictionary contiaining the metadata of the Groups of our nwb file. The dictionary `keys` are the various Groups within the file which we will use to access our datasets.
 
-# In[5]:
+# In[3]:
 
 
 # nwb_file.fields
 
 
-# In[6]:
+# In[4]:
 
 
 # Get the Groups for the nwb file 
@@ -66,7 +49,7 @@ print(nwb_fields.keys())
 
 # Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. This information can be accessed using `institution`, `lab`, and `description`, attributes on our `nwb_file`, respectively. 
 
-# In[7]:
+# In[5]:
 
 
 # Get Meta-Data from NWB file 
@@ -75,7 +58,7 @@ print('The experiment within this NWB file was conducted at {} in the lab of {}.
 
 # We can access metadata from each group in our `nwb_file` with the following syntax: `nwb_file.group`. This is no different than executing a method and/or attribute. The `acquisition` group contains datasets of acquisition data. We can look at the look at the `description` field in the metadata to understand what each dataset in the group contains. 
 
-# In[8]:
+# In[6]:
 
 
 # example showing how to return meta data from groups in nwb file 
@@ -85,41 +68,56 @@ nwb_file.acquisition
 
 # In this file, the acquisition group contains two different dataets, `lickPiezo` and `wheel_position`. To access the actual data array of these datasets we must first subset our dataset of interest from the group. We can then use `data[:]` to return our actual data array. 
 
-# In[9]:
+# In[7]:
 
 
 # select our dataset of interest 
 dataset = 'lickPiezo'
 lickPiezo_ds = nwb_file.acquisition[dataset]
 
-# return data array 
-lickPiezo_data_array = wheel_pos_in.data[:20]
+# return first 20 values in data array 
+lickPiezo_data_array = lickPiezo_ds.data[:20]
 
 print(lickPiezo_data_array)
 
 
-# In[12]:
+# The `processing` group in our `nwb_file` contains all of our processed data for scientific analysis. Within the procesing group there are mulitple subgroups that belong to the `behavior` module. `BehavioralEpochs`, `BehavioralEvents`, `BehavioralEvents`, and `PupilTracking` are seperate groups encapsulated within `behavior` and contain their own datasets. 
+
+# In[8]:
 
 
-# testing out each key for nwb file 
-# 'units' seems to return data that was recorded 
-nwb_file.processing['behavior']
+# return meta data for prcessing group
+nwb_file.processing
 
 
-# The `trials` Group contains data from our experimental trials such as start/stop time, response time, feedback time, etc. You can return the trials data as a dataframe by using the `to_dataframe` method.
+# If we subset `PupilTracking` from `behavior` we can see that it contains two datasets. We can do as we did before and subset our dataset of interst and return the actual data array by executing `data[:]`.
 
-# In[34]:
-
-
-# trials table
-trials = nwb_file.trials
-trials_df = trials.to_dataframe()
-trials_df.head()
+# In[9]:
 
 
-# The `intervals` group also contains a `trials` dataset and can be used to access the experimental trials similar to what was accomplished in the cell above. 
+# assign behavior group to variable 
+behavior = nwb_file.processing['behavior']
 
-# In[18]:
+# subset PupilTracking group from behavior group 
+pupil_tracking = behavior['PupilTracking']
+print(pupil_tracking)
+
+
+# In[10]:
+
+
+# subset the eye_xy_positions dataset
+eye_xy_positions = pupil_tracking['eye_xy_positions']
+print(eye_xy_positions)
+
+# return firsy 10 entires in actual data array
+print('\n Eye (x,y) positions:')
+print(eye_xy_positions.data[:10])
+
+
+# The `intervals` Group contains datasets from trials of our experiment, sub-experiments that were conducted, and/or epochs. For the example below, we will look into the `trials` dataset. You can return the `trials` data as a dataframe by using the `to_dataframe` method.
+
+# In[11]:
 
 
 # Select the group of interest 
@@ -132,17 +130,116 @@ interval_trials_df.head()
 
 # The `description` attribute provides a short description on each column of the dataframe. 
 
-# In[22]:
+# In[71]:
 
 
-print(intervals['trials']['feedback_type'].description)
+print(intervals['trials']['response_choice'].description)
 
 
-# In[23]:
+# For more information on all the different Groups and hierarchal structure of an NWB file, please visit the <a href = 'https://nwb-schema.readthedocs.io/en/latest/format.html#nwb-n-file'> NWB:N file section</a> of the NWB Format documentation. For a list of all the attributes and methods for a `pynwb.file.NWBfile` obeject, please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.file.html'> module documentation</a>.
+
+# ## Possible Analyses 
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[75]:
+
+
+# nwb_file
+
+
+# In[14]:
 
 
 # test cell 
-nwb_file.intervals
+nwb_file.session_description 
+
+
+# In[55]:
+
+
+# test cell
+stimulus_dict = nwb_file.stimulus 
+for key in stimulus_dict:
+    print(key +':')
+    print(stimulus_dict[key].description)
+    print('\n')
+
+
+# In[68]:
+
+
+electrode_groups = nwb_file.electrode_groups
+
+for key in electrode_groups:
+    print(key + ':')
+    print(electrode_groups[key].description)
+    print(electrode_groups[key].location)
+    print('\n')
+
+
+# In[56]:
+
+
+# electrode positions 
+electrodes = nwb_file.electrodes
+electrodes.to_dataframe().head()
+
+
+# In[54]:
+
+
+# description of each column in electrodes 
+for col in electrodes.to_dataframe():
+    print(col + ':')
+    print(electrodes[col].description)
+    print('\n')
+
+
+# In[60]:
+
+
+# all electrode locations 
+electrode_df = electrodes.to_dataframe()
+print(electrode_df['location'].unique())
+
+
+# In[69]:
+
+
+stimulus_dict[]
+
+
+# In[74]:
+
+
+# test cell
+for col in intervals['trials'].to_dataframe():
+    print(col +':')
+    print(intervals['trials'][col].description)
+    print('\n')
 
 
 # In[ ]:
