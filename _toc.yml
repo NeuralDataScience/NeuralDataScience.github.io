@@ -18,6 +18,7 @@
     
 - file: Chapter_3/Neurodata_Without_Borders
   sections:
+    - file: Chapter_3/Obtaining_Datasets_with_DANDI.ipynb
     - file: Chapter_3/Working_with_NWB_format_in_Python
     
 - file: Chapter_4/The_Allen_SDK
