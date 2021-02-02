@@ -7,12 +7,12 @@
 
 # ### This book is a work in progress.
 # 
-# This online textbook will provide interactive resources for researchers, educators, and students who would like to use open neuroscience datasets for research and teaching. This book will provide tutorials in the form of interactive notebooks and videos for how to use Python to wrangle neuroscience datasets, with a focus on [Neuroscience Without Borders](https://www.nwb.org/) datasets. The emphasis is on data mining and wrangling rather than analysis. Soon, this will be built out into a fully comprehensive guide including all of these aspects of neural data science.
+# This online textbook will provide interactive resources for researchers, educators, and students who would like to use open neuroscience datasets for research and teaching. This book will provide tutorials in the form of interactive notebooks and videos for how to use Python to wrangle neuroscience datasets, with a focus on [Neurodata Without Borders](https://www.nwb.org/) datasets. The emphasis is on data mining and wrangling rather than analysis. Soon, this will be built out into a fully comprehensive guide including all of these aspects of neural data science.
 # 
 # 
 
 # ## Contributors
-# Ashley Juavinett, Victor Magdaleno-Garcia, Bradley Voytek, *and you?*
+# Ashley Juavinett, Victor Magdaleno-Garcia, *and you?*
 # 
 # If you'd like to contribute, get in touch: ajuavine(a)ucsd.edu.
 # 
@@ -28,10 +28,10 @@
 # There are several great online resources for neural data science (listed below). The goal here is not to re-work the wheel — but rather to provide a coherent flow through many of these materials,  as well as additional practical materials for specific datasets. 
 # 
 # - [Data Science in Practice](https://datascienceinpractice.github.io/)
-# - Neural Data Science by Nylen & Wallisch <a href="https://www.sciencedirect.com/book/9780128040430/neural-data-science">[link]</a>
-# - Foundations of Data Science <a href = "https://www.inferentialthinking.com/chapters/intro.html"> [link] </a>
-# - Computational Neuroscience, open textbook written by students <a href = "https://mrgreene09.github.io/computational-neuroscience-textbook/index.html"> [link] </a>
-# - Neuromatch Academy <a href = "http://www.neuromatchacademy.org/syllabus/"> [link] </a>
+# - [Neural Data Science by Nylen & Wallisch](https://www.sciencedirect.com/book/9780128040430/neural-data-science)
+# - [Foundations of Data Science](https://www.inferentialthinking.com/chapters/intro.html)
+# - [Computational Neuroscience](https://mrgreene09.github.io/computational-neuroscience-textbook/index.html), open textbook written by students
+# - [Neuromatch Academy](http://www.neuromatchacademy.org/syllabus), online computational neuroscience course
 
 # 
 # ```{toctree}
