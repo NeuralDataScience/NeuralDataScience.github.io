@@ -164,11 +164,12 @@ neural_data = units_df['spike_times'][1:8][:10]
 neural_data
 
 
-# *markdown explaining plt.eventplot( )*
+# A spike raster plot can be created using the funtion `plt.eventplot`. A spike raster plot displays the spiking of neurons overtime. In a spike raster plot, the y-axis corresponds to the neuron being recorded and the x-axis represents the time. Each horizontal line in the plot represents the spiking of a neuron. Spike raster plots are useful as they reveal firing rate correlations between groups of neurons. For more inormation on `plt.eventplot` please visit the <a href = 'https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.eventplot.html'> matplotlib documentation</a>. 
 
 # In[15]:
 
 
+# Set up our figure 
 fig = plt.figure()
 
 # Store our data
@@ -185,33 +186,81 @@ color_codes = np.array([[0, 0, 0],
 
                         [1, 1, 0]])
 
-# Plot our rater plot 
+# Plot our raster plot 
 plt.eventplot(neural_data, color = color_codes)
 
 # Set our axis limits to only include points in our data
-plt.xlim([329.8, 331.5])
+plt.xlim([329.8, 332.8])
 
 # Label our firgure 
 plt.title('Spike raster plot')
 plt.ylabel('Neuron')
 plt.xlabel('Spike')
 
+# Show our plot 
 plt.show()
 
 
-# In[ ]:
-
-
-
-
+# The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings. If we do not set an axis limit on the raster plot, all of our spike recordings will be displayed at once and the figure would be unreadable. Instead we can create seperate raster plots in n-second time intervals. Below you can see how to create multiple with 3 second time intervals.
 
 # In[16]:
+
+
+# Create subplots for graphs and set sizing
+fig, ax = plt.subplots(5,figsize=(15,15))
+
+# Set initial x-axis limits
+plot_limit = np.array([329.8, 332.8])
+
+# Plot first 3 second interval 
+ax[0].eventplot(neural_data, color = color_codes)
+ax[0].set_xlim(plot_limit)
+
+# Plot second 3 second interval 
+ax[1].eventplot(neural_data, color = color_codes)
+ax[1].set_xlim(plot_limit+3)
+
+# Plot third 3 second interval 
+ax[2].eventplot(neural_data, color = color_codes)
+ax[2].set_xlim(plot_limit+6)
+
+# Plot fourth 3 second interval 
+ax[3].eventplot(neural_data, color = color_codes)
+ax[3].set_xlim(plot_limit+9)
+
+# Plot fifth 3 second intrval 
+ax[4].eventplot(neural_data, color = color_codes)
+ax[4].set_xlim(plot_limit+12)
+
+plt.show()
+
+
+# In[17]:
+
+
+neurons = units_df[1:6]
+neurons 
+
+
+# In[18]:
+
+
+units_df['cell_type'].unique()
+
+
+# In[19]:
+
+
+units_df['depth'].unique()
+
+
+# In[20]:
 
 
 units_df['electrodes'][40]
 
 
-# In[17]:
+# In[21]:
 
 
 nwb_file.electrodes
