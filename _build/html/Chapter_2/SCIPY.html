@@ -262,6 +262,40 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-scipy">
+   2.3.1. What is SciPy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scipy-for-two-sample-statistics">
+   2.3.2. SciPy for two-sample statistics
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scipy-for-linear-algebra">
+   2.3.3. SciPy for Linear Algebra
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scipy-for-fft">
+   2.3.4. SciPy for FFT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-resources">
+   2.3.5. Additional Resources
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -271,7 +305,431 @@
                 
   <div class="section" id="scipy">
 <h1><span class="section-number">2.3. </span>SciPy<a class="headerlink" href="#scipy" title="Permalink to this headline">¶</a></h1>
-<p><em>Content to be added in later</em></p>
+<div class="section" id="what-is-scipy">
+<h2><span class="section-number">2.3.1. </span>What is SciPy<a class="headerlink" href="#what-is-scipy" title="Permalink to this headline">¶</a></h2>
+<p>SciPy stands for (Sci)entific (Py)thon. It is an open-source Python library that contains modules for scientific computing such as linear algrbra, optimization, image/signal processing,, statistics, and many more. SciPy uses the NumPy <code class="docutils literal notranslate"><span class="pre">array</span></code> as it’s base data struture, but also builds upon <code class="docutils literal notranslate"><span class="pre">Pandas</span></code>, <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code>, and <code class="docutils literal notranslate"><span class="pre">SymPy</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">from</span> <span class="nn">allensdk.core.cell_types_cache</span> <span class="kn">import</span> <span class="n">CellTypesCache</span>
+<span class="kn">from</span> <span class="nn">allensdk.api.queries.cell_types_api</span> <span class="kn">import</span> <span class="n">CellTypesApi</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span> 
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
+<span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will be demonstrating SciPy using the Allen Cell Types Dataset. We will discuss what this dataset contains and how to navigate through it in a later chapter.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download meatadata for only human cells </span>
+<span class="n">human_cells</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_cells</span><span class="p">(</span><span class="n">species</span><span class="o">=</span><span class="p">[</span><span class="n">CellTypesApi</span><span class="o">.</span><span class="n">HUMAN</span><span class="p">]))</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download electrophysiology data </span>
+<span class="n">ephys_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_features</span><span class="p">())</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;specimen_id&#39;</span><span class="p">)</span>
+
+<span class="c1"># Combine our ephys data with our metadata for human cells </span>
+<span class="n">human_ephys_df</span> <span class="o">=</span> <span class="n">human_cells</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ephys_df</span><span class="p">)</span>
+<span class="n">human_ephys_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>reporter_status</th>
+      <th>cell_soma_location</th>
+      <th>species</th>
+      <th>name</th>
+      <th>structure_layer_name</th>
+      <th>structure_area_id</th>
+      <th>structure_area_abbrev</th>
+      <th>transgenic_line</th>
+      <th>dendrite_type</th>
+      <th>apical</th>
+      <th>...</th>
+      <th>trough_t_ramp</th>
+      <th>trough_t_short_square</th>
+      <th>trough_v_long_square</th>
+      <th>trough_v_ramp</th>
+      <th>trough_v_short_square</th>
+      <th>upstroke_downstroke_ratio_long_square</th>
+      <th>upstroke_downstroke_ratio_ramp</th>
+      <th>upstroke_downstroke_ratio_short_square</th>
+      <th>vm_for_sag</th>
+      <th>vrest</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>525011903</th>
+      <td>None</td>
+      <td>[273.0, 354.0, 216.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.03.003.01.14.02</td>
+      <td>3</td>
+      <td>12113</td>
+      <td>FroL</td>
+      <td></td>
+      <td>spiny</td>
+      <td>intact</td>
+      <td>...</td>
+      <td>4.134987</td>
+      <td>1.375253</td>
+      <td>-53.968754</td>
+      <td>-59.510420</td>
+      <td>-71.197919</td>
+      <td>2.895461</td>
+      <td>2.559876</td>
+      <td>3.099787</td>
+      <td>-88.843758</td>
+      <td>-70.561035</td>
+    </tr>
+    <tr>
+      <th>528642047</th>
+      <td>None</td>
+      <td>[69.0, 254.0, 96.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.06.009.01.02.06.05</td>
+      <td>5</td>
+      <td>12141</td>
+      <td>MTG</td>
+      <td></td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>1.051160</td>
+      <td>-67.468758</td>
+      <td>NaN</td>
+      <td>-70.875002</td>
+      <td>1.891881</td>
+      <td>NaN</td>
+      <td>1.989616</td>
+      <td>-101.000000</td>
+      <td>-69.209610</td>
+    </tr>
+    <tr>
+      <th>537256313</th>
+      <td>None</td>
+      <td>[322.0, 255.0, 92.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.03.006.01.05.02</td>
+      <td>4</td>
+      <td>12141</td>
+      <td>MTG</td>
+      <td></td>
+      <td>spiny</td>
+      <td>truncated</td>
+      <td>...</td>
+      <td>5.694547</td>
+      <td>1.389900</td>
+      <td>-52.125004</td>
+      <td>-51.520836</td>
+      <td>-72.900002</td>
+      <td>3.121182</td>
+      <td>3.464528</td>
+      <td>3.054681</td>
+      <td>-87.531250</td>
+      <td>-72.628105</td>
+    </tr>
+    <tr>
+      <th>519832676</th>
+      <td>None</td>
+      <td>[79.0, 273.0, 91.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.03.001.01.09.01</td>
+      <td>3</td>
+      <td>12141</td>
+      <td>MTG</td>
+      <td></td>
+      <td>spiny</td>
+      <td>truncated</td>
+      <td>...</td>
+      <td>9.962780</td>
+      <td>1.211020</td>
+      <td>-53.875004</td>
+      <td>-52.416668</td>
+      <td>-73.693753</td>
+      <td>4.574865</td>
+      <td>3.817988</td>
+      <td>4.980603</td>
+      <td>-84.218758</td>
+      <td>-72.547661</td>
+    </tr>
+    <tr>
+      <th>596020931</th>
+      <td>None</td>
+      <td>[66.0, 220.0, 105.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H17.06.009.11.04.02</td>
+      <td>4</td>
+      <td>12141</td>
+      <td>MTG</td>
+      <td></td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>...</td>
+      <td>14.667340</td>
+      <td>1.336668</td>
+      <td>-63.593754</td>
+      <td>-63.239583</td>
+      <td>-75.518753</td>
+      <td>1.452890</td>
+      <td>1.441754</td>
+      <td>1.556087</td>
+      <td>-82.531250</td>
+      <td>-74.260269</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 70 columns</p>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="scipy-for-two-sample-statistics">
+<h2><span class="section-number">2.3.2. </span>SciPy for two-sample statistics<a class="headerlink" href="#scipy-for-two-sample-statistics" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up our two samples </span>
+<span class="n">spiny_df</span> <span class="o">=</span> <span class="n">human_ephys_df</span><span class="p">[</span><span class="n">human_ephys_df</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span><span class="o">==</span> <span class="s1">&#39;spiny&#39;</span><span class="p">]</span>
+<span class="n">aspiny_df</span> <span class="o">=</span> <span class="n">human_ephys_df</span><span class="p">[</span><span class="n">human_ephys_df</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span><span class="o">==</span> <span class="s1">&#39;aspiny&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Most often, the goal of our hypothesis testing is to test whether or not two distributions are different, or if a distribution has a different mean than the underlying population distribution.</p>
+<p>If we know our distributions are normal (i.e. they’re generated from a normal distribution!) we could use parametric statistics to test our hypothesis. To test for differences between normal populations, we can use the independent t-test in our stats package: <code class="docutils literal notranslate"><span class="pre">stats.ttest_ind()</span></code>. If we had paired samples, we would use a dependent t-test: <code class="docutils literal notranslate"><span class="pre">stats.ttest_rel()</span></code>.</p>
+<p>If one of our populations is skewed, however, we cannot use a t-test. A t-test assumes that the populations are normally distributed. For skewed populations, we can use either the Mann-Whitney U (for independent samples: <code class="docutils literal notranslate"><span class="pre">stats.mannwhitneyu()</span></code>) or the Wilcoxon Signed Rank Test (for dependent/paired samples: <code class="docutils literal notranslate"><span class="pre">stats.wilcoxon()</span></code>).</p>
+<p>Below we will run a statistical test that compares <code class="docutils literal notranslate"><span class="pre">aspiny_df['tau']</span></code> to <code class="docutils literal notranslate"><span class="pre">spiny_df['tau']</span></code>. Before we decide what test to run, we must first check the skewness of our data. To test for skewness, we can use <code class="docutils literal notranslate"><span class="pre">stats.skewtest()</span></code>. <strong>If the skew test gives us a p-value of less than 0.05, the population is skewed.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subselect our samples </span>
+<span class="n">sample_1</span> <span class="o">=</span> <span class="n">spiny_df</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span>
+<span class="n">sample_2</span> <span class="o">=</span> <span class="n">aspiny_df</span><span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">]</span>
+
+<span class="c1"># Run the skew test</span>
+<span class="n">stats_1</span><span class="p">,</span> <span class="n">pvalue_1</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">skewtest</span><span class="p">(</span><span class="n">sample_1</span><span class="p">)</span> 
+<span class="n">stats_2</span><span class="p">,</span> <span class="n">pvalue_2</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">skewtest</span><span class="p">(</span><span class="n">sample_2</span><span class="p">)</span>
+
+<span class="c1"># Print the p-value of both skew tests</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spiny skew test pvalue: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pvalue_1</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Aspiny skew test pvalue: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pvalue_2</span><span class="p">))</span>
+
+<span class="c1"># Plot our distributions </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample_1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">sample_2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spiny skew test pvalue: 1.4148485388194806e-12
+Aspiny skew test pvalue: 1.1827442418538926e-09
+</pre></div>
+</div>
+<img alt="../_images/SciPy_10_1.png" src="../_images/SciPy_10_1.png" />
+<img alt="../_images/SciPy_10_2.png" src="../_images/SciPy_10_2.png" />
+</div>
+</div>
+<p>Our pvalues indicate that both of our samples are skewed, therefore we will continure with the Mann-Whitney U test.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">mannwhitneyu</span><span class="p">(</span><span class="n">sample_1</span><span class="p">,</span> <span class="n">sample_2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MannwhitneyuResult(statistic=4759.0, pvalue=3.864465154121331e-18)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scipy-for-linear-algebra">
+<h2><span class="section-number">2.3.3. </span>SciPy for Linear Algebra<a class="headerlink" href="#scipy-for-linear-algebra" title="Permalink to this headline">¶</a></h2>
+<p>SciPy can be used to find solutions to mathematical algorithms as well. The package has a module with many tools that are helpful with linear algebra. The funtions availabe can help with solving the determinant of a matrix, solve for eigen values, and other liniar algebra problems. After importing the linear algebra module, <code class="docutils literal notranslate"><span class="pre">linalg</span></code> from the SciPy package, it is important to use the syntax <code class="docutils literal notranslate"><span class="pre">linalg.function()</span></code> when executing a function from the module.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">linalg.det()</span></code> method is used to solve for the the determinant of a matrix. This function only takes in square matrices as an argument, inputting a non-square matrix will result in an error. Please visit <a href = 'https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.det.html'> here</a> for the original documentation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign our square matrix</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1 3 5 2]
+ [6 3 9 7]
+ [2 7 8 5]
+ [9 4 1 8]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">matrix</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-237.00000000000006
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">linalg.lu()</span></code> method is used to solve the LU decomposition of a matrix. It will return the  permutation matrix, p, the lower triangular matrix with unit diagonal elements, l,  and the upper triangular, u. You can look at the <a href = 'https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.lu.html' > original documentation</a> for more information.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign our matrix </span>
+<span class="n">p</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">u</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">lu</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Permutation matrix:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Lower triangular:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Upper Triangle&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Permutation matrix:
+[[0. 0. 0. 1.]
+ [0. 0. 1. 0.]
+ [0. 1. 0. 0.]
+ [1. 0. 0. 0.]]
+
+
+Lower triangular:
+[[1.         0.         0.         0.        ]
+ [0.22222222 1.         0.         0.        ]
+ [0.66666667 0.05454545 1.         0.        ]
+ [0.11111111 0.41818182 0.20689655 1.        ]]
+
+
+Upper Triangle
+[[ 9.          4.          1.          8.        ]
+ [ 0.          6.11111111  7.77777778  3.22222222]
+ [ 0.          0.          7.90909091  1.49090909]
+ [ 0.          0.          0.         -0.54482759]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have p, l, and u, we can used a funtion from numpy, <code class="docutils literal notranslate"><span class="pre">np.dot()</span></code> to execute the dot product of l and u to return our matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">l</span><span class="p">,</span><span class="n">u</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[9. 4. 1. 8.]
+ [2. 7. 8. 5.]
+ [6. 3. 9. 7.]
+ [1. 3. 5. 2.]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can also find the eigen values and eigen vectors with SciPy. The method <code class="docutils literal notranslate"><span class="pre">linalg.eig()</span></code> takes in a complex or real matrix and returns its eigenvalues. Please visit <a href = 'https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.eig.html'> here</a> for the orignal documentation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigen_values</span><span class="p">,</span> <span class="n">eigen_vectors</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">matrix</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="n">eigen_values</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eigen_vectors</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[20.15126564+0.j          1.64808546+0.83387563j  1.64808546-0.83387563j
+ -3.44743656+0.j        ]
+
+
+[[-2.94498514e-01+0.j         -4.63909706e-01+0.08050438j
+  -4.63909706e-01-0.08050438j -2.00900213e-04+0.j        ]
+ [-5.98355615e-01+0.j         -1.69258696e-01+0.00537595j
+  -1.69258696e-01-0.00537595j -8.69603794e-01+0.j        ]
+ [-5.83737468e-01+0.j         -2.96214773e-01-0.07015942j
+  -2.96214773e-01+0.07015942j  4.14828984e-01+0.j        ]
+ [-4.63132542e-01+0.j          8.10533088e-01+0.j
+   8.10533088e-01-0.j          2.67779977e-01+0.j        ]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Lastly, SciPy can be used to solve linear systems of equations. Please visit <a href = 'https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve.html'> here</a> for the orignal documentation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">array</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">4</span><span class="p">],[</span><span class="mi">6</span><span class="p">],[</span><span class="mi">8</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">array</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[ 0.04219409]
+ [ 0.76793249]
+ [-0.31223629]
+ [ 0.60759494]]
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scipy-for-fft">
+<h2><span class="section-number">2.3.4. </span>SciPy for FFT<a class="headerlink" href="#scipy-for-fft" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="additional-resources">
+<h2><span class="section-number">2.3.5. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
