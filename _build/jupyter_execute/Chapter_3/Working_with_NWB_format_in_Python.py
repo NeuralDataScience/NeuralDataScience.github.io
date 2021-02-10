@@ -129,9 +129,17 @@ for col in intervals['trials'].to_dataframe():
 
 # The `units` group in our nwb_file contains all our unit metadata including of our neural spike data for scientific analysis. Much like the `intervals` group, `units` is also a `DynamicTable` that can be assigned to a dataframe.
 
+# In[11]:
+
+
+units = nwb_file.units
+units_df = units.to_dataframe()
+units_df.head()
+
+
 # The `electrodes` group contians metadata from the elctrodes used in the experimental trials. Also a `DynamicTable`, the data includes location of the electrodes, type of filtering, and the whats electrode group the electrode belongs to. 
 
-# In[11]:
+# In[12]:
 
 
 # electrode positions 
@@ -140,123 +148,9 @@ electrodes_df = electrodes.to_dataframe()
 electrodes_df.head()
 
 
+# ## Additional Resources 
+
 # For an in depth explanation of all groups contained within an `NWBFile` object please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.file.html'> pynwb.file.NWBFile </a> section of the PyNWB documentation. 
-
-# ## Possible Analyses
-
-# Now that we are familiar with the structure of an `NWBFile` as well as the groups encapsulated within it, we are ready to work with the data. 
-# 
-# The first group that we will look at is `units` becasue it contains information on our neural spikes. Let familiarize ourselves with our dataframe once again. 
-
-# In[12]:
-
-
-units = nwb_file.units
-units_df = units.to_dataframe()
-units_df = units_df[units_df['quality']=='Fair']
-units_df.head()
-
-
-# The `spike_times` column the times at which the recorded neuron fired. Each neuron has a list of spike times for their `spike_times` column. 
-
-# In[13]:
-
-
-# return the first 10 spike times for neurons 2-8
-neural_data = units_df['spike_times'][1:8][:10]
-neural_data
-
-
-# A spike raster plot can be created using the funtion `plt.eventplot`. A spike raster plot displays the spiking of neurons overtime. In a spike raster plot, the y-axis corresponds to the neuron being recorded and the x-axis represents the time. Each horizontal line in the plot represents the spiking of a neuron. Spike raster plots are useful as they reveal firing rate correlations between groups of neurons. For more inormation on `plt.eventplot` please visit the <a href = 'https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.eventplot.html'> matplotlib documentation</a>. 
-
-# In[14]:
-
-
-from matplotlib.widgets import Slider
-
-# Set different colors for each neuron 
-color_codes = np.array([[0, 0, 0],
-                        [1, 0, 0],
-                        [0, 1, 0],
-                        [0, 0, 1],
-                        [1, 1, 0]])
-
-# function for creating raster plots for Units group in NWB file 
-def rasterPlot(units_df,neuron_start,neuron_end,start_time,end_time):
-    
-    # Set figure size
-    fig, ax = plt.subplots(figsize=(15,3))
-    
-    # Select your data 
-    neural_data = units_df['spike_times'][neuron_start:neuron_end]
-    
-    # Plot our raster plot 
-    plt.eventplot(neural_data, color = color_codes)
-
-    # Set our axis limits to only include points in our data
-    plt.xlim([start_time,end_time])
-    
-    # Label our firgure 
-    plt.title('Spike raster plot')
-    plt.ylabel('Neurons')
-    plt.xlabel('Time (s)')
-    plt.yticks([])
-
-
-rasterPlot(units_df, neuron_start = 1, neuron_end = 6, start_time = 329.8, end_time = 332.8)
-
-# Show our plot 
-plt.show()
-
-
-# The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings. If we do not set an axis limit on the raster plot, all of our spike recordings will be displayed at once and the figure would be unreadable. Instead we can create seperate raster plots in n-second time intervals. Below you can see how to create multiple with 3 second time intervals.
-
-# In[15]:
-
-
-# Create subplots for graphs and set sizing
-fig, ax = plt.subplots(3, figsize=(15,3))
-
-# Set initial x-axis limits
-plot_limit = [329.8, 332.8]
-
-# Run loop to create desired plots
-for plot in range(3):
-    ax[plot] = rasterPlot(units_df,1,6, plot_limit[0] + (plot*3), plot_limit[1] + (plot*3))
-    
-plt.show()
-
-
-# In[16]:
-
-
-neurons = units_df[1:6]
-neurons 
-
-
-# In[17]:
-
-
-units_df['cell_type'].unique()
-
-
-# In[18]:
-
-
-units_df['depth'].unique()
-
-
-# In[19]:
-
-
-units_df['electrodes']
-
-
-# In[20]:
-
-
-nwb_file.electrodes
-
 
 # In[ ]:
 

@@ -20,6 +20,7 @@
   sections:
     - file: Chapter_3/Obtaining_Datasets_with_DANDI
     - file: Chapter_3/Working_with_NWB_format_in_Python
+    - file: Chapter_3/Possible_Analyses
     
 - file: Chapter_4/The_Allen_SDK
   sections:

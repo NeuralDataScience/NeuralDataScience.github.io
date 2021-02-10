@@ -152,17 +152,80 @@ print(linalg.solve(matrix, array))
 
 # ## SciPy for FFT
 
-# In[ ]:
+# Let's first generate a sine wave. We'll then generate a second sine wave and add these together to understand what a fourier transform of this data would look like. Sine waves are defined by their frequency, ampltitude, and and phase. 
+
+# In[12]:
 
 
+sampling_freq = 1024 # Sampling frequency 
+duration = 0.3 # 0.3 seconds of signal
+freq1 = 7 # 7 Hz signal
+freq2 = 130 # 130 Hz signal
+
+# Generate a time vector
+time_vector = np.arange(0, duration, 1/sampling_freq)
+
+# Generate a sine wave
+signal_1 = np.sin(2 * np.pi * freq1 * time_vector) 
+# Generate another sine wave, with double the power
+signal_2 = np.sin(2 * np.pi * freq2 * time_vector) * 2 
+                                                       
+# Add the signals we created above into one signal
+combined_signal = signal_1 + signal_2
+
+print('You\'ve created a complex signal with two sin waves, it looks like this:')
+print(combined_signal)
 
 
+# What we have are the signal values for our complex signal composed of the two sin waves. To see our `combined_signal` we must plot it using `plt.plot()`.
 
-# In[ ]:
+# In[13]:
 
 
+# Set up our figure
+fig = plt.figure(figsize=(12, 4))
+
+# Plot 0.5 seconds of data
+plt.plot(time_vector, combined_signal) 
+plt.ylabel('Signal',fontsize=14)
+plt.xlabel('Time',fontsize=14)
+plt.show()
 
 
+# In[14]:
+
+
+# plt.plot(time_vector, signal_1)
+# plt.show()
+# plt.plot(time_vector, signal_2)
+# plt.show()
+
+
+# Below, we'll calculate the **Fourier Transform**, which will determine the frequencies that are in our sample. We'll implement this with Welch's Method, which consists in averaging consecutive Fourier transform of small windows of the signal, with or without overlapping. Basically, we calculate the fourier transform of a signal across a few sliding windows, and then calculate the mean PSD from all the sliding windows.
+# 
+# The freqs vector contains the x-axis (frequency bins) and the psd vector contains the y-axis values (power spectral density). The units of the power spectral density, when working with EEG data, is usually $\mu$V^2 per Hz.
+
+# In[15]:
+
+
+# Import signal processing module 
+from scipy import signal
+
+# Define sliding window length (4 seconds, which will give us 2 full cycles at 0.5 Hz)
+win = 4 * sampling_freq
+freqs, psd = signal.welch(combined_signal, sampling_freq, nperseg=win)
+
+# Plot our data
+plt.plot(freqs,psd) # Plot a select range of frequencies
+plt.ylabel('Power')
+plt.xlabel('Frequency (Hz)')
+plt.title('FFT of a complex signal')
+plt.show()
+
+
+# The Fourier Transformation shows us the signal frequencies that make up our combined signal. 
+
+# ***Possible section on the Nyquist Theory***
 
 # In[ ]:
 

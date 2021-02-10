@@ -45,6 +45,8 @@
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -726,6 +728,148 @@ Upper Triangle
 </div>
 <div class="section" id="scipy-for-fft">
 <h2><span class="section-number">2.3.4. </span>SciPy for FFT<a class="headerlink" href="#scipy-for-fft" title="Permalink to this headline">¶</a></h2>
+<p>Let’s first generate a sine wave. We’ll then generate a second sine wave and add these together to understand what a fourier transform of this data would look like. Sine waves are defined by their frequency, ampltitude, and and phase.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_freq</span> <span class="o">=</span> <span class="mi">1024</span> <span class="c1"># Sampling frequency </span>
+<span class="n">duration</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="c1"># 0.3 seconds of signal</span>
+<span class="n">freq1</span> <span class="o">=</span> <span class="mi">7</span> <span class="c1"># 7 Hz signal</span>
+<span class="n">freq2</span> <span class="o">=</span> <span class="mi">130</span> <span class="c1"># 130 Hz signal</span>
+
+<span class="c1"># Generate a time vector</span>
+<span class="n">time_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">sampling_freq</span><span class="p">)</span>
+
+<span class="c1"># Generate a sine wave</span>
+<span class="n">signal_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq1</span> <span class="o">*</span> <span class="n">time_vector</span><span class="p">)</span> 
+<span class="c1"># Generate another sine wave, with double the power</span>
+<span class="n">signal_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">freq2</span> <span class="o">*</span> <span class="n">time_vector</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> 
+                                                       
+<span class="c1"># Add the signals we created above into one signal</span>
+<span class="n">combined_signal</span> <span class="o">=</span> <span class="n">signal_1</span> <span class="o">+</span> <span class="n">signal_2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You</span><span class="se">\&#39;</span><span class="s1">ve created a complex signal with two sin waves, it looks like this:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">combined_signal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>You&#39;ve created a complex signal with two sin waves, it looks like this:
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.          1.47439991  2.08519495  1.48970011  0.07282654 -1.28516247
+ -1.73971525 -0.9915122   0.53292413  1.93848187  2.40138863  1.66610567
+  0.19943724 -1.09111077 -1.40482347 -0.53084714  1.02457393  2.34344933
+  2.64978051  1.77764376  0.27124849 -0.94338912 -1.11709493 -0.12950467
+  1.43829796  2.65429147  2.79773083  1.79391154  0.25921309 -0.87075038
+ -0.90555508  0.18351981  1.74615215  2.84526973  2.82232648  1.69456043
+  0.14458863 -0.89138407 -0.78833049  0.39055267  1.93196998  2.90282491
+  2.71311393  1.47185272 -0.07867731 -1.01069639 -0.77059328  0.48712609
+  1.99306173  2.82707791  2.47339433  1.13175262 -0.40305218 -1.22060289
+ -0.84403858  0.48231033  1.94034552  2.63174967  2.11992873  0.69342222
+ -0.80812029 -1.5004171  -0.98795545  0.39745719  1.79689699  2.34251012
+  1.68108704  0.18717967 -1.26280101 -1.81923201 -1.17176498  0.26350358
+  1.59508858  1.99394982  1.19365596 -0.34884385 -1.72882574 -2.13951596
+ -1.35872776  0.11715217  1.37265455  1.62552844  0.69867805 -0.87295939
+ -2.16506855 -2.4215031  -1.51038607 -0.0036222   1.16814322  1.27697384
+  0.23680688 -1.34459205 -2.53222567 -2.62786482 -1.59121986 -0.06421317
+  1.01628945  0.98366972 -0.15628002 -1.72882537 -2.79729789 -2.72811589
+ -1.57297081 -0.03762605  0.94384942  0.77257042 -0.4538759  -2.00028872
+ -2.93735296 -2.7022398  -1.43812718  0.0921744   0.96638583  0.6591204
+ -0.64118171 -2.1459351  -2.94212909 -2.54310883 -1.18216036  0.32820494
+  1.08638016  0.64553743 -0.71684373 -2.16638653 -2.81517573 -2.25741512
+ -0.81424972  0.65993593  1.29289322  0.7206598  -0.692914   -2.07569135
+ -2.5733991  -1.86500303 -0.35640926  1.06435804  1.56281436  0.86137393
+ -0.59324003 -1.89952345 -2.24506578 -1.39667963  0.15888389  1.50852037
+  1.86355342  1.03545473 -0.45047402 -1.67203558 -1.86649794 -0.89075814
+  0.69228366  1.95324482  2.15686085  1.20548496 -0.30205319 -1.43173593
+ -1.47784682 -0.38873698  1.20197385  2.35758369  2.4033293   1.33339409
+ -0.18562314 -1.21687133 -1.11843804  0.06938192  1.64835905  2.68350055
+  2.56705006  1.38508442 -0.13444119 -1.06085796 -0.82223292  0.44958982
+  1.99850132  2.9002282   2.61987956  1.33460187 -0.17329901 -0.98829474
+ -0.61393553  0.72765888  2.22978557  2.98779512  2.54481636  1.16736204
+ -0.31544305 -1.01202613 -0.50620012  0.89178     2.33238713  2.93930863
+  2.33809309  0.88205263 -0.56085455 -1.13159852 -0.49826434  0.94374399
+  2.3102546   2.76172856  2.00973769  0.49098778 -0.89609186 -1.33329087
+ -0.57616702  0.89853024  2.18049461  2.47504112  1.5825372   0.01887107
+ -1.29571509 -1.59171638 -0.71452375  0.78235267  1.97123209  2.1099297
+  1.08952395 -0.49989026 -1.72512787 -1.87280792 -0.87965142  0.62939344
+  1.7181973   1.70421498  0.57027654 -1.02500769 -2.14450529 -2.137838
+ -1.03367474  0.47760828  1.46044012  1.29848001  0.06646661 -1.51482552
+ -2.51334999 -2.34800292 -1.1391332   0.3640957   1.23567343  0.93139163
+ -0.38282981 -1.93100089 -2.79514459 -2.46903474 -1.16354794  0.32057336
+  1.07579109  0.63526422 -0.74550978 -2.24280425 -2.96155738 -2.47530093
+ -1.08341299  0.36949224  1.00308503  0.43238392 -1.         -2.43053938
+ -2.99571025 -2.35291175 -0.88714229  0.52124465  1.02760444  0.33252192
+ -1.13757835 -2.4876847  -2.89412705 -2.10147081 -0.57662604  0.77279405
+  1.14596598  0.33192635 -1.1631911  -2.4215072  -2.66713509 -1.73426303
+ -0.16721248  1.1078885   1.34175427  0.41390957 -1.0946721  -2.25207847
+ -2.3376726  -1.27685668  0.31388467  1.49883394  1.58746591  0.55096047
+ -0.96045719 -2.00980935 -1.93864172 -0.76428128  0.83056896  1.90962138
+  1.84776934  0.70813353 -0.796063   -1.73179237 -1.50911587 -0.23710996
+  1.34188723  2.30004343  2.08369917  0.84731657 -0.63974373 -1.45738083
+ -1.08984464  0.26309767]
+</pre></div>
+</div>
+</div>
+</div>
+<p>What we have are the signal values for our complex signal composed of the two sin waves. To see our <code class="docutils literal notranslate"><span class="pre">combined_signal</span></code> we must plot it using <code class="docutils literal notranslate"><span class="pre">plt.plot()</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up our figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="c1"># Plot 0.5 seconds of data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_vector</span><span class="p">,</span> <span class="n">combined_signal</span><span class="p">)</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Signal&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/SciPy_30_0.png" src="../_images/SciPy_30_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># plt.plot(time_vector, signal_1)</span>
+<span class="c1"># plt.show()</span>
+<span class="c1"># plt.plot(time_vector, signal_2)</span>
+<span class="c1"># plt.show()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Below, we’ll calculate the <strong>Fourier Transform</strong>, which will determine the frequencies that are in our sample. We’ll implement this with Welch’s Method, which consists in averaging consecutive Fourier transform of small windows of the signal, with or without overlapping. Basically, we calculate the fourier transform of a signal across a few sliding windows, and then calculate the mean PSD from all the sliding windows.</p>
+<p>The freqs vector contains the x-axis (frequency bins) and the psd vector contains the y-axis values (power spectral density). The units of the power spectral density, when working with EEG data, is usually <span class="math notranslate nohighlight">\(\mu\)</span>V^2 per Hz.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import signal processing module </span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+
+<span class="c1"># Define sliding window length (4 seconds, which will give us 2 full cycles at 0.5 Hz)</span>
+<span class="n">win</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">sampling_freq</span>
+<span class="n">freqs</span><span class="p">,</span> <span class="n">psd</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">welch</span><span class="p">(</span><span class="n">combined_signal</span><span class="p">,</span> <span class="n">sampling_freq</span><span class="p">,</span> <span class="n">nperseg</span><span class="o">=</span><span class="n">win</span><span class="p">)</span>
+
+<span class="c1"># Plot our data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span><span class="n">psd</span><span class="p">)</span> <span class="c1"># Plot a select range of frequencies</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Power&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;FFT of a complex signal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/scipy/signal/spectral.py:1966: UserWarning: nperseg = 4096 is greater than input length  = 308, using nperseg = 308
+  .format(nperseg, input_length))
+</pre></div>
+</div>
+<img alt="../_images/SciPy_33_1.png" src="../_images/SciPy_33_1.png" />
+</div>
+</div>
+<p>The Fourier Transformation shows us the signal frequencies that make up our combined signal.</p>
+<p><em><strong>Possible section on the Nyquist Theory</strong></em></p>
 </div>
 <div class="section" id="additional-resources">
 <h2><span class="section-number">2.3.5. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
