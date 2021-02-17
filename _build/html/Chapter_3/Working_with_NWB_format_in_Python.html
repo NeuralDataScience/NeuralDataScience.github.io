@@ -265,18 +265,13 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reading-our-nwb-file">
-   3.2.1. Reading our NWB file
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#file-hierarchy-groups-datasets-and-attributes">
-   3.2.2. File Hierarchy: Groups, Datasets, and Attributes¶
+   3.2.1. File Hierarchy: Groups, Datasets, and Attributes¶
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-resources">
-   3.2.3. Additional Resources
+   3.2.2. Additional Resources
   </a>
  </li>
 </ul>
@@ -315,25 +310,24 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import any necessary packages</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBHDF5IO</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages succesfully imported.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages succesfully imported.
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="reading-our-nwb-file">
-<h2><span class="section-number">3.2.1. </span>Reading our NWB file<a class="headerlink" href="#reading-our-nwb-file" title="Permalink to this headline">¶</a></h2>
-<p>To access the data in our nwb file we must read the file. This is done in two steps:</p>
-<ul class="simple">
-<li><p>assign our file as an NWBHDF5IO object</p></li>
-<li><p>read our file</p></li>
-</ul>
-<p>The first step is done using the NWBHDF5IO class to create our NWBHDF5IO object and map our file to HDF5 format. Once we have done this, we can use the read() method to return our nwb file. For more information on how to read NWB files, please visit the Reading data from an NWB file section from the NWB Basics Tutorial. For more information on the NWBHDF5IO class, please visit the original documentation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first read the file </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the NWB file</span>
 <span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000006/sub-anm369962/sub-anm369962_ses-20170310.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
@@ -346,9 +340,8 @@
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="file-hierarchy-groups-datasets-and-attributes">
-<h2><span class="section-number">3.2.2. </span>File Hierarchy: Groups, Datasets, and Attributes¶<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.1. </span>File Hierarchy: Groups, Datasets, and Attributes¶<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
 <p>The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute returns a dictionary contiaining the metadata of the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -387,7 +380,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140485765168976
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140475749179344
  Fields:
    time_series: {
      lick_left_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
@@ -427,7 +420,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140485765256272
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140475749258448
  Fields:
    colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;type&#39; &#39;response&#39; &#39;stim_present&#39; &#39;is_good&#39;
   &#39;cue_start_time&#39; &#39;pole_in_time&#39; &#39;pole_out_time&#39;]
@@ -822,7 +815,7 @@ id ...</td>
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h2><span class="section-number">3.2.3. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.2.2. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>For an in depth explanation of all groups contained within an <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> object please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.file.html'> pynwb.file.NWBFile </a> section of the PyNWB documentation.</p>
 </div>
 </div>

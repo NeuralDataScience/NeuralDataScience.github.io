@@ -22,25 +22,18 @@ except ImportError as e:
 # In[2]:
 
 
+# Import any necessary packages
 import numpy as np
 import pandas as pd 
 from matplotlib import pyplot as plt
 from pynwb import NWBHDF5IO
+print('Packages succesfully imported.')
 
-
-# ## Reading our NWB file
-
-# To access the data in our nwb file we must read the file. This is done in two steps:
-# 
-# - assign our file as an NWBHDF5IO object
-# - read our file
-# 
-# The first step is done using the NWBHDF5IO class to create our NWBHDF5IO object and map our file to HDF5 format. Once we have done this, we can use the read() method to return our nwb file. For more information on how to read NWB files, please visit the Reading data from an NWB file section from the NWB Basics Tutorial. For more information on the NWBHDF5IO class, please visit the original documentation.
 
 # In[3]:
 
 
-# first read the file 
+# read the NWB file
 io = NWBHDF5IO('000006/sub-anm369962/sub-anm369962_ses-20170310.nwb', 'r')
 nwb_file = io.read()
 print(type(nwb_file))
