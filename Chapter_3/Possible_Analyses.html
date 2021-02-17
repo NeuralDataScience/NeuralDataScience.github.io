@@ -259,6 +259,20 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-resources">
+   3.3.1. Additional Resources
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -407,7 +421,7 @@ id ...</td>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># return the first 10 spike times for neurons 2-8</span>
-<span class="n">neural_data</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;spike_times&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">8</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">neural_data</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;spike_times&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
 <span class="n">neural_data</span>
 </pre></div>
 </div>
@@ -419,15 +433,20 @@ id ...</td>
 7     [330.26357899999954, 330.3849389999996, 330.60...
 10    [329.8969389999996, 329.94389899999953, 329.95...
 11    [330.08321899999953, 331.0170989999996, 331.19...
-14    [330.72441899999956, 330.83309899999955, 330.9...
-20    [330.84521899999953, 332.47577899999953, 332.5...
 Name: spike_times, dtype: object
 </pre></div>
 </div>
 </div>
 </div>
 <p>A spike raster plot can be created using the funtion <code class="docutils literal notranslate"><span class="pre">plt.eventplot</span></code>. A spike raster plot displays the spiking of neurons overtime. In a spike raster plot, the y-axis corresponds to the neuron being recorded and the x-axis represents the time. Each horizontal line in the plot represents the spiking of a neuron. Spike raster plots are useful as they reveal firing rate correlations between groups of neurons. For more inormation on <code class="docutils literal notranslate"><span class="pre">plt.eventplot</span></code> please visit the <a href = 'https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.eventplot.html'> matplotlib documentation</a>.</p>
-<p>We have created a function called <code class="docutils literal notranslate"><span class="pre">rasterPlot()</span></code> that creates a spike raster plot from the <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> column in <code class="docutils literal notranslate"><span class="pre">units</span></code>.</p>
+<p>We have created a function called <code class="docutils literal notranslate"><span class="pre">rasterPlot()</span></code> that creates a spike raster plot from the <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> column in <code class="docutils literal notranslate"><span class="pre">units</span></code>. <code class="docutils literal notranslate"><span class="pre">rasterPlot()</span></code> takes in the arguments units_df, neuron_start, neuron_end, start_time, and end_time. Below are decriptions of each argument.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">unit_df</span></code>: dataframe containing spike time data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">neuron_start</span></code>: index of first neruon of interest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">neuron_end</span></code>: index of last neuron of interest</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">start_time</span></code>: start time for desired time interval</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">end_time</span></code>: end time for desired time interval</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib.widgets</span> <span class="kn">import</span> <span class="n">Slider</span>
@@ -472,105 +491,55 @@ Name: spike_times, dtype: object
 <img alt="../_images/Possible_Analyses_8_0.png" src="../_images/Possible_Analyses_8_0.png" />
 </div>
 </div>
-<p>The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings. If we do not set an axis limit on the raster plot, all of our spike recordings will be displayed at once and the figure would be unreadable. Instead we can create seperate raster plots in n-second time intervals. Below you can see how to create multiple with 3 second time intervals.</p>
+<p>The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings. If we do not set an axis limit on the raster plot, all of our spike recordings will be displayed at once and the figure would be unreadable. Instead we can create a scollable figure that allows you to plot the entire raster plot and scroll through the x-axis in pre-determined time intervals. Below you will find the coded needed to create this type of plot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create subplots for graphs and set sizing</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import module needed for scrollable axes </span>
+<span class="kn">from</span> <span class="nn">matplotlib.widgets</span> <span class="kn">import</span> <span class="n">Slider</span>
 
-<span class="c1"># Set initial x-axis limits</span>
-<span class="n">plot_limit</span> <span class="o">=</span> <span class="p">[</span><span class="mf">329.8</span><span class="p">,</span> <span class="mf">332.8</span><span class="p">]</span>
+<span class="c1"># Set up figure</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
-<span class="c1"># Run loop to create desired plots</span>
-<span class="k">for</span> <span class="n">plot</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">plot</span><span class="p">]</span> <span class="o">=</span> <span class="n">rasterPlot</span><span class="p">(</span><span class="n">units_df</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span> <span class="n">plot_limit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">plot</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span> <span class="n">plot_limit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">plot</span><span class="o">*</span><span class="mi">3</span><span class="p">))</span>
-    
+<span class="c1"># Set colors for each neuron </span>
+<span class="n">color_codes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="c1"># Plot raster plot with full axes </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">neural_data</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">color_codes</span><span class="p">)</span>
+
+<span class="c1"># Set scroll bar dimensions and color </span>
+<span class="n">axcolor</span> <span class="o">=</span> <span class="s1">&#39;lightgoldenrodyellow&#39;</span>
+<span class="n">axpos</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">],</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">axcolor</span><span class="p">)</span>
+
+<span class="c1"># Create axis limits for scroll </span>
+<span class="n">spos</span> <span class="o">=</span> <span class="n">Slider</span><span class="p">(</span><span class="n">axpos</span><span class="p">,</span> <span class="s1">&#39;Pos&#39;</span><span class="p">,</span> <span class="mf">300.0</span><span class="p">,</span> <span class="mf">2250.0</span><span class="p">)</span>
+
+<span class="c1"># Determine time interval used for scroll bar </span>
+<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">spos</span><span class="o">.</span><span class="n">val</span>
+    <span class="c1"># pos = starting position </span>
+    <span class="c1"># pos + 3 = figure will move by 3 values per scroll</span>
+    <span class="c1"># 5, 0 = y-axis limits, </span>
+    <span class="c1"># Be sure to input a y-axis limit that will show all desired neurons</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="n">pos</span><span class="p">,</span><span class="n">pos</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span> 
+    <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">()</span>
+
+<span class="n">spos</span><span class="o">.</span><span class="n">on_changed</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/Possible_Analyses_10_0.png" src="../_images/Possible_Analyses_10_0.png" />
-<img alt="../_images/Possible_Analyses_10_1.png" src="../_images/Possible_Analyses_10_1.png" />
-<img alt="../_images/Possible_Analyses_10_2.png" src="../_images/Possible_Analyses_10_2.png" />
-<img alt="../_images/Possible_Analyses_10_3.png" src="../_images/Possible_Analyses_10_3.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># units_df[&#39;depth&#39;].unique()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scroll bar </span>
-<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="k">class</span> <span class="nc">ScrollBar</span><span class="p">:</span> 
-      
-    <span class="c1"># constructor </span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
-          
-        <span class="c1"># create root window </span>
-        <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span> 
-   
-        <span class="c1"># create a horizontal scrollbar by </span>
-        <span class="c1"># setting orient to horizontal </span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">Scrollbar</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">orient</span> <span class="o">=</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">)</span> 
-   
-        <span class="c1"># attach Scrollbar to root window at  </span>
-        <span class="c1"># the bootom </span>
-        <span class="n">h</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span> <span class="o">=</span> <span class="n">BOTTOM</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">X</span><span class="p">)</span> 
-   
-        <span class="c1"># create a vertical scrollbar-no need </span>
-        <span class="c1"># to write orient as it is by </span>
-        <span class="c1"># default vertical </span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">Scrollbar</span><span class="p">(</span><span class="n">root</span><span class="p">)</span> 
-   
-        <span class="c1"># attach Scrollbar to root window on  </span>
-        <span class="c1"># the side </span>
-        <span class="n">v</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span> <span class="o">=</span> <span class="n">RIGHT</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="n">Y</span><span class="p">)</span> 
-           
-   
-        <span class="c1"># create a Text widget with 15 chars </span>
-        <span class="c1"># width and 15 lines height </span>
-        <span class="c1"># here xscrollcomannd is used to attach Text </span>
-        <span class="c1"># widget to the horizontal scrollbar </span>
-        <span class="c1"># here yscrollcomannd is used to attach Text </span>
-        <span class="c1"># widget to the vertical scrollbar </span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">Text</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="n">wrap</span> <span class="o">=</span> <span class="n">NONE</span><span class="p">,</span> 
-                 <span class="n">xscrollcommand</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">set</span><span class="p">,</span>  
-                 <span class="n">yscrollcommand</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">set</span><span class="p">)</span> 
-   
-        <span class="c1"># insert some text into the text widget </span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span> 
-            <span class="n">t</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">END</span><span class="p">,</span><span class="s2">&quot;this is some text</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> 
-   
-        <span class="c1"># attach Text widget to root window at top </span>
-        <span class="n">t</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">)</span> 
-   
-        <span class="c1"># here command represents the method to </span>
-        <span class="c1"># be executed xview is executed on </span>
-        <span class="c1"># object &#39;t&#39; Here t may represent any </span>
-        <span class="c1"># widget </span>
-        <span class="n">h</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">xview</span><span class="p">)</span> 
-   
-        <span class="c1"># here command represents the method to </span>
-        <span class="c1"># be executed yview is executed on </span>
-        <span class="c1"># object &#39;t&#39; Here t may represent any </span>
-        <span class="c1"># widget </span>
-        <span class="n">v</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">t</span><span class="o">.</span><span class="n">yview</span><span class="p">)</span> 
-   
-        <span class="c1"># the root window handles the mouse </span>
-        <span class="c1"># click event </span>
-        <span class="n">root</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span> 
-
-<span class="c1"># create an object to Scrollbar class </span>
-<span class="c1"># s = ScrollBar()</span>
-</pre></div>
-</div>
-</div>
+<div class="section" id="additional-resources">
+<h2><span class="section-number">3.3.1. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
