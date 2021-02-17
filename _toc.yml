@@ -50,6 +50,9 @@
     - file: Chapter_7/Converting_Calcium_Imaging_Data_into_Spikes
     
 - file: Chapter_8/Connectivity_Atlas
+  sections: 
+    - file: Chapter_8/Downloading_Experimental_Data
+    - file: Chapter_8/Working_with_Raw_Data
 
 - file: Chapter_9/Brain_Imaging_Data_Structures
   sections: 
