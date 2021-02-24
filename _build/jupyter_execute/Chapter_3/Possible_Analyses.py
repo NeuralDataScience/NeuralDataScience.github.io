@@ -110,6 +110,7 @@ plt.show()
 
 
 # Import module needed for scrollable axes 
+get_ipython().run_line_magic('matplotlib', 'nbagg')
 from matplotlib.widgets import Slider
 
 # Set up figure
