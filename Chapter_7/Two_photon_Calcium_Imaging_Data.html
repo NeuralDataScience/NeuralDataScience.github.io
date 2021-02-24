@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Two-photon Calcium Imaging Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>7.2. Two-photon Calcium Imaging Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,6 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Connectivity Atlas" href="../Chapter_8/Connectivity_Atlas.html" />
+    <link rel="prev" title="7.1. Calcium Imaging of Genetically-Identified Cells in Visual Cortex" href="Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -95,7 +97,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
    1. Neural Data Science
@@ -126,10 +128,22 @@
    6. Large Scale Electrophysiology
   </a>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 current active">
   <a class="reference internal" href="Brain_Observatory.html">
    7. Brain Observatory
   </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex.html">
+     7.1. Calcium Imaging of Genetically-Identified Cells in Visual Cortex
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.2. Two-photon Calcium Imaging Data
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
@@ -193,7 +207,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/Chapter_7/Two-photon_Calcium_Imaging_Data.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/Chapter_7/Two_photon_Calcium_Imaging_Data.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -218,7 +232,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_7/Two-photon_Calcium_Imaging_Data.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_7/Two_photon_Calcium_Imaging_Data.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -226,7 +240,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_7/Two-photon_Calcium_Imaging_Data.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_7/Two_photon_Calcium_Imaging_Data.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -247,12 +261,12 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
-   Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.
+   7.2.1. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#extract-an-experiment-session">
-   Extract an experiment session
+   7.2.2. Extract an experiment session
   </a>
  </li>
 </ul>
@@ -267,7 +281,7 @@
               <div>
                 
   <div class="section" id="two-photon-calcium-imaging-data">
-<h1>Two-photon Calcium Imaging Data<a class="headerlink" href="#two-photon-calcium-imaging-data" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.2. </span>Two-photon Calcium Imaging Data<a class="headerlink" href="#two-photon-calcium-imaging-data" title="Permalink to this headline">¶</a></h1>
 <p>This section will serve as an introdution to retrieving Two-photon calcium imaging data from the Allen Brain Observatory Cache. By the end of this section you will know how to examine a 2-photon imaging dataset for a particular cell type, in a specific visual area.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -296,7 +310,7 @@
 </div>
 </div>
 <div class="section" id="get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
-<h2>Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.1. </span>Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Permalink to this headline">¶</a></h2>
 <p>Similar to how we created an instance of the CellTypesCache, here we’ll create an instance of the “BrainObservatoryCache.” The datahub already has a manifest file available in the directory you see below. This directory also has all of the data we need.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -332,7 +346,7 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </div>
 </div>
 <div class="section" id="extract-an-experiment-session">
-<h2>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.2. </span>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
 <p>With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiements from our desired cre lines and brain regions. We can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to get a list of experiments that are available. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">targeted_structures</span></code> which both require lists as inputs.</p>
 <p>You can find more info about the Cre-lines <a href="http://observatory.brain-map.org/visualcoding/transgenic">here</a>. Refer back to the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about the different visual areas.</p>
 <p><strong>Note</strong>: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute on your new datafram to check if it is empty.</p>
@@ -503,7 +517,7 @@ Look, it is a list object containing a dict.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.brain_observatory_nwb_data_set.BrainObservatoryNwbDataSet object at 0x7fe8517dfd50&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.brain_observatory_nwb_data_set.BrainObservatoryNwbDataSet object at 0x7fa1bdc9fa10&gt;
 </pre></div>
 </div>
 </div>
@@ -539,6 +553,8 @@ Look, it is a list object containing a dict.
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex.html" title="previous page"><span class="section-number">7.1. </span>Calcium Imaging of Genetically-Identified Cells in Visual Cortex</a>
+    <a class='right-next' id="next-link" href="../Chapter_8/Connectivity_Atlas.html" title="next page"><span class="section-number">8. </span>Connectivity Atlas</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

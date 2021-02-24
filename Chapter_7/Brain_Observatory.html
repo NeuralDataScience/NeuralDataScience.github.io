@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>10. Text Analyses of Neuroscience Literature &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>7. Brain Observatory &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="10.1. Principles of Analyzing Text" href="Principles_of_Analyzing_Text.html" />
-    <link rel="prev" title="9.2. File Formats" href="../Chapter_9/File_Formats.html" />
+    <link rel="next" title="7.1. Calcium Imaging of Genetically-Identified Cells in Visual Cortex" href="Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex.html" />
+    <link rel="prev" title="6.4. Spike Sorting Neuropixels Data" href="../Chapter_6/Spike_Sorting_Neuropixels_Data.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -128,10 +128,22 @@
    6. Large Scale Electrophysiology
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_7/Brain_Observatory.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    7. Brain Observatory
   </a>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex.html">
+     7.1. Calcium Imaging of Genetically-Identified Cells in Visual Cortex
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Two_photon_Calcium_Imaging_Data.html">
+     7.2. Two-photon Calcium Imaging Data
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
@@ -143,27 +155,10 @@
    9. Brain Imaging Data Structures
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
    10. Text Analyses of Neuroscience Literature
   </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Principles_of_Analyzing_Text.html">
-     10.1. Principles of Analyzing Text
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Tools_for_Text_Analysis.html">
-     10.2. Tools for Text Analysis
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Beautiful_Soup.html">
-     10.3. Beautiful Soup
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
@@ -212,7 +207,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/Chapter_10/Text_Analyses_of_Neuroscience_Literature.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/Chapter_7/Brain_Observatory.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -237,7 +232,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_10/Text_Analyses_of_Neuroscience_Literature.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_7/Brain_Observatory.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -245,7 +240,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_10/Text_Analyses_of_Neuroscience_Literature.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_7/Brain_Observatory.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -266,8 +261,8 @@
         
               <div>
                 
-  <div class="section" id="text-analyses-of-neuroscience-literature">
-<h1><span class="section-number">10. </span>Text Analyses of Neuroscience Literature<a class="headerlink" href="#text-analyses-of-neuroscience-literature" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="brain-observatory">
+<h1><span class="section-number">7. </span>Brain Observatory<a class="headerlink" href="#brain-observatory" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -285,7 +280,7 @@
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./Chapter_10"
+            path: "./Chapter_7"
         },
         predefinedOutput: true
     }
@@ -300,8 +295,8 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../Chapter_9/File_Formats.html" title="previous page"><span class="section-number">9.2. </span>File Formats</a>
-    <a class='right-next' id="next-link" href="Principles_of_Analyzing_Text.html" title="next page"><span class="section-number">10.1. </span>Principles of Analyzing Text</a>
+    <a class='left-prev' id="prev-link" href="../Chapter_6/Spike_Sorting_Neuropixels_Data.html" title="previous page"><span class="section-number">6.4. </span>Spike Sorting Neuropixels Data</a>
+    <a class='right-next' id="next-link" href="Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex.html" title="next page"><span class="section-number">7.1. </span>Calcium Imaging of Genetically-Identified Cells in Visual Cortex</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
