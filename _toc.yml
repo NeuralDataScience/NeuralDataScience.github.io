@@ -44,10 +44,10 @@
     - file: Chapter_6/Modeling_Single_Trial_Data_With_Many_Recorded_Neurons
     - file: Chapter_6/Spike_Sorting_Neuropixels_Data
     
-- file: Chapter_7/Two-photon_Calcium_Imaging_Data
+- file: Chapter_7/Brain_Observatory
   sections:
     - file: Chapter_7/Calcium_Imaging_of_Genetically-Identified_Cells_in_Visual_Cortex
-    - file: Chapter_7/Converting_Calcium_Imaging_Data_into_Spikes
+    - file: Chapter_7/Two_photon_Calcium_Imaging_Data
     
 - file: Chapter_8/Connectivity_Atlas
   sections: 
