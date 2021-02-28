@@ -1,0 +1,896 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>8.2. Working with Raw Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Brain Imaging Data Structures" href="../Chapter_9/Brain_Imaging_Data_Structures.html" />
+    <link rel="prev" title="8.1. Downloading Experimental Data" href="Downloading_Experimental_Data.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/brainz.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">A Hands-On Guide to Neural Data Science</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../landing_page.html">
+   A Hands-On Guide to Neural Data Science
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
+   1. Neural Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2/Data_Science_In_Python.html">
+   2. Data Science in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3/Neurodata_Without_Borders.html">
+   3. Neurodata Without Borders
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4/The_Allen_SDK.html">
+   4. The Allen SDK
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5/Single-Cell_Electrophysiology.html">
+   5. Single-Cell Electrophysiology
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_6/Large_Scale_Electrophysiology.html">
+   6. Large Scale Electrophysiology
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_7/Brain_Observatory.html">
+   7. Brain Observatory
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="Connectivity_Atlas.html">
+   8. Connectivity Atlas
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="Downloading_Experimental_Data.html">
+     8.1. Downloading Experimental Data
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     8.2. Working with Raw Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
+   9. Brain Imaging Data Structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
+   10. Text Analyses of Neuroscience Literature
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
+   11. Approaches to Analyzing Large Datasets
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Chapter_8/Working_with_Raw_Data.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_8/Working_with_Raw_Data.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_8/Working_with_Raw_Data.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#download-and-visualize-gridded-projection-signal-volumes-raw-data">
+   8.2.1. Download and visualize gridded projection signal volumes (raw data)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#build-a-structure-to-structure-matrix-of-projection-signal-values">
+   8.2.2. Build a structure-to-structure matrix of projection signal values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-resources">
+   8.2.3. Additional Resources
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="working-with-raw-data">
+<h1><span class="section-number">8.2. </span>Working with Raw Data<a class="headerlink" href="#working-with-raw-data" title="Permalink to this headline">¶</a></h1>
+<p>This section will serve as a tutorial on how to analyze and _____ data stored in the Allen Brain Mouse Connectivity Atlas. This section will go over how to download and visualize raw data as well as create projection matrices.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import common packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline 
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages imported.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages imported.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the MouseConnectivityCache</span>
+<span class="kn">import</span> <span class="nn">allensdk</span>
+<span class="kn">from</span> <span class="nn">allensdk.core.mouse_connectivity_cache</span> <span class="kn">import</span> <span class="n">MouseConnectivityCache</span>
+
+<span class="c1"># Create an instance of the class and assign it to a variable, mcc</span>
+<span class="n">mcc</span> <span class="o">=</span> <span class="n">MouseConnectivityCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;connectivity/mouse_connectivity_manifest.json&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mcc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7faee10846d0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="download-and-visualize-gridded-projection-signal-volumes-raw-data">
+<h2><span class="section-number">8.2.1. </span>Download and visualize gridded projection signal volumes (raw data)<a class="headerlink" href="#download-and-visualize-gridded-projection-signal-volumes-raw-data" title="Permalink to this headline">¶</a></h2>
+<p>The ProjectionStructureUnionizes API data tells you how much signal there was in a given structure and experiment. It contains the density of projecting signal, volume of projecting signal, and other information. MouseConnectivityCache provides methods for querying and storing this data. To access to this signal projection data, you must call the <code class="docutils literal notranslate"><span class="pre">get_structure_unionizes()</span></code> method on our MouseConnectivityCache instance.</p>
+<p>For more information on the outputs of <code class="docutils literal notranslate"><span class="pre">get_structure_unionizes()</span></code> please visit <a href="https://alleninstitute.github.io/AllenSDK/unionizes.html">here</a>. For documentation on <code class="docutils literal notranslate"><span class="pre">get_structure_unionizes()</span></code> and other MouseConnectivityCache helper methods, please click <a href="https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html">here</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grab the StructureTree instance</span>
+<span class="n">structure_tree</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_structure_tree</span><span class="p">()</span>
+
+<span class="c1"># Select cortical experiments </span>
+<span class="n">isocortex</span> <span class="o">=</span> <span class="n">structure_tree</span><span class="o">.</span><span class="n">get_structures_by_name</span><span class="p">([</span><span class="s1">&#39;Isocortex&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Find wild-type injections into primary motor cortex </span>
+<span class="n">VISp</span> <span class="o">=</span> <span class="n">structure_tree</span><span class="o">.</span><span class="n">get_structures_by_name</span><span class="p">([</span><span class="s1">&#39;Primary visual area&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">VISp_experiments</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_experiments</span><span class="p">(</span><span class="n">cre</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+                                       <span class="n">injection_structure_ids</span><span class="o">=</span><span class="p">[</span><span class="n">VISp</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> Primary visual area experiments&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">VISp_experiments</span><span class="p">))</span>
+
+<span class="c1"># Download projection signals for structure of interest </span>
+<span class="n">structure_unionizes</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_structure_unionizes</span><span class="p">(</span><span class="n">experiment_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> 
+                                                    <span class="n">VISp_experiments</span><span class="p">],</span> 
+                                                  <span class="n">is_injection</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                                  <span class="n">structure_ids</span><span class="o">=</span><span class="p">[</span><span class="n">isocortex</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]],</span>
+                                                  <span class="n">include_descendants</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> Primary visual area non-injection, cortical structure unionizes&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">structure_unionizes</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>33 Primary visual area experiments
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>29204 Primary visual area non-injection, cortical structure unionizes
+</pre></div>
+</div>
+</div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">structures_unionizes</span></code> is a very large dataframe filled with all the signal projection data for our experiments of interest. We can filter this like any other dataframe. For example, filter the dataframe to only include experiments with a large projection density and volume. For the purposes of this lesson, we will consider any <code class="docutils literal notranslate"><span class="pre">projection_density</span></code> and <code class="docutils literal notranslate"><span class="pre">volume</span></code> greater than 0.5 to be <em>large</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">structure_unionizes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment_id</th>
+      <th>hemisphere_id</th>
+      <th>id</th>
+      <th>is_injection</th>
+      <th>max_voxel_density</th>
+      <th>max_voxel_x</th>
+      <th>max_voxel_y</th>
+      <th>max_voxel_z</th>
+      <th>normalized_projection_volume</th>
+      <th>projection_density</th>
+      <th>projection_energy</th>
+      <th>projection_intensity</th>
+      <th>projection_volume</th>
+      <th>structure_id</th>
+      <th>sum_pixel_intensity</th>
+      <th>sum_pixels</th>
+      <th>sum_projection_pixel_intensity</th>
+      <th>sum_projection_pixels</th>
+      <th>volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>307297141</td>
+      <td>3</td>
+      <td>636132051</td>
+      <td>False</td>
+      <td>0.135948</td>
+      <td>5700</td>
+      <td>680</td>
+      <td>7490</td>
+      <td>0.000045</td>
+      <td>0.000090</td>
+      <td>0.011458</td>
+      <td>126.726430</td>
+      <td>0.000030</td>
+      <td>1030</td>
+      <td>5.779040e+10</td>
+      <td>269614784.0</td>
+      <td>3.089182e+06</td>
+      <td>2.437678e+04</td>
+      <td>0.330278</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>307297141</td>
+      <td>2</td>
+      <td>636125427</td>
+      <td>False</td>
+      <td>0.239197</td>
+      <td>4670</td>
+      <td>1090</td>
+      <td>6950</td>
+      <td>0.000218</td>
+      <td>0.000198</td>
+      <td>0.057760</td>
+      <td>292.118347</td>
+      <td>0.000145</td>
+      <td>320</td>
+      <td>1.609707e+11</td>
+      <td>598041920.0</td>
+      <td>3.454268e+07</td>
+      <td>1.182489e+05</td>
+      <td>0.732601</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>307297141</td>
+      <td>1</td>
+      <td>636130167</td>
+      <td>False</td>
+      <td>1.000000</td>
+      <td>9210</td>
+      <td>1990</td>
+      <td>2790</td>
+      <td>0.028052</td>
+      <td>0.205331</td>
+      <td>319.533539</td>
+      <td>1556.188721</td>
+      <td>0.018616</td>
+      <td>305</td>
+      <td>4.455195e+10</td>
+      <td>74012400.0</td>
+      <td>2.364944e+10</td>
+      <td>1.519703e+07</td>
+      <td>0.090665</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>307297141</td>
+      <td>1</td>
+      <td>636130887</td>
+      <td>False</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>2</td>
+      <td>6.701981e+09</td>
+      <td>51414300.0</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.062983</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>307297141</td>
+      <td>1</td>
+      <td>636128375</td>
+      <td>False</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1010</td>
+      <td>2.252017e+10</td>
+      <td>81598496.0</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>0.099958</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Only include experiments that have a large projection density </span>
+<span class="n">dense_unionizes</span> <span class="o">=</span> <span class="n">structure_unionizes</span><span class="p">[</span><span class="n">structure_unionizes</span><span class="p">[</span><span class="s1">&#39;projection_density&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">.</span><span class="mi">5</span> <span class="p">]</span>
+
+<span class="c1"># Only include experiments from the dense dataframe that have a large volume </span>
+<span class="n">large_unionizes</span> <span class="o">=</span> <span class="n">dense_unionizes</span><span class="p">[</span><span class="n">dense_unionizes</span><span class="p">[</span><span class="s1">&#39;volume&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">.</span><span class="mi">5</span> <span class="p">]</span>
+
+<span class="c1"># create a dataframe that contains metadata from structure IDs within our large and dense df</span>
+<span class="n">large_structures</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">structure_tree</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">large_unionizes</span><span class="p">[</span><span class="s1">&#39;structure_id&#39;</span><span class="p">]))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> large, dense, cortical, non-injection unionizes, </span><span class="si">%d</span><span class="s2"> structures&quot;</span> <span class="o">%</span> <span class="p">(</span> <span class="nb">len</span><span class="p">(</span><span class="n">large_unionizes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">large_structures</span><span class="p">)</span> <span class="p">))</span>
+
+<span class="c1"># return all large, dense, cortical, structure unionizes </span>
+<span class="nb">print</span><span class="p">(</span><span class="n">large_structures</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+
+<span class="n">large_unionizes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>18 large, dense, cortical, non-injection unionizes, 18 structures
+0               Lateral visual area
+1         Rostrolateral visual area
+2                   Postrhinal area
+3                      Visual areas
+4               Lateral visual area
+5     Primary visual area, layer 6a
+6               Lateral visual area
+7               Primary visual area
+8               Lateral visual area
+9               Lateral visual area
+10              Lateral visual area
+11              Lateral visual area
+12              Lateral visual area
+13                  Postrhinal area
+14              Lateral visual area
+15     Primary visual area, layer 1
+16              Primary visual area
+17        Rostrolateral visual area
+Name: name, dtype: object
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment_id</th>
+      <th>hemisphere_id</th>
+      <th>id</th>
+      <th>is_injection</th>
+      <th>max_voxel_density</th>
+      <th>max_voxel_x</th>
+      <th>max_voxel_y</th>
+      <th>max_voxel_z</th>
+      <th>normalized_projection_volume</th>
+      <th>projection_density</th>
+      <th>projection_energy</th>
+      <th>projection_intensity</th>
+      <th>projection_volume</th>
+      <th>structure_id</th>
+      <th>sum_pixel_intensity</th>
+      <th>sum_pixels</th>
+      <th>sum_projection_pixel_intensity</th>
+      <th>sum_projection_pixels</th>
+      <th>volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>229</th>
+      <td>307297141</td>
+      <td>2</td>
+      <td>636125869</td>
+      <td>False</td>
+      <td>1.0</td>
+      <td>9650</td>
+      <td>1820</td>
+      <td>9220</td>
+      <td>0.582058</td>
+      <td>0.598548</td>
+      <td>1902.673072</td>
+      <td>3178.812192</td>
+      <td>0.386275</td>
+      <td>409</td>
+      <td>1.172856e+12</td>
+      <td>5.268182e+08</td>
+      <td>1.002363e+12</td>
+      <td>3.153262e+08</td>
+      <td>0.645352</td>
+    </tr>
+    <tr>
+      <th>1538</th>
+      <td>113887162</td>
+      <td>2</td>
+      <td>633272766</td>
+      <td>False</td>
+      <td>1.0</td>
+      <td>7830</td>
+      <td>1500</td>
+      <td>8340</td>
+      <td>0.836458</td>
+      <td>0.627888</td>
+      <td>1960.408377</td>
+      <td>3122.223785</td>
+      <td>0.341144</td>
+      <td>417</td>
+      <td>9.620248e+11</td>
+      <td>4.435262e+08</td>
+      <td>8.694925e+11</td>
+      <td>2.784850e+08</td>
+      <td>0.543320</td>
+    </tr>
+    <tr>
+      <th>1841</th>
+      <td>180296424</td>
+      <td>2</td>
+      <td>630240820</td>
+      <td>False</td>
+      <td>1.0</td>
+      <td>9310</td>
+      <td>3180</td>
+      <td>9690</td>
+      <td>0.626614</td>
+      <td>0.744479</td>
+      <td>4059.921430</td>
+      <td>5453.373345</td>
+      <td>0.510067</td>
+      <td>312782628</td>
+      <td>2.350927e+12</td>
+      <td>5.592923e+08</td>
+      <td>2.270683e+12</td>
+      <td>4.163813e+08</td>
+      <td>0.685133</td>
+    </tr>
+    <tr>
+      <th>2306</th>
+      <td>180296424</td>
+      <td>2</td>
+      <td>630239708</td>
+      <td>False</td>
+      <td>1.0</td>
+      <td>9170</td>
+      <td>2300</td>
+      <td>9690</td>
+      <td>4.241160</td>
+      <td>0.522139</td>
+      <td>2128.869392</td>
+      <td>4077.206061</td>
+      <td>3.452329</td>
+      <td>669</td>
+      <td>1.279820e+13</td>
+      <td>5.397464e+09</td>
+      <td>1.149050e+13</td>
+      <td>2.818228e+09</td>
+      <td>6.611893</td>
+    </tr>
+    <tr>
+      <th>2476</th>
+      <td>180296424</td>
+      <td>3</td>
+      <td>630241279</td>
+      <td>False</td>
+      <td>1.0</td>
+      <td>9440</td>
+      <td>2350</td>
+      <td>2440</td>
+      <td>0.712232</td>
+      <td>0.532626</td>
+      <td>2363.397654</td>
+      <td>4437.253859</td>
+      <td>0.579761</td>
+      <td>409</td>
+      <td>2.262464e+12</td>
+      <td>8.885676e+08</td>
+      <td>2.100039e+12</td>
+      <td>4.732744e+08</td>
+      <td>1.088495</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="build-a-structure-to-structure-matrix-of-projection-signal-values">
+<h2><span class="section-number">8.2.2. </span>Build a structure-to-structure matrix of projection signal values<a class="headerlink" href="#build-a-structure-to-structure-matrix-of-projection-signal-values" title="Permalink to this headline">¶</a></h2>
+<p>The MouseConnectivityCache class provides a helper method for converting ProjectionStructureUnionize data for a set of experiments and structures into a matrix. This is done by calling <code class="docutils literal notranslate"><span class="pre">get_projection_matrix</span></code> on our MouseConnectivityCache instance. The method can take in arguements <code class="docutils literal notranslate"><span class="pre">experiment_ids</span></code>, <code class="docutils literal notranslate"><span class="pre">projection_structure_ids</span></code>, <code class="docutils literal notranslate"><span class="pre">hemisphere_ids</span></code>, <code class="docutils literal notranslate"><span class="pre">parameter</span></code>, and <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> to further specify your matrix.</p>
+<p>The code below demonstrates how to make a matrix of projection density values in auditory sub-structures for cre-negative VISp experiments.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Collect all experiment IDs from primary visual area experiments </span>
+<span class="n">visp_experiment_ids</span> <span class="o">=</span> <span class="p">[</span> <span class="n">exp</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">VISp_experiments</span> <span class="p">]</span>
+
+<span class="n">ctx_children</span> <span class="o">=</span> <span class="n">structure_tree</span><span class="o">.</span><span class="n">child_ids</span><span class="p">(</span> <span class="p">[</span><span class="n">isocortex</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]]</span> <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Create your projection matrix </span>
+<span class="n">pm</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_projection_matrix</span><span class="p">(</span><span class="n">experiment_ids</span> <span class="o">=</span> <span class="n">visp_experiment_ids</span><span class="p">,</span> 
+                               <span class="n">projection_structure_ids</span> <span class="o">=</span> <span class="n">ctx_children</span><span class="p">,</span>
+                               <span class="n">hemisphere_ids</span><span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="c1"># right hemisphere, ipsilateral</span>
+                               <span class="n">parameter</span> <span class="o">=</span> <span class="s1">&#39;projection_density&#39;</span><span class="p">)</span>
+
+<span class="c1"># These are just experiment ids</span>
+<span class="n">row_labels</span> <span class="o">=</span> <span class="n">pm</span><span class="p">[</span><span class="s1">&#39;rows&#39;</span><span class="p">]</span> 
+<span class="c1"># These are the brain structures </span>
+<span class="n">column_labels</span> <span class="o">=</span> <span class="p">[</span> <span class="n">col</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">pm</span><span class="p">[</span><span class="s1">&#39;columns&#39;</span><span class="p">]</span> <span class="p">]</span>
+
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">pm</span><span class="p">[</span><span class="s1">&#39;matrix&#39;</span><span class="p">]</span>
+
+<span class="c1"># Plot your matrix </span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">))</span>
+<span class="n">heatmap</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolor</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">afmhot</span><span class="p">)</span>
+
+<span class="c1"># Put the major ticks at the middle of each cell</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>          
+
+<span class="c1"># Want a more natural, table-like display</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">column_labels</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">row_labels</span><span class="p">,</span> <span class="n">minor</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Working_with_Raw_Data_14_0.png" src="../_images/Working_with_Raw_Data_14_0.png" />
+</div>
+</div>
+<p>Using another feature of the MouseConnectivityCache, we can show an example of what an image of fluorescence would look like for a given experiment. The code below demonstrates how you can load the projection density for a particular experiment and plot it to see how it looks.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># VTA experiment of interest </span>
+<span class="n">experiment_id</span> <span class="o">=</span> <span class="mi">307297141</span>
+
+<span class="c1"># projection density: number of projecting pixels / voxel volume</span>
+<span class="n">projection_density</span><span class="p">,</span> <span class="n">pd_info</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_projection_density</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
+
+<span class="c1"># Injection density: number of projecting pixels in injection site / voxel volume</span>
+<span class="n">ind</span><span class="p">,</span> <span class="n">ind_info</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_injection_density</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
+
+<span class="c1"># Data mask:</span>
+<span class="c1"># Binary mask indicating which voxels contain valid data</span>
+<span class="n">dm</span><span class="p">,</span> <span class="n">dm_info</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_data_mask</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
+
+<span class="n">template</span><span class="p">,</span> <span class="n">template_info</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_template_volume</span><span class="p">()</span>
+
+<span class="n">annot</span><span class="p">,</span> <span class="n">annot_info</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_annotation_volume</span><span class="p">()</span>
+
+<span class="c1"># In addition to the annotation volume, you can get binary masks for individual structures</span>
+<span class="c1"># this is a binary mask for the VTA</span>
+<span class="n">VTA_mask</span><span class="p">,</span> <span class="n">cm_info</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_structure_mask</span><span class="p">(</span><span class="mi">314</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">pd_info</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">projection_density</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">template</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">annot</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OrderedDict([(&#39;type&#39;, &#39;double&#39;), (&#39;dimension&#39;, 3), (&#39;space&#39;, &#39;left-posterior-superior&#39;), (&#39;sizes&#39;, array([528, 320, 456])), (&#39;space directions&#39;, array([[25.,  0.,  0.],
+       [ 0., 25.,  0.],
+       [ 0.,  0., 25.]])), (&#39;kinds&#39;, [&#39;domain&#39;, &#39;domain&#39;, &#39;domain&#39;]), (&#39;endian&#39;, &#39;little&#39;), (&#39;encoding&#39;, &#39;gzip&#39;), (&#39;space origin&#39;, array([0., 0., 0.]))])
+(528, 320, 456) (528, 320, 456) (528, 320, 456)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Compute the maximum intensity projection of the projection data</span>
+<span class="n">pd_mip</span> <span class="o">=</span> <span class="n">projection_density</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ind_mip</span> <span class="o">=</span> <span class="n">ind</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">#Show that slice of all volumes side-by-side</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">pr_axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">pr_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pd_mip</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">pr_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;VTA Experiment 307297141 projection density&quot;</span><span class="p">)</span>
+
+<span class="n">pr_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">ind_mip</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">pr_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;VTA Experiment 307297141 injection site density&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Working_with_Raw_Data_17_0.png" src="../_images/Working_with_Raw_Data_17_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="additional-resources">
+<h2><span class="section-number">8.2.3. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<p>For more information on all the functions used to download the projection signals and create the projection matrices, please look at the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html'> original documentaion</a>. For information on how to create heat maps like the one created for the flourecense image, please visit the <a href = 'https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.imshow.html'> matplotlib documentation</a>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter_8"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="Downloading_Experimental_Data.html" title="previous page"><span class="section-number">8.1. </span>Downloading Experimental Data</a>
+    <a class='right-next' id="next-link" href="../Chapter_9/Brain_Imaging_Data_Structures.html" title="next page"><span class="section-number">9. </span>Brain Imaging Data Structures</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Victor Magdaleno-Garcia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
