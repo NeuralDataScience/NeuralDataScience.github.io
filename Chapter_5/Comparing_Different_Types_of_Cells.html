@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>5.5. Comparing Different Types of Cells &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>5.4. Comparing Different Types of Cells &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="6. Large Scale Electrophysiology" href="../Chapter_6/Large_Scale_Electrophysiology.html" />
-    <link rel="prev" title="5.4. Available Pre-Computed Features" href="Available_Pre-Computed_Features.html" />
+    <link rel="prev" title="5.3. Available Pre-Computed Features" href="Available_Pre-Computed_Features.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -109,13 +109,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_3/Neurodata_Without_Borders.html">
-   3. Neurodata Without Borders
+  <a class="reference internal" href="../Chapter_3/Statistical_Concepts.html">
+   3. Statistical Concepts
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_4/The_Allen_SDK.html">
-   4. The Allen SDK
+  <a class="reference internal" href="../Chapter_4/Neurodata_Without_Borders.html">
+   4. Neurodata Without Borders
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -124,28 +124,23 @@
   </a>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="About_The_Allen_Cell_Types_Dataset.html">
-     5.1. About The Allen Cell Types Dataset
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="Morphology_For_Single_Cells.html">
-     5.2. Morphology for Single Cells
+     5.1. Morphology for Single Cells
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Plotting_A_Single_Sweep_of_Data.html">
-     5.3. Plotting a Signle Sweep of Data
+     5.2. Plotting a Signle Sweep of Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Available_Pre-Computed_Features.html">
-     5.4. Available Pre-Computed Features
+     5.3. Available Pre-Computed Features
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     5.5. Comparing Different Types of Cells
+     5.4. Comparing Different Types of Cells
     </a>
    </li>
   </ul>
@@ -156,28 +151,33 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_7/Brain_Observatory.html">
-   7. Brain Observatory
+  <a class="reference internal" href="../Chapter_7/Retrieving_Brain_Observatory_Data.html">
+   7. Two-photon Calcium Imaging Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_7/Analyzing_Two_Photon_Data.html">
+   8. Analyzing_Two_Photon_Data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
-   8. Connectivity Atlas
+   9. Connectivity Atlas
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
-   9. Brain Imaging Data Structures
+   10. Brain Imaging Data Structures
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
-   10. Text Analyses of Neuroscience Literature
+   11. Text Analyses of Neuroscience Literature
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
-   11. Approaches to Analyzing Large Datasets
+   12. Approaches to Analyzing Large Datasets
   </a>
  </li>
 </ul>
@@ -276,22 +276,22 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#humans-vs-mice">
-   5.5.1. Humans vs Mice
+   5.4.1. Humans vs Mice
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#two-different-cre-lines">
-   5.5.2. Two Different Cre-Lines
+   5.4.2. Two Different Cre-Lines
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#spiny-vs-aspiny">
-   5.5.3. Spiny vs Aspiny
+   5.4.3. Spiny vs Aspiny
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#layers-of-cortex-depth">
-   5.5.4. Layers of Cortex: Depth
+   5.4.4. Layers of Cortex: Depth
   </a>
  </li>
 </ul>
@@ -306,7 +306,7 @@
               <div>
                 
   <div class="section" id="comparing-different-types-of-cells">
-<h1><span class="section-number">5.5. </span>Comparing Different Types of Cells<a class="headerlink" href="#comparing-different-types-of-cells" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.4. </span>Comparing Different Types of Cells<a class="headerlink" href="#comparing-different-types-of-cells" title="Permalink to this headline">¶</a></h1>
 <p>In this section we will discuss how to interact with different types of cells and take a look at how we can, analyze, draw connections, and plot differences between our cell types. We will be covering Humans vs Mice, how to utilize the Allens data of Cre lines, looking at diferences between differing dendrite types, and learn how to inspect the different layers of cortex.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -336,7 +336,7 @@
 </div>
 </div>
 <div class="section" id="humans-vs-mice">
-<h2><span class="section-number">5.5.1. </span>Humans vs Mice<a class="headerlink" href="#humans-vs-mice" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.1. </span>Humans vs Mice<a class="headerlink" href="#humans-vs-mice" title="Permalink to this headline">¶</a></h2>
 <p>As stated in previous sections, the <code class="docutils literal notranslate"><span class="pre">get_cells</span></code> method downloads metadata for all cells in the database. By specifying a species within the method, <code class="docutils literal notranslate"><span class="pre">get_cells</span></code> will only retrieve the data from the species of interest. Our database has two species to work with; mice and humans.  To download our human cells you would need to specify <code class="docutils literal notranslate"><span class="pre">species</span> <span class="pre">=</span> <span class="pre">[CellTypesApi.HUMAN]</span></code> within <code class="docutils literal notranslate"><span class="pre">get_cells()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -846,7 +846,7 @@ Length of dataframe:
 <p>For more information on <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> and the figures that you can build with it, please visit <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html">here</a>.</p>
 </div>
 <div class="section" id="two-different-cre-lines">
-<h2><span class="section-number">5.5.2. </span>Two Different Cre-Lines<a class="headerlink" href="#two-different-cre-lines" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.2. </span>Two Different Cre-Lines<a class="headerlink" href="#two-different-cre-lines" title="Permalink to this headline">¶</a></h2>
 <p>What if we want to know whether different genetically-identified cells have different intrinsic physiology? The Allen Institute for Brain Science uses transgenic mouse lines that have Cre-expressing cells to mark specific types of cells in the brain. Lets find out what cre-lines are availabe in our mouse data under the column <code class="docutils literal notranslate"><span class="pre">transgenic_line</span></code>.</p>
 <p>We can take a look at how many different values are stored within a column using the <code class="docutils literal notranslate"><span class="pre">.unique()</span></code> method.</p>
 <div class="cell docutils container">
@@ -954,7 +954,7 @@ Length of dataframe:
 </div>
 </div>
 <div class="section" id="spiny-vs-aspiny">
-<h2><span class="section-number">5.5.3. </span>Spiny vs Aspiny<a class="headerlink" href="#spiny-vs-aspiny" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.3. </span>Spiny vs Aspiny<a class="headerlink" href="#spiny-vs-aspiny" title="Permalink to this headline">¶</a></h2>
 <p>The Allen cells contains cells of different dedrite types. To find out what dendrite types make up our cells, we can execute <code class="docutils literal notranslate"><span class="pre">unique()</span></code> on the <code class="docutils literal notranslate"><span class="pre">dendrite_type</span></code> column of our dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1041,7 +1041,7 @@ Length of dataframe:
 </div>
 </div>
 <div class="section" id="layers-of-cortex-depth">
-<h2><span class="section-number">5.5.4. </span>Layers of Cortex: Depth<a class="headerlink" href="#layers-of-cortex-depth" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.4. </span>Layers of Cortex: Depth<a class="headerlink" href="#layers-of-cortex-depth" title="Permalink to this headline">¶</a></h2>
 <p>The Allen also contains information from what layer of cortex the cells in the dataset are harvested from. Like before, we can execute <code class="docutils literal notranslate"><span class="pre">unique()</span></code> on our column of interest again to see what layers our mouse cells are coming from.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1165,7 +1165,7 @@ Length of dataframe:
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Available_Pre-Computed_Features.html" title="previous page"><span class="section-number">5.4. </span>Available Pre-Computed Features</a>
+    <a class='left-prev' id="prev-link" href="Available_Pre-Computed_Features.html" title="previous page"><span class="section-number">5.3. </span>Available Pre-Computed Features</a>
     <a class='right-next' id="next-link" href="../Chapter_6/Large_Scale_Electrophysiology.html" title="next page"><span class="section-number">6. </span>Large Scale Electrophysiology</a>
 
     </div>
