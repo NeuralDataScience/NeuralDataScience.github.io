@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>8. Analyzing Two Photon Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>7.2. Analyzing Two Photon Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. Connectivity Atlas" href="../Chapter_8/Connectivity_Atlas.html" />
-    <link rel="prev" title="7. Two-photon Calcium Imaging Data" href="Retrieving_Brain_Observatory_Data.html" />
+    <link rel="next" title="8. Allen Mouse Brain Connectivity Atlas" href="../Chapter_8/Connectivity_Atlas.html" />
+    <link rel="prev" title="7.1. Two-photon Calcium Imaging Data" href="Retrieving_Brain_Observatory_Data.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -128,34 +128,41 @@
    6. Large Scale Electrophysiology
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Retrieving_Brain_Observatory_Data.html">
-   7. Two-photon Calcium Imaging Data
-  </a>
- </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   8. Analyzing Two Photon Data
+  <a class="reference internal" href="Two_Photon_Imaging.html">
+   7. Two Photon Imaging
   </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="Retrieving_Brain_Observatory_Data.html">
+     7.1. Two-photon Calcium Imaging Data
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.2. Analyzing Two Photon Data
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
-   9. Connectivity Atlas
+   8. Allen Mouse Brain Connectivity Atlas
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
-   10. Brain Imaging Data Structures
+   9. Brain Imaging Data Structures
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
-   11. Text Analyses of Neuroscience Literature
+   10. Text Analyses of Neuroscience Literature
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
-   12. Approaches to Analyzing Large Datasets
+   11. Approaches to Analyzing Large Datasets
   </a>
  </li>
 </ul>
@@ -254,27 +261,27 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setup">
-   8.1. Setup
+   7.2.1. Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#download-inspect-the-natural-scenes-imaging-session">
-   8.2. Download &amp; inspect the natural scenes imaging session
+   7.2.2. Download &amp; inspect the natural scenes imaging session
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#converting-calcium-imaging-into-spikes">
-   8.3. Converting Calcium Imaging into Spikes
+   7.2.3. Converting Calcium Imaging into Spikes
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#look-at-the-response-of-your-cells-to-natural-scenes">
-   8.4. Look at the response of your cells to natural scenes
+   7.2.4. Look at the response of your cells to natural scenes
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#examine-the-direction-selectivity-of-your-cell">
-   8.5. Examine the direction selectivity of your cell
+   7.2.5. Examine the direction selectivity of your cell
   </a>
  </li>
 </ul>
@@ -289,10 +296,10 @@
               <div>
                 
   <div class="section" id="analyzing-two-photon-data">
-<h1><span class="section-number">8. </span>Analyzing Two Photon Data<a class="headerlink" href="#analyzing-two-photon-data" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.2. </span>Analyzing Two Photon Data<a class="headerlink" href="#analyzing-two-photon-data" title="Permalink to this headline">¶</a></h1>
 <p>On the previous page, we introduced how to retrieve specific experiments from the Allen Institute SDK’s Brain Observatory. Here we’ll introduce how researchers analyze this data, from processing single cell activity to understanding tuning curves.</p>
 <div class="section" id="setup">
-<h2><span class="section-number">8.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>We need a variety of standard Python packages in addition to two different <code class="docutils literal notranslate"><span class="pre">allensdk</span></code> toolboxes. If you have not yet installed the <code class="docutils literal notranslate"><span class="pre">allensdk</span></code>, run the cell below. Otherwise, you can skip to the cell that imports our toolboxes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -343,7 +350,7 @@
 </div>
 </div>
 <div class="section" id="download-inspect-the-natural-scenes-imaging-session">
-<h2><span class="section-number">8.2. </span>Download &amp; inspect the natural scenes imaging session<a class="headerlink" href="#download-inspect-the-natural-scenes-imaging-session" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.2. </span>Download &amp; inspect the natural scenes imaging session<a class="headerlink" href="#download-inspect-the-natural-scenes-imaging-session" title="Permalink to this headline">¶</a></h2>
 <p>First, we’ll look at the session where the mouse viewed natural scenes. Below, we’ll designate an experiment ID (the same one we worked with in the previous section), designate that we’re interested in only the natural scenes experiments, and grab the container for that experiment.</p>
 <p><em>Note</em>: The cell below downloads some data, and make take a minute or so to run.</p>
 <div class="cell docutils container">
@@ -397,7 +404,7 @@
 </div>
 </div>
 <div class="section" id="converting-calcium-imaging-into-spikes">
-<h2><span class="section-number">8.3. </span>Converting Calcium Imaging into Spikes<a class="headerlink" href="#converting-calcium-imaging-into-spikes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.3. </span>Converting Calcium Imaging into Spikes<a class="headerlink" href="#converting-calcium-imaging-into-spikes" title="Permalink to this headline">¶</a></h2>
 <p>Now we’ll plot the data of each of our cells (from the field of view above) across time. Each line shows the change in fluorescence over baseline (<span class="math notranslate nohighlight">\(\Delta\)</span>)F/F) of the individual cells. When there are sharp increases, that’s when the cells are responding.</p>
 <p>In the example below, the we will plot the first 10 cells from our data. the <code class="docutils literal notranslate"><span class="pre">get_dff_traces()</span></code> method returns the timestamps (in seconds) and deltaF/F.</p>
 <div class="cell docutils container">
@@ -1204,11 +1211,11 @@ mpl.find_output_cell = function(html_output) {
 if (IPython.notebook.kernel != null) {
     IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
 }
-</script><div class="output text_html"><div id='4ab43db6-74f3-4a3e-9d86-440fcee95b89'></div></div></div>
+</script><div class="output text_html"><div id='f83383b5-c583-4d7e-b721-1721c463f4e1'></div></div></div>
 </div>
 </div>
 <div class="section" id="look-at-the-response-of-your-cells-to-natural-scenes">
-<h2><span class="section-number">8.4. </span>Look at the response of your cells to natural scenes<a class="headerlink" href="#look-at-the-response-of-your-cells-to-natural-scenes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.4. </span>Look at the response of your cells to natural scenes<a class="headerlink" href="#look-at-the-response-of-your-cells-to-natural-scenes" title="Permalink to this headline">¶</a></h2>
 <p>Hmm, there are some responses above, but it’s tough to see what’s going on with just the raw traces. Let’s instead see how these cells actually responded to different types of images. To do so, we’ll need to use the <code class="docutils literal notranslate"><span class="pre">get_cell_specimens()</span></code> method on our <code class="docutils literal notranslate"><span class="pre">boc</span></code>, giving it the name of the experiment container ID.</p>
 <p>The dataframe that this creates will have a lot more information about what the cells in our experiment prefer. Each row is a different cell, each with its own preferences and response patterns.</p>
 <div class="cell docutils container">
@@ -2186,7 +2193,7 @@ mpl.find_output_cell = function(html_output) {
 if (IPython.notebook.kernel != null) {
     IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
 }
-</script><div class="output text_html"><div id='65271c51-730d-4a3b-b054-21880c295a7b'></div></div></div>
+</script><div class="output text_html"><div id='87eabc95-d779-41ce-8b0f-da534e677950'></div></div></div>
 </div>
 <p>In order to actually see what this stimulus are, first, we’ll organize the stimulus table. This tells us which stimulus was played on each trial. This data set has 118 different scenes, and each scene is presented 50 times. Images of the scenes can be found <a class="reference external" href="http://observatory.brain-map.org/visualcoding/stimulus/natural_scenes">here</a>.</p>
 <p>Below, we’ll show the top five images for cells in this field of view. Do they have anything in common, either visually or conceptually?</p>
@@ -2979,11 +2986,11 @@ mpl.find_output_cell = function(html_output) {
 if (IPython.notebook.kernel != null) {
     IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
 }
-</script><div class="output text_html"><div id='563092e3-0feb-4f5b-89dc-ffcc03909fec'></div></div></div>
+</script><div class="output text_html"><div id='482c87e1-874f-4315-a969-9ae2fd7c82f6'></div></div></div>
 </div>
 </div>
 <div class="section" id="examine-the-direction-selectivity-of-your-cell">
-<h2><span class="section-number">8.5. </span>Examine the direction selectivity of your cell<a class="headerlink" href="#examine-the-direction-selectivity-of-your-cell" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.5. </span>Examine the direction selectivity of your cell<a class="headerlink" href="#examine-the-direction-selectivity-of-your-cell" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes, the function of a cell is not particularly clear from natural stimuli. Those stimuli have a lot of information in them, and it might be hard to tell what a cell is actually responding to. Instead, we can use simple drifting gratings to look at one straightforward property of a cell: <b>does it respond to specific directions of movement?</b></br></p>
 <p>We can use the columns that look at the direction selectivity index (DSI) in order to determine whether our cells are direction selective (typically considered having a DSI &gt; 0.5). Take another look at the cell_specimens_df we created above. We can subselect <code class="docutils literal notranslate"><span class="pre">sig_cells</span></code> to only contain cells that were direction specific and replot our bar graph to compare.</p>
 <div class="cell docutils container">
@@ -3771,7 +3778,7 @@ mpl.find_output_cell = function(html_output) {
 if (IPython.notebook.kernel != null) {
     IPython.notebook.kernel.comm_manager.register_target('matplotlib', mpl.mpl_figure_comm);
 }
-</script><div class="output text_html"><div id='27d44d16-907e-4f4a-a2a7-3ee78f06f115'></div></div></div>
+</script><div class="output text_html"><div id='86bb8593-45ab-481d-8c66-e55e6b9b3b43'></div></div></div>
 </div>
 <p>As you can see our plot has drastically changed. Our cells were only direction selective to nine images from the significantly preferred data.</p>
 <div class="cell docutils container">
@@ -3790,7 +3797,7 @@ if (IPython.notebook.kernel != null) {
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.brain_observatory.drifting_gratings.DriftingGratings at 0x7f9a1fe8d590&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.brain_observatory.drifting_gratings.DriftingGratings at 0x7ffe26043990&gt;
 </pre></div>
 </div>
 </div>
@@ -3885,8 +3892,8 @@ if (IPython.notebook.kernel != null) {
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Retrieving_Brain_Observatory_Data.html" title="previous page"><span class="section-number">7. </span>Two-photon Calcium Imaging Data</a>
-    <a class='right-next' id="next-link" href="../Chapter_8/Connectivity_Atlas.html" title="next page"><span class="section-number">9. </span>Connectivity Atlas</a>
+    <a class='left-prev' id="prev-link" href="Retrieving_Brain_Observatory_Data.html" title="previous page"><span class="section-number">7.1. </span>Two-photon Calcium Imaging Data</a>
+    <a class='right-next' id="next-link" href="../Chapter_8/Connectivity_Atlas.html" title="next page"><span class="section-number">8. </span>Allen Mouse Brain Connectivity Atlas</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

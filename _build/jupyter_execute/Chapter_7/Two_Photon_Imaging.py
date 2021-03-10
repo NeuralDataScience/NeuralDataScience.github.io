@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Two Photon Imaging
+
 # Two-photon calcium imaging is a powerful way to simultaneously image hundreds or even thousands of cells simultaneously. This section will introduce you to several datasets that feature this type of data:
 # 
 # * The Allen Brain Observatory
