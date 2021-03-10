@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>7. Two-photon Calcium Imaging Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>7.1. Two-photon Calcium Imaging Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. Analyzing Two Photon Data" href="Analyzing_Two_Photon_Data.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="Two_Photon_Imaging.html" />
+    <link rel="next" title="7.2. Analyzing Two Photon Data" href="Analyzing_Two_Photon_Data.html" />
+    <link rel="prev" title="7. Two Photon Imaging" href="Two_Photon_Imaging.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -129,33 +129,40 @@
   </a>
  </li>
  <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   7. Two-photon Calcium Imaging Data
+  <a class="reference internal" href="Two_Photon_Imaging.html">
+   7. Two Photon Imaging
   </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Analyzing_Two_Photon_Data.html">
-   8. Analyzing Two Photon Data
-  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     7.1. Two-photon Calcium Imaging Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Analyzing_Two_Photon_Data.html">
+     7.2. Analyzing Two Photon Data
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
-   9. Connectivity Atlas
+   8. Allen Mouse Brain Connectivity Atlas
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
-   10. Brain Imaging Data Structures
+   9. Brain Imaging Data Structures
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
-   11. Text Analyses of Neuroscience Literature
+   10. Text Analyses of Neuroscience Literature
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
-   12. Approaches to Analyzing Large Datasets
+   11. Approaches to Analyzing Large Datasets
   </a>
  </li>
 </ul>
@@ -254,17 +261,17 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setup">
-   7.1. Setup
+   7.1.1. Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
-   7.2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.
+   7.1.2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#extract-an-experiment-session">
-   7.3. Extract an experiment session
+   7.1.3. Extract an experiment session
   </a>
  </li>
 </ul>
@@ -279,10 +286,10 @@
               <div>
                 
   <div class="section" id="two-photon-calcium-imaging-data">
-<h1><span class="section-number">7. </span>Two-photon Calcium Imaging Data<a class="headerlink" href="#two-photon-calcium-imaging-data" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">7.1. </span>Two-photon Calcium Imaging Data<a class="headerlink" href="#two-photon-calcium-imaging-data" title="Permalink to this headline">¶</a></h1>
 <p>This section will serve as an introdution to retrieving two-photon calcium imaging data from the Allen Brain Observatory. By the end of this section you will know how to obtain a two-photon imaging dataset for a particular cell type in a specific visual area.</p>
 <div class="section" id="setup">
-<h2><span class="section-number">7.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.1.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>We need a variety of standard Python packages in addition to two different <code class="docutils literal notranslate"><span class="pre">allensdk</span></code> toolboxes. If you have not yet installed the <code class="docutils literal notranslate"><span class="pre">allensdk</span></code>, run the cell below. Otherwise, you can skip to the cell that imports our toolboxes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -321,7 +328,7 @@
 </div>
 </div>
 <div class="section" id="get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
-<h2><span class="section-number">7.2. </span>Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.1.2. </span>Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Permalink to this headline">¶</a></h2>
 <p>Below, we’ll create an instance of the <a class="reference external" href="https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html"><code class="docutils literal notranslate"><span class="pre">BrainObservatoryCache</span></code></a>. This object will allow us to retrieve and analyze the Allen Brain Observatory data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -355,7 +362,7 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </div>
 </div>
 <div class="section" id="extract-an-experiment-session">
-<h2><span class="section-number">7.3. </span>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.1.3. </span>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
 <p>With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiements from our desired cre lines and brain regions. We can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to get a list of experiments that are available. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">targeted_structures</span></code> which both require lists as inputs.</p>
 <p><em>Note</em>: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute on your new datafram to check if it is empty.</p>
 <div class="cell docutils container">
@@ -605,8 +612,8 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Two_Photon_Imaging.html" title="previous page">&lt;no title&gt;</a>
-    <a class='right-next' id="next-link" href="Analyzing_Two_Photon_Data.html" title="next page"><span class="section-number">8. </span>Analyzing Two Photon Data</a>
+    <a class='left-prev' id="prev-link" href="Two_Photon_Imaging.html" title="previous page"><span class="section-number">7. </span>Two Photon Imaging</a>
+    <a class='right-next' id="next-link" href="Analyzing_Two_Photon_Data.html" title="next page"><span class="section-number">7.2. </span>Analyzing Two Photon Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

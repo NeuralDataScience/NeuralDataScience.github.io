@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>3. Neurodata Without Borders &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>Neurodata Without Borders &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -56,8 +56,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3.1. Obtaining Datasets with DANDI" href="Obtaining_Datasets_with_DANDI.html" />
-    <link rel="prev" title="2.4. Version Control" href="../Chapter_2/VersionControl.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -97,7 +95,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
    1. Neural Data Science
@@ -108,31 +106,14 @@
    2. Data Science in Python
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   3. Neurodata Without Borders
+ <li class="toctree-l1">
+  <a class="reference internal" href="Statistical_Concepts.html">
+   3. Statistical Concepts
   </a>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Obtaining_Datasets_with_DANDI.html">
-     3.1. Obtaining Datasets with DANDI
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Working_with_NWB_format_in_Python.html">
-     3.2. Working with NWB in Python
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Possible_Analyses.html">
-     3.3. Possible Analyses
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_4/The_Allen_SDK.html">
-   4. The Allen SDK
+  <a class="reference internal" href="../Chapter_4/Neurodata_Without_Borders.html">
+   4. Neurodata Without Borders
   </a>
  </li>
  <li class="toctree-l1">
@@ -146,28 +127,33 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_7/Brain_Observatory.html">
-   7. Brain Observatory
+  <a class="reference internal" href="../Chapter_7/Retrieving_Brain_Observatory_Data.html">
+   7. Two-photon Calcium Imaging Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_7/Analyzing_Two_Photon_Data.html">
+   8. Analyzing Two Photon Data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
-   8. Connectivity Atlas
+   9. Allen Mouse Brain Connectivity Atlas
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
-   9. Brain Imaging Data Structures
+   10. Brain Imaging Data Structures
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
-   10. Text Analyses of Neuroscience Literature
+   11. Text Analyses of Neuroscience Literature
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
-   11. Approaches to Analyzing Large Datasets
+   12. Approaches to Analyzing Large Datasets
   </a>
  </li>
 </ul>
@@ -267,32 +253,14 @@
               <div>
                 
   <div class="section" id="neurodata-without-borders">
-<h1><span class="section-number">3. </span>Neurodata Without Borders<a class="headerlink" href="#neurodata-without-borders" title="Permalink to this headline">¶</a></h1>
+<h1>Neurodata Without Borders<a class="headerlink" href="#neurodata-without-borders" title="Permalink to this headline">¶</a></h1>
 <p><img alt="" src="https://www.braininitiative.org/wp-content/uploads/2017/02/nwb.png" /></p>
-<p>In neuroscience, and res there are many obstacles when it comes to data sharing with other labs. With a rapidly growing field comes the strain of there being too much data to work with, which makes the data difficult to analyze and share with other scientists around the world. The aim of Neurodata Without Borders is to standardize neuroscience data on an international scale. The creation of this standard dataset format will make sharing and contributing to open source projects easier, ultimatly accelerating discovery.</p>
+<p>In neuroscience and related fields, there can be many obstacles to sharing data with other labs. With a rapidly growing field comes the strain of there being too much data to work with, which makes the data difficult to analyze and share with other scientists around the world. The aim of Neurodata Without Borders is to standardize neuroscience data on an international scale. The creation of this standard dataset format will make sharing and contributing to open source projects easier, ultimatly accelerating discovery.</p>
 <p><strong>The goal of NWB</strong></p>
 <p>There is currently no standardized way to collect and share data in neuroscience. No standard makes it challenging for experimental results to be compared across labs, slowing down the overall progression of the field. The goal of Neurodata Without Bordersis to develop a unified, extensible, open-source data format for cellular-based neurophysiology data  to improve the collaboration of neuroscience projects around the world. For more information please visit <a href = 'https://www.nwb.org/'> nwb.org</a>.</p>
 <p><strong>Neurodata Without Borders: Neurophysiology</strong></p>
 <p><a class="reference external" href="https://www.nwb.org/nwb-neurophysiology/">Neurodata Without Borders: Neurophysiolgy (NWB:N)</a> is the common standard to share, store, and build analysis tools for neuroscience data. NWB:N contains software to stadardize data, API’s to read and write data, and important datasets in the neuroscience community that have been converted to NWB format. It also takes into account factors such as experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">6</span><span class="n">fcf9dfbd479</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">x</span>
-
-<span class="ne">NameError</span>: name &#39;x&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<div class="toctree-wrapper compound">
-</div>
+<p>In these Python-based notebooks, we’ll take advantage of the NWB software <code class="docutils literal notranslate"><span class="pre">PyNWB</span></code>. There is more information on installing and working with this package <a class="reference external" href="https://www.nwb.org/how-to-use/">here</a>.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -323,8 +291,6 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../Chapter_2/VersionControl.html" title="previous page"><span class="section-number">2.4. </span>Version Control</a>
-    <a class='right-next' id="next-link" href="Obtaining_Datasets_with_DANDI.html" title="next page"><span class="section-number">3.1. </span>Obtaining Datasets with DANDI</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
