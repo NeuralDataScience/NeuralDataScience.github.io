@@ -41,11 +41,11 @@
 # 
 # Chapter_1/Neural_Data_Science
 # Chapter_2/Data_Science_In_Python
-# Chapter_3/Neurodata_Without_Borders
-# Chapter_4/The_Allen_SDK
+# Chapter_3/Statistical_Concepts
+# Chapter_4/Neurodata_Without_Borders
 # Chapter_5/Single-Cell_Electrophysiology
 # Chapter_6/Large_Scale_Electrophysiology
-# Chapter_7/Brain_Observatory
+# Chapter_7/Two_Photon_Imaging
 # Chapter_8/Connectivity_Atlas
 # Chapter_9/Brain_Imaging_Data_Structures
 # Chapter_10/Text_Analyses_of_Neuroscience_Literature

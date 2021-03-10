@@ -15,7 +15,6 @@
 # :titlesonly:
 # 
 # 
-# About_The_Allen_Cell_Types_Dataset
 # Morphology_For_Single_Cells
 # Plotting_A_Single_Sweep_of_Data
 # Available_Pre-Computed_Features

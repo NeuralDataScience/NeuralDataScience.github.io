@@ -225,24 +225,95 @@ plt.show()
 
 # The Fourier Transformation shows us the signal frequencies that make up our combined signal. 
 
-# ***Possible section on the Nyquist Theory***
+# ## SciPy for Signal Procesing 
 
-# In[ ]:
+# Normal physiological data is never as regular as the data above -- it's usually chock full of lots of different waves, as well as noise. Now that we have a sense of the tools we need, let's work with some real data.
+# 
+# The data we'll import here is a real 30-seconds extract of slow-wave sleep from a young individual, collected by the Walker Lab at UC Berkeley. This data was collected at 100 Hz from channel 'F3'. This sampling frequency is fine for EEG data, but wouldn't be enough for high frequency spiking data. That kind of data is typically sampled at 40 kHz.
 
-
-
-
-
-# In[ ]:
+# In[16]:
 
 
+import urllib.request
+
+# URL of data to download
+data_url = 'https://raphaelvallat.com/images/tutorials/bandpower/data.txt'
+
+# Get the data and save it locally as "sleep_data.txt"
+sleep_data, headers = urllib.request.urlretrieve(data_url, './sleep_data.txt')
+
+# Load the .txt file as a numpy array
+data = np.loadtxt('sleep_data.txt')
 
 
+# Now that we have the data, let's took a look at the raw signal.
 
-# In[ ]:
+# In[17]:
 
 
+sampling_freq = 100
 
+time_vector = np.arange(0,30,1/sampling_freq)
+fig = plt.figure(figsize=(15,5))
+plt.plot(time_vector,data)
+plt.xlabel('Time (s)')
+plt.ylabel('Voltage (V)')
+plt.show()
+
+
+# In this real EEG data, the underlying frequencies are much harder to see by eye. So, we'll compute a bandpass by first applying a low-pass filter_, followed by a _high-pass filter (or vice versa).
+
+# Signal filtration is usually accomplished in 2 steps
+# 1. Design a _filter kernel_
+# 2. Apply the filter kernel to the data
+#     
+# We will use a **Butterworth** filter. The ideal filter would _completely_ pass everything in the passband (i.e., allow through the parts of the signal we care about) and completely reject everything outside of it, but this cannot be achieved in reality—the Butterworth filter is a close approximation.
+# 
+# We design the filter in Python using `scipy`'s `signal.butter` function, with three arguments:
+# 1. The _filter order_ : (we'll use a 4th order filter)
+# 2. The _filter frequency_ : (we must adjust for the sampling frequency, `f_s`, which is 100 Hz for these data, i.e. 100 data points were recorded per second)
+# 3. The type of filter : (`'lowpass'` or `'highpass'`)
+# 
+# It returns 2 filter parameters, `a` and `b`. Then, the bandpass filter is applied using `signal.filtfilt`, which takes as its parameters `b`, `a`, and the signal to be processed
+# 
+# Below, an example bandpass computation is shown to extract the _alpha_ rhythm from the channel 1 data, the results are stored in a dictionary called `oscillations_filtered`, with the oscillation name (e.g. `'alpha'`) as the key
+
+# In[18]:
+
+
+# Define lower and upper limits of our bandpass
+filter_limits = [0.5, 4]
+
+# First, apply a lowpass filter
+# Design filter with high filter limit
+b, a = signal.butter(4, (filter_limits[1]/ (sampling_freq / 2)), 'lowpass') 
+
+# Apply it forwards and backwards (filtfilt)
+lowpassed = signal.filtfilt(b, a, data)
+
+# Then, apply a high pass filter
+# Design filter with low filter limit
+b, a = signal.butter(4, (filter_limits[0] / (sampling_freq / 2)), 'highpass') 
+
+# Apply it
+bandpassed = signal.filtfilt(b, a, lowpassed) 
+
+
+# Now lets plot our bandpassed data.
+
+# In[19]:
+
+
+# Plot the bandpassed data
+fig = plt.figure(figsize=(15,5))
+plt.plot(time_vector,bandpassed)
+plt.ylabel('Voltage')
+
+# Let's programmatically set the title here, using {} format
+plt.title('N3 sleep EEG data (F3), {} band' .format(filter_limits))
+
+plt.xlabel('Time (seconds)')
+plt.show()
 
 
 # ## Additional Resources

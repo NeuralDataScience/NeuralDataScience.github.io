@@ -131,13 +131,13 @@
   </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_3/Neurodata_Without_Borders.html">
-   3. Neurodata Without Borders
+  <a class="reference internal" href="../Chapter_3/Statistical_Concepts.html">
+   3. Statistical Concepts
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_4/The_Allen_SDK.html">
-   4. The Allen SDK
+  <a class="reference internal" href="../Chapter_4/Neurodata_Without_Borders.html">
+   4. Neurodata Without Borders
   </a>
  </li>
  <li class="toctree-l1">
@@ -151,28 +151,33 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_7/Brain_Observatory.html">
-   7. Brain Observatory
+  <a class="reference internal" href="../Chapter_7/Retrieving_Brain_Observatory_Data.html">
+   7. Two-photon Calcium Imaging Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_7/Analyzing_Two_Photon_Data.html">
+   8. Analyzing_Two_Photon_Data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
-   8. Connectivity Atlas
+   9. Connectivity Atlas
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
-   9. Brain Imaging Data Structures
+   10. Brain Imaging Data Structures
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
-   10. Text Analyses of Neuroscience Literature
+   11. Text Analyses of Neuroscience Literature
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
-   11. Approaches to Analyzing Large Datasets
+   12. Approaches to Analyzing Large Datasets
   </a>
  </li>
 </ul>
@@ -290,8 +295,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scipy-for-signal-procesing">
+   2.3.5. SciPy for Signal Procesing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-resources">
-   2.3.5. Additional Resources
+   2.3.6. Additional Resources
   </a>
  </li>
 </ul>
@@ -867,10 +877,105 @@ Upper Triangle
 </div>
 </div>
 <p>The Fourier Transformation shows us the signal frequencies that make up our combined signal.</p>
-<p><em><strong>Possible section on the Nyquist Theory</strong></em></p>
+</div>
+<div class="section" id="scipy-for-signal-procesing">
+<h2><span class="section-number">2.3.5. </span>SciPy for Signal Procesing<a class="headerlink" href="#scipy-for-signal-procesing" title="Permalink to this headline">¶</a></h2>
+<p>Normal physiological data is never as regular as the data above – it’s usually chock full of lots of different waves, as well as noise. Now that we have a sense of the tools we need, let’s work with some real data.</p>
+<p>The data we’ll import here is a real 30-seconds extract of slow-wave sleep from a young individual, collected by the Walker Lab at UC Berkeley. This data was collected at 100 Hz from channel ‘F3’. This sampling frequency is fine for EEG data, but wouldn’t be enough for high frequency spiking data. That kind of data is typically sampled at 40 kHz.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib.request</span>
+
+<span class="c1"># URL of data to download</span>
+<span class="n">data_url</span> <span class="o">=</span> <span class="s1">&#39;https://raphaelvallat.com/images/tutorials/bandpower/data.txt&#39;</span>
+
+<span class="c1"># Get the data and save it locally as &quot;sleep_data.txt&quot;</span>
+<span class="n">sleep_data</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="s1">&#39;./sleep_data.txt&#39;</span><span class="p">)</span>
+
+<span class="c1"># Load the .txt file as a numpy array</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;sleep_data.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now that we have the data, let’s took a look at the raw signal.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sampling_freq</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="n">time_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">sampling_freq</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_vector</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage (V)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/SciPy_39_0.png" src="../_images/SciPy_39_0.png" />
+</div>
+</div>
+<p>In this real EEG data, the underlying frequencies are much harder to see by eye. So, we’ll compute a bandpass by first applying a low-pass filter_, followed by a _high-pass filter (or vice versa).</p>
+<p>Signal filtration is usually accomplished in 2 steps</p>
+<ol class="simple">
+<li><p>Design a <em>filter kernel</em></p></li>
+<li><p>Apply the filter kernel to the data</p></li>
+</ol>
+<p>We will use a <strong>Butterworth</strong> filter. The ideal filter would <em>completely</em> pass everything in the passband (i.e., allow through the parts of the signal we care about) and completely reject everything outside of it, but this cannot be achieved in reality—the Butterworth filter is a close approximation.</p>
+<p>We design the filter in Python using <code class="docutils literal notranslate"><span class="pre">scipy</span></code>’s <code class="docutils literal notranslate"><span class="pre">signal.butter</span></code> function, with three arguments:</p>
+<ol class="simple">
+<li><p>The <em>filter order</em> : (we’ll use a 4th order filter)</p></li>
+<li><p>The <em>filter frequency</em> : (we must adjust for the sampling frequency, <code class="docutils literal notranslate"><span class="pre">f_s</span></code>, which is 100 Hz for these data, i.e. 100 data points were recorded per second)</p></li>
+<li><p>The type of filter : (<code class="docutils literal notranslate"><span class="pre">'lowpass'</span></code> or <code class="docutils literal notranslate"><span class="pre">'highpass'</span></code>)</p></li>
+</ol>
+<p>It returns 2 filter parameters, <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>. Then, the bandpass filter is applied using <code class="docutils literal notranslate"><span class="pre">signal.filtfilt</span></code>, which takes as its parameters <code class="docutils literal notranslate"><span class="pre">b</span></code>, <code class="docutils literal notranslate"><span class="pre">a</span></code>, and the signal to be processed</p>
+<p>Below, an example bandpass computation is shown to extract the <em>alpha</em> rhythm from the channel 1 data, the results are stored in a dictionary called <code class="docutils literal notranslate"><span class="pre">oscillations_filtered</span></code>, with the oscillation name (e.g. <code class="docutils literal notranslate"><span class="pre">'alpha'</span></code>) as the key</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define lower and upper limits of our bandpass</span>
+<span class="n">filter_limits</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+
+<span class="c1"># First, apply a lowpass filter</span>
+<span class="c1"># Design filter with high filter limit</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="n">filter_limits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span> <span class="p">(</span><span class="n">sampling_freq</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39;lowpass&#39;</span><span class="p">)</span> 
+
+<span class="c1"># Apply it forwards and backwards (filtfilt)</span>
+<span class="n">lowpassed</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Then, apply a high pass filter</span>
+<span class="c1"># Design filter with low filter limit</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">butter</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="n">filter_limits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">sampling_freq</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span> <span class="s1">&#39;highpass&#39;</span><span class="p">)</span> 
+
+<span class="c1"># Apply it</span>
+<span class="n">bandpassed</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">filtfilt</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">lowpassed</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now lets plot our bandpassed data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the bandpassed data</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_vector</span><span class="p">,</span><span class="n">bandpassed</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Voltage&#39;</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s programmatically set the title here, using {} format</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;N3 sleep EEG data (F3), </span><span class="si">{}</span><span class="s1"> band&#39;</span> <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filter_limits</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (seconds)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/SciPy_44_0.png" src="../_images/SciPy_44_0.png" />
+</div>
+</div>
 </div>
 <div class="section" id="additional-resources">
-<h2><span class="section-number">2.3.5. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3.6. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
