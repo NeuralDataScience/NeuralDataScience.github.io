@@ -17,56 +17,65 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-dg.response
+# Get the natural scene information
+natural_scene_template = data.get_stimulus_template('natural_scenes')
+
+# Set up our figure
+fig,ax = plt.subplots(1,5,figsize=(15,6))
+
+for image_ID in range(5): # Show the first 5 images
+    
+    image_id = int(pref_counts.index[image_ID]) # Get the image ID
+
+    # Use imshow to visualize our numpy array
+    ax[image_ID].imshow(natural_scene_template[image_id,:,:],cmap='gray')
+    ax[image_ID].set_xticks([])
+    ax[image_ID].set_yticks([])
+    ax[image_ID].set_title('Image ' + str(image_id))
+    
+plt.show()
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mMissingStimulusException[0m                  Traceback (most recent call last)
-[0;32m<ipython-input-15-8639a4bdb5d5>[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0mdg[0m[0;34m.[0m[0mresponse[0m[0;34m[0m[0;34m[0m[0m
-[0m
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/stimulus_analysis.py[0m in [0;36mresponse[0;34m(self)[0m
-[1;32m    127[0m     [0;32mdef[0m [0mresponse[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    128[0m         [0;32mif[0m [0mself[0m[0;34m.[0m[0m_response[0m [0;32mis[0m [0mStimulusAnalysis[0m[0;34m.[0m[0m_PRELOAD[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 129[0;31m             [0mself[0m[0;34m.[0m[0m_response[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mget_response[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    130[0m [0;34m[0m[0m
-[1;32m    131[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_response[0m[0;34m[0m[0;34m[0m[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+[0;32m<ipython-input-12-e9cba8e40bf2>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m [0;31m# Get the natural scene information[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m----> 2[0;31m [0mnatural_scene_template[0m [0;34m=[0m [0mdata[0m[0;34m.[0m[0mget_stimulus_template[0m[0;34m([0m[0;34m'natural_scenes'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      3[0m [0;34m[0m[0m
+[1;32m      4[0m [0;31m# Set up our figure[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m [0mfig[0m[0;34m,[0m[0max[0m [0;34m=[0m [0mplt[0m[0;34m.[0m[0msubplots[0m[0;34m([0m[0;36m1[0m[0;34m,[0m[0;36m5[0m[0;34m,[0m[0mfigsize[0m[0;34m=[0m[0;34m([0m[0;36m15[0m[0;34m,[0m[0;36m6[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/drifting_gratings.py[0m in [0;36mget_response[0;34m(self)[0m
-[1;32m    118[0m [0;34m[0m[0m
-[1;32m    119[0m         response = np.empty(
-[0;32m--> 120[0;31m             (self.number_ori, self.number_tf, self.numbercells + 1, 3))
-[0m[1;32m    121[0m [0;34m[0m[0m
-[1;32m    122[0m         [0;32mdef[0m [0mptest[0m[0;34m([0m[0mx[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/api/cache.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
+[1;32m     73[0m         [0;32mif[0m [0mresult[0m [0;32mis[0m [0;32mnot[0m [0msentinel[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     74[0m             [0;32mreturn[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 75[0;31m         [0mresult[0m [0;34m=[0m [0mf[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     76[0m         [0mcache[0m[0;34m[[0m[0mkey[0m[0;34m][0m [0;34m=[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     77[0m         [0;32mreturn[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
 
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/drifting_gratings.py[0m in [0;36mnumber_ori[0;34m(self)[0m
-[1;32m     85[0m     [0;32mdef[0m [0mnumber_ori[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     86[0m         [0;32mif[0m [0mself[0m[0;34m.[0m[0m_number_ori[0m [0;32mis[0m [0mDriftingGratings[0m[0;34m.[0m[0m_PRELOAD[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 87[0;31m             [0mself[0m[0;34m.[0m[0mpopulate_stimulus_table[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     88[0m [0;34m[0m[0m
-[1;32m     89[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_number_ori[0m[0;34m[0m[0;34m[0m[0m
+[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py[0m in [0;36mget_stimulus_template[0;34m(self, stimulus_name)[0m
+[1;32m    597[0m         [0mstim_name[0m [0;34m=[0m [0mstimulus_name[0m [0;34m+[0m [0;34m"_image_stack"[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    598[0m         [0;32mwith[0m [0mh5py[0m[0;34m.[0m[0mFile[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mnwb_file[0m[0;34m,[0m [0;34m'r'[0m[0;34m)[0m [0;32mas[0m [0mf[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 599[0;31m             [0mimage_stack[0m [0;34m=[0m [0mf[0m[0;34m[[0m[0;34m'stimulus'[0m[0;34m][0m[0;34m[[0m[0;34m'templates'[0m[0;34m][0m[0;34m[[0m[0mstim_name[0m[0;34m][0m[0;34m[[0m[0;34m'data'[0m[0;34m][0m[0;34m[[0m[0;34m([0m[0;34m)[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    600[0m         [0;32mreturn[0m [0mimage_stack[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    601[0m [0;34m[0m[0m
 
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/drifting_gratings.py[0m in [0;36mpopulate_stimulus_table[0;34m(self)[0m
-[1;32m     97[0m [0;34m[0m[0m
-[1;32m     98[0m     [0;32mdef[0m [0mpopulate_stimulus_table[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 99[0;31m         [0mstimulus_table[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mdata_set[0m[0;34m.[0m[0mget_stimulus_table[0m[0;34m([0m[0;34m'drifting_gratings'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    100[0m         [0mself[0m[0;34m.[0m[0m_stim_table[0m [0;34m=[0m [0mstimulus_table[0m[0;34m.[0m[0mfillna[0m[0;34m([0m[0mvalue[0m[0;34m=[0m[0;36m0.[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    101[0m         [0mself[0m[0;34m.[0m[0m_orivals[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0munique[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mstim_table[0m[0;34m.[0m[0morientation[0m[0;34m)[0m[0;34m.[0m[0mastype[0m[0;34m([0m[0mint[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
 
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py[0m in [0;36mget_stimulus_table[0;34m(self, stimulus_name)[0m
-[1;32m    559[0m         [0;32mwith[0m [0mh5py[0m[0;34m.[0m[0mFile[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mnwb_file[0m[0;34m,[0m [0;34m'r'[0m[0;34m)[0m [0;32mas[0m [0mnwb_file[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    560[0m [0;34m[0m[0m
-[0;32m--> 561[0;31m             [0mstimulus_group[0m [0;34m=[0m [0m_find_stimulus_presentation_group[0m[0;34m([0m[0mnwb_file[0m[0;34m,[0m [0mstimulus_name[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    562[0m [0;34m[0m[0m
-[1;32m    563[0m             [0;32mif[0m [0mstimulus_name[0m [0;32min[0m [0mself[0m[0;34m.[0m[0mSTIMULUS_TABLE_TYPES[0m[0;34m[[0m[0;34m'abstract_feature_series'[0m[0;34m][0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
 
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py[0m in [0;36m_find_stimulus_presentation_group[0;34m(nwb_file, stimulus_name, base_path, group_patterns)[0m
-[1;32m    980[0m         raise MissingStimulusException(
-[1;32m    981[0m             [0;34m'Unable to locate stimulus: {}. '[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 982[0;31m             [0;34m'Looked for this stimulus under the names: {} '[0m[0;34m.[0m[0mformat[0m[0;34m([0m[0mstimulus_name[0m[0;34m,[0m [0mgroup_candidates[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    983[0m             )
-[1;32m    984[0m [0;34m[0m[0m
+[0;32m~/opt/anaconda3/lib/python3.7/site-packages/h5py/_hl/group.py[0m in [0;36m__getitem__[0;34m(self, name)[0m
+[1;32m    262[0m                 [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34m"Invalid HDF5 object reference"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    263[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 264[0;31m             [0moid[0m [0;34m=[0m [0mh5o[0m[0;34m.[0m[0mopen[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mid[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0m_e[0m[0;34m([0m[0mname[0m[0;34m)[0m[0;34m,[0m [0mlapl[0m[0;34m=[0m[0mself[0m[0;34m.[0m[0m_lapl[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    265[0m [0;34m[0m[0m
+[1;32m    266[0m         [0motype[0m [0;34m=[0m [0mh5i[0m[0;34m.[0m[0mget_type[0m[0;34m([0m[0moid[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 
-[0;31mMissingStimulusException[0m: Unable to locate stimulus: drifting_gratings. Looked for this stimulus under the names: ['drifting_gratings', 'drifting_gratings_stimulus'] 
-MissingStimulusException: Unable to locate stimulus: drifting_gratings. Looked for this stimulus under the names: ['drifting_gratings', 'drifting_gratings_stimulus'] 
+[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
+
+[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
+
+[0;32mh5py/h5o.pyx[0m in [0;36mh5py.h5o.open[0;34m()[0m
+
+[0;31mKeyError[0m: "Unable to open object (object 'natural_scenes_image_stack' doesn't exist)"
+KeyError: "Unable to open object (object 'natural_scenes_image_stack' doesn't exist)"
 

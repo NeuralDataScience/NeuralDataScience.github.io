@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Two-photon Calcium Imaging Data
+# # Retreiving Calcium Imaging Data
 
 # This section will serve as an introdution to retrieving two-photon calcium imaging data from the Allen Brain Observatory. By the end of this section you will know how to obtain a two-photon imaging dataset for a particular cell type in a specific visual area.
 # 
@@ -84,7 +84,7 @@ if exps_df.empty:
 
 # Assign the ID column as the index and return dataframe
 exps_df = exps_df.set_index('id')
-exps_df.head()
+exps_df
 
 
 # Let's look into one of these experiment containers, most of which have three different sessions for different types of visual stimuli. We can call `get_ophys_experiments()` on our `boc` object to return the container. This method takes in the arguments `experiment_container_ids` and `stimuli` which both require lists. We can select an id from our dataframe and choose a stimuli. In our case, we'll look for the `natural_scenes` experiment. 
@@ -93,12 +93,12 @@ exps_df.head()
 
 
 # Assign experiment ontainer id and stimuli 
-exp_container_id = 617381603
-stim = 'natural_scenes'
+exp_container_id = 627823571
+stim = ['natural_scenes', 'drifting_gratings']
 
 # Call experiment container for our id and stimuli of interest
 expt_cont = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
-                                   stimuli = [stim])
+                                   stimuli = stim)
 
 # Print out our container 
 print(expt_cont)
@@ -121,3 +121,9 @@ print(data)
 # That's how you retrieve an experiment from the Allen Brain Observatory! If you want to retrieve multiple experiments across multiple brain areas or cell types, you can use the `get_experiment_containers` method without specifying a targeted structure or brain area, and then subset your dataframe.
 # 
 # In the next notebook, we'll discuss how to extract the raw data from these experiment containers.
+
+# In[ ]:
+
+
+
+

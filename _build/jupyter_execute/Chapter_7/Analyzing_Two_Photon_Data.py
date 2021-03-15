@@ -51,15 +51,24 @@ boc = BrainObservatoryCache(manifest_file='manifest.json')
 # In[4]:
 
 
+boc.get_all_stimuli()
+
+
+# In[5]:
+
+
 # Assign previous container id and stimulus for imaging 
 exp_container_id = 657016265
-#exp_container_id = 637671552
-stim = 'natural_scenes'
+
+# Select our stimuli
+stim = ['natural_scenes', 'drifting_gratings', 'locally_sparse_noise']
 
 # Get experiment contianer for our id and stimuli of interest
 expt_cont = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
-                                      stimuli = [stim])
+                                      stimuli = stim)
 
+
+# Get the experiment data using the sesion id of interest
 session_id = expt_cont[0]['id']
 data = boc.get_ophys_experiment_data(session_id)
 
@@ -72,7 +81,7 @@ print('Data acquired.')
 # 
 # *Note*: The weird text for the ylabel is called "TeX" markup, in order to get the greek symbol *mu* ($\mu$). See documentation <a href="https://matplotlib.org/tutorials/text/mathtext.html">here</a>.
 
-# In[5]:
+# In[6]:
 
 
 # Get the maximum projection (a numpy array) of our data
@@ -96,7 +105,7 @@ plt.show()
 # 
 # In the example below, the we will plot the first 10 cells from our data. the `get_dff_traces()` method returns the timestamps (in seconds) and deltaF/F.
 
-# In[6]:
+# In[7]:
 
 
 # Assign timestamps and deltaF/F
@@ -114,10 +123,9 @@ plt.show()
 
 # Although the plotting of our fluorescence was successful, it's hard to see individual traces here. To solve this issue, we can add a line in our loop that offsets each cell by a predetermined amount. We'll also make the figure interactive to allow zooming so we can see what individual calcium responses look like.
 
-# In[7]:
+# In[8]:
 
 
-get_ipython().run_line_magic('matplotlib', 'nbagg')
 fig = plt.figure()
 
 offset = 0
@@ -135,7 +143,7 @@ plt.show()
 # 
 # The dataframe that this creates will have a lot more information about what the cells in our experiment prefer. Each row is a different cell, each with its own preferences and response patterns.
 
-# In[8]:
+# In[9]:
 
 
 # Get the cell specimens information for this session
@@ -148,14 +156,14 @@ cell_specimens_df.head()
 # 
 # The `pref_image_ns` column contians the image IDs of the stimulus being presented. We can create our histogram from this column to see how many cells responded to these statistically significant stimuli. 
 
-# In[9]:
+# In[10]:
 
 
 #hi = pref_images.value_counts()
 #hi.index[0]
 
 
-# In[10]:
+# In[11]:
 
 
 # Subselect dataframe to contain significantly preferred images 
@@ -180,7 +188,7 @@ plt.show()
 # 
 # Below, we'll show the top five images for cells in this field of view. Do they have anything in common, either visually or conceptually?
 
-# In[11]:
+# In[12]:
 
 
 # Get the natural scene information
@@ -207,7 +215,7 @@ plt.show()
 # 
 # We can use the columns that look at the direction selectivity index (DSI) in order to determine whether our cells are direction selective (typically considered having a DSI > 0.5). Take another look at the cell_specimens_df we created above. We can subselect `sig_cells` to only contain cells that were direction specific and replot our bar graph to compare. 
 
-# In[12]:
+# In[13]:
 
 
 dsi_cells = sig_cells[sig_cells['dsi_dg'] > 0.5]
@@ -225,32 +233,105 @@ plt.xlabel('Image ID')
 plt.show()
 
 
-# As you can see our plot has drastically changed. Our cells were only direction selective to nine images from the significantly preferred data.
-
-# In[ ]:
-
-
-
-
-
-# In[13]:
-
-
-from matplotlib.ticker import MaxNLocator
-from allensdk.brain_observatory.drifting_gratings import DriftingGratings
-
+# As you can see, our plot changed drastically. We now have the significantly prefered images of our most direction selective cells. We can select a cell that responded significantly more to one of the top 5 imgages by subselting it from `dsi_cells` and filtering for `pref_image_ns`. 
 
 # In[14]:
 
 
-dg = DriftingGratings(data)
-dg
+pref_image_id = 100.0
+cell_oi = dsi_cells[dsi_cells['pref_image_ns'] == pref_image_id]
+cell_oi
 
+
+# ## Drifting Gratings 
+
+# We will now show how to plot a heatmap of a cell's response organized by orientation and temporal frequency. We will be using one of the three cells from the dataframe above which showed direction selectivity from the significantly preferred images.
 
 # In[15]:
 
 
-dg.response
+# import packages for Drifting Gratings analysis 
+from matplotlib.ticker import MaxNLocator
+from allensdk.brain_observatory.drifting_gratings import DriftingGratings
+
+
+# Our first step is to create an instance of our DriftingGratings object. The DriftingGratings class requires a `session_id` as an input. We can use the `session_id` that we assigned ealier to create or DrftingGratings object.
+
+# In[16]:
+
+
+# Create my DriftingGratings Object 
+dg = DriftingGratings(data)
+dg
+
+
+# The peak property of the analysis object is a Pandas DataFrame of peak conditions (direction and temporal frequency) as well as computed response metrics. For explanation on some of the more useful metrics, please see here <a href = 'https://alleninstitute.github.io/AllenSDK/_static/examples/nb/brain_observatory_analysis.html#Drifting-Gratings'> here</a>. 
+
+# In[17]:
+
+
+# Return dataframe
+dg_df = dg.peak
+dg_df.head()
+
+
+# Next, we must select a cell from our table by `cell_specimen_id`. If there is a specific cell you want to analyze, you can use the `get_cell_specimen_indices()` method to locate the index of your cell of interest. We will need to know the index of our specimen in our DrifitingGratings object to construct our heatmap. If you do not have a specific cell in mind, you can look through and select a cell from the dataframe above. 
+
+# In[18]:
+
+
+# select specimen_id from 1st row in cell_oi
+specimen_id = 669922218
+cell_loc = data.get_cell_specimen_indices([specimen_id])[0]
+
+print("Specimen ID:", specimen_id)
+print("Cell loc:", cell_loc)
+
+
+# The `response` attriubute returns the mean responses to each stimulus condition (i.e. orientation, frequency).
+
+# In[19]:
+
+
+# skip the blank sweep column of the temporal frequency dimension
+plt.imshow(dg.response[:,1:,cell_loc,0], cmap='hot', interpolation='none')
+plt.title("Heat Map, Cell Specimen: 669922218")
+plt.xticks(range(5), dg.tfvals[1:])
+plt.yticks(range(8), dg.orivals)
+plt.xlabel("Temporal frequency (Hz)", fontsize=20)
+plt.ylabel("Direction (deg)", fontsize=20)
+plt.tick_params(labelsize=14)
+cbar= plt.colorbar()
+cbar.set_label("DF/F (%)")
+
+
+# ## Receptive Fields 
+
+# In[20]:
+
+
+from allensdk.brain_observatory.locally_sparse_noise import LocallySparseNoise
+import allensdk.brain_observatory.stimulus_info as stim_info
+
+lsn = LocallySparseNoise(data)
+print("done analyzing locally sparse noise")
+
+
+# In[24]:
+
+
+lsn.get_peak()
+
+
+# In[25]:
+
+
+plt.imshow(lsn.receptive_field[:,:,cell_loc,0], interpolation='nearest', cmap='PuRd', origin='lower')
+plt.title("on receptive field")
+plt.show()
+plt.imshow(lsn.receptive_field[:,:,cell_loc,1], interpolation='nearest', cmap='Blues', origin='lower')
+plt.title("off receptive field")
+plt.show()
 
 
 # In[ ]:
