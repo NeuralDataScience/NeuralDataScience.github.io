@@ -294,6 +294,11 @@
    7.2.7. Receptive Fields
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#additional-resources">
+   7.2.8. Additional Resources
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -362,28 +367,7 @@
 <div class="section" id="download-inspect-the-natural-scenes-imaging-session">
 <h2><span class="section-number">7.2.2. </span>Download &amp; inspect the natural scenes imaging session<a class="headerlink" href="#download-inspect-the-natural-scenes-imaging-session" title="Permalink to this headline">¶</a></h2>
 <p>First, we’ll look at the session where the mouse viewed natural scenes. Below, we’ll designate an experiment ID (the same one we worked with in the previous section), designate that we’re interested in only the natural scenes experiments, and grab the container for that experiment.</p>
-<p><em>Note</em>: The cell below downloads some data, and make take a minute or so to run.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boc</span><span class="o">.</span><span class="n">get_all_stimuli</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;drifting_gratings&#39;,
- &#39;locally_sparse_noise&#39;,
- &#39;locally_sparse_noise_4deg&#39;,
- &#39;locally_sparse_noise_8deg&#39;,
- &#39;natural_movie_one&#39;,
- &#39;natural_movie_three&#39;,
- &#39;natural_movie_two&#39;,
- &#39;natural_scenes&#39;,
- &#39;spontaneous&#39;,
- &#39;static_gratings&#39;]
-</pre></div>
-</div>
-</div>
-</div>
+<p><strong>Note: The cell below downloads some data, and make take a minute or so to run. It is important that you do not stop the download of the data or else the file will become corruptted and you will have to delete it and try again</strong>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign previous container id and stimulus for imaging </span>
@@ -394,10 +378,10 @@
 
 <span class="c1"># Get experiment contianer for our id and stimuli of interest</span>
 <span class="n">expt_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
-                                      <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim</span><span class="p">)</span>
+                                     <span class="n">stimuli</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">])</span>
 
 
-<span class="c1"># Get the experiment data using the sesion id of interest</span>
+<span class="c1"># Get the experiment data using the sesion id</span>
 <span class="n">session_id</span> <span class="o">=</span> <span class="n">expt_cont</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
 
@@ -411,9 +395,28 @@
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># boc.get_all_stimuli()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">list_stimuli</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;natural_movie_one&#39;, &#39;natural_scenes&#39;, &#39;spontaneous&#39;, &#39;static_gratings&#39;]
+</pre></div>
+</div>
+</div>
+</div>
 <p>Let’s take a quick look at the data you just acquired. We’ll create a <strong>maximum projection image</strong> of the data, so that we can see the cells in our field of view. If we just looked at one snapshot of the raw imaging data, the cells would look dim – they only become bright when they’re actively firing. A maximum projection image shows us the maximum brightness for each pixel, across the entire experiment.</p>
 <p>Below, we are using the <code class="docutils literal notranslate"><span class="pre">get_max_projection()</span></code> method on our data, and then using the <code class="docutils literal notranslate"><span class="pre">imshow()</span></code> method in order to see our projection.</p>
-<p><em>Note</em>: The weird text for the ylabel is called “TeX” markup, in order to get the greek symbol <em>mu</em> (<span class="math notranslate nohighlight">\(\mu\)</span>). See documentation <a href="https://matplotlib.org/tutorials/text/mathtext.html">here</a>.</p>
+<p><strong>Note</strong>: The weird text for the ylabel is called “TeX” markup, in order to get the greek symbol <em>mu</em> (<span class="math notranslate nohighlight">\(\mu\)</span>). See documentation <a href="https://matplotlib.org/tutorials/text/mathtext.html">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the maximum projection (a numpy array) of our data</span>
@@ -433,7 +436,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_9_0.png" src="../_images/Analyzing_Two_Photon_Data_9_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_10_0.png" src="../_images/Analyzing_Two_Photon_Data_10_0.png" />
 </div>
 </div>
 </div>
@@ -458,7 +461,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_12_0.png" src="../_images/Analyzing_Two_Photon_Data_12_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_13_0.png" src="../_images/Analyzing_Two_Photon_Data_13_0.png" />
 </div>
 </div>
 <p>Although the plotting of our fluorescence was successful, it’s hard to see individual traces here. To solve this issue, we can add a line in our loop that offsets each cell by a predetermined amount. We’ll also make the figure interactive to allow zooming so we can see what individual calcium responses look like.</p>
@@ -478,7 +481,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_14_0.png" src="../_images/Analyzing_Two_Photon_Data_14_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_15_0.png" src="../_images/Analyzing_Two_Photon_Data_15_0.png" />
 </div>
 </div>
 </div>
@@ -678,7 +681,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subselect dataframe to contain significantly preferred images </span>
 <span class="n">sig_cells</span> <span class="o">=</span> <span class="n">cell_specimens_df</span><span class="p">[</span><span class="n">cell_specimens_df</span><span class="p">[</span><span class="s1">&#39;p_ns&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">]</span>
 
-<span class="c1"># Assign our image ids</span>
+<span class="c1"># Assign our image ids for significantly preferred images</span>
 <span class="n">pref_images</span> <span class="o">=</span> <span class="n">sig_cells</span><span class="p">[</span><span class="s1">&#39;pref_image_ns&#39;</span><span class="p">]</span>
 
 <span class="c1"># Set up our figure </span>
@@ -695,7 +698,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_19_0.png" src="../_images/Analyzing_Two_Photon_Data_19_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_20_0.png" src="../_images/Analyzing_Two_Photon_Data_20_0.png" />
 </div>
 </div>
 <p>In order to actually see what this stimulus are, first, we’ll organize the stimulus table. This tells us which stimulus was played on each trial. This data set has 118 different scenes, and each scene is presented 50 times. Images of the scenes can be found <a class="reference external" href="http://observatory.brain-map.org/visualcoding/stimulus/natural_scenes">here</a>.</p>
@@ -703,7 +706,9 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the natural scene information</span>
+<span class="n">natural_scene_table</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
 <span class="n">natural_scene_template</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_template</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
+<span class="n">sceneIDs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">natural_scene_table</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
 
 <span class="c1"># Set up our figure</span>
 <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
@@ -723,49 +728,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="n">e9cba8e40bf2</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Get the natural scene information</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">natural_scene_template</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_template</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Set up our figure</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/api/cache.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span>         <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">sentinel</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span>             <span class="k">return</span> <span class="n">result</span>
-<span class="ne">---&gt; </span><span class="mi">75</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">76</span>         <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span>         <span class="k">return</span> <span class="n">result</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py</span> in <span class="ni">get_stimulus_template</span><span class="nt">(self, stimulus_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">597</span>         <span class="n">stim_name</span> <span class="o">=</span> <span class="n">stimulus_name</span> <span class="o">+</span> <span class="s2">&quot;_image_stack&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">598</span>         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwb_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">599</span>             <span class="n">image_stack</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s1">&#39;stimulus&#39;</span><span class="p">][</span><span class="s1">&#39;templates&#39;</span><span class="p">][</span><span class="n">stim_name</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">][()]</span>
-<span class="g g-Whitespace">    </span><span class="mi">600</span>         <span class="k">return</span> <span class="n">image_stack</span>
-<span class="g g-Whitespace">    </span><span class="mi">601</span> 
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/h5py/_hl/group.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">262</span>                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid HDF5 object reference&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">263</span>         <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">264</span>             <span class="n">oid</span> <span class="o">=</span> <span class="n">h5o</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_e</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">lapl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_lapl</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">265</span> 
-<span class="g g-Whitespace">    </span><span class="mi">266</span>         <span class="n">otype</span> <span class="o">=</span> <span class="n">h5i</span><span class="o">.</span><span class="n">get_type</span><span class="p">(</span><span class="n">oid</span><span class="p">)</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/h5o.pyx</span> in <span class="ni">h5py.h5o.open</span><span class="nt">()</span>
-
-<span class="ne">KeyError</span>: &quot;Unable to open object (object &#39;natural_scenes_image_stack&#39; doesn&#39;t exist)&quot;
-</pre></div>
-</div>
+<img alt="../_images/Analyzing_Two_Photon_Data_22_0.png" src="../_images/Analyzing_Two_Photon_Data_22_0.png" />
 </div>
 </div>
 </div>
@@ -792,13 +755,16 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_23_0.png" src="../_images/Analyzing_Two_Photon_Data_23_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_24_0.png" src="../_images/Analyzing_Two_Photon_Data_24_0.png" />
 </div>
 </div>
 <p>As you can see, our plot changed drastically. We now have the significantly prefered images of our most direction selective cells. We can select a cell that responded significantly more to one of the top 5 imgages by subselting it from <code class="docutils literal notranslate"><span class="pre">dsi_cells</span></code> and filtering for <code class="docutils literal notranslate"><span class="pre">pref_image_ns</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pref_image_id</span> <span class="o">=</span> <span class="mf">100.0</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign image id </span>
+<span class="n">pref_image_id</span> <span class="o">=</span> <span class="mf">100.0</span>
+
+<span class="c1"># Subselect from dataframe to only contains cells that prefered our image id</span>
 <span class="n">cell_oi</span> <span class="o">=</span> <span class="n">dsi_cells</span><span class="p">[</span><span class="n">dsi_cells</span><span class="p">[</span><span class="s1">&#39;pref_image_ns&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pref_image_id</span><span class="p">]</span>
 <span class="n">cell_oi</span>
 </pre></div>
@@ -937,25 +903,52 @@
 </div>
 </div>
 </div>
-<p>Our first step is to create an instance of our DriftingGratings object. The DriftingGratings class requires a <code class="docutils literal notranslate"><span class="pre">session_id</span></code> as an input. We can use the <code class="docutils literal notranslate"><span class="pre">session_id</span></code> that we assigned ealier to create or DrftingGratings object.</p>
+<p>Our first step is to create an instance of our DriftingGratings object. The DriftingGratings class requires an NWB data set as an input. Recall that we assigned this data set earleier to <code class="docutils literal notranslate"><span class="pre">data</span></code> using <code class="docutils literal notranslate"><span class="pre">get_ophys_experiment()</span></code> and the <code class="docutils literal notranslate"><span class="pre">session_id</span></code>. We can use <code class="docutils literal notranslate"><span class="pre">data</span></code> to assign our DriftingGratings object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign previous container id and stimulus for imaging </span>
+<span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">657016265</span>
+
+<span class="c1"># Select our stimuli</span>
+<span class="n">stim_2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;drifting_gratings&#39;</span><span class="p">]</span>
+
+<span class="c1"># Get experiment contianer for our id and stimuli of interest</span>
+<span class="n">expt_cont_dg</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
+                                     <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim_2</span><span class="p">)</span>
+
+
+<span class="c1"># Get the experiment data using the sesion id</span>
+<span class="n">session_id</span> <span class="o">=</span> <span class="n">expt_cont_dg</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="n">data_dg</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data acquired.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data acquired.
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create my DriftingGratings Object </span>
-<span class="n">dg</span> <span class="o">=</span> <span class="n">DriftingGratings</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">dg</span> <span class="o">=</span> <span class="n">DriftingGratings</span><span class="p">(</span><span class="n">data_dg</span><span class="p">)</span>
 <span class="n">dg</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.brain_observatory.drifting_gratings.DriftingGratings at 0x7fa2570f3990&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.brain_observatory.drifting_gratings.DriftingGratings at 0x7fcd44d56150&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>The peak property of the analysis object is a Pandas DataFrame of peak conditions (direction and temporal frequency) as well as computed response metrics. For explanation on some of the more useful metrics, please see here <a href = 'https://alleninstitute.github.io/AllenSDK/_static/examples/nb/brain_observatory_analysis.html#Drifting-Gratings'> here</a>.</p>
+<p>The peak property of the DriftingGratings object is a Pandas DataFrame of peak conditions (direction and temporal frequency) as well as computed response metrics.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return dataframe of peak conditions</span>
 <span class="n">dg_df</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">peak</span>
 <span class="n">dg_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -1090,8 +1083,8 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select specimen_id from 1st row in cell_oi</span>
-<span class="n">specimen_id</span> <span class="o">=</span> <span class="mi">669922218</span>
-<span class="n">cell_loc</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_cell_specimen_indices</span><span class="p">([</span><span class="n">specimen_id</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">specimen_id</span> <span class="o">=</span> <span class="mi">669925542</span>
+<span class="n">cell_loc</span> <span class="o">=</span> <span class="n">data_dg</span><span class="o">.</span><span class="n">get_cell_specimen_indices</span><span class="p">([</span><span class="n">specimen_id</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specimen ID:&quot;</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cell loc:&quot;</span><span class="p">,</span> <span class="n">cell_loc</span><span class="p">)</span>
@@ -1099,8 +1092,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specimen ID: 669922218
-Cell loc: 0
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specimen ID: 669925542
+Cell loc: 2
 </pre></div>
 </div>
 </div>
@@ -1110,7 +1103,7 @@ Cell loc: 0
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># skip the blank sweep column of the temporal frequency dimension</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dg</span><span class="o">.</span><span class="n">response</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:,</span><span class="n">cell_loc</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heat Map, Cell Specimen: 669922218&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heat Map, Cell Specimen: 669925542&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">dg</span><span class="o">.</span><span class="n">tfvals</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">dg</span><span class="o">.</span><span class="n">orivals</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Temporal frequency (Hz)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -1122,197 +1115,129 @@ Cell loc: 0
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_36_0.png" src="../_images/Analyzing_Two_Photon_Data_36_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_38_0.png" src="../_images/Analyzing_Two_Photon_Data_38_0.png" />
+</div>
+</div>
+<p>The prefered directions temporal frequency are stored within <code class="docutils literal notranslate"><span class="pre">ori_dg</span></code> and <code class="docutils literal notranslate"><span class="pre">tf_dg</span></code> in are table above and can be indexed through dg.orivals and tf.tfvals respectively.</p>
+<p>For more explanation on the available pre-computed metrics, please see <a href = 'https://alleninstitute.github.io/AllenSDK/_static/examples/nb/brain_observatory_analysis.html#Drifting-Gratings'> here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pref_ori</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">orivals</span><span class="p">[</span><span class="n">dg</span><span class="o">.</span><span class="n">peak</span><span class="o">.</span><span class="n">ori_dg</span><span class="p">[</span><span class="n">cell_loc</span><span class="p">]]</span>
+<span class="n">pref_tf</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">tfvals</span><span class="p">[</span><span class="n">dg</span><span class="o">.</span><span class="n">peak</span><span class="o">.</span><span class="n">tf_dg</span><span class="p">[</span><span class="n">cell_loc</span><span class="p">]]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preferred direction:&quot;</span><span class="p">,</span> <span class="n">pref_ori</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preferred temporal frequency:&quot;</span><span class="p">,</span> <span class="n">pref_tf</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Preferred direction: 0
+Preferred temporal frequency: 8
+</pre></div>
+</div>
 </div>
 </div>
 </div>
 <div class="section" id="receptive-fields">
 <h2><span class="section-number">7.2.7. </span>Receptive Fields<a class="headerlink" href="#receptive-fields" title="Permalink to this headline">¶</a></h2>
+<p>From the downloaded experimental data, we are also able to compute receptive fields for of a cell. This is done through the <code class="docutils literal notranslate"><span class="pre">LocallySpareNoise</span></code> object. Much like we have done before, we will choose an experiment contianer and session id to work with. When using <code class="docutils literal notranslate"><span class="pre">get_ophys_experiments()</span></code> to download the approriate container, be sure to set <code class="docutils literal notranslate"><span class="pre">stimuli</span></code> equal to <code class="docutils literal notranslate"><span class="pre">stim_info.LOCALLY_SPARSE_NOISE</span></code> as done in the cell below. This will ensure that only the <code class="docutils literal notranslate"><span class="pre">locally_sparse_noise</span></code> data is downloaded.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">allensdk.brain_observatory.locally_sparse_noise</span> <span class="kn">import</span> <span class="n">LocallySparseNoise</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Necessary packages to run receptive field analysis</span>
+<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.locally_sparse_noise</span> <span class="kn">import</span> <span class="n">LocallySparseNoise</span>
 <span class="kn">import</span> <span class="nn">allensdk.brain_observatory.stimulus_info</span> <span class="k">as</span> <span class="nn">stim_info</span>
 
-<span class="n">lsn</span> <span class="o">=</span> <span class="n">LocallySparseNoise</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;done analyzing locally sparse noise&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>done analyzing locally sparse noise
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lsn</span><span class="o">.</span><span class="n">get_peak</span><span class="p">()</span>
+<span class="c1"># Assign container id and stimulus for receptive field analysis </span>
+<span class="c1">#specimen_id_2 = 587179530</span>
+<span class="n">specimen_id_2</span> <span class="o">=</span> <span class="mi">669921489</span>
+<span class="n">my_cell</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_cell_specimens</span><span class="p">(</span><span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="n">specimen_id_2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">exp_lsn</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">my_cell</span><span class="p">[</span><span class="s1">&#39;experiment_container_id&#39;</span><span class="p">]],</span>
+                                <span class="n">stimuli</span><span class="o">=</span><span class="p">[</span><span class="n">stim_info</span><span class="o">.</span><span class="n">LOCALLY_SPARSE_NOISE</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="c1"># Get the experiment data using the sesion id</span>
+<span class="n">session_id_2</span> <span class="o">=</span> <span class="n">exp_lsn</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="n">data_lsn</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id_2</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data acquired.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">MissingStimulusException</span><span class="g g-Whitespace">                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">24</span><span class="o">-</span><span class="mi">6979</span><span class="n">f03c5d33</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">lsn</span><span class="o">.</span><span class="n">get_peak</span><span class="p">()</span>
+<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="mi">98</span><span class="n">fad1a32307</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> 
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">exp_lsn</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">my_cell</span><span class="p">[</span><span class="s1">&#39;experiment_container_id&#39;</span><span class="p">]],</span>
+<span class="ne">---&gt; </span><span class="mi">11</span>                                 <span class="n">stimuli</span><span class="o">=</span><span class="p">[</span><span class="n">stim_info</span><span class="o">.</span><span class="n">LOCALLY_SPARSE_NOISE</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> 
+<span class="g g-Whitespace">     </span><span class="mi">13</span> 
 
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">get_peak</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">166</span>         <span class="n">csids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_set</span><span class="o">.</span><span class="n">get_cell_specimen_ids</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">167</span> 
-<span class="ne">--&gt; </span><span class="mi">168</span>         <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_receptive_field_attribute_df</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span>         <span class="n">peak</span><span class="o">.</span><span class="n">cell_specimen_id</span> <span class="o">=</span> <span class="n">csids</span>
-<span class="g g-Whitespace">    </span><span class="mi">170</span> 
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">get_receptive_field_attribute_df</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">290</span> 
-<span class="g g-Whitespace">    </span><span class="mi">291</span>         <span class="n">df_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="ne">--&gt; </span><span class="mi">292</span>         <span class="k">for</span> <span class="n">cell_index_as_str</span><span class="p">,</span> <span class="n">rf</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_index_receptive_field_analysis_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="g g-Whitespace">    </span><span class="mi">293</span> 
-<span class="g g-Whitespace">    </span><span class="mi">294</span>             <span class="n">attribute_dict</span> <span class="o">=</span> <span class="p">{}</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">cell_index_receptive_field_analysis_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="k">def</span> <span class="nf">cell_index_receptive_field_analysis_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_index_receptive_field_analysis_data</span> <span class="ow">is</span> <span class="n">LocallySparseNoise</span><span class="o">.</span><span class="n">_PRELOAD</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">145</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_cell_index_receptive_field_analysis_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_receptive_field_analysis_data</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">146</span> 
-<span class="g g-Whitespace">    </span><span class="mi">147</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_index_receptive_field_analysis_data</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">get_receptive_field_analysis_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span>         <span class="k">for</span> <span class="n">cell_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_set</span><span class="o">.</span><span class="n">number_of_cells</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span>             <span class="n">csid_rf</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">cell_index</span><span class="p">)]</span> <span class="o">=</span> <span class="n">compute_receptive_field_with_postprocessing</span><span class="p">(</span>
-<span class="ne">--&gt; </span><span class="mi">280</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">data_set</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stimulus</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">number_of_shuffles</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span> 
-<span class="g g-Whitespace">    </span><span class="mi">282</span>         <span class="k">return</span> <span class="n">csid_rf</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/receptive_field_analysis/receptive_field.py</span> in <span class="ni">compute_receptive_field_with_postprocessing</span><span class="nt">(data, cell_index, stimulus, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span> 
-<span class="g g-Whitespace">    </span><span class="mi">124</span> <span class="k">def</span> <span class="nf">compute_receptive_field_with_postprocessing</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">125</span>     <span class="n">rf</span> <span class="o">=</span> <span class="n">compute_receptive_field</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span>     <span class="n">rf</span> <span class="o">=</span> <span class="n">run_postprocessing</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">127</span> 
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/receptive_field_analysis/receptive_field.py</span> in <span class="ni">compute_receptive_field</span><span class="nt">(data, cell_index, stimulus, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="n">alpha</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span> 
-<span class="ne">---&gt; </span><span class="mi">66</span>     <span class="n">event_vector</span> <span class="o">=</span> <span class="n">detect_events</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">67</span> 
-<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="n">A_blur</span> <span class="o">=</span> <span class="n">get_A_blur</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">)</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/receptive_field_analysis/eventdetection.py</span> in <span class="ni">detect_events</span><span class="nt">(data, cell_index, stimulus, debug_plots)</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span> 
-<span class="g g-Whitespace">     </span><span class="mi">43</span> 
-<span class="ne">---&gt; </span><span class="mi">44</span>     <span class="n">stimulus_table</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">(</span><span class="n">stimulus</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span>     <span class="n">dff_trace</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_dff_traces</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="n">cell_index</span><span class="p">,</span> <span class="p">:]</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span> 
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py</span> in <span class="ni">get_stimulus_table</span><span class="nt">(self, stimulus_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">559</span>         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwb_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nwb_file</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">560</span> 
-<span class="ne">--&gt; </span><span class="mi">561</span>             <span class="n">stimulus_group</span> <span class="o">=</span> <span class="n">_find_stimulus_presentation_group</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">,</span> <span class="n">stimulus_name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">562</span> 
-<span class="g g-Whitespace">    </span><span class="mi">563</span>             <span class="k">if</span> <span class="n">stimulus_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">STIMULUS_TABLE_TYPES</span><span class="p">[</span><span class="s1">&#39;abstract_feature_series&#39;</span><span class="p">]:</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py</span> in <span class="ni">_find_stimulus_presentation_group</span><span class="nt">(nwb_file, stimulus_name, base_path, group_patterns)</span>
-<span class="g g-Whitespace">    </span><span class="mi">980</span>         <span class="k">raise</span> <span class="n">MissingStimulusException</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">981</span>             <span class="s1">&#39;Unable to locate stimulus: </span><span class="si">{}</span><span class="s1">. &#39;</span>
-<span class="ne">--&gt; </span><span class="mi">982</span>             <span class="s1">&#39;Looked for this stimulus under the names: </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stimulus_name</span><span class="p">,</span> <span class="n">group_candidates</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">983</span>             <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span> 
-
-<span class="ne">MissingStimulusException</span>: Unable to locate stimulus: locally_sparse_noise. Looked for this stimulus under the names: [&#39;locally_sparse_noise&#39;, &#39;locally_sparse_noise_stimulus&#39;] 
+<span class="ne">IndexError</span>: list index out of range
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_loc</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;PuRd&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp_lsn</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Note</strong>: Not all experiment contianers contain sessions with <code class="docutils literal notranslate"><span class="pre">locally_spare_noise</span></code> stimulus data. If you donwload an experiment with no such data, you will get an empty container and the receptive feild analysis will not work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of an experiment contianer with no locally sparse noise data </span>
+
+<span class="c1"># Assign previous container id and stimulus for imaging </span>
+<span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">657016265</span>
+
+<span class="c1"># Select our stimuli</span>
+<span class="n">stim_3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;locally_sparse_noise&#39;</span><span class="p">]</span>
+
+<span class="c1"># Get experiment contianer for our id and stimuli of interest</span>
+<span class="n">non_lsn_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
+                                     <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim_3</span><span class="p">)</span>
+
+
+<span class="c1"># Get the experiment data using the sesion id</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">non_lsn_cont</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Like we did for the drifting gratings analysis, we need to locate the index of our cell to contruct our receptive fields.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign index of cell</span>
+<span class="n">cell_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_lsn</span><span class="o">.</span><span class="n">get_cell_specimen_indices</span><span class="p">([</span><span class="n">specimen_id_2</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">cell_idx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now how have everything we need to construct our receptive felied analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_idx</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;PuRd&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;on receptive field&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_loc</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_idx</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;off receptive field&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">MissingStimulusException</span><span class="g g-Whitespace">                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">25</span><span class="o">-</span><span class="mi">8</span><span class="n">b5f9721af37</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_loc</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;PuRd&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;on receptive field&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_loc</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;off receptive field&quot;</span><span class="p">)</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">receptive_field</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span>     <span class="k">def</span> <span class="nf">receptive_field</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">137</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receptive_field</span> <span class="ow">is</span> <span class="n">LocallySparseNoise</span><span class="o">.</span><span class="n">_PRELOAD</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">138</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_receptive_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_receptive_field</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">139</span> 
-<span class="g g-Whitespace">    </span><span class="mi">140</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_receptive_field</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">get_receptive_field</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span>         <span class="n">receptive_field</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">numbercells</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span> 
-<span class="ne">--&gt; </span><span class="mi">261</span>         <span class="k">for</span> <span class="n">cell_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cell_index_receptive_field_analysis_data</span><span class="p">)):</span>
-<span class="g g-Whitespace">    </span><span class="mi">262</span>             <span class="n">curr_rf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_index_receptive_field_analysis_data</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">cell_index</span><span class="p">)]</span>
-<span class="g g-Whitespace">    </span><span class="mi">263</span>             <span class="n">rf_on</span> <span class="o">=</span> <span class="n">curr_rf</span><span class="p">[</span><span class="s1">&#39;on&#39;</span><span class="p">][</span><span class="s1">&#39;rts_convolution&#39;</span><span class="p">][</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">cell_index_receptive_field_analysis_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="k">def</span> <span class="nf">cell_index_receptive_field_analysis_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_index_receptive_field_analysis_data</span> <span class="ow">is</span> <span class="n">LocallySparseNoise</span><span class="o">.</span><span class="n">_PRELOAD</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">145</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_cell_index_receptive_field_analysis_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_receptive_field_analysis_data</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">146</span> 
-<span class="g g-Whitespace">    </span><span class="mi">147</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cell_index_receptive_field_analysis_data</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/locally_sparse_noise.py</span> in <span class="ni">get_receptive_field_analysis_data</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span>         <span class="k">for</span> <span class="n">cell_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_set</span><span class="o">.</span><span class="n">number_of_cells</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span>             <span class="n">csid_rf</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">cell_index</span><span class="p">)]</span> <span class="o">=</span> <span class="n">compute_receptive_field_with_postprocessing</span><span class="p">(</span>
-<span class="ne">--&gt; </span><span class="mi">280</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">data_set</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stimulus</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">05</span><span class="p">,</span> <span class="n">number_of_shuffles</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">281</span> 
-<span class="g g-Whitespace">    </span><span class="mi">282</span>         <span class="k">return</span> <span class="n">csid_rf</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/receptive_field_analysis/receptive_field.py</span> in <span class="ni">compute_receptive_field_with_postprocessing</span><span class="nt">(data, cell_index, stimulus, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span> 
-<span class="g g-Whitespace">    </span><span class="mi">124</span> <span class="k">def</span> <span class="nf">compute_receptive_field_with_postprocessing</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">125</span>     <span class="n">rf</span> <span class="o">=</span> <span class="n">compute_receptive_field</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span>     <span class="n">rf</span> <span class="o">=</span> <span class="n">run_postprocessing</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rf</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">127</span> 
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/receptive_field_analysis/receptive_field.py</span> in <span class="ni">compute_receptive_field</span><span class="nt">(data, cell_index, stimulus, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">64</span>     <span class="n">alpha</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span> 
-<span class="ne">---&gt; </span><span class="mi">66</span>     <span class="n">event_vector</span> <span class="o">=</span> <span class="n">detect_events</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cell_index</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">67</span> 
-<span class="g g-Whitespace">     </span><span class="mi">68</span>     <span class="n">A_blur</span> <span class="o">=</span> <span class="n">get_A_blur</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stimulus</span><span class="p">)</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/receptive_field_analysis/eventdetection.py</span> in <span class="ni">detect_events</span><span class="nt">(data, cell_index, stimulus, debug_plots)</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span> 
-<span class="g g-Whitespace">     </span><span class="mi">43</span> 
-<span class="ne">---&gt; </span><span class="mi">44</span>     <span class="n">stimulus_table</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">(</span><span class="n">stimulus</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">45</span>     <span class="n">dff_trace</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_dff_traces</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="n">cell_index</span><span class="p">,</span> <span class="p">:]</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span> 
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py</span> in <span class="ni">get_stimulus_table</span><span class="nt">(self, stimulus_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">559</span>         <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nwb_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">nwb_file</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">560</span> 
-<span class="ne">--&gt; </span><span class="mi">561</span>             <span class="n">stimulus_group</span> <span class="o">=</span> <span class="n">_find_stimulus_presentation_group</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">,</span> <span class="n">stimulus_name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">562</span> 
-<span class="g g-Whitespace">    </span><span class="mi">563</span>             <span class="k">if</span> <span class="n">stimulus_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">STIMULUS_TABLE_TYPES</span><span class="p">[</span><span class="s1">&#39;abstract_feature_series&#39;</span><span class="p">]:</span>
-
-<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py</span> in <span class="ni">_find_stimulus_presentation_group</span><span class="nt">(nwb_file, stimulus_name, base_path, group_patterns)</span>
-<span class="g g-Whitespace">    </span><span class="mi">980</span>         <span class="k">raise</span> <span class="n">MissingStimulusException</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">981</span>             <span class="s1">&#39;Unable to locate stimulus: </span><span class="si">{}</span><span class="s1">. &#39;</span>
-<span class="ne">--&gt; </span><span class="mi">982</span>             <span class="s1">&#39;Looked for this stimulus under the names: </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stimulus_name</span><span class="p">,</span> <span class="n">group_candidates</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">983</span>             <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span> 
-
-<span class="ne">MissingStimulusException</span>: Unable to locate stimulus: locally_sparse_noise. Looked for this stimulus under the names: [&#39;locally_sparse_noise&#39;, &#39;locally_sparse_noise_stimulus&#39;] 
-</pre></div>
 </div>
 </div>
-</div>
+<div class="section" id="additional-resources">
+<h2><span class="section-number">7.2.8. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'> here </a> for the original documentation to the BrainObservatoryCache object.</p></li>
+<li><p>Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_nwb_data_set.html'> here </a> for the original documentation to the methods used in the fluorescence imaging and natural scenes section.</p></li>
+<li><p>Click on the link<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.drifting_gratings.html'> here </a> for the original documentation to the methods used in the drifting gratings section.</p></li>
+</ul>
 </div>
 </div>
 

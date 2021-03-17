@@ -1,4 +1,15 @@
 Traceback (most recent call last):
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 609, in _async_poll_for_reply
+    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/util.py", line 85, in ensure_async
+    result = await obj
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/jupyter_client/asynchronous/channels.py", line 48, in get_msg
+    raise Empty
+_queue.Empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
   File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/jupyter_cache/executors/utils.py", line 56, in single_nb_execution
     record_timing=False,
   File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 1087, in execute
@@ -11,71 +22,18 @@ Traceback (most recent call last):
     return future.result()
   File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 541, in async_execute
     cell, index, execution_count=self.code_cells_executed + 1
-  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 832, in async_execute_cell
-    self._check_raise_for_error(cell, exec_reply)
-  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
-    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
-nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
-------------------
-# Get the natural scene information
-natural_scene_template = data.get_stimulus_template('natural_scenes')
-
-# Set up our figure
-fig,ax = plt.subplots(1,5,figsize=(15,6))
-
-for image_ID in range(5): # Show the first 5 images
-    
-    image_id = int(pref_counts.index[image_ID]) # Get the image ID
-
-    # Use imshow to visualize our numpy array
-    ax[image_ID].imshow(natural_scene_template[image_id,:,:],cmap='gray')
-    ax[image_ID].set_xticks([])
-    ax[image_ID].set_yticks([])
-    ax[image_ID].set_title('Image ' + str(image_id))
-    
-plt.show()
-------------------
-
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mKeyError[0m                                  Traceback (most recent call last)
-[0;32m<ipython-input-12-e9cba8e40bf2>[0m in [0;36m<module>[0;34m[0m
-[1;32m      1[0m [0;31m# Get the natural scene information[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 2[0;31m [0mnatural_scene_template[0m [0;34m=[0m [0mdata[0m[0;34m.[0m[0mget_stimulus_template[0m[0;34m([0m[0;34m'natural_scenes'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      3[0m [0;34m[0m[0m
-[1;32m      4[0m [0;31m# Set up our figure[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      5[0m [0mfig[0m[0;34m,[0m[0max[0m [0;34m=[0m [0mplt[0m[0;34m.[0m[0msubplots[0m[0;34m([0m[0;36m1[0m[0;34m,[0m[0;36m5[0m[0;34m,[0m[0mfigsize[0m[0;34m=[0m[0;34m([0m[0;36m15[0m[0;34m,[0m[0;36m6[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/api/cache.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
-[1;32m     73[0m         [0;32mif[0m [0mresult[0m [0;32mis[0m [0;32mnot[0m [0msentinel[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     74[0m             [0;32mreturn[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 75[0;31m         [0mresult[0m [0;34m=[0m [0mf[0m[0;34m([0m[0;34m*[0m[0margs[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     76[0m         [0mcache[0m[0;34m[[0m[0mkey[0m[0;34m][0m [0;34m=[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
-[1;32m     77[0m         [0;32mreturn[0m [0mresult[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/brain_observatory_nwb_data_set.py[0m in [0;36mget_stimulus_template[0;34m(self, stimulus_name)[0m
-[1;32m    597[0m         [0mstim_name[0m [0;34m=[0m [0mstimulus_name[0m [0;34m+[0m [0;34m"_image_stack"[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    598[0m         [0;32mwith[0m [0mh5py[0m[0;34m.[0m[0mFile[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mnwb_file[0m[0;34m,[0m [0;34m'r'[0m[0;34m)[0m [0;32mas[0m [0mf[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 599[0;31m             [0mimage_stack[0m [0;34m=[0m [0mf[0m[0;34m[[0m[0;34m'stimulus'[0m[0;34m][0m[0;34m[[0m[0;34m'templates'[0m[0;34m][0m[0;34m[[0m[0mstim_name[0m[0;34m][0m[0;34m[[0m[0;34m'data'[0m[0;34m][0m[0;34m[[0m[0;34m([0m[0;34m)[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    600[0m         [0;32mreturn[0m [0mimage_stack[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    601[0m [0;34m[0m[0m
-
-[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
-
-[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
-
-[0;32m~/opt/anaconda3/lib/python3.7/site-packages/h5py/_hl/group.py[0m in [0;36m__getitem__[0;34m(self, name)[0m
-[1;32m    262[0m                 [0;32mraise[0m [0mValueError[0m[0;34m([0m[0;34m"Invalid HDF5 object reference"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[1;32m    263[0m         [0;32melse[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
-[0;32m--> 264[0;31m             [0moid[0m [0;34m=[0m [0mh5o[0m[0;34m.[0m[0mopen[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mid[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0m_e[0m[0;34m([0m[0mname[0m[0;34m)[0m[0;34m,[0m [0mlapl[0m[0;34m=[0m[0mself[0m[0;34m.[0m[0m_lapl[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m    265[0m [0;34m[0m[0m
-[1;32m    266[0m         [0motype[0m [0;34m=[0m [0mh5i[0m[0;34m.[0m[0mget_type[0m[0;34m([0m[0moid[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-
-[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
-
-[0;32mh5py/_objects.pyx[0m in [0;36mh5py._objects.with_phil.wrapper[0;34m()[0m
-
-[0;32mh5py/h5o.pyx[0m in [0;36mh5py.h5o.open[0;34m()[0m
-
-[0;31mKeyError[0m: "Unable to open object (object 'natural_scenes_image_stack' doesn't exist)"
-KeyError: "Unable to open object (object 'natural_scenes_image_stack' doesn't exist)"
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 816, in async_execute_cell
+    exec_reply = await self.task_poll_for_reply
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 633, in _async_poll_for_reply
+    await self._async_handle_timeout(timeout, cell)
+  File "/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/nbclient/client.py", line 684, in _async_handle_timeout
+    "Cell execution timed out", timeout, cell
+nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
+The message was: Cell execution timed out.
+Here is a preview of the cell contents:
+-------------------
+# Return dataframe of peak conditions
+dg_df = dg.peak
+dg_df.head()
+-------------------
 

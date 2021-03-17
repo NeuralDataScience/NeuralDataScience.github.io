@@ -60,7 +60,7 @@ print("all brain regions: " + str(brain_areas))
 
 # ## Extract an experiment session
 
-# With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiements from our desired cre lines and brain regions. We can use the `get_experiment_containers()` method of our `boc` object to get a list of experiments that are available. The method takes in the arguments `cre_lines` and `targeted_structures` which both require lists as inputs. 
+# With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiements from our desired cre lines and brain regions. We can use the `get_experiment_containers()` method of our `boc` object to get a list of experiment contianer ids that are available. The method takes in the arguments `cre_lines` and `targeted_structures` which both require lists as inputs. 
 # 
 # *Note*: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the `empty` attribute on your new datafram to check if it is empty. 
 
@@ -111,6 +111,7 @@ print(expt_cont)
 
 # Go into first entry in list, which is the dictionary 
 # Then go within id of dictionary
+# Note: This id is different from our experiment container id 
 session_id = expt_cont[0]['id']
 data = boc.get_ophys_experiment_data(session_id)
 
