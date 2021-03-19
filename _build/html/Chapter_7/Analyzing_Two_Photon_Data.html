@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="8. Allen Mouse Brain Connectivity Atlas" href="../Chapter_8/Connectivity_Atlas.html" />
-    <link rel="prev" title="7.1. Retreiving Calcium Imaging Data" href="Retrieving_Brain_Observatory_Data.html" />
+    <link rel="prev" title="7.1. Retrieving Calcium Imaging Data" href="Retrieving_Brain_Observatory_Data.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -135,7 +135,7 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Retrieving_Brain_Observatory_Data.html">
-     7.1. Retreiving Calcium Imaging Data
+     7.1. Retrieving Calcium Imaging Data
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -284,21 +284,6 @@
    7.2.5. Examine the direction selectivity of your cell
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#drifting-gratings">
-   7.2.6. Drifting Gratings
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#receptive-fields">
-   7.2.7. Receptive Fields
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#additional-resources">
-   7.2.8. Additional Resources
-  </a>
- </li>
 </ul>
 
         </nav>
@@ -337,19 +322,17 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import toolboxes</span>
-<span class="kn">import</span> <span class="nn">allensdk.brain_observatory.stimulus_info</span> <span class="k">as</span> <span class="nn">stim_info</span>
 <span class="kn">from</span> <span class="nn">allensdk.core.brain_observatory_cache</span> <span class="kn">import</span> <span class="n">BrainObservatoryCache</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">MaxNLocator</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages installed.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages imported.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages installed.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages imported.
 </pre></div>
 </div>
 </div>
@@ -366,24 +349,21 @@
 </div>
 <div class="section" id="download-inspect-the-natural-scenes-imaging-session">
 <h2><span class="section-number">7.2.2. </span>Download &amp; inspect the natural scenes imaging session<a class="headerlink" href="#download-inspect-the-natural-scenes-imaging-session" title="Permalink to this headline">¶</a></h2>
-<p>First, we’ll look at the session where the mouse viewed natural scenes. Below, we’ll designate an experiment ID (the same one we worked with in the previous section), designate that we’re interested in only the natural scenes experiments, and grab the container for that experiment.</p>
-<p><strong>Note: The cell below downloads some data, and make take a minute or so to run. It is important that you do not stop the download of the data or else the file will become corruptted and you will have to delete it and try again</strong>.</p>
+<p>First, we’ll look at an experiment where the mouse viewed natural scenes. Below, we’ll assign an experiment container ID (the same one we worked with in the previous section), designate that we’re interested in only the natural scenes experiments, and download the data for the first experiment in the container.</p>
+<p><strong>Note</strong>: The cell below downloads some data, and make take a minute or so to run. It is important that you do not interrupt the download of the data or else the file will become corrupted and you will have to delete it and try again.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign previous container id and stimulus for imaging </span>
-<span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">657016265</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign previous container ID</span>
+<span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">627823571</span>
+<span class="n">stim</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">]</span>
 
-<span class="c1"># Select our stimuli</span>
-<span class="n">stim</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">,</span> <span class="s1">&#39;drifting_gratings&#39;</span><span class="p">,</span> <span class="s1">&#39;locally_sparse_noise&#39;</span><span class="p">]</span>
+<span class="c1"># Get experiment container for our id and stimuli of interest</span>
+<span class="n">exp_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
+                                     <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim</span><span class="p">)</span>
 
-<span class="c1"># Get experiment contianer for our id and stimuli of interest</span>
-<span class="n">expt_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
-                                     <span class="n">stimuli</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">])</span>
-
-
-<span class="c1"># Get the experiment data using the sesion id</span>
-<span class="n">session_id</span> <span class="o">=</span> <span class="n">expt_cont</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+<span class="c1"># Assign the experiment id </span>
+<span class="n">experiment_id</span> <span class="o">=</span> <span class="n">exp_cont</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="n">experiment_data</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data acquired.&#39;</span><span class="p">)</span>
 </pre></div>
@@ -395,32 +375,13 @@
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># boc.get_all_stimuli()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">list_stimuli</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;natural_movie_one&#39;, &#39;natural_scenes&#39;, &#39;spontaneous&#39;, &#39;static_gratings&#39;]
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s take a quick look at the data you just acquired. We’ll create a <strong>maximum projection image</strong> of the data, so that we can see the cells in our field of view. If we just looked at one snapshot of the raw imaging data, the cells would look dim – they only become bright when they’re actively firing. A maximum projection image shows us the maximum brightness for each pixel, across the entire experiment.</p>
+<p>Let’s take a quick look at the data you just downloaded. We’ll create a <strong>maximum projection image</strong> of the data, so that we can see the cells in our field of view. If we just looked at one snapshot of the raw imaging data, the cells would look dim – they only become bright when they’re actively firing. A maximum projection image shows us the maximum brightness for each pixel, across the entire experiment. Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_nwb_data_set.html'> here </a> for the original documentation to the methods used in the fluorescence imaging and natural scenes section.</p>
 <p>Below, we are using the <code class="docutils literal notranslate"><span class="pre">get_max_projection()</span></code> method on our data, and then using the <code class="docutils literal notranslate"><span class="pre">imshow()</span></code> method in order to see our projection.</p>
 <p><strong>Note</strong>: The weird text for the ylabel is called “TeX” markup, in order to get the greek symbol <em>mu</em> (<span class="math notranslate nohighlight">\(\mu\)</span>). See documentation <a href="https://matplotlib.org/tutorials/text/mathtext.html">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the maximum projection (a numpy array) of our data</span>
-<span class="n">max_projection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_max_projection</span><span class="p">()</span>
+<span class="n">max_projection</span> <span class="o">=</span> <span class="n">experiment_data</span><span class="o">.</span><span class="n">get_max_projection</span><span class="p">()</span>
 
 <span class="c1"># Create a new figure</span>
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
@@ -436,62 +397,50 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_10_0.png" src="../_images/Analyzing_Two_Photon_Data_10_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_8_0.png" src="../_images/Analyzing_Two_Photon_Data_8_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="converting-calcium-imaging-into-spikes">
 <h2><span class="section-number">7.2.3. </span>Converting Calcium Imaging into Spikes<a class="headerlink" href="#converting-calcium-imaging-into-spikes" title="Permalink to this headline">¶</a></h2>
 <p>Now we’ll plot the data of each of our cells (from the field of view above) across time. Each line shows the change in fluorescence over baseline (<span class="math notranslate nohighlight">\(\Delta\)</span>)F/F) of the individual cells. When there are sharp increases, that’s when the cells are responding.</p>
-<p>In the example below, the we will plot the first 10 cells from our data. the <code class="docutils literal notranslate"><span class="pre">get_dff_traces()</span></code> method returns the timestamps (in seconds) and deltaF/F.</p>
+<p>In the example below, we will plot the first 10 cells from our data. the <code class="docutils literal notranslate"><span class="pre">get_dff_traces()</span></code> method returns the timestamps (in seconds) and deltaF/F.</p>
+<p>Below, we’ve also added a line in our loop that offsets each cell by a predetermined amount so that we can see individual calcium traces. Each line is a different neuron, and the small blips in the data are calcium-mediated changes in fluorescence.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign timestamps and deltaF/F</span>
-<span class="n">ts</span><span class="p">,</span> <span class="n">dff</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_dff_traces</span><span class="p">()</span>
+<span class="n">ts</span><span class="p">,</span> <span class="n">dff</span> <span class="o">=</span> <span class="n">experiment_data</span><span class="o">.</span><span class="n">get_dff_traces</span><span class="p">()</span>
 
 <span class="c1"># Set up a figure</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 
-<span class="c1"># Plot deltaF/F spikes over time for first 10 cells</span>
-<span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">dff</span><span class="p">[</span><span class="n">cell</span><span class="p">])</span>
-    
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_13_0.png" src="../_images/Analyzing_Two_Photon_Data_13_0.png" />
-</div>
-</div>
-<p>Although the plotting of our fluorescence was successful, it’s hard to see individual traces here. To solve this issue, we can add a line in our loop that offsets each cell by a predetermined amount. We’ll also make the figure interactive to allow zooming so we can see what individual calcium responses look like.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-
+<span class="c1"># Loop through to add an offset on the y-axis</span>
 <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">12</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="n">dff</span><span class="p">[</span><span class="n">cell</span><span class="p">]</span><span class="o">+</span><span class="n">offset</span><span class="p">)</span>
     <span class="n">offset</span><span class="o">+=</span><span class="mi">5</span>
+    
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Timestamp (s)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Neurons&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Neurons ($\Delta$F\F)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">2700</span><span class="p">,</span><span class="mi">2875</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_15_0.png" src="../_images/Analyzing_Two_Photon_Data_15_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_11_0.png" src="../_images/Analyzing_Two_Photon_Data_11_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="look-at-the-response-of-your-cells-to-natural-scenes">
 <h2><span class="section-number">7.2.4. </span>Look at the response of your cells to natural scenes<a class="headerlink" href="#look-at-the-response-of-your-cells-to-natural-scenes" title="Permalink to this headline">¶</a></h2>
-<p>Hmm, there are some responses above, but it’s tough to see what’s going on with just the raw traces. Let’s instead see how these cells actually responded to different types of images. To do so, we’ll need to use the <code class="docutils literal notranslate"><span class="pre">get_cell_specimens()</span></code> method on our <code class="docutils literal notranslate"><span class="pre">boc</span></code>, giving it the name of the experiment container ID.</p>
+<p>There are clearly some responses above, but it’s tough to see whether this corresponds to different behaviors or visual stimuli with just the raw fluorescence traces.</p>
+<p>Let’s see how these cells actually responded to different types of images. To do so, we’ll need to use the <code class="docutils literal notranslate"><span class="pre">get_cell_specimens()</span></code> method on our <code class="docutils literal notranslate"><span class="pre">boc</span></code>, giving it the name of the experiment container ID.</p>
 <p>The dataframe that this creates will have a lot more information about what the cells in our experiment prefer. Each row is a different cell, each with its own preferences and response patterns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the cell specimens information for this session</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the cell specimens information for this experiment</span>
 <span class="n">cell_specimens</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_cell_specimens</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">exp_container_id</span><span class="p">])</span>
 <span class="n">cell_specimens_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cell_specimens</span><span class="p">)</span>
 <span class="n">cell_specimens_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -545,17 +494,17 @@
       <th>0</th>
       <td>False</td>
       <td>VISp</td>
-      <td>669921450</td>
+      <td>662199586</td>
       <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>0.735301</td>
-      <td>657016265</td>
+      <td>NaN</td>
+      <td>627823571</td>
       <td>False</td>
-      <td>0.215625</td>
-      <td>0.209022</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>646855414</td>
-      <td>0.322698</td>
+      <td>603751387</td>
+      <td>NaN</td>
       <td>NaN</td>
       <td>NaN</td>
       <td>265180449</td>
@@ -569,19 +518,19 @@
       <th>1</th>
       <td>False</td>
       <td>VISp</td>
-      <td>669921456</td>
+      <td>662199605</td>
       <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>NaN</td>
-      <td>657016265</td>
+      <td>0.793449</td>
+      <td>627823571</td>
       <td>False</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.421526</td>
+      <td>0.452460</td>
+      <td>0.360264</td>
+      <td>0.640623</td>
       <td>...</td>
-      <td>646855414</td>
-      <td>NaN</td>
-      <td>0.29934</td>
-      <td>0.33260</td>
+      <td>603751387</td>
+      <td>0.265616</td>
+      <td>0.29916</td>
+      <td>0.29916</td>
       <td>265180449</td>
       <td>Tlx3-Cre_PL56</td>
       <td>None</td>
@@ -591,21 +540,21 @@
     </tr>
     <tr>
       <th>2</th>
-      <td>False</td>
+      <td>True</td>
       <td>VISp</td>
-      <td>669921462</td>
+      <td>662199626</td>
       <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>NaN</td>
-      <td>657016265</td>
+      <td>0.346550</td>
+      <td>627823571</td>
       <td>False</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>0.346134</td>
+      <td>0.107403</td>
+      <td>0.943987</td>
       <td>...</td>
-      <td>646855414</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>603751387</td>
+      <td>0.393678</td>
+      <td>0.29916</td>
+      <td>0.33240</td>
       <td>265180449</td>
       <td>Tlx3-Cre_PL56</td>
       <td>None</td>
@@ -615,21 +564,21 @@
     </tr>
     <tr>
       <th>3</th>
-      <td>True</td>
-      <td>VISp</td>
-      <td>669921489</td>
-      <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>0.928895</td>
-      <td>657016265</td>
       <td>False</td>
-      <td>0.928895</td>
-      <td>1.000000</td>
-      <td>0.357914</td>
+      <td>VISp</td>
+      <td>662199645</td>
+      <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
+      <td>0.636332</td>
+      <td>627823571</td>
+      <td>False</td>
+      <td>0.629502</td>
+      <td>0.971795</td>
+      <td>NaN</td>
       <td>...</td>
-      <td>646855414</td>
-      <td>0.320423</td>
-      <td>0.33260</td>
-      <td>0.23282</td>
+      <td>603751387</td>
+      <td>0.357068</td>
+      <td>NaN</td>
+      <td>NaN</td>
       <td>265180449</td>
       <td>Tlx3-Cre_PL56</td>
       <td>None</td>
@@ -641,19 +590,19 @@
       <th>4</th>
       <td>False</td>
       <td>VISp</td>
-      <td>669921503</td>
+      <td>662199683</td>
       <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>0.739761</td>
-      <td>657016265</td>
+      <td>NaN</td>
+      <td>627823571</td>
       <td>False</td>
-      <td>0.543225</td>
-      <td>0.519046</td>
-      <td>0.656651</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.524082</td>
       <td>...</td>
-      <td>646855414</td>
-      <td>0.286877</td>
-      <td>0.29934</td>
-      <td>0.33260</td>
+      <td>603751387</td>
+      <td>NaN</td>
+      <td>0.29916</td>
+      <td>0.33240</td>
       <td>265180449</td>
       <td>Tlx3-Cre_PL56</td>
       <td>None</td>
@@ -666,48 +615,43 @@
 <p>5 rows × 60 columns</p>
 </div></div></div>
 </div>
-<p>Let’s create a bar graph of preferred images in our dataset. The <code class="docutils literal notranslate"><span class="pre">p_ns</span></code> column contains the pvalue that corresponds to whether a cell <em>significantly</em> prefered an image more than the rest. We will subselect our <code class="docutils literal notranslate"><span class="pre">cell_specimens_df</span></code> dataframe to only contains cells that have a pvalue less than 0.05.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">pref_image_ns</span></code> column contians the image IDs of the stimulus being presented. We can create our histogram from this column to see how many cells responded to these statistically significant stimuli.</p>
+<p>Let’s create a bar graph of preferred images in our dataset. The <code class="docutils literal notranslate"><span class="pre">p_ns</span></code> column contains the pvalue that corresponds to whether a cell <em>significantly</em> prefered an image more than the rest. We will use this column to subset our <code class="docutils literal notranslate"><span class="pre">cell_specimens_df</span></code> dataframe to only contains cells that have a p value less than 0.05.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pref_image_ns</span></code> column contains the image IDs of the stimulus being presented. We can create our bar graph from this column to see how many cells responded to these statistically significant images.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#hi = pref_images.value_counts()</span>
-<span class="c1">#hi.index[0]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subselect dataframe to contain significantly preferred images </span>
-<span class="n">sig_cells</span> <span class="o">=</span> <span class="n">cell_specimens_df</span><span class="p">[</span><span class="n">cell_specimens_df</span><span class="p">[</span><span class="s1">&#39;p_ns&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subset dataframe to contain significantly preferred images </span>
+<span class="n">col_1</span> <span class="o">=</span> <span class="s1">&#39;p_ns&#39;</span>
+<span class="n">sig_cells</span> <span class="o">=</span> <span class="n">cell_specimens_df</span><span class="p">[</span><span class="n">cell_specimens_df</span><span class="p">[</span><span class="n">col_1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">]</span>
 
 <span class="c1"># Assign our image ids for significantly preferred images</span>
-<span class="n">pref_images</span> <span class="o">=</span> <span class="n">sig_cells</span><span class="p">[</span><span class="s1">&#39;pref_image_ns&#39;</span><span class="p">]</span>
+<span class="n">col_2</span> <span class="o">=</span> <span class="s1">&#39;pref_image_ns&#39;</span>
+<span class="n">pref_images</span> <span class="o">=</span> <span class="n">sig_cells</span><span class="p">[</span><span class="n">col_2</span><span class="p">]</span>
 
 <span class="c1"># Set up our figure </span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 
 <span class="c1"># Plot our bar graph</span>
 <span class="n">pref_counts</span> <span class="o">=</span> <span class="n">pref_images</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 <span class="n">pref_counts</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Response of cells to natural scenes&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cell Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Number of cells&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Image ID&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_20_0.png" src="../_images/Analyzing_Two_Photon_Data_20_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_15_0.png" src="../_images/Analyzing_Two_Photon_Data_15_0.png" />
 </div>
 </div>
-<p>In order to actually see what this stimulus are, first, we’ll organize the stimulus table. This tells us which stimulus was played on each trial. This data set has 118 different scenes, and each scene is presented 50 times. Images of the scenes can be found <a class="reference external" href="http://observatory.brain-map.org/visualcoding/stimulus/natural_scenes">here</a>.</p>
+<p>In order to actually see what these images are, first, we’ll organize the stimulus table. This tells us which stimulus was played on each trial. This data set has 118 different scenes, and each scene is presented 50 times. Images of the scenes can be found <a class="reference external" href="http://observatory.brain-map.org/visualcoding/stimulus/natural_scenes">here</a>.</p>
 <p>Below, we’ll show the top five images for cells in this field of view. Do they have anything in common, either visually or conceptually?</p>
+<p><em>Note</em>: Not every experiment contains the data for the natural scenes experiment. If you change the experiment ID above and try the next cell, you may receive an error. You can use <code class="docutils literal notranslate"><span class="pre">data.list_stimuli()</span></code> to see all of the stimuli available within your experiment.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the natural scene information</span>
-<span class="n">natural_scene_table</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
-<span class="n">natural_scene_template</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_template</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
+<span class="n">natural_scene_table</span> <span class="o">=</span> <span class="n">experiment_data</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
+<span class="n">natural_scene_template</span> <span class="o">=</span> <span class="n">experiment_data</span><span class="o">.</span><span class="n">get_stimulus_template</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
 <span class="n">sceneIDs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">natural_scene_table</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
 
 <span class="c1"># Set up our figure</span>
@@ -728,198 +672,26 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_22_0.png" src="../_images/Analyzing_Two_Photon_Data_22_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_17_0.png" src="../_images/Analyzing_Two_Photon_Data_17_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="examine-the-direction-selectivity-of-your-cell">
 <h2><span class="section-number">7.2.5. </span>Examine the direction selectivity of your cell<a class="headerlink" href="#examine-the-direction-selectivity-of-your-cell" title="Permalink to this headline">¶</a></h2>
-<p>Sometimes, the function of a cell is not particularly clear from natural stimuli. Those stimuli have a lot of information in them, and it might be hard to tell what a cell is actually responding to. Instead, we can use simple drifting gratings to look at one straightforward property of a cell: <b>does it respond to specific directions of movement?</b></br></p>
-<p>We can use the columns that look at the direction selectivity index (DSI) in order to determine whether our cells are direction selective (typically considered having a DSI &gt; 0.5). Take another look at the cell_specimens_df we created above. We can subselect <code class="docutils literal notranslate"><span class="pre">sig_cells</span></code> to only contain cells that were direction specific and replot our bar graph to compare.</p>
+<p>Sometimes, the function of a cell is not particularly clear from natural stimuli. Those stimuli have a lot of information in them, and it might be hard to tell what a cell is actually responding to. Instead, we can use simple drifting gratings to look at one straightforward property of a cell: <b>does it respond to specific directions of movement?</b></br> To do so, we’ll examine the <strong>drifting gratings</strong> experiments.</p>
+<p>We will now show how to plot a heatmap of a cell’s response organized by orientation and temporal frequency. We will be using one of the three cells from the dataframe above which showed direction selectivity from the significantly preferred images. Click on the link<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.drifting_gratings.html'> here </a> for the original documentation to the methods used in the drifting gratings section.</p>
+<p>Below, we’ll use the same experiment container but a different stimulus to create a separate experiment dataset, <code class="docutils literal notranslate"><span class="pre">dg_experiment</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dsi_cells</span> <span class="o">=</span> <span class="n">sig_cells</span><span class="p">[</span><span class="n">sig_cells</span><span class="p">[</span><span class="s1">&#39;dsi_dg&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">]</span>
-
-<span class="n">pref_images_dsi</span> <span class="o">=</span> <span class="n">dsi_cells</span><span class="p">[</span><span class="s1">&#39;pref_image_ns&#39;</span><span class="p">]</span>
-
-<span class="c1"># Set up our figure </span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-
-<span class="c1"># Plot our bar graph</span>
-<span class="n">pref_images_dsi</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Response of cells to natural scenes (Direction Specific)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cell Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Image ID&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_24_0.png" src="../_images/Analyzing_Two_Photon_Data_24_0.png" />
-</div>
-</div>
-<p>As you can see, our plot changed drastically. We now have the significantly prefered images of our most direction selective cells. We can select a cell that responded significantly more to one of the top 5 imgages by subselting it from <code class="docutils literal notranslate"><span class="pre">dsi_cells</span></code> and filtering for <code class="docutils literal notranslate"><span class="pre">pref_image_ns</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign image id </span>
-<span class="n">pref_image_id</span> <span class="o">=</span> <span class="mf">100.0</span>
-
-<span class="c1"># Subselect from dataframe to only contains cells that prefered our image id</span>
-<span class="n">cell_oi</span> <span class="o">=</span> <span class="n">dsi_cells</span><span class="p">[</span><span class="n">dsi_cells</span><span class="p">[</span><span class="s1">&#39;pref_image_ns&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pref_image_id</span><span class="p">]</span>
-<span class="n">cell_oi</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>all_stim</th>
-      <th>area</th>
-      <th>cell_specimen_id</th>
-      <th>donor_full_genotype</th>
-      <th>dsi_dg</th>
-      <th>experiment_container_id</th>
-      <th>failed_experiment_container</th>
-      <th>g_dsi_dg</th>
-      <th>g_osi_dg</th>
-      <th>g_osi_sg</th>
-      <th>...</th>
-      <th>specimen_id</th>
-      <th>tfdi_dg</th>
-      <th>time_to_peak_ns</th>
-      <th>time_to_peak_sg</th>
-      <th>tld1_id</th>
-      <th>tld1_name</th>
-      <th>tld2_id</th>
-      <th>tld2_name</th>
-      <th>tlr1_id</th>
-      <th>tlr1_name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>22</th>
-      <td>True</td>
-      <td>VISp</td>
-      <td>669921705</td>
-      <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>1.355026</td>
-      <td>657016265</td>
-      <td>False</td>
-      <td>0.494538</td>
-      <td>0.519096</td>
-      <td>0.410009</td>
-      <td>...</td>
-      <td>646855414</td>
-      <td>0.378894</td>
-      <td>0.33260</td>
-      <td>0.29934</td>
-      <td>265180449</td>
-      <td>Tlx3-Cre_PL56</td>
-      <td>None</td>
-      <td>None</td>
-      <td>528393470</td>
-      <td>Ai148(TIT2L-GC6f-ICL-tTA2)</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>True</td>
-      <td>VISp</td>
-      <td>669922375</td>
-      <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>1.083516</td>
-      <td>657016265</td>
-      <td>False</td>
-      <td>0.807972</td>
-      <td>0.680234</td>
-      <td>0.610941</td>
-      <td>...</td>
-      <td>646855414</td>
-      <td>0.449961</td>
-      <td>0.33260</td>
-      <td>0.33260</td>
-      <td>265180449</td>
-      <td>Tlx3-Cre_PL56</td>
-      <td>None</td>
-      <td>None</td>
-      <td>528393470</td>
-      <td>Ai148(TIT2L-GC6f-ICL-tTA2)</td>
-    </tr>
-    <tr>
-      <th>191</th>
-      <td>False</td>
-      <td>VISp</td>
-      <td>669925395</td>
-      <td>Tlx3-Cre_PL56/wt;Ai148(TIT2L-GC6f-ICL-tTA2)/wt</td>
-      <td>1.205577</td>
-      <td>657016265</td>
-      <td>False</td>
-      <td>0.620753</td>
-      <td>0.601009</td>
-      <td>0.663022</td>
-      <td>...</td>
-      <td>646855414</td>
-      <td>0.395938</td>
-      <td>0.29934</td>
-      <td>0.29934</td>
-      <td>265180449</td>
-      <td>Tlx3-Cre_PL56</td>
-      <td>None</td>
-      <td>None</td>
-      <td>528393470</td>
-      <td>Ai148(TIT2L-GC6f-ICL-tTA2)</td>
-    </tr>
-  </tbody>
-</table>
-<p>3 rows × 60 columns</p>
-</div></div></div>
-</div>
-</div>
-<div class="section" id="drifting-gratings">
-<h2><span class="section-number">7.2.6. </span>Drifting Gratings<a class="headerlink" href="#drifting-gratings" title="Permalink to this headline">¶</a></h2>
-<p>We will now show how to plot a heatmap of a cell’s response organized by orientation and temporal frequency. We will be using one of the three cells from the dataframe above which showed direction selectivity from the significantly preferred images.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># import packages for Drifting Gratings analysis </span>
-<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">MaxNLocator</span>
-<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.drifting_gratings</span> <span class="kn">import</span> <span class="n">DriftingGratings</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Our first step is to create an instance of our DriftingGratings object. The DriftingGratings class requires an NWB data set as an input. Recall that we assigned this data set earleier to <code class="docutils literal notranslate"><span class="pre">data</span></code> using <code class="docutils literal notranslate"><span class="pre">get_ophys_experiment()</span></code> and the <code class="docutils literal notranslate"><span class="pre">session_id</span></code>. We can use <code class="docutils literal notranslate"><span class="pre">data</span></code> to assign our DriftingGratings object.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign previous container id and stimulus for imaging </span>
-<span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">657016265</span>
-
-<span class="c1"># Select our stimuli</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get experiment for our container id and stimuli of interest</span>
 <span class="n">stim_2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;drifting_gratings&#39;</span><span class="p">]</span>
+<span class="n">dg_experiment</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span>
+                        <span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
+                        <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim_2</span><span class="p">)</span>
 
-<span class="c1"># Get experiment contianer for our id and stimuli of interest</span>
-<span class="n">expt_cont_dg</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
-                                     <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim_2</span><span class="p">)</span>
-
-
-<span class="c1"># Get the experiment data using the sesion id</span>
-<span class="n">session_id</span> <span class="o">=</span> <span class="n">expt_cont_dg</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-<span class="n">data_dg</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+<span class="c1"># Download the experiment data using the experiment id</span>
+<span class="n">experiment_id_2</span> <span class="o">=</span> <span class="n">dg_experiment</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="n">data_dg</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">experiment_id_2</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data acquired.&#39;</span><span class="p">)</span>
 </pre></div>
@@ -931,194 +703,75 @@
 </div>
 </div>
 </div>
+<p>Our first step is to create an instance of our DriftingGratings object. The DriftingGratings class requires an NWB data set as an input (i.e. <code class="docutils literal notranslate"><span class="pre">data_dg</span></code>).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">peak</span></code> property of the DriftingGratings object returns a Pandas DataFrame of peak conditions (direction and temporal frequency) as well as computed response metrics. Some key columns is this dataframe are the preferred orientation, <code class="docutils literal notranslate"><span class="pre">ori_dg</span></code>, and preferred frequency, <code class="docutils literal notranslate"><span class="pre">tf_dg</span></code>, of the cell. Other computed metrics include:</p>
+<ul class="simple">
+<li><p>reliability_dg</p></li>
+<li><p>osi_dg (orientation selectivity index)</p></li>
+<li><p>dsi_dg (direction selectivity index)</p></li>
+<li><p>peak_dff_dg (peak dF/F)</p></li>
+<li><p>ptest_dg (number of signficant cells)</p></li>
+<li><p>p_run_dg (K-S statistic comparing running trials to stationary trials)</p></li>
+<li><p>run_modulation_dg</p></li>
+<li><p>cv_dg (circular variance)</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create my DriftingGratings Object </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">allensdk.brain_observatory.drifting_gratings</span> <span class="kn">import</span> <span class="n">DriftingGratings</span>
+
+<span class="c1"># Create my DriftingGratings Object </span>
 <span class="n">dg</span> <span class="o">=</span> <span class="n">DriftingGratings</span><span class="p">(</span><span class="n">data_dg</span><span class="p">)</span>
-<span class="n">dg</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.brain_observatory.drifting_gratings.DriftingGratings at 0x7fcd44d56150&gt;
-</pre></div>
-</div>
-</div>
-</div>
-<p>The peak property of the DriftingGratings object is a Pandas DataFrame of peak conditions (direction and temporal frequency) as well as computed response metrics.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return dataframe of peak conditions</span>
+
+<span class="c1"># Return dataframe of peak conditions</span>
 <span class="n">dg_df</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">peak</span>
 <span class="n">dg_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/drifting_gratings.py:191: RuntimeWarning: invalid value encountered in double_scalars
-  peak.cv_os_dg.iloc[nc] = np.abs(CV_top_os.sum())/tuning.sum()
-/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/drifting_gratings.py:192: RuntimeWarning: invalid value encountered in double_scalars
-  peak.cv_ds_dg.iloc[nc] = np.abs(CV_top_ds.sum())/tuning.sum()
-</pre></div>
 </div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>ori_dg</th>
-      <th>tf_dg</th>
-      <th>reliability_dg</th>
-      <th>osi_dg</th>
-      <th>dsi_dg</th>
-      <th>peak_dff_dg</th>
-      <th>ptest_dg</th>
-      <th>p_run_dg</th>
-      <th>run_modulation_dg</th>
-      <th>cv_os_dg</th>
-      <th>cv_ds_dg</th>
-      <th>tf_index_dg</th>
-      <th>cell_specimen_id</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>3</td>
-      <td>1</td>
-      <td>0.051995</td>
-      <td>0.827356</td>
-      <td>0.553485</td>
-      <td>5.331719</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.626177</td>
-      <td>0.537493</td>
-      <td>0.43855</td>
-      <td>669922218</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>4</td>
-      <td>1</td>
-      <td>0.063828</td>
-      <td>2.023457</td>
-      <td>0.847934</td>
-      <td>5.105556</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>0.847934</td>
-      <td>0.402397</td>
-      <td>669921865</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0</td>
-      <td>4</td>
-      <td>-0.012967</td>
-      <td>1.193879</td>
-      <td>0.784814</td>
-      <td>2.540356</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.848984</td>
-      <td>0.777981</td>
-      <td>0.318317</td>
-      <td>669925542</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1</td>
-      <td>3</td>
-      <td>0.040306</td>
-      <td>-1.615926</td>
-      <td>0.360709</td>
-      <td>1.113922</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>1.0</td>
-      <td>0.360709</td>
-      <td>0.178264</td>
-      <td>669925565</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>2</td>
-      <td>5</td>
-      <td>-0.002141</td>
-      <td>0.749414</td>
-      <td>0.50695</td>
-      <td>2.163388</td>
-      <td>0.0</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>0.543365</td>
-      <td>0.121033</td>
-      <td>0.418183</td>
-      <td>669925609</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>Next, we must select a cell from our table by <code class="docutils literal notranslate"><span class="pre">cell_specimen_id</span></code>. If there is a specific cell you want to analyze, you can use the <code class="docutils literal notranslate"><span class="pre">get_cell_specimen_indices()</span></code> method to locate the index of your cell of interest. We will need to know the index of our specimen in our DrifitingGratings object to construct our heatmap. If you do not have a specific cell in mind, you can look through and select a cell from the dataframe above.</p>
+<p>Next, we’ll select a cell from our table by <code class="docutils literal notranslate"><span class="pre">cell_specimen_id</span></code>.</p>
+<p>If there is a specific cell you want to analyze, you can use the <code class="docutils literal notranslate"><span class="pre">get_cell_specimen_indices()</span></code> method to locate the index of your cell of interest. The index of your cell is needed becasue you will need to index into the NumPy arrary returned by the <code class="docutils literal notranslate"><span class="pre">response</span></code> attribute to contruct your heatmap.</p>
+<p>Below, we’ll simply grab the first <code class="docutils literal notranslate"><span class="pre">cell_specimen_id</span></code> in our table.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select specimen_id from 1st row in cell_oi</span>
-<span class="n">specimen_id</span> <span class="o">=</span> <span class="mi">669925542</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select specimen ID from first row</span>
+<span class="n">specimen_id</span> <span class="o">=</span> <span class="n">dg_df</span><span class="p">[</span><span class="s1">&#39;cell_specimen_id&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">cell_loc</span> <span class="o">=</span> <span class="n">data_dg</span><span class="o">.</span><span class="n">get_cell_specimen_indices</span><span class="p">([</span><span class="n">specimen_id</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Specimen ID:&quot;</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cell loc:&quot;</span><span class="p">,</span> <span class="n">cell_loc</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Specimen ID:&#39;</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cell loc:&#39;</span><span class="p">,</span> <span class="n">cell_loc</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specimen ID: 669925542
-Cell loc: 2
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specimen ID: 662201985
+Cell loc: 0
 </pre></div>
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">response</span></code> attriubute returns the mean responses to each stimulus condition (i.e. orientation, frequency).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">response</span></code> attribute returns a 4-D NumPy array with the mean responses to each stimulus condition. The 1st column in the returned NumPy array contains mean responses to the orientations, the 2nd column contains mean responses to the temporal frequencies, the 3rd column contains the number of the cell, and the 4th column contains the response mean to column 1, the response standard error of the mean of column 2, and the number of signficant trials.</p>
+<p>Below, we’ll use <code class="docutils literal notranslate"><span class="pre">plt.imshow()</span></code> to plot the mean responses across orientation and frequency, skipping the blank sweep column (0).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># skip the blank sweep column of the temporal frequency dimension</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot our data, skiping the blank sweep column (0) of the temporal frequency dimension</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dg</span><span class="o">.</span><span class="n">response</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:,</span><span class="n">cell_loc</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heat Map, Cell Specimen: 669925542&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Heat Map, Cell Specimen: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">specimen_id</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">dg</span><span class="o">.</span><span class="n">tfvals</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">dg</span><span class="o">.</span><span class="n">orivals</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Temporal frequency (Hz)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Direction (deg)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 <span class="n">cbar</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;DF/F (%)&quot;</span><span class="p">)</span>
+<span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;$\Delta$F/F (%)&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Analyzing_Two_Photon_Data_38_0.png" src="../_images/Analyzing_Two_Photon_Data_38_0.png" />
+<img alt="../_images/Analyzing_Two_Photon_Data_25_0.png" src="../_images/Analyzing_Two_Photon_Data_25_0.png" />
 </div>
 </div>
-<p>The prefered directions temporal frequency are stored within <code class="docutils literal notranslate"><span class="pre">ori_dg</span></code> and <code class="docutils literal notranslate"><span class="pre">tf_dg</span></code> in are table above and can be indexed through dg.orivals and tf.tfvals respectively.</p>
+<p>The preferred directions temporal frequency are stored within <code class="docutils literal notranslate"><span class="pre">ori_dg</span></code> and <code class="docutils literal notranslate"><span class="pre">tf_dg</span></code> in are table above and can be indexed through <code class="docutils literal notranslate"><span class="pre">dg.orivals</span></code> and <code class="docutils literal notranslate"><span class="pre">tf.tfvals</span></code> respectively.</p>
 <p>For more explanation on the available pre-computed metrics, please see <a href = 'https://alleninstitute.github.io/AllenSDK/_static/examples/nb/brain_observatory_analysis.html#Drifting-Gratings'> here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1130,114 +783,13 @@ Cell loc: 2
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Preferred direction: 0
-Preferred temporal frequency: 8
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Preferred direction: 225
+Preferred temporal frequency: 1
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="receptive-fields">
-<h2><span class="section-number">7.2.7. </span>Receptive Fields<a class="headerlink" href="#receptive-fields" title="Permalink to this headline">¶</a></h2>
-<p>From the downloaded experimental data, we are also able to compute receptive fields for of a cell. This is done through the <code class="docutils literal notranslate"><span class="pre">LocallySpareNoise</span></code> object. Much like we have done before, we will choose an experiment contianer and session id to work with. When using <code class="docutils literal notranslate"><span class="pre">get_ophys_experiments()</span></code> to download the approriate container, be sure to set <code class="docutils literal notranslate"><span class="pre">stimuli</span></code> equal to <code class="docutils literal notranslate"><span class="pre">stim_info.LOCALLY_SPARSE_NOISE</span></code> as done in the cell below. This will ensure that only the <code class="docutils literal notranslate"><span class="pre">locally_sparse_noise</span></code> data is downloaded.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Necessary packages to run receptive field analysis</span>
-<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.locally_sparse_noise</span> <span class="kn">import</span> <span class="n">LocallySparseNoise</span>
-<span class="kn">import</span> <span class="nn">allensdk.brain_observatory.stimulus_info</span> <span class="k">as</span> <span class="nn">stim_info</span>
-
-<span class="c1"># Assign container id and stimulus for receptive field analysis </span>
-<span class="c1">#specimen_id_2 = 587179530</span>
-<span class="n">specimen_id_2</span> <span class="o">=</span> <span class="mi">669921489</span>
-<span class="n">my_cell</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_cell_specimens</span><span class="p">(</span><span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="n">specimen_id_2</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="n">exp_lsn</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">my_cell</span><span class="p">[</span><span class="s1">&#39;experiment_container_id&#39;</span><span class="p">]],</span>
-                                <span class="n">stimuli</span><span class="o">=</span><span class="p">[</span><span class="n">stim_info</span><span class="o">.</span><span class="n">LOCALLY_SPARSE_NOISE</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-
-
-<span class="c1"># Get the experiment data using the sesion id</span>
-<span class="n">session_id_2</span> <span class="o">=</span> <span class="n">exp_lsn</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-<span class="n">data_lsn</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id_2</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data acquired.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">23</span><span class="o">-</span><span class="mi">98</span><span class="n">fad1a32307</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> 
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">exp_lsn</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">my_cell</span><span class="p">[</span><span class="s1">&#39;experiment_container_id&#39;</span><span class="p">]],</span>
-<span class="ne">---&gt; </span><span class="mi">11</span>                                 <span class="n">stimuli</span><span class="o">=</span><span class="p">[</span><span class="n">stim_info</span><span class="o">.</span><span class="n">LOCALLY_SPARSE_NOISE</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> 
-<span class="g g-Whitespace">     </span><span class="mi">13</span> 
-
-<span class="ne">IndexError</span>: list index out of range
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exp_lsn</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p><strong>Note</strong>: Not all experiment contianers contain sessions with <code class="docutils literal notranslate"><span class="pre">locally_spare_noise</span></code> stimulus data. If you donwload an experiment with no such data, you will get an empty container and the receptive feild analysis will not work.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example of an experiment contianer with no locally sparse noise data </span>
-
-<span class="c1"># Assign previous container id and stimulus for imaging </span>
-<span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">657016265</span>
-
-<span class="c1"># Select our stimuli</span>
-<span class="n">stim_3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;locally_sparse_noise&#39;</span><span class="p">]</span>
-
-<span class="c1"># Get experiment contianer for our id and stimuli of interest</span>
-<span class="n">non_lsn_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
-                                     <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim_3</span><span class="p">)</span>
-
-
-<span class="c1"># Get the experiment data using the sesion id</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">non_lsn_cont</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Like we did for the drifting gratings analysis, we need to locate the index of our cell to contruct our receptive fields.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign index of cell</span>
-<span class="n">cell_idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">data_lsn</span><span class="o">.</span><span class="n">get_cell_specimen_indices</span><span class="p">([</span><span class="n">specimen_id_2</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">cell_idx</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>We now how have everything we need to construct our receptive felied analysis.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_idx</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;PuRd&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;on receptive field&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">lsn</span><span class="o">.</span><span class="n">receptive_field</span><span class="p">[:,:,</span><span class="n">cell_idx</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;off receptive field&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="additional-resources">
-<h2><span class="section-number">7.2.8. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'> here </a> for the original documentation to the BrainObservatoryCache object.</p></li>
-<li><p>Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_nwb_data_set.html'> here </a> for the original documentation to the methods used in the fluorescence imaging and natural scenes section.</p></li>
-<li><p>Click on the link<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.drifting_gratings.html'> here </a> for the original documentation to the methods used in the drifting gratings section.</p></li>
-</ul>
+<p>[ CLOSING THOUGHTS ON WHAT ELSE YOU CAN DO WITH THIS DATA! ]</p>
 </div>
 </div>
 
@@ -1269,7 +821,7 @@ Preferred temporal frequency: 8
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Retrieving_Brain_Observatory_Data.html" title="previous page"><span class="section-number">7.1. </span>Retreiving Calcium Imaging Data</a>
+    <a class='left-prev' id="prev-link" href="Retrieving_Brain_Observatory_Data.html" title="previous page"><span class="section-number">7.1. </span>Retrieving Calcium Imaging Data</a>
     <a class='right-next' id="next-link" href="../Chapter_8/Connectivity_Atlas.html" title="next page"><span class="section-number">8. </span>Allen Mouse Brain Connectivity Atlas</a>
 
     </div>

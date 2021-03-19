@@ -34,6 +34,9 @@ YouTubeVideo('4ZoKGFLg0HQ')
 YouTubeVideo('m13Tk9_Ul-M')
 
 
+# **Additional Resources** 
+# The Allen Brain Observatory contains two photon flourescnece imaging data grouped together by mouse cre line, brain structure, and imaging depth. For an overview on the data, please visit the <a href = 'https://alleninstitute.github.io/AllenSDK/brain_observatory.html'> Allen SDK Brain Observatory</a> web page. 
+
 # In[ ]:
 
 

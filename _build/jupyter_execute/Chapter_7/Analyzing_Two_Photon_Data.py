@@ -3,7 +3,7 @@
 
 # # Analyzing Two Photon Data
 # 
-# On the previous page, we introduced how to retrieve specific experiments from the Allen Institute SDK's Brain Observatory. Here we'll introduce how researchers analyze this data, from processing single cell activity to understanding tuning curves.
+# On the previous page, we introduced how to retrieve specific experiments from the Allen Institute SDK's Brain Observatory. Here we'll introduce how researchers analyze this data, from processing single cell activity to understanding tuning curves. 
 # 
 # ## Setup
 # We need a variety of standard Python packages in addition to two different `allensdk` toolboxes. If you have not yet installed the `allensdk`, run the cell below. Otherwise, you can skip to the cell that imports our toolboxes.
@@ -24,14 +24,12 @@ except ImportError as e:
 
 
 # Import toolboxes
-import allensdk.brain_observatory.stimulus_info as stim_info
 from allensdk.core.brain_observatory_cache import BrainObservatoryCache
 import pandas as pd 
 import numpy as np 
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
 
-print('Packages installed.')
+print('Packages imported.')
 
 
 # As a final setup step, we need to once again create an instance of the Brain Observatory Cache as an object, `boc`.
@@ -44,54 +42,39 @@ boc = BrainObservatoryCache(manifest_file='manifest.json')
 
 
 # ## Download & inspect the natural scenes imaging session
-# First, we'll look at the session where the mouse viewed natural scenes. Below, we'll designate an experiment ID (the same one we worked with in the previous section), designate that we're interested in only the natural scenes experiments, and grab the container for that experiment.
+# First, we'll look at an experiment where the mouse viewed natural scenes. Below, we'll assign an experiment container ID (the same one we worked with in the previous section), designate that we're interested in only the natural scenes experiments, and download the data for the first experiment in the container.
 # 
-# **Note: The cell below downloads some data, and make take a minute or so to run. It is important that you do not stop the download of the data or else the file will become corruptted and you will have to delete it and try again**. 
+# **Note**: The cell below downloads some data, and make take a minute or so to run. It is important that you do not interrupt the download of the data or else the file will become corrupted and you will have to delete it and try again. 
 
 # In[4]:
 
 
-# Assign previous container id and stimulus for imaging 
-exp_container_id = 657016265
+# Assign previous container ID
+exp_container_id = 627823571
+stim = ['natural_scenes']
 
-# Select our stimuli
-stim = ['natural_scenes', 'drifting_gratings', 'locally_sparse_noise']
+# Get experiment container for our id and stimuli of interest
+exp_cont = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
+                                     stimuli = stim)
 
-# Get experiment contianer for our id and stimuli of interest
-expt_cont = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
-                                     stimuli = ['natural_scenes'])
-
-
-# Get the experiment data using the sesion id
-session_id = expt_cont[0]['id']
-data = boc.get_ophys_experiment_data(session_id)
+# Assign the experiment id 
+experiment_id = exp_cont[0]['id']
+experiment_data = boc.get_ophys_experiment_data(experiment_id)
 
 print('Data acquired.')
 
 
-# In[5]:
-
-
-# boc.get_all_stimuli()
-
-
-# In[6]:
-
-
-data.list_stimuli()
-
-
-# Let's take a quick look at the data you just acquired. We'll create a **maximum projection image** of the data, so that we can see the cells in our field of view. If we just looked at one snapshot of the raw imaging data, the cells would look dim -- they only become bright when they're actively firing. A maximum projection image shows us the maximum brightness for each pixel, across the entire experiment.
+# Let's take a quick look at the data you just downloaded. We'll create a **maximum projection image** of the data, so that we can see the cells in our field of view. If we just looked at one snapshot of the raw imaging data, the cells would look dim -- they only become bright when they're actively firing. A maximum projection image shows us the maximum brightness for each pixel, across the entire experiment. Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_nwb_data_set.html'> here </a> for the original documentation to the methods used in the fluorescence imaging and natural scenes section. 
 # 
 # Below, we are using the `get_max_projection()` method on our data, and then using the `imshow()` method in order to see our projection.
 # 
 # **Note**: The weird text for the ylabel is called "TeX" markup, in order to get the greek symbol *mu* ($\mu$). See documentation <a href="https://matplotlib.org/tutorials/text/mathtext.html">here</a>.
 
-# In[7]:
+# In[5]:
 
 
 # Get the maximum projection (a numpy array) of our data
-max_projection = data.get_max_projection()
+max_projection = experiment_data.get_max_projection()
 
 # Create a new figure
 fig = plt.figure(figsize=(6,6))
@@ -109,97 +92,87 @@ plt.show()
 
 # Now we'll plot the data of each of our cells (from the field of view above) across time. Each line shows the change in fluorescence over baseline ($\Delta$)F/F) of the individual cells. When there are sharp increases, that's when the cells are responding.
 # 
-# In the example below, the we will plot the first 10 cells from our data. the `get_dff_traces()` method returns the timestamps (in seconds) and deltaF/F.
+# In the example below, we will plot the first 10 cells from our data. the `get_dff_traces()` method returns the timestamps (in seconds) and deltaF/F.
+# 
+# Below, we've also added a line in our loop that offsets each cell by a predetermined amount so that we can see individual calcium traces. Each line is a different neuron, and the small blips in the data are calcium-mediated changes in fluorescence.
 
-# In[8]:
+# In[6]:
 
 
 # Assign timestamps and deltaF/F
-ts, dff = data.get_dff_traces()
+ts, dff = experiment_data.get_dff_traces()
 
 # Set up a figure
-fig = plt.figure(figsize=(20,10))
+fig = plt.figure(figsize=(18,6))
 
-# Plot deltaF/F spikes over time for first 10 cells
-for cell in range(10):
-    plt.plot(ts, dff[cell])
-    
-plt.show()
-
-
-# Although the plotting of our fluorescence was successful, it's hard to see individual traces here. To solve this issue, we can add a line in our loop that offsets each cell by a predetermined amount. We'll also make the figure interactive to allow zooming so we can see what individual calcium responses look like.
-
-# In[9]:
-
-
-fig = plt.figure()
-
+# Loop through to add an offset on the y-axis
 offset = 0
-
-for cell in range(10):
+for cell in range(2,12):
     plt.plot(ts, dff[cell]+offset)
     offset+=5
+    
 plt.xlabel('Timestamp (s)')
-plt.ylabel('Neurons')
+plt.ylabel('Neurons ($\Delta$F\F)')
+plt.yticks([])
+plt.xlim([2700,2875])
 plt.show()
 
 
 # ## Look at the response of your cells to natural scenes
-# Hmm, there are some responses above, but it's tough to see what's going on with just the raw traces. Let's instead see how these cells actually responded to different types of images. To do so, we'll need to use the `get_cell_specimens()` method on our `boc`, giving it the name of the experiment container ID.
+# There are clearly some responses above, but it's tough to see whether this corresponds to different behaviors or visual stimuli with just the raw fluorescence traces.
+# 
+# Let's see how these cells actually responded to different types of images. To do so, we'll need to use the `get_cell_specimens()` method on our `boc`, giving it the name of the experiment container ID.
 # 
 # The dataframe that this creates will have a lot more information about what the cells in our experiment prefer. Each row is a different cell, each with its own preferences and response patterns.
 
-# In[10]:
+# In[7]:
 
 
-# Get the cell specimens information for this session
+# Get the cell specimens information for this experiment
 cell_specimens = boc.get_cell_specimens(experiment_container_ids=[exp_container_id])
 cell_specimens_df = pd.DataFrame(cell_specimens)
 cell_specimens_df.head()
 
 
-# Let's create a bar graph of preferred images in our dataset. The `p_ns` column contains the pvalue that corresponds to whether a cell *significantly* prefered an image more than the rest. We will subselect our `cell_specimens_df` dataframe to only contains cells that have a pvalue less than 0.05. 
+# Let's create a bar graph of preferred images in our dataset. The `p_ns` column contains the pvalue that corresponds to whether a cell *significantly* prefered an image more than the rest. We will use this column to subset our `cell_specimens_df` dataframe to only contains cells that have a p value less than 0.05. 
 # 
-# The `pref_image_ns` column contians the image IDs of the stimulus being presented. We can create our histogram from this column to see how many cells responded to these statistically significant stimuli. 
+# The `pref_image_ns` column contains the image IDs of the stimulus being presented. We can create our bar graph from this column to see how many cells responded to these statistically significant images.
 
-# In[11]:
-
-
-#hi = pref_images.value_counts()
-#hi.index[0]
+# In[8]:
 
 
-# In[12]:
-
-
-# Subselect dataframe to contain significantly preferred images 
-sig_cells = cell_specimens_df[cell_specimens_df['p_ns'] < 0.05]
+# Subset dataframe to contain significantly preferred images 
+col_1 = 'p_ns'
+sig_cells = cell_specimens_df[cell_specimens_df[col_1] < 0.05]
 
 # Assign our image ids for significantly preferred images
-pref_images = sig_cells['pref_image_ns']
+col_2 = 'pref_image_ns'
+pref_images = sig_cells[col_2]
 
 # Set up our figure 
-fig = plt.figure(figsize = (20,10))
+fig = plt.figure(figsize = (18,6))
 
 # Plot our bar graph
 pref_counts = pref_images.value_counts()
 pref_counts.plot(kind='bar')
 plt.title('Response of cells to natural scenes')
-plt.ylabel('Cell Frequency')
+plt.ylabel('Number of cells')
 plt.xlabel('Image ID')
 plt.show()
 
 
-# In order to actually see what this stimulus are, first, we'll organize the stimulus table. This tells us which stimulus was played on each trial. This data set has 118 different scenes, and each scene is presented 50 times. Images of the scenes can be found [here](http://observatory.brain-map.org/visualcoding/stimulus/natural_scenes).
+# In order to actually see what these images are, first, we'll organize the stimulus table. This tells us which stimulus was played on each trial. This data set has 118 different scenes, and each scene is presented 50 times. Images of the scenes can be found [here](http://observatory.brain-map.org/visualcoding/stimulus/natural_scenes).
 # 
 # Below, we'll show the top five images for cells in this field of view. Do they have anything in common, either visually or conceptually?
+# 
+# *Note*: Not every experiment contains the data for the natural scenes experiment. If you change the experiment ID above and try the next cell, you may receive an error. You can use `data.list_stimuli()` to see all of the stimuli available within your experiment.
 
-# In[13]:
+# In[9]:
 
 
 # Get the natural scene information
-natural_scene_table = data.get_stimulus_table('natural_scenes')
-natural_scene_template = data.get_stimulus_template('natural_scenes')
+natural_scene_table = experiment_data.get_stimulus_table('natural_scenes')
+natural_scene_template = experiment_data.get_stimulus_template('natural_scenes')
 sceneIDs = np.unique(natural_scene_table.frame)
 
 # Set up our figure
@@ -219,129 +192,96 @@ plt.show()
 
 
 # ## Examine the direction selectivity of your cell
-# Sometimes, the function of a cell is not particularly clear from natural stimuli. Those stimuli have a lot of information in them, and it might be hard to tell what a cell is actually responding to. Instead, we can use simple drifting gratings to look at one straightforward property of a cell: <b>does it respond to specific directions of movement?</b></br>
+# Sometimes, the function of a cell is not particularly clear from natural stimuli. Those stimuli have a lot of information in them, and it might be hard to tell what a cell is actually responding to. Instead, we can use simple drifting gratings to look at one straightforward property of a cell: <b>does it respond to specific directions of movement?</b></br> To do so, we'll examine the **drifting gratings** experiments.
 # 
-# We can use the columns that look at the direction selectivity index (DSI) in order to determine whether our cells are direction selective (typically considered having a DSI > 0.5). Take another look at the cell_specimens_df we created above. We can subselect `sig_cells` to only contain cells that were direction specific and replot our bar graph to compare. 
+# We will now show how to plot a heatmap of a cell's response organized by orientation and temporal frequency. We will be using one of the three cells from the dataframe above which showed direction selectivity from the significantly preferred images. Click on the link<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.drifting_gratings.html'> here </a> for the original documentation to the methods used in the drifting gratings section. 
+# 
+# Below, we'll use the same experiment container but a different stimulus to create a separate experiment dataset, `dg_experiment`.
 
-# In[14]:
-
-
-dsi_cells = sig_cells[sig_cells['dsi_dg'] > 0.5]
-
-pref_images_dsi = dsi_cells['pref_image_ns']
-
-# Set up our figure 
-fig = plt.figure(figsize = [20,10])
-
-# Plot our bar graph
-pref_images_dsi.value_counts().plot(kind='bar')
-plt.title('Response of cells to natural scenes (Direction Specific)')
-plt.ylabel('Cell Frequency')
-plt.xlabel('Image ID')
-plt.show()
+# In[10]:
 
 
-# As you can see, our plot changed drastically. We now have the significantly prefered images of our most direction selective cells. We can select a cell that responded significantly more to one of the top 5 imgages by subselting it from `dsi_cells` and filtering for `pref_image_ns`. 
-
-# In[15]:
-
-
-# Assign image id 
-pref_image_id = 100.0
-
-# Subselect from dataframe to only contains cells that prefered our image id
-cell_oi = dsi_cells[dsi_cells['pref_image_ns'] == pref_image_id]
-cell_oi
-
-
-# ## Drifting Gratings 
-
-# We will now show how to plot a heatmap of a cell's response organized by orientation and temporal frequency. We will be using one of the three cells from the dataframe above which showed direction selectivity from the significantly preferred images.
-
-# In[16]:
-
-
-# import packages for Drifting Gratings analysis 
-from matplotlib.ticker import MaxNLocator
-from allensdk.brain_observatory.drifting_gratings import DriftingGratings
-
-
-# Our first step is to create an instance of our DriftingGratings object. The DriftingGratings class requires an NWB data set as an input. Recall that we assigned this data set earleier to `data` using `get_ophys_experiment()` and the `session_id`. We can use `data` to assign our DriftingGratings object. 
-
-# In[17]:
-
-
-# Assign previous container id and stimulus for imaging 
-exp_container_id = 657016265
-
-# Select our stimuli
+# Get experiment for our container id and stimuli of interest
 stim_2 = ['drifting_gratings']
+dg_experiment = boc.get_ophys_experiments(
+                        experiment_container_ids = [exp_container_id],
+                        stimuli = stim_2)
 
-# Get experiment contianer for our id and stimuli of interest
-expt_cont_dg = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
-                                     stimuli = stim_2)
-
-
-# Get the experiment data using the sesion id
-session_id = expt_cont_dg[0]['id']
-data_dg = boc.get_ophys_experiment_data(session_id)
+# Download the experiment data using the experiment id
+experiment_id_2 = dg_experiment[0]['id']
+data_dg = boc.get_ophys_experiment_data(experiment_id_2)
 
 print('Data acquired.')
 
 
-# In[18]:
+# Our first step is to create an instance of our DriftingGratings object. The DriftingGratings class requires an NWB data set as an input (i.e. `data_dg`). 
+# 
+# The `peak` property of the DriftingGratings object returns a Pandas DataFrame of peak conditions (direction and temporal frequency) as well as computed response metrics. Some key columns is this dataframe are the preferred orientation, `ori_dg`, and preferred frequency, `tf_dg`, of the cell. Other computed metrics include:
+# 
+# - reliability_dg
+# - osi_dg (orientation selectivity index)
+# - dsi_dg (direction selectivity index)
+# - peak_dff_dg (peak dF/F)
+# - ptest_dg (number of signficant cells)
+# - p_run_dg (K-S statistic comparing running trials to stationary trials) 
+# - run_modulation_dg
+# - cv_dg (circular variance)
 
+# In[11]:
+
+
+from allensdk.brain_observatory.drifting_gratings import DriftingGratings
 
 # Create my DriftingGratings Object 
 dg = DriftingGratings(data_dg)
-dg
-
-
-# The peak property of the DriftingGratings object is a Pandas DataFrame of peak conditions (direction and temporal frequency) as well as computed response metrics.
-
-# In[19]:
-
 
 # Return dataframe of peak conditions
 dg_df = dg.peak
 dg_df.head()
 
 
-# Next, we must select a cell from our table by `cell_specimen_id`. If there is a specific cell you want to analyze, you can use the `get_cell_specimen_indices()` method to locate the index of your cell of interest. We will need to know the index of our specimen in our DrifitingGratings object to construct our heatmap. If you do not have a specific cell in mind, you can look through and select a cell from the dataframe above. 
+# Next, we'll select a cell from our table by `cell_specimen_id`.
+# 
+# If there is a specific cell you want to analyze, you can use the `get_cell_specimen_indices()` method to locate the index of your cell of interest. The index of your cell is needed becasue you will need to index into the NumPy arrary returned by the `response` attribute to contruct your heatmap.
+# 
+# Below, we'll simply grab the first `cell_specimen_id` in our table.
 
-# In[20]:
+# In[28]:
 
 
-# select specimen_id from 1st row in cell_oi
-specimen_id = 669925542
+# Select specimen ID from first row
+specimen_id = dg_df['cell_specimen_id'][0]
 cell_loc = data_dg.get_cell_specimen_indices([specimen_id])[0]
 
-print("Specimen ID:", specimen_id)
-print("Cell loc:", cell_loc)
+print('Specimen ID:', specimen_id)
+print('Cell loc:', cell_loc)
 
 
-# The `response` attriubute returns the mean responses to each stimulus condition (i.e. orientation, frequency).
+# The `response` attribute returns a 4-D NumPy array with the mean responses to each stimulus condition. The 1st column in the returned NumPy array contains mean responses to the orientations, the 2nd column contains mean responses to the temporal frequencies, the 3rd column contains the number of the cell, and the 4th column contains the response mean to column 1, the response standard error of the mean of column 2, and the number of signficant trials.
+# 
+# 
+# Below, we'll use `plt.imshow()` to plot the mean responses across orientation and frequency, skipping the blank sweep column (0).
 
-# In[21]:
+# In[23]:
 
 
-# skip the blank sweep column of the temporal frequency dimension
+# Plot our data, skiping the blank sweep column (0) of the temporal frequency dimension
 plt.imshow(dg.response[:,1:,cell_loc,0], cmap='hot', interpolation='none')
-plt.title("Heat Map, Cell Specimen: 669925542")
+plt.title('Heat Map, Cell Specimen: ' + str(specimen_id))
 plt.xticks(range(5), dg.tfvals[1:])
 plt.yticks(range(8), dg.orivals)
 plt.xlabel("Temporal frequency (Hz)", fontsize=20)
 plt.ylabel("Direction (deg)", fontsize=20)
 plt.tick_params(labelsize=14)
 cbar= plt.colorbar()
-cbar.set_label("DF/F (%)")
+cbar.set_label("$\Delta$F/F (%)")
 
 
-# The prefered directions temporal frequency are stored within `ori_dg` and `tf_dg` in are table above and can be indexed through dg.orivals and tf.tfvals respectively. 
+# The preferred directions temporal frequency are stored within `ori_dg` and `tf_dg` in are table above and can be indexed through `dg.orivals` and `tf.tfvals` respectively. 
 # 
 # For more explanation on the available pre-computed metrics, please see <a href = 'https://alleninstitute.github.io/AllenSDK/_static/examples/nb/brain_observatory_analysis.html#Drifting-Gratings'> here</a>. 
 
-# In[22]:
+# In[29]:
 
 
 pref_ori = dg.orivals[dg.peak.ori_dg[cell_loc]]
@@ -350,89 +290,7 @@ print("Preferred direction:", pref_ori)
 print("Preferred temporal frequency:", pref_tf)
 
 
-# ## Receptive Fields 
-
-# From the downloaded experimental data, we are also able to compute receptive fields for of a cell. This is done through the `LocallySpareNoise` object. Much like we have done before, we will choose an experiment contianer and session id to work with. When using `get_ophys_experiments()` to download the approriate container, be sure to set `stimuli` equal to `stim_info.LOCALLY_SPARSE_NOISE` as done in the cell below. This will ensure that only the `locally_sparse_noise` data is downloaded.
-
-# In[23]:
-
-
-# Necessary packages to run receptive field analysis
-from allensdk.brain_observatory.locally_sparse_noise import LocallySparseNoise
-import allensdk.brain_observatory.stimulus_info as stim_info
-
-# Assign container id and stimulus for receptive field analysis 
-#specimen_id_2 = 587179530
-specimen_id_2 = 669921489
-my_cell = boc.get_cell_specimens(ids=[specimen_id_2])[0]
-
-exp_lsn = boc.get_ophys_experiments(experiment_container_ids=[my_cell['experiment_container_id']],
-                                stimuli=[stim_info.LOCALLY_SPARSE_NOISE])[0]
-
-
-# Get the experiment data using the sesion id
-session_id_2 = exp_lsn['id']
-data_lsn = boc.get_ophys_experiment_data(session_id_2)
-
-print('Data acquired.')
-
-
-# In[ ]:
-
-
-exp_lsn
-
-
-# **Note**: Not all experiment contianers contain sessions with `locally_spare_noise` stimulus data. If you donwload an experiment with no such data, you will get an empty container and the receptive feild analysis will not work. 
-
-# In[ ]:
-
-
-# Example of an experiment contianer with no locally sparse noise data 
-
-# Assign previous container id and stimulus for imaging 
-exp_container_id = 657016265
-
-# Select our stimuli
-stim_3 = ['locally_sparse_noise']
-
-# Get experiment contianer for our id and stimuli of interest
-non_lsn_cont = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
-                                     stimuli = stim_3)
-
-
-# Get the experiment data using the sesion id
-print(non_lsn_cont)
-
-
-# Like we did for the drifting gratings analysis, we need to locate the index of our cell to contruct our receptive fields. 
-
-# In[ ]:
-
-
-# Assign index of cell
-cell_idx = (data_lsn.get_cell_specimen_indices([specimen_id_2]))[0]
-cell_idx
-
-
-# We now how have everything we need to construct our receptive felied analysis. 
-
-# In[ ]:
-
-
-plt.imshow(lsn.receptive_field[:,:,cell_idx,0], interpolation='nearest', cmap='PuRd', origin='lower')
-plt.title("on receptive field")
-plt.show()
-plt.imshow(lsn.receptive_field[:,:,cell_idx,1], interpolation='nearest', cmap='Blues', origin='lower')
-plt.title("off receptive field")
-plt.show()
-
-
-# ## Additional Resources 
-
-# - Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'> here </a> for the original documentation to the BrainObservatoryCache object. 
-# - Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_nwb_data_set.html'> here </a> for the original documentation to the methods used in the fluorescence imaging and natural scenes section. 
-# - Click on the link<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.drifting_gratings.html'> here </a> for the original documentation to the methods used in the drifting gratings section. 
+# [ CLOSING THOUGHTS ON WHAT ELSE YOU CAN DO WITH THIS DATA! ]
 
 # In[ ]:
 

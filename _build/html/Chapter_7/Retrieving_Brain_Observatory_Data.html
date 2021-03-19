@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>7.1. Retreiving Calcium Imaging Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>7.1. Retrieving Calcium Imaging Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -135,7 +135,7 @@
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     7.1. Retreiving Calcium Imaging Data
+     7.1. Retrieving Calcium Imaging Data
     </a>
    </li>
    <li class="toctree-l2">
@@ -285,9 +285,9 @@
         
               <div>
                 
-  <div class="section" id="retreiving-calcium-imaging-data">
-<h1><span class="section-number">7.1. </span>Retreiving Calcium Imaging Data<a class="headerlink" href="#retreiving-calcium-imaging-data" title="Permalink to this headline">¶</a></h1>
-<p>This section will serve as an introdution to retrieving two-photon calcium imaging data from the Allen Brain Observatory. By the end of this section you will know how to obtain a two-photon imaging dataset for a particular cell type in a specific visual area.</p>
+  <div class="section" id="retrieving-calcium-imaging-data">
+<h1><span class="section-number">7.1. </span>Retrieving Calcium Imaging Data<a class="headerlink" href="#retrieving-calcium-imaging-data" title="Permalink to this headline">¶</a></h1>
+<p>This section will serve as an introdution to retrieving two-photon fluorescence imaging data from the Allen Brain Observatory. By the end of this section you will know how to obtain a two-photon imaging dataset for a particular cell type in a specific visual area.</p>
 <div class="section" id="setup">
 <h2><span class="section-number">7.1.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>We need a variety of standard Python packages in addition to two different <code class="docutils literal notranslate"><span class="pre">allensdk</span></code> toolboxes. If you have not yet installed the <code class="docutils literal notranslate"><span class="pre">allensdk</span></code>, run the cell below. Otherwise, you can skip to the cell that imports our toolboxes.</p>
@@ -339,7 +339,7 @@
 </div>
 </div>
 <p>Next, we’ll use <code class="docutils literal notranslate"><span class="pre">get_all_cre_lines()</span></code> on our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return all of the possible Cre lines and brain areas are that we can analyze. We can also use the <code class="docutils literal notranslate"><span class="pre">get_all_targeted_structures()</span></code> method to return all brain areas in our dataset.</p>
-<p>You can find more info about the Cre-lines <a href="http://observatory.brain-map.org/visualcoding/transgenic">here</a>. Refer back to the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about the different visual areas.</p>
+<p>You can find more info about the Cre-lines <a href="http://observatory.brain-map.org/visualcoding/transgenic">here</a>. Refer back to the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about the different visual areas. Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'> here </a> for the original documentation to the BrainObservatoryCache object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll assign the list of cre lines to a variable, &#39;cre-lines&#39;.</span>
@@ -354,17 +354,19 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>all cre lines: [&#39;Cux2-CreERT2&#39;, &#39;Emx1-IRES-Cre&#39;, &#39;Fezf2-CreER&#39;, &#39;Nr5a1-Cre&#39;, &#39;Ntsr1-Cre_GN220&#39;, &#39;Pvalb-IRES-Cre&#39;, &#39;Rbp4-Cre_KL100&#39;, &#39;Rorb-IRES2-Cre&#39;, &#39;Scnn1a-Tg3-Cre&#39;, &#39;Slc17a7-IRES2-Cre&#39;, &#39;Sst-IRES-Cre&#39;, &#39;Tlx3-Cre_PL56&#39;, &#39;Vip-IRES-Cre&#39;]
-
-all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&#39;, &#39;VISpm&#39;, &#39;VISrl&#39;]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&#39;, &#39;VISpm&#39;, &#39;VISrl&#39;]
 </pre></div>
 </div>
 </div>
 </div>
+<p>With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiement containers from our desired cre lines and brain regions. Each experiment container has a group of experiments that share the same targeted brain area, cre line, and depth. However, the stimuli conditions may differ across experiments for a given contianer.</p>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return a list of dictionaries with data on the available experiment contianers. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">targeted_structures</span></code> which both require lists as inputs.</p>
+<p><em>Note</em>: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute on your new datafram to check if it is empty.</p>
 </div>
 <div class="section" id="extract-an-experiment-session">
 <h2><span class="section-number">7.1.3. </span>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
-<p>With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiements from our desired cre lines and brain regions. We can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to get a list of experiment contianer ids that are available. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">targeted_structures</span></code> which both require lists as inputs.</p>
-<p><em>Note</em>: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute on your new datafram to check if it is empty.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign visual area and cre line of interest for analysis </span>
@@ -372,19 +374,19 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 <span class="n">cre_line</span> <span class="o">=</span> <span class="s1">&#39;Tlx3-Cre_PL56&#39;</span>
 
 <span class="c1"># Get experiment contianers for visual area and cre line of interest </span>
-<span class="n">exps</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_experiment_containers</span><span class="p">(</span><span class="n">targeted_structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">visual_area</span><span class="p">],</span> 
+<span class="n">exp_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_experiment_containers</span><span class="p">(</span><span class="n">targeted_structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">visual_area</span><span class="p">],</span> 
                                      <span class="n">cre_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">cre_line</span><span class="p">])</span>
 
 <span class="c1"># Create an experiment dataframe </span>
-<span class="n">exps_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">exps</span><span class="p">)</span>
+<span class="n">exp_cont_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">exp_cont</span><span class="p">)</span>
 
 <span class="c1"># Check if dataframe is empty </span>
-<span class="k">if</span> <span class="n">exps_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">exp_cont_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data frame is empty, choose another cre line &amp; visual area combination.&#39;</span><span class="p">)</span>
 
 <span class="c1"># Assign the ID column as the index and return dataframe</span>
-<span class="n">exps_df</span> <span class="o">=</span> <span class="n">exps_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
-<span class="n">exps_df</span>
+<span class="n">exp_cont_df</span> <span class="o">=</span> <span class="n">exp_cont_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">exp_cont_df</span>
 </pre></div>
 </div>
 </div>
@@ -499,35 +501,60 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </table>
 </div></div></div>
 </div>
-<p>Let’s look into one of these experiment containers, most of which have three different sessions for different types of visual stimuli. We can call <code class="docutils literal notranslate"><span class="pre">get_ophys_experiments()</span></code> on our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return the container. This method takes in the arguments <code class="docutils literal notranslate"><span class="pre">experiment_container_ids</span></code> and <code class="docutils literal notranslate"><span class="pre">stimuli</span></code> which both require lists. We can select an id from our dataframe and choose a stimuli. In our case, we’ll look for the <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> experiment.</p>
+<p>Let’s look into one of these experiment containers, most of which have three different sessions for different types of visual stimuli. We can call <code class="docutils literal notranslate"><span class="pre">get_ophys_experiments()</span></code> on our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return the experiments within a container. This method takes in the arguments <code class="docutils literal notranslate"><span class="pre">experiment_container_ids</span></code> and <code class="docutils literal notranslate"><span class="pre">stimuli</span></code> which both require lists. We can select an id from our dataframe and choose a stimuli. In our case, we’ll filter for experiments with the <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign experiment ontainer id and stimuli </span>
 <span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">627823571</span>
-<span class="n">stim</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">,</span> <span class="s1">&#39;drifting_gratings&#39;</span><span class="p">]</span>
+<span class="n">stim</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">]</span>
 
 <span class="c1"># Call experiment container for our id and stimuli of interest</span>
-<span class="n">expt_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
+<span class="n">experiments</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
                                    <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim</span><span class="p">)</span>
 
 <span class="c1"># Print out our container </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">expt_cont</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">experiments</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;id&#39;: 644660705, &#39;imaging_depth&#39;: 375, &#39;targeted_structure&#39;: &#39;VISp&#39;, &#39;cre_line&#39;: &#39;Tlx3-Cre_PL56&#39;, &#39;reporter_line&#39;: &#39;Ai148(TIT2L-GC6f-ICL-tTA2)&#39;, &#39;acquisition_age_days&#39;: 133, &#39;experiment_container_id&#39;: 627823571, &#39;session_type&#39;: &#39;three_session_B&#39;, &#39;donor_name&#39;: &#39;337458&#39;, &#39;specimen_name&#39;: &#39;Tlx3-Cre_PL56;Ai148-337458&#39;, &#39;fail_eye_tracking&#39;: False}, {&#39;id&#39;: 643645390, &#39;imaging_depth&#39;: 375, &#39;targeted_structure&#39;: &#39;VISp&#39;, &#39;cre_line&#39;: &#39;Tlx3-Cre_PL56&#39;, &#39;reporter_line&#39;: &#39;Ai148(TIT2L-GC6f-ICL-tTA2)&#39;, &#39;acquisition_age_days&#39;: 129, &#39;experiment_container_id&#39;: 627823571, &#39;session_type&#39;: &#39;three_session_A&#39;, &#39;donor_name&#39;: &#39;337458&#39;, &#39;specimen_name&#39;: &#39;Tlx3-Cre_PL56;Ai148-337458&#39;, &#39;fail_eye_tracking&#39;: False}]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;id&#39;: 644660705, &#39;imaging_depth&#39;: 375, &#39;targeted_structure&#39;: &#39;VISp&#39;, &#39;cre_line&#39;: &#39;Tlx3-Cre_PL56&#39;, &#39;reporter_line&#39;: &#39;Ai148(TIT2L-GC6f-ICL-tTA2)&#39;, &#39;acquisition_age_days&#39;: 133, &#39;experiment_container_id&#39;: 627823571, &#39;session_type&#39;: &#39;three_session_B&#39;, &#39;donor_name&#39;: &#39;337458&#39;, &#39;specimen_name&#39;: &#39;Tlx3-Cre_PL56;Ai148-337458&#39;, &#39;fail_eye_tracking&#39;: False}]
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now, let’s get the id for this experiment and extract the data using the <code class="docutils literal notranslate"><span class="pre">get_ophys_experiment_data</span></code> method. If you look closley above, you can see that our experiment container is a list that contains a dictionary. We will need to input the session id of our experiment container into this method.</p>
+<p><strong>Note</strong>: You can execute <code class="docutils literal notranslate"><span class="pre">get_all_stimuli()</span></code> on the <code class="docutils literal notranslate"><span class="pre">boc</span></code> object if you are unsure of what stimuli are available. Not all experiments or experiment contiainers will have every stimuli in their datasets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Go into first entry in list, which is the dictionary </span>
-<span class="c1"># Then go within id of dictionary</span>
-<span class="c1"># Note: This id is different from our experiment container id </span>
-<span class="n">session_id</span> <span class="o">=</span> <span class="n">expt_cont</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Stimuli found in Brain Observatory:&#39;</span><span class="p">)</span>
+<span class="n">boc</span><span class="o">.</span><span class="n">get_all_stimuli</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Stimuli found in Brain Observatory:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;drifting_gratings&#39;,
+ &#39;locally_sparse_noise&#39;,
+ &#39;locally_sparse_noise_4deg&#39;,
+ &#39;locally_sparse_noise_8deg&#39;,
+ &#39;natural_movie_one&#39;,
+ &#39;natural_movie_three&#39;,
+ &#39;natural_movie_two&#39;,
+ &#39;natural_scenes&#39;,
+ &#39;spontaneous&#39;,
+ &#39;static_gratings&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s download the experiment data using the <code class="docutils literal notranslate"><span class="pre">get_ophys_experiment_data</span></code> method. If you look closley above, you can see that <code class="docutils literal notranslate"><span class="pre">experiments</span></code> is a list of dictionaries for each experiment in our assigned container. We will need to input the session id of our experiment into this method.</p>
+<p><strong>Note</strong>: The cell below downloads some data, and make take a minute or so to run. It is important that you do not interrupt the download of the data or else the file will become corrupted and you will have to delete it and try again.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Note: This id is different from our experiment container id </span>
+<span class="n">session_id</span> <span class="o">=</span> <span class="n">experiments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
 
 <span class="c1"># Take a look at the kind of object data is </span>
@@ -536,13 +563,13 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.brain_observatory_nwb_data_set.BrainObservatoryNwbDataSet object at 0x7fc32fc6bc10&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.brain_observatory_nwb_data_set.BrainObservatoryNwbDataSet object at 0x7f9c0c44db50&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>That’s how you retrieve an experiment from the Allen Brain Observatory! If you want to retrieve multiple experiments across multiple brain areas or cell types, you can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers</span></code> method without specifying a targeted structure or brain area, and then subset your dataframe.</p>
-<p>In the next notebook, we’ll discuss how to extract the raw data from these experiment containers.</p>
+<p>The returned output is data accessor object that can be used to perform analyses that we will discuss in the next section.</p>
+<p>That’s how you retrieve an experiment from the Allen Brain Observatory! If you want to retrieve multiple experiments across multiple brain areas or cell types, you can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers</span></code> method without specifying a targeted structure or brain area, and then subset your dataframe. There are many different</p>
 </div>
 </div>
 

@@ -32,6 +32,11 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
+from allensdk.brain_observatory.drifting_gratings import DriftingGratings
+
+# Create my DriftingGratings Object 
+dg = DriftingGratings(data_dg)
+
 # Return dataframe of peak conditions
 dg_df = dg.peak
 dg_df.head()
