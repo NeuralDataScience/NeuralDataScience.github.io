@@ -119,7 +119,7 @@ plt.show()
 mouse_ephys_df['transgenic_line'].unique()
 
 
-# Next, lets select two different Cre lines from the dataset and create dataframes that only contain cells from those Cre lines. For more information on the Allen Cell Types Cre lines, please visit <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html">the Allen Cell Types Cre Lines Glossary</a> for a short description of the cortical expression patterns of the transgenic Cre lines available in the Allen Cell Types dataset.
+# Next, lets select two different Cre lines from the dataset and create dataframes that only contain cells from those Cre lines. For more information on the Allen Cell Types Cre lines, please visit <a href="https://docs.google.com/document/d/1ZMMZgc7cS5BHhoWNqzjw95BdxOuj5wrYl9I7PV2HeUI/edit">the Allen Cell Types Cre Lines Glossary</a> for a short description of the cortical expression patterns of the transgenic Cre lines available in the Allen Cell Types dataset.
 
 # **Note**: Be sure that you are using the entire name of the Cre line -- that means everything within the single quotes above.
 

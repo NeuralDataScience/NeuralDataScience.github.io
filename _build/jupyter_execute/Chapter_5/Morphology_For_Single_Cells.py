@@ -32,6 +32,8 @@ ctc = CellTypesCache(manifest_file='cell_types/manifest.json')
 print('Packages were successfully imported.')
 
 
+# ## Get Cells
+
 # The `get_cells` method downloads metadata for cells in the database. The database contains human cells and mouse cells. By default, `get_cells()` downloads metata for all cells in the database. Alternatively, one can filter out the database to only include cells collected from a certain species.
 # Look through <a href="https://allensdk.readthedocs.io/en/latest/allensdk.core.cell_types_cache.html">the documentation for the CellTypesCache</a> for more information on the `get_cells` method.
 
