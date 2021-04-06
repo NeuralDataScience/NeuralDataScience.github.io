@@ -56,7 +56,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8. Allen Mouse Brain Connectivity Atlas" href="../Chapter_8/Connectivity_Atlas.html" />
+    <link rel="next" title="7.3. Correlations in Two Photon Data" href="Correlations_in_Two_Photon_Data.html" />
     <link rel="prev" title="7.1. Retrieving Calcium Imaging Data" href="Retrieving_Brain_Observatory_Data.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -141,6 +141,11 @@
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      7.2. Analyzing Two Photon Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Correlations_in_Two_Photon_Data.html">
+     7.3. Correlations in Two Photon Data
     </a>
    </li>
   </ul>
@@ -357,12 +362,12 @@
 <span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">627823571</span>
 <span class="n">stim</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">]</span>
 
-<span class="c1"># Get experiment container for our id and stimuli of interest</span>
-<span class="n">exp_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
+<span class="c1"># Get experiments for our container id and stimuli of interest</span>
+<span class="n">experiments</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">exp_container_id</span><span class="p">],</span>
                                      <span class="n">stimuli</span> <span class="o">=</span> <span class="n">stim</span><span class="p">)</span>
 
 <span class="c1"># Assign the experiment id </span>
-<span class="n">experiment_id</span> <span class="o">=</span> <span class="n">exp_cont</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="n">experiment_id</span> <span class="o">=</span> <span class="n">experiments</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
 <span class="n">experiment_data</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">experiment_id</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data acquired.&#39;</span><span class="p">)</span>
@@ -728,6 +733,124 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ori_dg</th>
+      <th>tf_dg</th>
+      <th>reliability_dg</th>
+      <th>osi_dg</th>
+      <th>dsi_dg</th>
+      <th>peak_dff_dg</th>
+      <th>ptest_dg</th>
+      <th>p_run_dg</th>
+      <th>run_modulation_dg</th>
+      <th>cv_os_dg</th>
+      <th>cv_ds_dg</th>
+      <th>tf_index_dg</th>
+      <th>cell_specimen_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+      <td>1</td>
+      <td>0.280185</td>
+      <td>1.237172</td>
+      <td>0.031225</td>
+      <td>16.513812</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.938693</td>
+      <td>0.047491</td>
+      <td>0.434779</td>
+      <td>662201985</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3</td>
+      <td>1</td>
+      <td>0.085585</td>
+      <td>0.812747</td>
+      <td>0.565631</td>
+      <td>11.474056</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.614402</td>
+      <td>0.42813</td>
+      <td>0.39683</td>
+      <td>662201975</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>1</td>
+      <td>0.140565</td>
+      <td>0.439415</td>
+      <td>0.801277</td>
+      <td>9.853037</td>
+      <td>0.000001</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.15991</td>
+      <td>0.460012</td>
+      <td>0.36523</td>
+      <td>662202121</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>3</td>
+      <td>0.010914</td>
+      <td>0.557367</td>
+      <td>2.975252</td>
+      <td>1.333453</td>
+      <td>0.005755</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.146026</td>
+      <td>0.438625</td>
+      <td>0.178085</td>
+      <td>662202077</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>3</td>
+      <td>0.099905</td>
+      <td>1.373905</td>
+      <td>0.882893</td>
+      <td>13.221908</td>
+      <td>0.000227</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0.808828</td>
+      <td>0.652798</td>
+      <td>0.324958</td>
+      <td>662202612</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Next, we’ll select a cell from our table by <code class="docutils literal notranslate"><span class="pre">cell_specimen_id</span></code>.</p>
 <p>If there is a specific cell you want to analyze, you can use the <code class="docutils literal notranslate"><span class="pre">get_cell_specimen_indices()</span></code> method to locate the index of your cell of interest. The index of your cell is needed becasue you will need to index into the NumPy arrary returned by the <code class="docutils literal notranslate"><span class="pre">response</span></code> attribute to contruct your heatmap.</p>
@@ -822,7 +945,7 @@ Preferred temporal frequency: 1
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="Retrieving_Brain_Observatory_Data.html" title="previous page"><span class="section-number">7.1. </span>Retrieving Calcium Imaging Data</a>
-    <a class='right-next' id="next-link" href="../Chapter_8/Connectivity_Atlas.html" title="next page"><span class="section-number">8. </span>Allen Mouse Brain Connectivity Atlas</a>
+    <a class='right-next' id="next-link" href="Correlations_in_Two_Photon_Data.html" title="next page"><span class="section-number">7.3. </span>Correlations in Two Photon Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

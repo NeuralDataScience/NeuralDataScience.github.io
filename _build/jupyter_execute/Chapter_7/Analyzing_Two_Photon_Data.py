@@ -53,12 +53,12 @@ boc = BrainObservatoryCache(manifest_file='manifest.json')
 exp_container_id = 627823571
 stim = ['natural_scenes']
 
-# Get experiment container for our id and stimuli of interest
-exp_cont = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
+# Get experiments for our container id and stimuli of interest
+experiments = boc.get_ophys_experiments(experiment_container_ids = [exp_container_id],
                                      stimuli = stim)
 
 # Assign the experiment id 
-experiment_id = exp_cont[0]['id']
+experiment_id = experiments[0]['id']
 experiment_data = boc.get_ophys_experiment_data(experiment_id)
 
 print('Data acquired.')
@@ -246,7 +246,7 @@ dg_df.head()
 # 
 # Below, we'll simply grab the first `cell_specimen_id` in our table.
 
-# In[28]:
+# In[12]:
 
 
 # Select specimen ID from first row
@@ -262,7 +262,7 @@ print('Cell loc:', cell_loc)
 # 
 # Below, we'll use `plt.imshow()` to plot the mean responses across orientation and frequency, skipping the blank sweep column (0).
 
-# In[23]:
+# In[13]:
 
 
 # Plot our data, skiping the blank sweep column (0) of the temporal frequency dimension
@@ -281,7 +281,7 @@ cbar.set_label("$\Delta$F/F (%)")
 # 
 # For more explanation on the available pre-computed metrics, please see <a href = 'https://alleninstitute.github.io/AllenSDK/_static/examples/nb/brain_observatory_analysis.html#Drifting-Gratings'> here</a>. 
 
-# In[29]:
+# In[14]:
 
 
 pref_ori = dg.orivals[dg.peak.ori_dg[cell_loc]]
