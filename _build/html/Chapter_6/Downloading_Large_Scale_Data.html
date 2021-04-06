@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>6.1. Downloading Large Scale Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.2. Large-scale single cell electrophysiology &amp; behavior" href="Large_Scale_Electrophysiology_and_Behavior.html" />
+    <link rel="prev" title="6. Large Scale Electrophysiology" href="Large_Scale_Electrophysiology.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/brainz.jpeg" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">A Hands-On Guide to Neural Data Science</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../landing_page.html">
+   A Hands-On Guide to Neural Data Science
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
+   1. Neural Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_2/Data_Science_In_Python.html">
+   2. Data Science in Python
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_3/Statistical_Concepts.html">
+   3. Statistical Concepts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_4/Neurodata_Without_Borders.html">
+   4. Neurodata Without Borders
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_5/Single-Cell_Electrophysiology.html">
+   5. Single-Cell Electrophysiology
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="Large_Scale_Electrophysiology.html">
+   6. Large Scale Electrophysiology
+  </a>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     6.1. Downloading Large Scale Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Large_Scale_Electrophysiology_and_Behavior.html">
+     6.2. Large-scale single cell electrophysiology &amp; behavior
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Identifying_Cells_with_Optogenetics.html">
+     6.3. Identifying Cells with Optogenetics
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Correlations.html">
+     6.4. Spike Sorting Neuropixels Data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_7/Two_Photon_Imaging.html">
+   7. Two Photon Imaging
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_8/Connectivity_Atlas.html">
+   8. Allen Mouse Brain Connectivity Atlas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
+   9. Brain Imaging Data Structures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
+   10. Text Analyses of Neuroscience Literature
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
+   11. Approaches to Analyzing Large Datasets
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Chapter_6/Downloading_Large_Scale_Data.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_6/Downloading_Large_Scale_Data.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_6/Downloading_Large_Scale_Data.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="downloading-large-scale-data">
+<h1><span class="section-number">6.1. </span>Downloading Large Scale Data<a class="headerlink" href="#downloading-large-scale-data" title="Permalink to this headline">¶</a></h1>
+<p>This section will teach you how to interact with the Neuropixels dataset, specifically how to download experimental sessions, return procesed data, and subset your data to contain only brain regions you are interested in.</p>
+<p>We will first need to import the <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> from the Allen SDK and create an instance of the class. The class is needed to download the metadata and data of the Neuropixels dataset and contains methods used to return information on our experiments. For the full list of methods, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'> original documentation</a>.</p>
+<p>Below we will execute <code class="docutils literal notranslate"><span class="pre">get_session_table()</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> object which will return a dataframe with metadata on each experiment session.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the Neuropixels Cache</span>
+<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_cache</span> <span class="kn">import</span> <span class="n">EcephysProjectCache</span>
+
+<span class="c1"># We have all of this data on the datahub! This is where it lives.</span>
+<span class="n">manifest_path</span> <span class="o">=</span> <span class="s1">&#39;/Users/VictorMagdaleno/NeuralDataScience.github.io/Chapter_6/datasets/manifest.json&#39;</span> 
+
+<span class="c1"># Create the EcephysProjectCache object</span>
+<span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="n">manifest_path</span><span class="p">)</span>
+
+<span class="c1"># Get the sessions available in this dataset</span>
+<span class="n">sessions</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_table</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of sessions: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)))</span>
+<span class="n">sessions</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of sessions: 58
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>published_at</th>
+      <th>specimen_id</th>
+      <th>session_type</th>
+      <th>age_in_days</th>
+      <th>sex</th>
+      <th>full_genotype</th>
+      <th>unit_count</th>
+      <th>channel_count</th>
+      <th>probe_count</th>
+      <th>ecephys_structure_acronyms</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>715093703</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>699733581</td>
+      <td>brain_observatory_1.1</td>
+      <td>118.0</td>
+      <td>M</td>
+      <td>Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
+      <td>884</td>
+      <td>2219</td>
+      <td>6</td>
+      <td>[CA1, VISrl, nan, PO, LP, LGd, CA3, DG, VISl, ...</td>
+    </tr>
+    <tr>
+      <th>719161530</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>703279284</td>
+      <td>brain_observatory_1.1</td>
+      <td>122.0</td>
+      <td>M</td>
+      <td>Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
+      <td>755</td>
+      <td>2214</td>
+      <td>6</td>
+      <td>[TH, Eth, APN, POL, LP, DG, CA1, VISpm, nan, N...</td>
+    </tr>
+    <tr>
+      <th>721123822</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>707296982</td>
+      <td>brain_observatory_1.1</td>
+      <td>125.0</td>
+      <td>M</td>
+      <td>Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
+      <td>444</td>
+      <td>2229</td>
+      <td>6</td>
+      <td>[MB, SCig, PPT, NOT, DG, CA1, VISam, nan, LP, ...</td>
+    </tr>
+    <tr>
+      <th>732592105</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>717038288</td>
+      <td>brain_observatory_1.1</td>
+      <td>100.0</td>
+      <td>M</td>
+      <td>wt/wt</td>
+      <td>824</td>
+      <td>1847</td>
+      <td>5</td>
+      <td>[grey, VISpm, nan, VISp, VISl, VISal, VISrl]</td>
+    </tr>
+    <tr>
+      <th>737581020</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>718643567</td>
+      <td>brain_observatory_1.1</td>
+      <td>108.0</td>
+      <td>M</td>
+      <td>wt/wt</td>
+      <td>568</td>
+      <td>2218</td>
+      <td>6</td>
+      <td>[grey, VISmma, nan, VISpm, VISp, VISl, VISrl]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Let’s say we only want sessions where the data has recordings from CA1. We can do the following to create a session list that we want.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a session list based on some criteria</span>
+
+<span class="n">session_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">idx</span><span class="p">,</span><span class="n">structure_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronyms&#39;</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="s1">&#39;CA1&#39;</span> <span class="ow">in</span> <span class="n">structure_list</span><span class="p">:</span>
+        <span class="n">session_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sessions</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>   
+        
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There are &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">session_list</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39; sessions that meet this criteria:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">session_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 52 sessions that meet this criteria:
+[715093703, 719161530, 721123822, 743475441, 744228101, 746083955, 750332458, 750749662, 751348571, 754312389, 754829445, 755434585, 756029989, 757216464, 757970808, 758798717, 759883607, 760345702, 761418226, 762602078, 763673393, 766640955, 767871931, 768515987, 771160300, 771990200, 773418906, 774875821, 778240327, 778998620, 779839471, 781842082, 786091066, 787025148, 789848216, 791319847, 793224716, 794812542, 797828357, 798911424, 799864342, 816200189, 819186360, 819701982, 821695405, 829720705, 831882777, 835479236, 839068429, 839557629, 840012044, 847657808]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we can use the session list to get the data we want. Unfortunately, it looks like we can only extract one experiment as a time, so if you want to do this for multiple experiments, you’ll need to loop over the <code class="docutils literal notranslate"><span class="pre">get_session-data</span></code> method for your entire session_list. For example, your workflow might be:</p>
+<ol class="simple">
+<li><p>Extract one session.</p></li>
+<li><p>Look for units recorded from your brain region of interest in that session.</p></li>
+<li><p>Extract whatever metric you’re interested in (e.g., firing rate).</p></li>
+<li><p>Append those values to a list of firing rates.</p></li>
+<li><p>Loop back around to the next session.</p></li>
+</ol>
+<p>Here, we’ll just take the first session as an example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="n">session_list</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:downloading a 1656.071MiB file from http://api.brain-map.org//api/v2/well_known_file_download/1026123696
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "ca9923016128456b97746de2157a6efa"}
+</script></div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Chapter_6"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="Large_Scale_Electrophysiology.html" title="previous page"><span class="section-number">6. </span>Large Scale Electrophysiology</a>
+    <a class='right-next' id="next-link" href="Large_Scale_Electrophysiology_and_Behavior.html" title="next page"><span class="section-number">6.2. </span>Large-scale single cell electrophysiology &amp; behavior</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Victor Magdaleno-Garcia<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
