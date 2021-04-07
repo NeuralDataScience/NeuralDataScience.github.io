@@ -9,7 +9,7 @@
 # 
 # The technological advancement of the neural pixels probe has greatly preopelled neroscience reasearch in recent years. Each probe is miniscule in size and contians 960 recording sites allowing for hundreds of action potentials to be recorded simultaneously. The reduced size of these recording divces allows for mutliple probes to be inserted into the same brain giving us real time recordings of multiple brian areas.
 
-# ![probe.png](attachment:probe.png)
+# ![](https://brainmapportal-live-4cc80a57cd6e400d854-f7fdcae.divio-media.net/filer_public/88/00/8800429b-8811-471f-9f04-82d19b3851b0/neuropixels_visual_coding_cms_images-04.png)
 
 # The Visual Coding - Neuropixels dataset from the Allen Institute of Brain Sciences attempts to record spiking activity in the visual system of the mouse brain. The dataset contains a total of 58 experiment sessions from 6 neuropixel probes that targeted the cortex, hippocampus, and thalamus. There are three different trangenic mouse lines used in the experiments alongside the wild-type (Sst-IRES-Cre, Pvalb-IRES-Cre, Vip-IRES-Cre). Much like the Brain Observatory dataset, each mouse in this experiemnt is exposed to various visual stimuli to evoke responses in the mouse visual system. The presented stimuli range from natural scenes, Gabor patches, and drifting-gratings. 
 # 

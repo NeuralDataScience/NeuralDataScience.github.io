@@ -132,7 +132,7 @@ print(data)
 
 # The returned output is data accessor object that can be used to perform analyses that we will discuss in the next section. 
 
-# That's how you retrieve an experiment from the Allen Brain Observatory! If you want to retrieve multiple experiments across multiple brain areas or cell types, you can use the `get_experiment_containers` method without specifying a targeted structure or brain area, and then subset your dataframe. There are many different
+# That's how you retrieve an experiment from the Allen Brain Observatory! If you want to retrieve multiple experiments across multiple brain areas or cell types, you can use the `get_experiment_containers` method without specifying a targeted structure or brain area, and then subset your dataframe. There are many different types of analyses that can be done with this data. For example, we can creat a maximum projection image of the data to see how our cells respond to certain stimuli. We can also find out if our cells, if any, are direction selective. We will go over how to perform these analyses, and more, in the next two sections.
 
 # In[ ]:
 

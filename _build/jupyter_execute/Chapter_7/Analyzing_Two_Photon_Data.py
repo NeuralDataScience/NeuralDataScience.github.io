@@ -290,7 +290,9 @@ print("Preferred direction:", pref_ori)
 print("Preferred temporal frequency:", pref_tf)
 
 
-# [ CLOSING THOUGHTS ON WHAT ELSE YOU CAN DO WITH THIS DATA! ]
+# It is important to not that these are no the only possible analyses that can be done. We could go a step further and also look at the static gratings. We could plot the running speed of the mouse versus the DF/F of our cells to determine what stimlus elicited the fasted response from our mice. We can even use the data to determine the on and off receptive fields all our cells. In the analyses that we performed above we only looked at one experiment container that included one brain area and one cre line, but we are not limited to this and can compare brain areas and cre lines and can begin forming connections between differnt brain regions. 
+# 
+# In conclusion, there are many different analyses that you can perform with the two photon imaging data. It is important to look through the downloaded data to ensure your desired brain regions, cre lines, and computed metrics are all availabed before beginning your work. 
 
 # In[ ]:
 
