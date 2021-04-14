@@ -35,19 +35,19 @@
     - file: Chapter_5/Plotting_A_Single_Sweep_of_Data
     - file: Chapter_5/Available_Pre-Computed_Features
     - file: Chapter_5/Comparing_Different_Types_of_Cells
-    
-- file: Chapter_6/Large_Scale_Electrophysiology
+
+- file: Chapter_6/Two_Photon_Imaging
   sections:
-    - file: Chapter_6/Downloading_Large_Scale_Data
-    - file: Chapter_6/Large_Scale_Electrophysiology_and_Behavior
-    - file: Chapter_6/Identifying_Cells_with_Optogenetics
-    - file: Chapter_6/Correlations
-    
-- file: Chapter_7/Two_Photon_Imaging
+    - file: Chapter_6/Retrieving_Brain_Observatory_Data
+    - file: Chapter_6/Analyzing_Two_Photon_Data
+    - file: Chapter_6/Correlations_in_Two_Photon_Data
+
+- file: Chapter_7/Large_Scale_Electrophysiology
   sections:
-    - file: Chapter_7/Retrieving_Brain_Observatory_Data
-    - file: Chapter_7/Analyzing_Two_Photon_Data
-    - file: Chapter_7/Correlations_in_Two_Photon_Data
+    - file: Chapter_7/Downloading_Large_Scale_Data
+    - file: Chapter_7/Large_Scale_Electrophysiology_and_Behavior
+    - file: Chapter_7/Identifying_Cells_with_Optogenetics
+    - file: Chapter_7/Correlations
     
 - file: Chapter_8/Connectivity_Atlas
   sections: 

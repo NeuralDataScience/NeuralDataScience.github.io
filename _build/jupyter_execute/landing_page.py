@@ -44,8 +44,8 @@
 # Chapter_3/Statistical_Concepts
 # Chapter_4/Neurodata_Without_Borders
 # Chapter_5/Single-Cell_Electrophysiology
-# Chapter_6/Large_Scale_Electrophysiology
-# Chapter_7/Two_Photon_Imaging
+# Chapter_6/Two_Photon_Imaging
+# Chapter_7/Large_Scale_Electrophysiology
 # Chapter_8/Connectivity_Atlas
 # Chapter_9/Brain_Imaging_Data_Structures
 # Chapter_10/Text_Analyses_of_Neuroscience_Literature

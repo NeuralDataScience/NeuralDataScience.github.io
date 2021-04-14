@@ -3,27 +3,22 @@
 
 # # Downloading Experimental Data 
 
-# This section will serve as a turorial on how to access and downlaod experimental data from the Allen Brain Mouse Connectivity Atlas. In this tutorial you will learn to download metadata by transgenic line and by injection struture. You will also learn about the importance of structure sets as well as the StructureTree class. By the end of this tutorial you will be ready to use this downloaded data for possible analyses.  
+# This section will serve as a tutorial on how to access and download experimental data from the Allen Brain Mouse Connectivity Atlas. In this tutorial you will learn to download metadata by transgenic line as well as by injection structure. By the end of this tutorial you will be ready to use this downloaded data to check for connections between brain areas and build out analyses of your own.  
 
 # In[1]:
 
 
-# Import common packages
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-
-get_ipython().run_line_magic('matplotlib', 'inline')
-print('Packages imported.')
+import pandas as pd 
 
 
+# ## Setup
 # To access the mouse connectivity data through the SDK, we first need to `import` the [MouseConnectivityCache class](https://alleninstitute.github.io/AllenSDK/connectivity.html). This class caches metadata about the mouse connectivty database and provides methods needed to download and analyze the data. For a full list of methods for the Mouse Connectivity Class object, please visit the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html'> original documentation</a>.
 
 # In[2]:
 
 
 # Import the MouseConnectivityCache
-import allensdk
 from allensdk.core.mouse_connectivity_cache import MouseConnectivityCache
 
 # Create an instance of the class and assign it to a variable, mcc
@@ -33,27 +28,28 @@ print(mcc)
 
 # ## Download experimental metadata by transgenic line
 
-# Now that we have our instance of the mouse connectivity cache, we can start downloading our experimental metadata. To do this, we will call `get_experiments()` on our connectivity instance. The method takes in the arguments `cre` and `injection_structure_ids`, to filter the downoaded data to match your given criteria. We'll use the argument `dataframe=True` to automatically assign this dowloaded data into a dataframe.
+# Now that we have our instance of the mouse connectivity cache (`mcc`), we can download our experimental metadata. To do this, we will call `get_experiments()` on our connectivity instance. The method takes in the arguments `cre` and `injection_structure_ids`, to filter the downoaded data to match your given criteria (cre line and injection structure, respectively). We'll also use the argument `dataframe=True` to automatically assign this dowloaded data into a dataframe.
 
 # In[3]:
 
 
-#Dowload all the experiments, no filter
+#Download meta data for all of the experiments, without filtering for cre line or injection structure
 mouse_exp_df = mcc.get_experiments(dataframe=True)
 mouse_exp_df.head()
 
 
-# This gives us metadata on all the expereiments in the dataset. Alternatively, you can specify within the method wether you would like to filter certain experiments by `transgenic_line`. Let's take a look at what trangenic lines are available to us. 
+# This gives us metadata on all the expereiments in the dataset. Let's take a look at what trangenic lines are available in these experiments. 
 
 # In[4]:
 
 
-col = 'transgenic_line'
-transgenic_lines = mouse_exp_df[col].unique()
+transgenic_lines = mouse_exp_df['transgenic_line'].unique()
 print(transgenic_lines)
 
 
 # Let's start by creating a dataframe that only contains experiments with the first three Cre lines in the list above *(Penk-IRES2-Cre-neo, Gabrr3-Cre_KC112, Hdc-Cre_IM1)*. You can change the Cre lines by changing the values in the list assigned to `transgenic_lines`. Remember to copy the Cre line of interest exactly, including the single quotes. We'll then use this list in the argument `cre = ` in our call to `get_experiments`.
+# 
+# *Note*: We could have also selected for transgenic lines by [subsetting the dataframe](https://neuraldatascience.github.io/Chapter_2/Pandas.html#subsetting) containing all of the experiments.
 
 # In[5]:
 
@@ -65,7 +61,7 @@ transgenic_lines = ['Penk-IRES2-Cre-neo','Gabrr3-Cre_KC112','Hdc-Cre_IM1']
 transgenic_line_df = mcc.get_experiments(cre = transgenic_lines, dataframe=True)
 
 # Print the length of our dataframe 
-print('There are' + ' ' + str(len(transgenic_line_df)) + ' ' + 'experiments in these Cre lines: \n' + str(transgenic_lines))
+print('There are'+' '+ str(len(transgenic_line_df))+' '+'experiments in these Cre lines: \n'+str(transgenic_lines))
 
 transgenic_line_df.head()
 
@@ -102,7 +98,7 @@ hyp_df.head()
 
 # ## Putting it All Together 
 
-# Below is an example of how we can combine both filtering by Cre line and by injection structure to get a more refined set of data.
+# Below is an example of how we can combine both filtering by both transgenic mouse line and by injection structure to get a more refined set of data.
 
 # In[8]:
 
@@ -148,12 +144,13 @@ print(structure_name[:19])
 # - structures that coarsely partition the brain.
 # - structures that bear functional similarity.
 # 
-# To see only structure sets relevant to the adult mouse brain, use the StructureTree:
+# To see only structure sets relevant to the adult mouse brain, use the [StructureTree](https://allensdk.readthedocs.io/en/latest/allensdk.core.structure_tree.html):
 
 # In[10]:
 
 
 from allensdk.api.queries.ontologies_api import OntologiesApi
+import pandas as pd
 
 oapi = OntologiesApi()
 
@@ -161,10 +158,10 @@ oapi = OntologiesApi()
 structure_set_ids = structure_tree.get_structure_sets()
 
 # query the API for information on those structure sets
-pd.DataFrame(oapi.get_structure_sets(structure_set_ids))
+pd.DataFrame(oapi.get_structure_sets(structure_set_ids)).head()
 
 
-# As you can see from the table above, there are many different sets that our available brain structures can be grouped in. Below we will look into our Mouse Connectivity Summary data by specifying the set ID using the `get_structure_by_set_id()` method. 
+# As you can see from the table above, there are many different sets that our available brain structures can be grouped in, either by brain area (e.g. isocortex) or by dataset (e.g. ABA - Differential Search). Below we will look into our Mouse Connectivity Summary data by specifying the set ID using the `get_structure_by_set_id()` method. 
 
 # In[11]:
 
