@@ -124,13 +124,13 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_6/Large_Scale_Electrophysiology.html">
-   6. Large Scale Electrophysiology
+  <a class="reference internal" href="../Chapter_6/Two_Photon_Imaging.html">
+   6. Two Photon Imaging
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_7/Two_Photon_Imaging.html">
-   7. Two Photon Imaging
+  <a class="reference internal" href="../Chapter_7/Large_Scale_Electrophysiology.html">
+   7. Large Scale Electrophysiology
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -260,23 +260,28 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   8.1.1. Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#download-experimental-metadata-by-transgenic-line">
-   8.1.1. Download experimental metadata by transgenic line
+   8.1.2. Download experimental metadata by transgenic line
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#download-experimental-metadata-by-injection-structure">
-   8.1.2. Download experimental metadata by injection structure
+   8.1.3. Download experimental metadata by injection structure
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#putting-it-all-together">
-   8.1.3. Putting it All Together
+   8.1.4. Putting it All Together
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#structure-tree">
-   8.1.4. Structure Tree
+   8.1.5. Structure Tree
   </a>
  </li>
 </ul>
@@ -292,30 +297,21 @@
                 
   <div class="section" id="downloading-experimental-data">
 <h1><span class="section-number">8.1. </span>Downloading Experimental Data<a class="headerlink" href="#downloading-experimental-data" title="Permalink to this headline">¶</a></h1>
-<p>This section will serve as a turorial on how to access and downlaod experimental data from the Allen Brain Mouse Connectivity Atlas. In this tutorial you will learn to download metadata by transgenic line and by injection struture. You will also learn about the importance of structure sets as well as the StructureTree class. By the end of this tutorial you will be ready to use this downloaded data for possible analyses.</p>
+<p>This section will serve as a tutorial on how to access and download experimental data from the Allen Brain Mouse Connectivity Atlas. In this tutorial you will learn to download metadata by transgenic line as well as by injection structure. By the end of this tutorial you will be ready to use this downloaded data to check for connections between brain areas and build out analyses of your own.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import common packages</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="o">%</span><span class="k">matplotlib</span> inline 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages imported.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages imported.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
 </pre></div>
 </div>
 </div>
 </div>
+<div class="section" id="setup">
+<h2><span class="section-number">8.1.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>To access the mouse connectivity data through the SDK, we first need to <code class="docutils literal notranslate"><span class="pre">import</span></code> the <a class="reference external" href="https://alleninstitute.github.io/AllenSDK/connectivity.html">MouseConnectivityCache class</a>. This class caches metadata about the mouse connectivty database and provides methods needed to download and analyze the data. For a full list of methods for the Mouse Connectivity Class object, please visit the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html'> original documentation</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the MouseConnectivityCache</span>
-<span class="kn">import</span> <span class="nn">allensdk</span>
 <span class="kn">from</span> <span class="nn">allensdk.core.mouse_connectivity_cache</span> <span class="kn">import</span> <span class="n">MouseConnectivityCache</span>
 
 <span class="c1"># Create an instance of the class and assign it to a variable, mcc</span>
@@ -325,17 +321,18 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7fb87dbceb50&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7fec5f5bae50&gt;
 </pre></div>
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="download-experimental-metadata-by-transgenic-line">
-<h2><span class="section-number">8.1.1. </span>Download experimental metadata by transgenic line<a class="headerlink" href="#download-experimental-metadata-by-transgenic-line" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have our instance of the mouse connectivity cache, we can start downloading our experimental metadata. To do this, we will call <code class="docutils literal notranslate"><span class="pre">get_experiments()</span></code> on our connectivity instance. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre</span></code> and <code class="docutils literal notranslate"><span class="pre">injection_structure_ids</span></code>, to filter the downoaded data to match your given criteria. We’ll use the argument <code class="docutils literal notranslate"><span class="pre">dataframe=True</span></code> to automatically assign this dowloaded data into a dataframe.</p>
+<h2><span class="section-number">8.1.2. </span>Download experimental metadata by transgenic line<a class="headerlink" href="#download-experimental-metadata-by-transgenic-line" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have our instance of the mouse connectivity cache (<code class="docutils literal notranslate"><span class="pre">mcc</span></code>), we can download our experimental metadata. To do this, we will call <code class="docutils literal notranslate"><span class="pre">get_experiments()</span></code> on our connectivity instance. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre</span></code> and <code class="docutils literal notranslate"><span class="pre">injection_structure_ids</span></code>, to filter the downoaded data to match your given criteria (cre line and injection structure, respectively). We’ll also use the argument <code class="docutils literal notranslate"><span class="pre">dataframe=True</span></code> to automatically assign this dowloaded data into a dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Dowload all the experiments, no filter</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Download meta data for all of the experiments, without filtering for cre line or injection structure</span>
 <span class="n">mouse_exp_df</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_experiments</span><span class="p">(</span><span class="n">dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">mouse_exp_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -497,11 +494,10 @@
 </table>
 </div></div></div>
 </div>
-<p>This gives us metadata on all the expereiments in the dataset. Alternatively, you can specify within the method wether you would like to filter certain experiments by <code class="docutils literal notranslate"><span class="pre">transgenic_line</span></code>. Let’s take a look at what trangenic lines are available to us.</p>
+<p>This gives us metadata on all the expereiments in the dataset. Let’s take a look at what trangenic lines are available in these experiments.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;transgenic_line&#39;</span>
-<span class="n">transgenic_lines</span> <span class="o">=</span> <span class="n">mouse_exp_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transgenic_lines</span> <span class="o">=</span> <span class="n">mouse_exp_df</span><span class="p">[</span><span class="s1">&#39;transgenic_line&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">transgenic_lines</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -545,6 +541,7 @@
 </div>
 </div>
 <p>Let’s start by creating a dataframe that only contains experiments with the first three Cre lines in the list above <em>(Penk-IRES2-Cre-neo, Gabrr3-Cre_KC112, Hdc-Cre_IM1)</em>. You can change the Cre lines by changing the values in the list assigned to <code class="docutils literal notranslate"><span class="pre">transgenic_lines</span></code>. Remember to copy the Cre line of interest exactly, including the single quotes. We’ll then use this list in the argument <code class="docutils literal notranslate"><span class="pre">cre</span> <span class="pre">=</span> </code> in our call to <code class="docutils literal notranslate"><span class="pre">get_experiments</span></code>.</p>
+<p><em>Note</em>: We could have also selected for transgenic lines by <a class="reference external" href="https://neuraldatascience.github.io/Chapter_2/Pandas.html#subsetting">subsetting the dataframe</a> containing all of the experiments.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose your Cre lines</span>
@@ -554,7 +551,7 @@
 <span class="n">transgenic_line_df</span> <span class="o">=</span> <span class="n">mcc</span><span class="o">.</span><span class="n">get_experiments</span><span class="p">(</span><span class="n">cre</span> <span class="o">=</span> <span class="n">transgenic_lines</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Print the length of our dataframe </span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There are&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transgenic_line_df</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="s1">&#39;experiments in these Cre lines: </span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">transgenic_lines</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There are&#39;</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">transgenic_line_df</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="s1">&#39;experiments in these Cre lines: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">transgenic_lines</span><span class="p">))</span>
 
 <span class="n">transgenic_line_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -722,7 +719,7 @@
 </div>
 </div>
 <div class="section" id="download-experimental-metadata-by-injection-structure">
-<h2><span class="section-number">8.1.2. </span>Download experimental metadata by injection structure<a class="headerlink" href="#download-experimental-metadata-by-injection-structure" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.1.3. </span>Download experimental metadata by injection structure<a class="headerlink" href="#download-experimental-metadata-by-injection-structure" title="Permalink to this headline">¶</a></h2>
 <p>In order to use the <code class="docutils literal notranslate"><span class="pre">injection_structure_ids</span></code> argument above, you need the structure IDs. The MouseConnectivityCache has a method for retrieving the adult mouse structure tree as an StructureTree class instance. The StructureTree class has many methods that allows you to access lists of brain structures through their ID, name, acronym, and many other properties. This is done by executing the <code class="docutils literal notranslate"><span class="pre">get_structure_tree()</span></code> method on your MouseConnectivityCache instance (<code class="docutils literal notranslate"><span class="pre">mcc</span></code>).</p>
 <p>Below we will access information on the hypothalamus via its name by calling <code class="docutils literal notranslate"><span class="pre">get_structures_by_name()</span></code> on our StructureTree instance.</p>
 <div class="cell docutils container">
@@ -927,8 +924,8 @@
 </div>
 </div>
 <div class="section" id="putting-it-all-together">
-<h2><span class="section-number">8.1.3. </span>Putting it All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
-<p>Below is an example of how we can combine both filtering by Cre line and by injection structure to get a more refined set of data.</p>
+<h2><span class="section-number">8.1.4. </span>Putting it All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
+<p>Below is an example of how we can combine both filtering by both transgenic mouse line and by injection structure to get a more refined set of data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose desired structure </span>
@@ -1135,7 +1132,7 @@
 </div>
 </div>
 <div class="section" id="structure-tree">
-<h2><span class="section-number">8.1.4. </span>Structure Tree<a class="headerlink" href="#structure-tree" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">8.1.5. </span>Structure Tree<a class="headerlink" href="#structure-tree" title="Permalink to this headline">¶</a></h2>
 <p>So far, we know that the hypothalamus is a brain structure available to us in our experiments, but what about the rest of the brain structures? How do we find what are all the brain structures availabe to us? To do so, we can take a look at the unique values under the <code class="docutils literal notranslate"><span class="pre">name</span></code> column, in our summary of brain structures.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1176,10 +1173,11 @@
 <li><p>structures that coarsely partition the brain.</p></li>
 <li><p>structures that bear functional similarity.</p></li>
 </ul>
-<p>To see only structure sets relevant to the adult mouse brain, use the StructureTree:</p>
+<p>To see only structure sets relevant to the adult mouse brain, use the <a class="reference external" href="https://allensdk.readthedocs.io/en/latest/allensdk.core.structure_tree.html">StructureTree</a>:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">allensdk.api.queries.ontologies_api</span> <span class="kn">import</span> <span class="n">OntologiesApi</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">oapi</span> <span class="o">=</span> <span class="n">OntologiesApi</span><span class="p">()</span>
 
@@ -1187,7 +1185,7 @@
 <span class="n">structure_set_ids</span> <span class="o">=</span> <span class="n">structure_tree</span><span class="o">.</span><span class="n">get_structure_sets</span><span class="p">()</span>
 
 <span class="c1"># query the API for information on those structure sets</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">oapi</span><span class="o">.</span><span class="n">get_structure_sets</span><span class="p">(</span><span class="n">structure_set_ids</span><span class="p">))</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">oapi</span><span class="o">.</span><span class="n">get_structure_sets</span><span class="p">(</span><span class="n">structure_set_ids</span><span class="p">))</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1246,179 +1244,11 @@
       <td>184527634</td>
       <td>Mouse Connectivity - Target Search</td>
     </tr>
-    <tr>
-      <th>5</th>
-      <td>Structures whose surfaces are represented by a...</td>
-      <td>691663206</td>
-      <td>Mouse Brain - Has Surface Mesh</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>Summary structures of the midbrain</td>
-      <td>688152365</td>
-      <td>Midbrain</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>Summary structures of the medulla</td>
-      <td>688152367</td>
-      <td>Medulla</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>Summary structures of the striatum</td>
-      <td>688152361</td>
-      <td>Striatum</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>Structures representing subdivisions of the mo...</td>
-      <td>687527945</td>
-      <td>Mouse Connectivity - Summary</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>Summary structures of the hippocampal formation</td>
-      <td>688152359</td>
-      <td>Hippocampal Formation</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>List of visual cortex structures targeted for ...</td>
-      <td>514166994</td>
-      <td>Allen Brain Observatory targeted structure set</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>Summary structures of the olfactory areas</td>
-      <td>688152358</td>
-      <td>Olfactory Areas</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>Curated list of non-overlapping substructures ...</td>
-      <td>167587189</td>
-      <td>Brain – Summary Structures</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>List of structures in Isocortex layer 4</td>
-      <td>667481445</td>
-      <td>Isocortex layer 4</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>Structures representing the major divisions of...</td>
-      <td>687527670</td>
-      <td>Brain - Major Divisions</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>Summary structures of the pallidum</td>
-      <td>688152362</td>
-      <td>Pallidum</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>List of Primary injection structures for BDA/A...</td>
-      <td>114512892</td>
-      <td>Mouse Connectivity - BDA/AAV Primary Injection...</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>List of primary AND secondary injection struct...</td>
-      <td>112905813</td>
-      <td>Mouse Connectivity - BDA/AAV All Injection Str...</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>List of structures for ABA Fine Structure Search</td>
-      <td>10</td>
-      <td>ABA - Fine Structure Search</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>List of primary AND secondary injection struct...</td>
-      <td>112905828</td>
-      <td>Mouse Connectivity - Projection All Injection ...</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>List of structures in Isocortex layer 6a</td>
-      <td>667481449</td>
-      <td>Isocortex layer 6a</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>List of structures representing a areal level ...</td>
-      <td>3</td>
-      <td>Mouse - Areas</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>List of structures in Isocortex layer 1</td>
-      <td>667481440</td>
-      <td>Isocortex layer 1</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>Summary structures of the hypothalamus</td>
-      <td>688152364</td>
-      <td>Hypothalamus</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>List of structures in Isocortex layer 2/3</td>
-      <td>667481441</td>
-      <td>Isocortex layer 2/3</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>All mouse visual areas with layers</td>
-      <td>396673091</td>
-      <td>Mouse Cell Types - Structures</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>Summary structures of the cortical subplate</td>
-      <td>688152360</td>
-      <td>Cortical Subplate</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>Summary structures of the thalamus</td>
-      <td>688152363</td>
-      <td>Thalamus</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>List of structures representing a coarse level...</td>
-      <td>2</td>
-      <td>Mouse - Coarse</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>Summary structures of the isocortex</td>
-      <td>688152357</td>
-      <td>Isocortex</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>List of Primary injection structures for Proje...</td>
-      <td>114512891</td>
-      <td>Mouse Connectivity - Projection Primary Inject...</td>
-    </tr>
-    <tr>
-      <th>32</th>
-      <td>Summary structures of the pons</td>
-      <td>688152366</td>
-      <td>Pons</td>
-    </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>As you can see from the table above, there are many different sets that our available brain structures can be grouped in. Below we will look into our Mouse Connectivity Summary data by specifying the set ID using the <code class="docutils literal notranslate"><span class="pre">get_structure_by_set_id()</span></code> method.</p>
+<p>As you can see from the table above, there are many different sets that our available brain structures can be grouped in, either by brain area (e.g. isocortex) or by dataset (e.g. ABA - Differential Search). Below we will look into our Mouse Connectivity Summary data by specifying the set ID using the <code class="docutils literal notranslate"><span class="pre">get_structure_by_set_id()</span></code> method.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the above table, &quot;Mouse Connectivity - Summary&quot; has id 687527945</span>
