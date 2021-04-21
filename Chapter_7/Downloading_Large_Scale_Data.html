@@ -288,8 +288,8 @@
   <div class="section" id="downloading-large-scale-data">
 <h1><span class="section-number">7.1. </span>Downloading Large Scale Data<a class="headerlink" href="#downloading-large-scale-data" title="Permalink to this headline">¶</a></h1>
 <p>This section will teach you how to interact with the Neuropixels dataset, specifically how to download experimental sessions, return procesed data, and subset your data to contain only brain regions you are interested in.</p>
-<p>We will first need to import the <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> from the Allen SDK and create an instance of the class. The class is needed to download the metadata and data of the Neuropixels dataset and contains methods used to return information on our experiments. For the full list of methods, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'> original documentation</a>.</p>
-<p>Below we will execute <code class="docutils literal notranslate"><span class="pre">get_session_table()</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> object which will return a dataframe with metadata on each experiment session.</p>
+<p>We will first need to import the <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> from the Allen SDK and create an instance of the class. The class is used to download the metadata and data for all sessions in the Neuropixels dataset. For the full list of methods, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'> original documentation</a>.</p>
+<p>Below we will execute <code class="docutils literal notranslate"><span class="pre">get_session_table()</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> object which will return a dataframe with metadata on each session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
@@ -304,7 +304,7 @@
 <span class="c1"># Create the EcephysProjectCache object</span>
 <span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="n">manifest_path</span><span class="p">)</span>
 
-<span class="c1"># Get the sessions available in this dataset</span>
+<span class="c1"># Return all sessions available in this dataset</span>
 <span class="n">sessions</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_table</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of sessions: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)))</span>
 <span class="n">sessions</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
