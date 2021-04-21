@@ -150,7 +150,8 @@ plt.show()
 
 
 all_mean_waveforms = session.mean_waveforms
-all_mean_waveforms
+print('Total number of waveforms:')
+print(len(all_mean_waveforms))
 
 
 # We can plot the mean waveforms of our units with the method `plot_mean_waveforms` from the ecephys visualization package. The method uses the `mean_waveforms` dictionary, `unit_id`'s, and `peak_channel_id`'s as arguments. For more information on this method, visit <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.
@@ -187,7 +188,7 @@ uois_df
 # Create dictionary of waveforms that only include units of interest
 waveforms_oi = {}
 for ids in uois_ids:
-    waveforms_oi[ids] = session.mean_waveforms[ids]
+    waveforms_oi[ids] = all_mean_waveforms[ids]
 
 # Create dictionary of peak channels that only include units of interest
 peak_channels_oi = {}
@@ -204,7 +205,9 @@ plt.show()
 
 # ## Stimulus Presentations
 
-# You can access the different stimuli that were presented in the session by using the attribute `stimulus_names`. Each presentation contains a set a parameters which distinguish two of the same stimulus types (i.e two gabors presentations). For example two gabors stimuli may be presented, but they may have differing temporal frequencies or different x and y positions. Ececuting the `stimulus_presentations` method on our session object will return a pandas dataframe with parameters for each stimulus as the columns. Alternatively, you could use the `get_stimulus_table()` method to return a subset of stimulus presentation by `stimulus_name`. 
+# The spike data can be sorted according to the type of stimulus that was presented to the mouse. You can access the different stimuli that were presented in the session by using the attribute `stimulus_names`. Each stimulus contains a set of parameters that were used when presented to the mouse. For example two gabors stimuli may be presented, but they may have differing temporal frequencies or different x and y positions. 
+# 
+# Ececuting the `stimulus_presentations` method on our session object will return a pandas dataframe with parameters for each stimulus as the columns which we can use to compare the resoponses of units to different stimulus presentations. 
 
 # In[12]:
 
@@ -235,6 +238,8 @@ stim_pres.head()
 stim_timeblocks.head()
 
 
+# Alternatively, you could use the `get_stimulus_table()` method to return a subset of stimulus presentation by `stimulus_name`. Below we will investigate how our neuronal units responded to a `flashes` stimulus presentations.
+
 # In[15]:
 
 
@@ -242,48 +247,79 @@ flashes_df = session.get_stimulus_table(['flashes'])
 flashes_df.head()
 
 
+# Our goal will be to plot the spike trains of a unit according to the `stimulus_presentation_id` that were presented. We can use `presentationwise_spike_counts` to build an array of spike counts. We will need to specify the `bin_edges` and `stimulus_presentation_ids` to execute this method. The duration of a presented stimulus is roughly 0.25 seconds, so we will create time bins of 0.01 seconds. 
+
 # In[16]:
 
 
+# Assign the duration of a presented stimulus
 first_flashes_id = flashes_df.index[0]
 first_flashes_duration = flashes_df.loc[first_flashes_id, 'duration']
-first_flashes_duration
 
-
-# In[17]:
-
-
-# Create timestamps for spike raster plot
+# Create bins for our timestamps
 time_step = 1/100
 timestamps = np.arange(0.0, (first_flashes_duration + time_step), time_step)
 
 timestamps
 
 
-# In[18]:
+# In[17]:
 
 
-flashes_spike_count = session.presentationwise_spike_counts(
+# Build your array of spike counts
+flashes_histogram = session.presentationwise_spike_counts(
     bin_edges = timestamps,
     stimulus_presentation_ids = flashes_df.index,
     unit_ids = None)
 
-flashes_spike_count
+flashes_histogram
 
+
+# We have created our time bins and built our array of spike counts and are ready to plot our neuorns' reponses to stimulus presentations. As you can see, `flashes_histogram` is not a normal array, it is an `xarray.DataArray` which we have not see before. An `xarray.DataArray` can be thought of as a NumPy array with labled axes and indices. An `xarray.DataArray` contains dimensions, which tell you what each axes in the array is, and coordiates which label each dimension. For more information on `xarray.DataArray` objects, please visit <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.
+# 
+# Below we plot the spike trains of the first unit in `flashes_histogram` for the first 10 `stimulus_presentation_ids`.
+
+# In[18]:
+
+
+# Plot the first unit's response to the first 10 presentations of flashes
+for i in range(10):   
+    plt.plot(flashes_histogram.time_relative_to_stimulus_onset, i+flashes_histogram[i,:,0])
+plt.xlabel("Time (s)", fontsize=16)
+plt.ylabel("Presentation", fontsize=16)
+plt.title("Response of Unit 950907205")
+plt.show()
+
+
+# We can also plot the mean number of spikes of all the units across all presentations. Below we will take the mean of all spike counts for presentations of the flashes `stimulus_name`. We willl be using `xrplot` to plot our heatmap of mean spike counts. For information on how to use `xrplot`, please visit <a href = 'http://xarray.pydata.org/en/stable/plotting.html'> here</a>.
 
 # In[19]:
 
 
-spf = flashes_spike_count[0]
-max_len = spf.shape[0]
+# Assign the mean spike times of all units' responses to flashes presentations 
+mean_flash_histogram = flashes_histogram.mean(dim = 'stimulus_presentation_id')
+mean_flash_histogram.coords
+
+import xarray.plot as xrplot
+xrplot.imshow(darray=mean_flash_histogram, x="time_relative_to_stimulus_onset",
+                                      y="unit_id")
+plt.title('Mean Spike Counts on Flash Presentations')
+plt.show()
 
 
 # In[20]:
 
 
-# get two spike trains in gabors activity
-spike_train_1_flash=spf[:max_len, 63]
-spike_train_2_flash=spf[:max_len, 75]
+spf = flashes_histogram[0]
+max_len = spf.shape[0]
+
+
+# In[21]:
+
+
+# get two spike trains in flashes activity
+spike_train_1_flash=spf[:max_len, 0]
+spike_train_2_flash=spf[:max_len, 9]
 
 
 # In[22]:
@@ -301,7 +337,7 @@ ax[1].set_xlabel('Time bins (10 ms)')
 plt.show()
 
 
-# In[27]:
+# In[23]:
 
 
 # compute the correlogram for spontaneous activity
@@ -311,14 +347,14 @@ xcorr_flashes = sp.signal.correlate(spike_train_1_flash,spike_train_2_flash)
 time_shift_flashes = np.arange(-len(xcorr_flashes)/2,len(xcorr_flashes)/2,1)
 
 
-# In[28]:
+# In[24]:
 
 
 plt.figure(figsize=(14,8))
 plt.plot(time_shift_flashes,xcorr_flashes)
 plt.ylabel('Signal correlation')
 plt.xlabel('Time steps (10 ms)')
-plt.title('Drifting gratings')
+plt.title('Flashes Stimulus Presentation')
 plt.show()
 
 
@@ -328,7 +364,7 @@ plt.show()
 # 
 # We first need to select a unit to focus on. Below, we will assign the spike times of a unit from the CA1 area. 
 
-# In[29]:
+# In[25]:
 
 
 # Assign the first CA1 spike times array by subselecting with unit_id
@@ -336,7 +372,7 @@ all_spike_times = session.spike_times
 first_CA1_spike_times = all_spike_times[first_CA1_units_ids]
 
 # Return length of spike times and values
-print('Spikes found for unit ' + str(first_CA1_units_ids) + ': ' + str(len(session.spike_times[first_CA1_units_ids])))
+print('Spikes found for unit ' + str(first_CA1_units_ids) + ': ' + str(len(all_spike_times[first_CA1_units_ids])))
 
 print(first_CA1_spike_times)
 
@@ -345,7 +381,7 @@ print(first_CA1_spike_times)
 # 
 # Once we have our spike count array, we can create a rasterplot using `raster_plot()`. For more information on how to use `raster_plot()`, please visit<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.
 
-# In[30]:
+# In[26]:
 
 
 # Return presentation ids from stimulus presentation dataframe for 'flashes' stimulus
@@ -367,29 +403,11 @@ ecvis.raster_plot(plot_times, title = 'Raster Plot for stimulus presentation 364
 
 plt.show()
 
-print('Metrics for presentation')
+print('Parameters for presentation 3647')
 stim_pres.loc[first_flashes_presentation_id]
 
 
-# In[31]:
-
-
-# Assign the stimulus presentation id
-first_flashes_presentation_id = times['stimulus_presentation_id'].values[0]
-
-# Assign recording times for 'flashes' stimulus presentations
-plot_times = times[times['stimulus_presentation_id'] == first_flashes_presentation_id]
-
-# Assign Raster plot 
-ecvis.raster_plot(plot_times, title = 'Raster Plot for stimulus presentation 3647')
-
-plt.show()
-
-print('Metrics for presentation')
-stim_pres.loc[first_flashes_presentation_id]
-
-
-# In[32]:
+# In[27]:
 
 
 spike_statistics = session.conditionwise_spike_statistics(stimulus_presentation_ids = flashes_presentation_ids,
