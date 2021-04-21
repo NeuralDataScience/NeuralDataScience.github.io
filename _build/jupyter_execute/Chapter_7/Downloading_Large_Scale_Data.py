@@ -5,9 +5,9 @@
 
 # This section will teach you how to interact with the Neuropixels dataset, specifically how to download experimental sessions, return procesed data, and subset your data to contain only brain regions you are interested in. 
 # 
-# We will first need to import the `EcephysProjectCache` from the Allen SDK and create an instance of the class. The class is needed to download the metadata and data of the Neuropixels dataset and contains methods used to return information on our experiments. For the full list of methods, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'> original documentation</a>.
+# We will first need to import the `EcephysProjectCache` from the Allen SDK and create an instance of the class. The class is used to download the metadata and data for all sessions in the Neuropixels dataset. For the full list of methods, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'> original documentation</a>.
 # 
-# Below we will execute `get_session_table()` on our `EcephysProjectCache` object which will return a dataframe with metadata on each experiment session. 
+# Below we will execute `get_session_table()` on our `EcephysProjectCache` object which will return a dataframe with metadata on each session. 
 
 # In[1]:
 
@@ -24,7 +24,7 @@ manifest_path = 'manifest.json'
 # Create the EcephysProjectCache object
 cache = EcephysProjectCache(manifest=manifest_path)
 
-# Get the sessions available in this dataset
+# Return all sessions available in this dataset
 sessions = cache.get_session_table()
 print('Total number of sessions: ' + str(len(sessions)))
 sessions.head()
