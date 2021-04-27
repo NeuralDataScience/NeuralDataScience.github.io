@@ -270,33 +270,28 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#units">
-   7.2.1. Units
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#firing-rate">
-   7.2.2. Firing Rate
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#waveforms">
-   7.2.3. Waveforms
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#stimulus-presentations">
-   7.2.4. Stimulus Presentations
+   7.2.1. Firing Rate
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#spike-times">
-   7.2.5. Spike Times
+   7.2.2. Spike Times
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#stimulus-presentations">
+   7.2.3. Stimulus Presentations
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#running-speeds">
-   7.2.6. Running Speeds
+   7.2.4. Running Speeds
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#signal-correlations">
+   7.2.5. Signal Correlations
   </a>
  </li>
 </ul>
@@ -341,6 +336,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.patches</span> <span class="k">as</span> <span class="nn">mpatches</span>
 
 <span class="c1"># Import the Neuropixels Cache</span>
 <span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_cache</span> <span class="kn">import</span> <span class="n">EcephysProjectCache</span>
@@ -361,514 +357,22 @@
 
 <span class="c1"># Download our session data </span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">721123822</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Session downloaded.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Session downloaded.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="units">
-<h2><span class="section-number">7.2.1. </span>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have downloaded the single session file, we can begin to explore our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object. The <code class="docutils literal notranslate"><span class="pre">units</span></code> property of our session object returns a dataframe that contains the recorded activity of sorted neurons from a mouse brain. There are many metrics stored within <code class="docutils literal notranslate"><span class="pre">units</span></code> that can be used in your potential analyses. Some key metrics include:</p>
-<ul class="simple">
-<li><p><strong>firing rate</strong>: mean spike rate during the entire session</p></li>
-<li><p><strong>presence ratio</strong>: fraction of session when spikes are present</p></li>
-<li><p><strong>ISI violations</strong>: rate of refractory period violations</p></li>
-<li><p><strong>peak_channel_id</strong>: channel in which peak-to-trough amplitutde is maximized</p></li>
-<li><p><strong>d’</strong>: classification accuracy based on LDA</p></li>
-<li><p><strong>SNR</strong>: signal to noise ratio</p></li>
-<li><p><strong>Maximum drift</strong>: Maximum change in spike depth during recording</p></li>
-<li><p><strong>Cumulative drift</strong>: Cumulative change in spike depth during recording</p></li>
-</ul>
-<p>For a full list of methods and attributes that can be called on an <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object, please see <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> here</a>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return units dataframe</span>
+
+<span class="c1"># Return units dataframe with specified snr and isi</span>
 <span class="n">units_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span>
-<span class="n">units_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>amplitude_cutoff</th>
-      <th>firing_rate</th>
-      <th>presence_ratio</th>
-      <th>snr</th>
-      <th>waveform_velocity_below</th>
-      <th>isolation_distance</th>
-      <th>silhouette_score</th>
-      <th>waveform_velocity_above</th>
-      <th>nn_miss_rate</th>
-      <th>waveform_PT_ratio</th>
-      <th>...</th>
-      <th>ecephys_structure_id</th>
-      <th>ecephys_structure_acronym</th>
-      <th>anterior_posterior_ccf_coordinate</th>
-      <th>dorsal_ventral_ccf_coordinate</th>
-      <th>left_right_ccf_coordinate</th>
-      <th>probe_description</th>
-      <th>location</th>
-      <th>probe_sampling_rate</th>
-      <th>probe_lfp_sampling_rate</th>
-      <th>probe_has_lfp_data</th>
-    </tr>
-    <tr>
-      <th>unit_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>950907205</th>
-      <td>0.012123</td>
-      <td>14.739577</td>
-      <td>0.99</td>
-      <td>2.838052</td>
-      <td>NaN</td>
-      <td>129.172458</td>
-      <td>0.193312</td>
-      <td>-0.892797</td>
-      <td>0.004831</td>
-      <td>1.054721</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8456.0</td>
-      <td>3144.0</td>
-      <td>6920.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907524</th>
-      <td>0.002313</td>
-      <td>1.448536</td>
-      <td>0.99</td>
-      <td>4.285082</td>
-      <td>0.686767</td>
-      <td>50.450187</td>
-      <td>0.143138</td>
-      <td>0.068677</td>
-      <td>0.001834</td>
-      <td>0.558508</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8447.0</td>
-      <td>3127.0</td>
-      <td>6924.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907209</th>
-      <td>0.084063</td>
-      <td>0.040263</td>
-      <td>0.96</td>
-      <td>3.343694</td>
-      <td>0.000000</td>
-      <td>19.926951</td>
-      <td>NaN</td>
-      <td>0.156975</td>
-      <td>0.000467</td>
-      <td>0.637890</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8447.0</td>
-      <td>3127.0</td>
-      <td>6924.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907526</th>
-      <td>0.024568</td>
-      <td>0.376838</td>
-      <td>0.99</td>
-      <td>2.697075</td>
-      <td>0.000000</td>
-      <td>66.773857</td>
-      <td>0.092951</td>
-      <td>0.595198</td>
-      <td>0.000235</td>
-      <td>0.576049</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8433.0</td>
-      <td>3102.0</td>
-      <td>6929.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907216</th>
-      <td>0.002750</td>
-      <td>8.277175</td>
-      <td>0.99</td>
-      <td>2.387977</td>
-      <td>-0.343384</td>
-      <td>89.982684</td>
-      <td>0.120142</td>
-      <td>-0.480737</td>
-      <td>0.001606</td>
-      <td>0.651440</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8419.0</td>
-      <td>3077.0</td>
-      <td>6934.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 89 columns</p>
-</div></div></div>
-</div>
-<p>To ensure that the recordings we use in our analysis are all of good quality, we will filter the data according to the signal-to-noise ratio (<code class="docutils literal notranslate"><span class="pre">snr</span></code>) and the <code class="docutils literal notranslate"><span class="pre">ISI_Violations</span></code> of our neurons. Below we will plot the distributions of both.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Signal to noise distribution</span>
-<span class="n">col_1</span> <span class="o">=</span> <span class="s1">&#39;snr&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of SNR&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Signal to Noise Ratio&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_7_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_7_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ISI distribution </span>
-<span class="n">col_2</span> <span class="o">=</span> <span class="s1">&#39;isi_violations&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="n">col_2</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of ISI Violations&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Rate of Refractory Period Violations&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_8_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_8_0.png" />
-</div>
-</div>
-<p>For the purposes of this tutorial, we will use <code class="docutils literal notranslate"><span class="pre">snr</span></code> values greater than 2 and <code class="docutils literal notranslate"><span class="pre">ISI_violation</span></code> values less than 0.1, define our good quality units.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dataframe with our conditions of interest</span>
 <span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="s1">&#39;isi_violations&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
 
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of Recordings with good SNR and Low ISI:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">))</span>
-<span class="n">good_units_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Recordings with good SNR and Low ISI:
-252
-</pre></div>
-</div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>amplitude_cutoff</th>
-      <th>firing_rate</th>
-      <th>presence_ratio</th>
-      <th>snr</th>
-      <th>waveform_velocity_below</th>
-      <th>isolation_distance</th>
-      <th>silhouette_score</th>
-      <th>waveform_velocity_above</th>
-      <th>nn_miss_rate</th>
-      <th>waveform_PT_ratio</th>
-      <th>...</th>
-      <th>ecephys_structure_id</th>
-      <th>ecephys_structure_acronym</th>
-      <th>anterior_posterior_ccf_coordinate</th>
-      <th>dorsal_ventral_ccf_coordinate</th>
-      <th>left_right_ccf_coordinate</th>
-      <th>probe_description</th>
-      <th>location</th>
-      <th>probe_sampling_rate</th>
-      <th>probe_lfp_sampling_rate</th>
-      <th>probe_has_lfp_data</th>
-    </tr>
-    <tr>
-      <th>unit_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>950907205</th>
-      <td>0.012123</td>
-      <td>14.739577</td>
-      <td>0.99</td>
-      <td>2.838052</td>
-      <td>NaN</td>
-      <td>129.172458</td>
-      <td>0.193312</td>
-      <td>-0.892797</td>
-      <td>0.004831</td>
-      <td>1.054721</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8456.0</td>
-      <td>3144.0</td>
-      <td>6920.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907524</th>
-      <td>0.002313</td>
-      <td>1.448536</td>
-      <td>0.99</td>
-      <td>4.285082</td>
-      <td>0.686767</td>
-      <td>50.450187</td>
-      <td>0.143138</td>
-      <td>0.068677</td>
-      <td>0.001834</td>
-      <td>0.558508</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8447.0</td>
-      <td>3127.0</td>
-      <td>6924.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907209</th>
-      <td>0.084063</td>
-      <td>0.040263</td>
-      <td>0.96</td>
-      <td>3.343694</td>
-      <td>0.000000</td>
-      <td>19.926951</td>
-      <td>NaN</td>
-      <td>0.156975</td>
-      <td>0.000467</td>
-      <td>0.637890</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8447.0</td>
-      <td>3127.0</td>
-      <td>6924.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907526</th>
-      <td>0.024568</td>
-      <td>0.376838</td>
-      <td>0.99</td>
-      <td>2.697075</td>
-      <td>0.000000</td>
-      <td>66.773857</td>
-      <td>0.092951</td>
-      <td>0.595198</td>
-      <td>0.000235</td>
-      <td>0.576049</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8433.0</td>
-      <td>3102.0</td>
-      <td>6929.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907216</th>
-      <td>0.002750</td>
-      <td>8.277175</td>
-      <td>0.99</td>
-      <td>2.387977</td>
-      <td>-0.343384</td>
-      <td>89.982684</td>
-      <td>0.120142</td>
-      <td>-0.480737</td>
-      <td>0.001606</td>
-      <td>0.651440</td>
-      <td>...</td>
-      <td>313.0</td>
-      <td>MB</td>
-      <td>8419.0</td>
-      <td>3077.0</td>
-      <td>6934.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 89 columns</p>
-</div></div></div>
-</div>
-<p>Just like we did before in our sessions dataframe, we can return the brain structures that our session’s data was recorded from as well as how many neurons were recorded per brain area.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;ecephys_structure_acronym&#39;</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Available Brain Structures:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Brain Structure Frequency:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Session downloaded.&#39;</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Available Brain Structures:
-[&#39;MB&#39; &#39;SCig&#39; &#39;DG&#39; &#39;CA1&#39; &#39;VISam&#39; &#39;LP&#39; &#39;VIS&#39; &#39;VISp&#39; &#39;LGv&#39; &#39;CA3&#39; &#39;VISl&#39; &#39;APN&#39;
- &#39;POL&#39; &#39;VISal&#39; &#39;VISrl&#39;]
-
- Brain Structure Frequency:
-CA1      42
-LP       38
-VISrl    28
-VISal    25
-DG       23
-VISam    16
-VISl     16
-VIS      15
-VISp     14
-SCig      8
-APN       8
-CA3       6
-MB        5
-LGv       5
-POL       3
-Name: ecephys_structure_acronym, dtype: int64
-</pre></div>
-</div>
 </div>
 </div>
 </div>
 <div class="section" id="firing-rate">
-<h2><span class="section-number">7.2.2. </span>Firing Rate<a class="headerlink" href="#firing-rate" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">7.2.1. </span>Firing Rate<a class="headerlink" href="#firing-rate" title="Permalink to this headline">¶</a></h2>
 <p>In our dataframe, the mean spike rates for each unit can be found under the <code class="docutils literal notranslate"><span class="pre">firing_rate</span></code> column. Let, look at the distibution of firing rates across all brain areas using a violinplot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -880,281 +384,135 @@ Name: ecephys_structure_acronym, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_15_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_15_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_5_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_5_0.png" />
 </div>
 </div>
 </div>
-<div class="section" id="waveforms">
-<h2><span class="section-number">7.2.3. </span>Waveforms<a class="headerlink" href="#waveforms" title="Permalink to this headline">¶</a></h2>
-<p>Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code> are mapped to the mean spike waveform values. The dimensions of the DataArrays are <code class="docutils literal notranslate"><span class="pre">channel</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code> which are recorded in microvolts and seconds, respectivley. For more information on <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>, please visit, <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.</p>
-<p>To access the mean spike waveforms for all units in a session, use the attribute <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> on your <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object.</p>
+<div class="section" id="spike-times">
+<h2><span class="section-number">7.2.2. </span>Spike Times<a class="headerlink" href="#spike-times" title="Permalink to this headline">¶</a></h2>
+<p>Our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object contains spike times for each unit and they can be accessed via the <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> attribute. This returns a dictionary where the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code> of the neural units in our session are mapped to a list of spike times.  With this data, we are able to compare <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> across units and across stimuli by plotting a rasterplot.</p>
+<p>We first need to select a unit to focus on. For the purposes of this notebook we will work units that were taken from the primary visual area (<code class="docutils literal notranslate"><span class="pre">VISp</span></code>). Below, we will assign the spike times of a unit from the <code class="docutils literal notranslate"><span class="pre">VISp</span></code> area.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_mean_waveforms</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">mean_waveforms</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of waveforms:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_mean_waveforms</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the spike times</span>
+<span class="n">all_spike_times</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">spike_times</span>
+
+<span class="c1"># Assign a list of unit ids for units in VISp brain area</span>
+<span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Assign spike times of first VISp entry </span>
+<span class="n">first_VISp_units_id</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">first_VISp_spike_times</span> <span class="o">=</span> <span class="n">all_spike_times</span><span class="p">[</span><span class="n">first_VISp_units_id</span><span class="p">]</span>
+
+<span class="c1"># Return length of spike times and values for for VISp entry </span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spikes found for unit &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">first_VISp_units_id</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">[</span><span class="n">first_VISp_units_id</span><span class="p">])))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">first_VISp_spike_times</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of waveforms:
-444
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spikes found for unit 950908410: 215133
+[5.51623094e-01 6.20356427e-01 7.80456428e-01 ... 9.81109249e+03
+ 9.81112212e+03 9.81115902e+03]
 </pre></div>
 </div>
 </div>
 </div>
-<p>We can plot the mean waveforms of our units with the method <code class="docutils literal notranslate"><span class="pre">plot_mean_waveforms</span></code> from the ecephys visualization package. The method uses the <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> dictionary, <code class="docutils literal notranslate"><span class="pre">unit_id</span></code>’s, and <code class="docutils literal notranslate"><span class="pre">peak_channel_id</span></code>’s as arguments. For more information on this method, visit <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.</p>
-<p>Below we will compare mean waveforms from different brain areas. We will be looking at one wavefrom from the <code class="docutils literal notranslate"><span class="pre">CA1</span></code>, <code class="docutils literal notranslate"><span class="pre">LP</span></code>, <code class="docutils literal notranslate"><span class="pre">DG</span></code>, <code class="docutils literal notranslate"><span class="pre">VISp</span></code>. We first need to create a list of unit_id’s for the waveforms we are interested in.</p>
+<p>With these spike times, we are able to create a raster plot for our unit of interst. Below we will plot out the first 50 seconds of the session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign Unit IDs of different brain areas of interest</span>
-<span class="n">CA1_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CA1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-<span class="n">LP_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-<span class="n">DG_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-<span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-
-<span class="c1"># Return first entry of our brain areas of interst</span>
-<span class="n">first_CA1_units_ids</span> <span class="o">=</span> <span class="n">CA1_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">first_LP_units_ids</span> <span class="o">=</span> <span class="n">LP_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">first_DG_units_ids</span> <span class="o">=</span> <span class="n">DG_unit_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">first_VISp_units_ids</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">uois_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_CA1_units_ids</span><span class="p">,</span> <span class="n">first_LP_units_ids</span><span class="p">,</span> <span class="n">first_DG_units_ids</span><span class="p">,</span> <span class="n">first_VISp_units_ids</span><span class="p">]</span>
-
-<span class="c1"># Return dataframe</span>
-<span class="n">uois_df</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">uois_ids</span><span class="p">]</span>
-
-<span class="n">uois_df</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>amplitude_cutoff</th>
-      <th>firing_rate</th>
-      <th>presence_ratio</th>
-      <th>snr</th>
-      <th>waveform_velocity_below</th>
-      <th>isolation_distance</th>
-      <th>silhouette_score</th>
-      <th>waveform_velocity_above</th>
-      <th>nn_miss_rate</th>
-      <th>waveform_PT_ratio</th>
-      <th>...</th>
-      <th>ecephys_structure_id</th>
-      <th>ecephys_structure_acronym</th>
-      <th>anterior_posterior_ccf_coordinate</th>
-      <th>dorsal_ventral_ccf_coordinate</th>
-      <th>left_right_ccf_coordinate</th>
-      <th>probe_description</th>
-      <th>location</th>
-      <th>probe_sampling_rate</th>
-      <th>probe_lfp_sampling_rate</th>
-      <th>probe_has_lfp_data</th>
-    </tr>
-    <tr>
-      <th>unit_id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>950907546</th>
-      <td>0.000854</td>
-      <td>4.082628</td>
-      <td>0.99</td>
-      <td>3.943883</td>
-      <td>-0.274707</td>
-      <td>58.423581</td>
-      <td>0.069653</td>
-      <td>0.000000</td>
-      <td>0.005875</td>
-      <td>0.244961</td>
-      <td>...</td>
-      <td>382.0</td>
-      <td>CA1</td>
-      <td>7698.0</td>
-      <td>1633.0</td>
-      <td>7510.0</td>
-      <td>probeA</td>
-      <td>See electrode locations</td>
-      <td>29999.970785</td>
-      <td>1249.998783</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907603</th>
-      <td>0.006899</td>
-      <td>9.856607</td>
-      <td>0.99</td>
-      <td>2.898651</td>
-      <td>NaN</td>
-      <td>46.240011</td>
-      <td>0.138128</td>
-      <td>0.686767</td>
-      <td>0.003605</td>
-      <td>0.638382</td>
-      <td>...</td>
-      <td>218.0</td>
-      <td>LP</td>
-      <td>7468.0</td>
-      <td>3236.0</td>
-      <td>7499.0</td>
-      <td>probeB</td>
-      <td>See electrode locations</td>
-      <td>29999.923119</td>
-      <td>1249.996797</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950907719</th>
-      <td>0.000141</td>
-      <td>19.238828</td>
-      <td>0.99</td>
-      <td>4.111892</td>
-      <td>-0.686767</td>
-      <td>116.666580</td>
-      <td>0.231334</td>
-      <td>-0.343384</td>
-      <td>0.000000</td>
-      <td>0.502406</td>
-      <td>...</td>
-      <td>726.0</td>
-      <td>DG</td>
-      <td>7567.0</td>
-      <td>2175.0</td>
-      <td>7376.0</td>
-      <td>probeB</td>
-      <td>See electrode locations</td>
-      <td>29999.923119</td>
-      <td>1249.996797</td>
-      <td>True</td>
-    </tr>
-    <tr>
-      <th>950908410</th>
-      <td>0.000492</td>
-      <td>21.928571</td>
-      <td>0.99</td>
-      <td>2.340180</td>
-      <td>-0.156975</td>
-      <td>113.004473</td>
-      <td>-0.057741</td>
-      <td>0.206030</td>
-      <td>0.009693</td>
-      <td>0.734521</td>
-      <td>...</td>
-      <td>385.0</td>
-      <td>VISp</td>
-      <td>8570.0</td>
-      <td>1364.0</td>
-      <td>8024.0</td>
-      <td>probeC</td>
-      <td>See electrode locations</td>
-      <td>29999.999795</td>
-      <td>1249.999991</td>
-      <td>True</td>
-    </tr>
-  </tbody>
-</table>
-<p>4 rows × 89 columns</p>
-</div></div></div>
-</div>
-<p>Using the <code class="docutils literal notranslate"><span class="pre">unit_ids</span></code>, we can create our own dictionary that maps our ids of interest to the <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> array,</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dictionary of waveforms that only include units of interest</span>
-<span class="n">waveforms_oi</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uois_ids</span><span class="p">:</span>
-    <span class="n">waveforms_oi</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_mean_waveforms</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span>
-
-<span class="c1"># Create dictionary of peak channels that only include units of interest</span>
-<span class="n">peak_channels_oi</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uois_ids</span><span class="p">:</span>
-    <span class="n">peak_channels_oi</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="s1">&#39;peak_channel_id&#39;</span><span class="p">]</span>
-
-<span class="c1"># Plot mean waveforms</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">ecvis</span><span class="o">.</span><span class="n">plot_mean_waveforms</span><span class="p">(</span><span class="n">waveforms_oi</span><span class="p">,</span> <span class="n">uois_ids</span><span class="p">,</span> <span class="n">peak_channels_oi</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">uois_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="p">)</span>
-
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">first_VISp_spike_times</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">first_VISp_spike_times</span><span class="p">)),</span> <span class="s1">&#39;|&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>unit_id
-950907546     CA1
-950907603      LP
-950907719      DG
-950908410    VISp
-Name: ecephys_structure_acronym, dtype: object
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_10_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_10_0.png" />
+</div>
+</div>
+<p>A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too man spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign total number of bins </span>
+<span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">first_VISp_spike_times</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+<span class="n">binned_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">numbins</span><span class="p">))</span>
+
+<span class="c1"># Assign the frequency of spikes over time</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numbins</span><span class="p">):</span>
+    <span class="n">binned_spikes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_VISp_spike_times</span><span class="p">[(</span><span class="n">first_VISp_spike_times</span><span class="o">&gt;</span><span class="n">i</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">first_VISp_spike_times</span><span class="o">&lt;</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+    
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">binned_spikes</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FR (Hz)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_22_1.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_22_1.png" />
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_12_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_12_0.png" />
+</div>
+</div>
+<p>The plot above is only for one unit in our session. We can also compare spike times across multiple units by plotting their spike times over each other.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot first 10 VISp entries spike times</span>
+<span class="n">numunits</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">visp_binned</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">numunits</span><span class="p">,</span> <span class="n">numbins</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
+    <span class="n">unit_id</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">spikes</span> <span class="o">=</span> <span class="n">all_spike_times</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numbins</span><span class="p">):</span>
+        <span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spikes</span><span class="p">[(</span><span class="n">spikes</span><span class="o">&gt;</span><span class="n">j</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">spikes</span><span class="o">&lt;</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+        
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="mi">50</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_14_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_14_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="stimulus-presentations">
-<h2><span class="section-number">7.2.4. </span>Stimulus Presentations<a class="headerlink" href="#stimulus-presentations" title="Permalink to this headline">¶</a></h2>
-<p>The spike data can be sorted according to the type of stimulus that was presented to the mouse. You can access the different stimuli that were presented in the session by using the attribute <code class="docutils literal notranslate"><span class="pre">stimulus_names</span></code>. Each stimulus contains a set of parameters that were used when presented to the mouse. For example two gabors stimuli may be presented, but they may have differing temporal frequencies or different x and y positions.</p>
-<p>Ececuting the <code class="docutils literal notranslate"><span class="pre">stimulus_presentations</span></code> method on our session object will return a pandas dataframe with parameters for each stimulus as the columns which we can use to compare the resoponses of units to different stimulus presentations.</p>
+<h2><span class="section-number">7.2.3. </span>Stimulus Presentations<a class="headerlink" href="#stimulus-presentations" title="Permalink to this headline">¶</a></h2>
+<p>The spike data can be sorted according to the type of stimulus that was presented to the mouse. You can access the different stimuli that were presented in the session by using the attribute <code class="docutils literal notranslate"><span class="pre">stimulus_names</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stimulus presentation dataframe </span>
-<span class="n">stim_pres</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">stimulus_presentations</span>
-
-<span class="c1"># Stimuli presented in session</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stimuli presented in session</span>
 <span class="n">all_stims</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">stimulus_names</span>
-
-<span class="c1"># Continous timeblocks where only 1 type of stimulus was presented</span>
-<span class="c1"># Could maybe use this w/ running speed</span>
-<span class="n">stim_timeblocks</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_epochs</span><span class="p">()</span>
-
-
 <span class="n">all_stims</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;spontaneous&#39;,
+ &#39;gabors&#39;,
+ &#39;flashes&#39;,
+ &#39;drifting_gratings&#39;,
+ &#39;natural_movie_three&#39;,
+ &#39;natural_movie_one&#39;,
+ &#39;static_gratings&#39;,
+ &#39;natural_scenes&#39;]
+</pre></div>
 </div>
+</div>
+</div>
+<p>Each stimulus contains a set of parameters that were used when presented to the mouse. For example two gabors stimuli may be presented, but they may have differing temporal frequencies or different x and y positions. Ececuting the <code class="docutils literal notranslate"><span class="pre">stimulus_presentations</span></code> method on our session object will return a pandas dataframe with parameters for each stimulus as the columns which we can use to compare the resoponses of units to different stimulus presentations.</p>
+<p><strong>Note</strong>: Not all stimuli share the same parameters. If certain parameters do not apply to a stimulus, you will see a <code class="docutils literal notranslate"><span class="pre">null</span></code> value.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stim_pres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stimulus presentation dataframe </span>
+<span class="n">stim_pres</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">stimulus_presentations</span>
+<span class="n">stim_pres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1314,9 +672,13 @@ Name: ecephys_structure_acronym, dtype: object
 </table>
 </div></div></div>
 </div>
+<p>Each stimulus used in the session is presented to the mouse in various timeblocks. Using the <code class="docutils literal notranslate"><span class="pre">get_stimulus_epochs()</span></code> method will return a pandas dataframe containing the time periods where a single stimulus type was presented continuously.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stim_timeblocks</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Continous timeblocks where only 1 type of stimulus was presented</span>
+<span class="c1"># Could maybe use this w/ running speed</span>
+<span class="n">stim_timeblocks</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_epochs</span><span class="p">()</span>
+<span class="n">stim_timeblocks</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1391,11 +753,42 @@ Name: ecephys_structure_acronym, dtype: object
 </table>
 </div></div></div>
 </div>
-<p>Alternatively, you could use the <code class="docutils literal notranslate"><span class="pre">get_stimulus_table()</span></code> method to return a subset of stimulus presentation by <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. Below we will investigate how our neuronal units responded to a <code class="docutils literal notranslate"><span class="pre">flashes</span></code> stimulus presentations.</p>
+<p>The timeblocks above allow us to compare neural activity of the units when a new stimulus is being presented. By using <code class="docutils literal notranslate"><span class="pre">plt.axvspan</span></code> we can divide our current plot to show when one stimulus ends and a new one begins. Plotting this over the firing rates of our units will reveal what <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code> elicited the highest neural activity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">flashes_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">([</span><span class="s1">&#39;flashes&#39;</span><span class="p">])</span>
-<span class="n">flashes_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Plots firing rates </span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="mf">30.</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plots rectangle blocks that indicate new stimulus presentation </span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;violet&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">stim_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_stims</span><span class="p">):</span>
+    <span class="n">stim</span> <span class="o">=</span> <span class="n">stim_timeblocks</span><span class="p">[</span><span class="n">stim_timeblocks</span><span class="p">[</span><span class="s1">&#39;stimulus_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">stim_name</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stim</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="n">stim</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">xmax</span><span class="o">=</span><span class="n">stim</span><span class="p">[</span><span class="s1">&#39;stop_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Legend showing stimulus timeblocks</span>
+<span class="n">colors_leg</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)):</span>
+    <span class="n">temp_color</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_stims</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">colors_leg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_color</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span> <span class="o">=</span> <span class="n">colors_leg</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_24_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_24_0.png" />
+</div>
+</div>
+<p>Alternatively, you could use the <code class="docutils literal notranslate"><span class="pre">get_stimulus_table()</span></code> method to return a subset of stimulus presentation by <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. The returned dataframe will only contain parameters that relate to the given <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. Below we will investigate how our neuronal units responded to a <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimulus presentations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">natural_scenes_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">([</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">])</span>
+<span class="n">natural_scenes_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1418,12 +811,7 @@ Name: ecephys_structure_acronym, dtype: object
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>color</th>
-      <th>contrast</th>
-      <th>orientation</th>
-      <th>phase</th>
-      <th>size</th>
-      <th>spatial_frequency</th>
+      <th>frame</th>
       <th>start_time</th>
       <th>stimulus_block</th>
       <th>stimulus_name</th>
@@ -1440,537 +828,126 @@ Name: ecephys_structure_acronym, dtype: object
       <th></th>
       <th></th>
       <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>3647</th>
-      <td>1.0</td>
-      <td>0.8</td>
-      <td>0.0</td>
-      <td>[0.0, 0.0]</td>
-      <td>[300.0, 300.0]</td>
-      <td>[0.0, 0.0]</td>
-      <td>1287.272022</td>
-      <td>1.0</td>
-      <td>flashes</td>
-      <td>1287.522219</td>
-      <td>0.250197</td>
-      <td>244</td>
+      <th>51353</th>
+      <td>92.0</td>
+      <td>5905.128132</td>
+      <td>9.0</td>
+      <td>natural_scenes</td>
+      <td>5905.378346</td>
+      <td>0.250214</td>
+      <td>4908</td>
     </tr>
     <tr>
-      <th>3648</th>
-      <td>1.0</td>
-      <td>0.8</td>
-      <td>0.0</td>
-      <td>[0.0, 0.0]</td>
-      <td>[300.0, 300.0]</td>
-      <td>[0.0, 0.0]</td>
-      <td>1289.273682</td>
-      <td>1.0</td>
-      <td>flashes</td>
-      <td>1289.523884</td>
-      <td>0.250202</td>
-      <td>244</td>
+      <th>51354</th>
+      <td>114.0</td>
+      <td>5905.378346</td>
+      <td>9.0</td>
+      <td>natural_scenes</td>
+      <td>5905.628560</td>
+      <td>0.250214</td>
+      <td>4909</td>
     </tr>
     <tr>
-      <th>3649</th>
-      <td>-1.0</td>
-      <td>0.8</td>
-      <td>0.0</td>
-      <td>[0.0, 0.0]</td>
-      <td>[300.0, 300.0]</td>
-      <td>[0.0, 0.0]</td>
-      <td>1291.275322</td>
-      <td>1.0</td>
-      <td>flashes</td>
-      <td>1291.525529</td>
-      <td>0.250207</td>
-      <td>245</td>
+      <th>51355</th>
+      <td>114.0</td>
+      <td>5905.628560</td>
+      <td>9.0</td>
+      <td>natural_scenes</td>
+      <td>5905.878774</td>
+      <td>0.250214</td>
+      <td>4909</td>
     </tr>
     <tr>
-      <th>3650</th>
-      <td>-1.0</td>
-      <td>0.8</td>
+      <th>51356</th>
       <td>0.0</td>
-      <td>[0.0, 0.0]</td>
-      <td>[300.0, 300.0]</td>
-      <td>[0.0, 0.0]</td>
-      <td>1293.276962</td>
-      <td>1.0</td>
-      <td>flashes</td>
-      <td>1293.527179</td>
-      <td>0.250217</td>
-      <td>245</td>
+      <td>5905.878774</td>
+      <td>9.0</td>
+      <td>natural_scenes</td>
+      <td>5906.128988</td>
+      <td>0.250214</td>
+      <td>4910</td>
     </tr>
     <tr>
-      <th>3651</th>
-      <td>1.0</td>
-      <td>0.8</td>
-      <td>0.0</td>
-      <td>[0.0, 0.0]</td>
-      <td>[300.0, 300.0]</td>
-      <td>[0.0, 0.0]</td>
-      <td>1295.278712</td>
-      <td>1.0</td>
-      <td>flashes</td>
-      <td>1295.528906</td>
-      <td>0.250194</td>
-      <td>244</td>
+      <th>51357</th>
+      <td>37.0</td>
+      <td>5906.128988</td>
+      <td>9.0</td>
+      <td>natural_scenes</td>
+      <td>5906.379197</td>
+      <td>0.250208</td>
+      <td>4911</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>Our goal will be to plot the spike trains of a unit according to the <code class="docutils literal notranslate"><span class="pre">stimulus_presentation_id</span></code> that were presented. We can use <code class="docutils literal notranslate"><span class="pre">presentationwise_spike_counts</span></code> to build an array of spike counts. We will need to specify the <code class="docutils literal notranslate"><span class="pre">bin_edges</span></code> and <code class="docutils literal notranslate"><span class="pre">stimulus_presentation_ids</span></code> to execute this method. The duration of a presented stimulus is roughly 0.25 seconds, so we will create time bins of 0.01 seconds.</p>
+<p>We can look even further and check how the parameters of a stimulus affected the firing rate. In <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> presentations, different frame/image was presented to the mouse. Below we will focus on the times that the first <code class="docutils literal notranslate"><span class="pre">frame</span></code> in our dataframe above, was presented in the session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the duration of a presented stimulus</span>
-<span class="n">first_flashes_id</span> <span class="o">=</span> <span class="n">flashes_df</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">first_flashes_duration</span> <span class="o">=</span> <span class="n">flashes_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">first_flashes_id</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign indices of dataframe</span>
+<span class="n">natural_scenes_ids</span> <span class="o">=</span> <span class="n">natural_scenes_df</span><span class="o">.</span><span class="n">index</span>
 
-<span class="c1"># Create bins for our timestamps</span>
-<span class="n">time_step</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">100</span>
-<span class="n">timestamps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="p">(</span><span class="n">first_flashes_duration</span> <span class="o">+</span> <span class="n">time_step</span><span class="p">),</span> <span class="n">time_step</span><span class="p">)</span>
+<span class="c1"># Assign first &#39;natural_scenes&#39; image presented in the session</span>
+<span class="n">my_image</span> <span class="o">=</span> <span class="n">natural_scenes_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">natural_scenes_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;frame&#39;</span><span class="p">]</span>
 
-<span class="n">timestamps</span>
+<span class="c1"># Return the number of times this image was presented</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of times frame &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">my_image</span><span class="p">)</span><span class="o">+</span> <span class="s1">&#39; was presented in the session:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">natural_scenes_df</span><span class="p">[</span><span class="n">natural_scenes_df</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">my_image</span><span class="p">]))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([0.  , 0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1 ,
-       0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2 , 0.21,
-       0.22, 0.23, 0.24, 0.25, 0.26])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of times frame 114.0 was presented in the session:
+50
 </pre></div>
 </div>
 </div>
 </div>
+<p>As you can see from the dataframe above, the <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> presentations also cotain start and end times. We can do what we did before and use <code class="docutils literal notranslate"><span class="pre">plt.axvspan()</span></code> to plot the times when the images of interest was presented over the firing rates of our session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build your array of spike counts</span>
-<span class="n">flashes_histogram</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">presentationwise_spike_counts</span><span class="p">(</span>
-    <span class="n">bin_edges</span> <span class="o">=</span> <span class="n">timestamps</span><span class="p">,</span>
-    <span class="n">stimulus_presentation_ids</span> <span class="o">=</span> <span class="n">flashes_df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
-    <span class="n">unit_ids</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 
-<span class="n">flashes_histogram</span>
+<span class="c1"># Assign a dataframe that only contains presentations of our image of interest</span>
+<span class="n">stim_subset</span> <span class="o">=</span> <span class="n">natural_scenes_df</span><span class="p">[</span><span class="n">natural_scenes_df</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">my_image</span><span class="p">]</span>
+
+<span class="c1"># Offset the firing rates and plot them</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="mi">50</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="c1"># Plot the times are image of interest was presented</span>
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stim_subset</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="n">stim_subset</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">xmax</span><span class="o">=</span><span class="n">stim_subset</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Presentation of Image Frame &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">my_image</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Units&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span><span class="mi">9000</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
-<defs>
-<symbol id="icon-database" viewBox="0 0 32 32">
-<title>Show/Hide data repr</title>
-<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
-<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
-<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
-</symbol>
-<symbol id="icon-file-text2" viewBox="0 0 32 32">
-<title>Show/Hide attributes</title>
-<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
-<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
-<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
-<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
-</symbol>
-</defs>
-</svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
-
-:root {
-  --xr-font-color0: var(--jp-content-font-color0, rgba(0, 0, 0, 1));
-  --xr-font-color2: var(--jp-content-font-color2, rgba(0, 0, 0, 0.54));
-  --xr-font-color3: var(--jp-content-font-color3, rgba(0, 0, 0, 0.38));
-  --xr-border-color: var(--jp-border-color2, #e0e0e0);
-  --xr-disabled-color: var(--jp-layout-color3, #bdbdbd);
-  --xr-background-color: var(--jp-layout-color0, white);
-  --xr-background-color-row-even: var(--jp-layout-color1, white);
-  --xr-background-color-row-odd: var(--jp-layout-color2, #eeeeee);
-}
-
-.xr-wrap {
-  min-width: 300px;
-  max-width: 700px;
-}
-
-.xr-header {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  margin-bottom: 4px;
-  border-bottom: solid 1px var(--xr-border-color);
-}
-
-.xr-header > div,
-.xr-header > ul {
-  display: inline;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.xr-obj-type,
-.xr-array-name {
-  margin-left: 2px;
-  margin-right: 10px;
-}
-
-.xr-obj-type {
-  color: var(--xr-font-color2);
-}
-
-.xr-sections {
-  padding-left: 0 !important;
-  display: grid;
-  grid-template-columns: 150px auto auto 1fr 20px 20px;
-}
-
-.xr-section-item {
-  display: contents;
-}
-
-.xr-section-item input {
-  display: none;
-}
-
-.xr-section-item input + label {
-  color: var(--xr-disabled-color);
-}
-
-.xr-section-item input:enabled + label {
-  cursor: pointer;
-  color: var(--xr-font-color2);
-}
-
-.xr-section-item input:enabled + label:hover {
-  color: var(--xr-font-color0);
-}
-
-.xr-section-summary {
-  grid-column: 1;
-  color: var(--xr-font-color2);
-  font-weight: 500;
-}
-
-.xr-section-summary > span {
-  display: inline-block;
-  padding-left: 0.5em;
-}
-
-.xr-section-summary-in:disabled + label {
-  color: var(--xr-font-color2);
-}
-
-.xr-section-summary-in + label:before {
-  display: inline-block;
-  content: '►';
-  font-size: 11px;
-  width: 15px;
-  text-align: center;
-}
-
-.xr-section-summary-in:disabled + label:before {
-  color: var(--xr-disabled-color);
-}
-
-.xr-section-summary-in:checked + label:before {
-  content: '▼';
-}
-
-.xr-section-summary-in:checked + label > span {
-  display: none;
-}
-
-.xr-section-summary,
-.xr-section-inline-details {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-.xr-section-inline-details {
-  grid-column: 2 / -1;
-}
-
-.xr-section-details {
-  display: none;
-  grid-column: 1 / -1;
-  margin-bottom: 5px;
-}
-
-.xr-section-summary-in:checked ~ .xr-section-details {
-  display: contents;
-}
-
-.xr-array-wrap {
-  grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: 20px auto;
-}
-
-.xr-array-wrap > label {
-  grid-column: 1;
-  vertical-align: top;
-}
-
-.xr-preview {
-  color: var(--xr-font-color3);
-}
-
-.xr-array-preview,
-.xr-array-data {
-  padding: 0 5px !important;
-  grid-column: 2;
-}
-
-.xr-array-data,
-.xr-array-in:checked ~ .xr-array-preview {
-  display: none;
-}
-
-.xr-array-in:checked ~ .xr-array-data,
-.xr-array-preview {
-  display: inline-block;
-}
-
-.xr-dim-list {
-  display: inline-block !important;
-  list-style: none;
-  padding: 0 !important;
-  margin: 0;
-}
-
-.xr-dim-list li {
-  display: inline-block;
-  padding: 0;
-  margin: 0;
-}
-
-.xr-dim-list:before {
-  content: '(';
-}
-
-.xr-dim-list:after {
-  content: ')';
-}
-
-.xr-dim-list li:not(:last-child):after {
-  content: ',';
-  padding-right: 5px;
-}
-
-.xr-has-index {
-  font-weight: bold;
-}
-
-.xr-var-list,
-.xr-var-item {
-  display: contents;
-}
-
-.xr-var-item > div,
-.xr-var-item label,
-.xr-var-item > .xr-var-name span {
-  background-color: var(--xr-background-color-row-even);
-  margin-bottom: 0;
-}
-
-.xr-var-item > .xr-var-name:hover span {
-  padding-right: 5px;
-}
-
-.xr-var-list > li:nth-child(odd) > div,
-.xr-var-list > li:nth-child(odd) > label,
-.xr-var-list > li:nth-child(odd) > .xr-var-name span {
-  background-color: var(--xr-background-color-row-odd);
-}
-
-.xr-var-name {
-  grid-column: 1;
-}
-
-.xr-var-dims {
-  grid-column: 2;
-}
-
-.xr-var-dtype {
-  grid-column: 3;
-  text-align: right;
-  color: var(--xr-font-color2);
-}
-
-.xr-var-preview {
-  grid-column: 4;
-}
-
-.xr-var-name,
-.xr-var-dims,
-.xr-var-dtype,
-.xr-preview,
-.xr-attrs dt {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-right: 10px;
-}
-
-.xr-var-name:hover,
-.xr-var-dims:hover,
-.xr-var-dtype:hover,
-.xr-attrs dt:hover {
-  overflow: visible;
-  width: auto;
-  z-index: 1;
-}
-
-.xr-var-attrs,
-.xr-var-data {
-  display: none;
-  background-color: var(--xr-background-color) !important;
-  padding-bottom: 5px !important;
-}
-
-.xr-var-attrs-in:checked ~ .xr-var-attrs,
-.xr-var-data-in:checked ~ .xr-var-data {
-  display: block;
-}
-
-.xr-var-data > table {
-  float: right;
-}
-
-.xr-var-name span,
-.xr-var-data,
-.xr-attrs {
-  padding-left: 25px !important;
-}
-
-.xr-attrs,
-.xr-var-attrs,
-.xr-var-data {
-  grid-column: 1 / -1;
-}
-
-dl.xr-attrs {
-  padding: 0;
-  margin: 0;
-  display: grid;
-  grid-template-columns: 125px auto;
-}
-
-.xr-attrs dt, dd {
-  padding: 0;
-  margin: 0;
-  float: left;
-  padding-right: 10px;
-  width: auto;
-}
-
-.xr-attrs dt {
-  font-weight: normal;
-  grid-column: 1;
-}
-
-.xr-attrs dt:hover span {
-  display: inline-block;
-  background: var(--xr-background-color);
-  padding-right: 10px;
-}
-
-.xr-attrs dd {
-  grid-column: 2;
-  white-space: pre-wrap;
-  word-break: break-all;
-}
-
-.xr-icon-database,
-.xr-icon-file-text2 {
-  display: inline-block;
-  vertical-align: middle;
-  width: 1em;
-  height: 1.5em !important;
-  stroke-width: 0;
-  stroke: currentColor;
-  fill: currentColor;
-}
-</style><div class='xr-wrap'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'spike_counts'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>stimulus_presentation_id</span>: 150</li><li><span class='xr-has-index'>time_relative_to_stimulus_onset</span>: 26</li><li><span class='xr-has-index'>unit_id</span>: 444</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-e7b94bcf-000a-44bd-9eee-be85052a4920' class='xr-array-in' type='checkbox' ><label for='section-e7b94bcf-000a-44bd-9eee-be85052a4920' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ... 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</span></div><pre class='xr-array-data'>array([[[0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        ...,
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0]],
-
-       [[0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        ...,
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0]],
-
-       [[0, 0, 0, ..., 0, 0, 0],
-        [1, 0, 0, ..., 0, 0, 0],
-        [1, 0, 0, ..., 0, 0, 0],
-        ...,
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [1, 0, 0, ..., 0, 0, 0]],
-
-       ...,
-
-       [[0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        ...,
-        [0, 0, 0, ..., 0, 0, 0],
-        [1, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0]],
-
-       [[0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        ...,
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0]],
-
-       [[0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [1, 0, 0, ..., 0, 0, 0],
-        ...,
-        [0, 0, 0, ..., 0, 0, 0],
-        [0, 0, 0, ..., 0, 0, 0],
-        [1, 0, 0, ..., 0, 0, 0]]], dtype=uint16)</pre></div></li><li class='xr-section-item'><input id='section-0ae5c76b-af09-405f-87ca-a07644b4f0b2' class='xr-section-summary-in' type='checkbox'  checked><label for='section-0ae5c76b-af09-405f-87ca-a07644b4f0b2' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>stimulus_presentation_id</span></div><div class='xr-var-dims'>(stimulus_presentation_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>3647 3648 3649 ... 3794 3795 3796</div><input id='attrs-e1a55d89-40d2-444a-82c9-b52d95c8d4d2' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-e1a55d89-40d2-444a-82c9-b52d95c8d4d2' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-9f2f5e83-be49-4b09-948b-20e6287d3b3e' class='xr-var-data-in' type='checkbox'><label for='data-9f2f5e83-be49-4b09-948b-20e6287d3b3e' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([3647, 3648, 3649, 3650, 3651, 3652, 3653, 3654, 3655, 3656, 3657, 3658,
-       3659, 3660, 3661, 3662, 3663, 3664, 3665, 3666, 3667, 3668, 3669, 3670,
-       3671, 3672, 3673, 3674, 3675, 3676, 3677, 3678, 3679, 3680, 3681, 3682,
-       3683, 3684, 3685, 3686, 3687, 3688, 3689, 3690, 3691, 3692, 3693, 3694,
-       3695, 3696, 3697, 3698, 3699, 3700, 3701, 3702, 3703, 3704, 3705, 3706,
-       3707, 3708, 3709, 3710, 3711, 3712, 3713, 3714, 3715, 3716, 3717, 3718,
-       3719, 3720, 3721, 3722, 3723, 3724, 3725, 3726, 3727, 3728, 3729, 3730,
-       3731, 3732, 3733, 3734, 3735, 3736, 3737, 3738, 3739, 3740, 3741, 3742,
-       3743, 3744, 3745, 3746, 3747, 3748, 3749, 3750, 3751, 3752, 3753, 3754,
-       3755, 3756, 3757, 3758, 3759, 3760, 3761, 3762, 3763, 3764, 3765, 3766,
-       3767, 3768, 3769, 3770, 3771, 3772, 3773, 3774, 3775, 3776, 3777, 3778,
-       3779, 3780, 3781, 3782, 3783, 3784, 3785, 3786, 3787, 3788, 3789, 3790,
-       3791, 3792, 3793, 3794, 3795, 3796])</pre></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time_relative_to_stimulus_onset</span></div><div class='xr-var-dims'>(time_relative_to_stimulus_onset)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>0.005 0.015 0.025 ... 0.245 0.255</div><input id='attrs-cbb61053-d645-426f-ad80-ab0b491e0b7f' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-cbb61053-d645-426f-ad80-ab0b491e0b7f' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6f8e5ac1-ced2-42a1-91d6-e5e85f0363f2' class='xr-var-data-in' type='checkbox'><label for='data-6f8e5ac1-ced2-42a1-91d6-e5e85f0363f2' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([0.005, 0.015, 0.025, 0.035, 0.045, 0.055, 0.065, 0.075, 0.085, 0.095,
-       0.105, 0.115, 0.125, 0.135, 0.145, 0.155, 0.165, 0.175, 0.185, 0.195,
-       0.205, 0.215, 0.225, 0.235, 0.245, 0.255])</pre></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>unit_id</span></div><div class='xr-var-dims'>(unit_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>950907205 950907524 ... 950913839</div><input id='attrs-78fa1c73-6db5-4490-ad6c-0ce050cc053d' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-78fa1c73-6db5-4490-ad6c-0ce050cc053d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-03f776d2-0d0b-45cc-b14c-d003112daf08' class='xr-var-data-in' type='checkbox'><label for='data-03f776d2-0d0b-45cc-b14c-d003112daf08' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([950907205, 950907524, 950907209, ..., 950913393, 950913765, 950913839])</pre></li></ul></div></li><li class='xr-section-item'><input id='section-de101ec2-1125-4da4-b801-3f8c86198feb' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-de101ec2-1125-4da4-b801-3f8c86198feb' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_30_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_30_0.png" />
 </div>
-<p>We have created our time bins and built our array of spike counts and are ready to plot our neuorns’ reponses to stimulus presentations. As you can see, <code class="docutils literal notranslate"><span class="pre">flashes_histogram</span></code> is not a normal array, it is an <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> which we have not see before. An <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> can be thought of as a NumPy array with labled axes and indices. An <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> contains dimensions, which tell you what each axes in the array is, and coordiates which label each dimension. For more information on <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> objects, please visit <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.</p>
-<p>Below we plot the spike trains of the first unit in <code class="docutils literal notranslate"><span class="pre">flashes_histogram</span></code> for the first 10 <code class="docutils literal notranslate"><span class="pre">stimulus_presentation_ids</span></code>.</p>
+</div>
+<p>You are not limited to only plotting the the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion.</p>
+</div>
+<div class="section" id="running-speeds">
+<h2><span class="section-number">7.2.4. </span>Running Speeds<a class="headerlink" href="#running-speeds" title="Permalink to this headline">¶</a></h2>
+<p>The running speed of the mice in our session have also been recorded and are available to you. You can acess the running speed by calling <code class="docutils literal notranslate"><span class="pre">running_speed</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object. This will return a pandas dataframe that contains the <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, and <code class="docutils literal notranslate"><span class="pre">velocity</span></code> of our session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the first unit&#39;s response to the first 10 presentations of flashes</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>   
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">flashes_histogram</span><span class="o">.</span><span class="n">time_relative_to_stimulus_onset</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="n">flashes_histogram</span><span class="p">[</span><span class="n">i</span><span class="p">,:,</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Presentation&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Response of Unit 950907205&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">running_speed</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">running_speed</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">],</span> <span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Running Speed: Session 721123822&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Velocity (cm/s)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1979,17 +956,22 @@ dl.xr-attrs {
 <img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_34_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_34_0.png" />
 </div>
 </div>
-<p>We can also plot the mean number of spikes of all the units across all presentations. Below we will take the mean of all spike counts for presentations of the flashes <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. We willl be using <code class="docutils literal notranslate"><span class="pre">xrplot</span></code> to plot our heatmap of mean spike counts. For information on how to use <code class="docutils literal notranslate"><span class="pre">xrplot</span></code>, please visit <a href = 'http://xarray.pydata.org/en/stable/plotting.html'> here</a>.</p>
+<p>With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with more neural activity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the mean spike times of all units&#39; responses to flashes presentations </span>
-<span class="n">mean_flash_histogram</span> <span class="o">=</span> <span class="n">flashes_histogram</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span> <span class="o">=</span> <span class="s1">&#39;stimulus_presentation_id&#39;</span><span class="p">)</span>
-<span class="n">mean_flash_histogram</span><span class="o">.</span><span class="n">coords</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">20</span><span class="o">+</span><span class="p">(</span><span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">xarray.plot</span> <span class="k">as</span> <span class="nn">xrplot</span>
-<span class="n">xrplot</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">darray</span><span class="o">=</span><span class="n">mean_flash_histogram</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;time_relative_to_stimulus_onset&quot;</span><span class="p">,</span>
-                                      <span class="n">y</span><span class="o">=</span><span class="s2">&quot;unit_id&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Mean Spike Counts on Flash Presentations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">stim_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_stims</span><span class="p">):</span>
+    <span class="n">stim</span> <span class="o">=</span> <span class="n">stim_timeblocks</span><span class="p">[</span><span class="n">stim_timeblocks</span><span class="p">[</span><span class="s1">&#39;stimulus_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">stim_name</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stim</span><span class="p">)):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">xmin</span><span class="o">=</span><span class="n">stim</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">xmax</span><span class="o">=</span><span class="n">stim</span><span class="p">[</span><span class="s1">&#39;stop_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span> <span class="o">=</span> <span class="n">colors_leg</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1998,6 +980,9 @@ dl.xr-attrs {
 <img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_36_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_36_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="signal-correlations">
+<h2><span class="section-number">7.2.5. </span>Signal Correlations<a class="headerlink" href="#signal-correlations" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spf</span> <span class="o">=</span> <span class="n">flashes_histogram</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -2031,7 +1016,7 @@ dl.xr-attrs {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_39_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_39_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_40_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_40_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2057,37 +1042,9 @@ dl.xr-attrs {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_41_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_41_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" />
 </div>
 </div>
-</div>
-<div class="section" id="spike-times">
-<h2><span class="section-number">7.2.5. </span>Spike Times<a class="headerlink" href="#spike-times" title="Permalink to this headline">¶</a></h2>
-<p>Our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object contains spike time for each unit and they can be accessed via the <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> attribute. With this data, we are able to compare spike times across units and across stimuli by plotting a rasterplot.</p>
-<p>We first need to select a unit to focus on. Below, we will assign the spike times of a unit from the CA1 area.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the first CA1 spike times array by subselecting with unit_id</span>
-<span class="n">all_spike_times</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">spike_times</span>
-<span class="n">first_CA1_spike_times</span> <span class="o">=</span> <span class="n">all_spike_times</span><span class="p">[</span><span class="n">first_CA1_units_ids</span><span class="p">]</span>
-
-<span class="c1"># Return length of spike times and values</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Spikes found for unit &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">first_CA1_units_ids</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">[</span><span class="n">first_CA1_units_ids</span><span class="p">])))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">first_CA1_spike_times</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spikes found for unit 950907546: 40053
-[9.06566412e+00 9.06896412e+00 1.17636334e+01 ... 9.81044358e+03
- 9.81044668e+03 9.81046488e+03]
-</pre></div>
-</div>
-</div>
-</div>
-<p>We can sort the neural spikes according to what stimulus stimulus was presented in the session in order to look for any correlation in nerual activity. The <code class="docutils literal notranslate"><span class="pre">presentationwise_spike_counts()</span></code> method returns an array of spike counts according to the stimulus presented and the onset time. You will need to specify the presentation_ids when calling the method.</p>
-<p>Once we have our spike count array, we can create a rasterplot using <code class="docutils literal notranslate"><span class="pre">raster_plot()</span></code>. For more information on how to use <code class="docutils literal notranslate"><span class="pre">raster_plot()</span></code>, please visit<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return presentation ids from stimulus presentation dataframe for &#39;flashes&#39; stimulus</span>
@@ -2115,7 +1072,7 @@ dl.xr-attrs {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_46_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_46_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_43_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_43_0.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameters for presentation 3647
 </pre></div>
 </div>
@@ -2235,9 +1192,6 @@ Name: 3647, dtype: object
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="running-speeds">
-<h2><span class="section-number">7.2.6. </span>Running Speeds<a class="headerlink" href="#running-speeds" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

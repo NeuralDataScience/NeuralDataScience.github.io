@@ -12,8 +12,19 @@
 # In[1]:
 
 
+# Import necessary packages 
+import numpy as np 
+import pandas as pd 
+import scipy as sp
+import seaborn as sns
+from scipy import signal
+import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings('ignore')
+
+# Import packages necessary to plot behavior
+import allensdk.brain_observatory.ecephys.visualization as ecvis
+from allensdk.brain_observatory.visualization import plot_running_speed
 
 # Import the Neuropixels Cache
 from allensdk.brain_observatory.ecephys.ecephys_project_cache import EcephysProjectCache
@@ -114,7 +125,146 @@ session = cache.get_session_data(session_list[1])
 print('Session downloaded.')
 
 
-# In the next section we will go over how to use the metrics in `units` to plot the behavior of our neurons. 
+# ## Units
+
+# Now that we have downloaded the single session file, we can begin to explore our `EcephysSession` object. The `units` property of our session object returns a dataframe that contains the recorded activity of sorted neurons from a mouse brain. There are many metrics stored within `units` that can be used in your potential analyses. Some key metrics include:
+# 
+# - **firing rate**: mean spike rate during the entire session
+# - **presence ratio**: fraction of session when spikes are present
+# - **ISI violations**: rate of refractory period violations
+# - **peak_channel_id**: channel in which peak-to-trough amplitutde is maximized
+# - **d'**: classification accuracy based on LDA
+# - **SNR**: signal to noise ratio
+# - **Maximum drift**: Maximum change in spike depth during recording
+# - **Cumulative drift**: Cumulative change in spike depth during recording
+# 
+# For a full list of methods and attributes that can be called on an `EcephysSession` object, please see <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> here</a>.
+
+# In[6]:
+
+
+# Return units dataframe
+units_df = session.units
+units_df.head()
+
+
+# To ensure that the recordings we use in our analysis are all of good quality, we will filter the data according to the signal-to-noise ratio (`snr`) and the `ISI_Violations` of our neurons. Below we will plot the distributions of both.
+
+# In[7]:
+
+
+# Signal to noise distribution
+col_1 = 'snr'
+plt.hist(units_df['snr'], bins=30)
+plt.title('Distribution of SNR')
+plt.xlabel('Signal to Noise Ratio')
+plt.ylabel('Frequency')
+plt.show()
+
+
+# In[8]:
+
+
+# ISI distribution 
+col_2 = 'isi_violations'
+plt.hist(units_df[col_2], bins=30)
+plt.title('Distribution of ISI Violations')
+plt.xlabel('Rate of Refractory Period Violations')
+plt.ylabel('Frequency')
+plt.show()
+
+
+# For the purposes of this tutorial, we will use `snr` values greater than 2 and `ISI_violation` values less than 0.1, define our good quality units. 
+
+# In[9]:
+
+
+# Create dataframe with our conditions of interest
+good_snr = units_df[units_df['snr']>2]
+good_units_df = good_snr[good_snr['isi_violations']<0.1]
+
+
+print('Number of Recordings with good SNR and Low ISI:')
+print(len(good_units_df))
+good_units_df.head()
+
+
+# Just like we did before in our sessions dataframe, we can return the brain structures that our session's data was recorded from as well as how many neurons were recorded per brain area. 
+
+# In[10]:
+
+
+col = 'ecephys_structure_acronym'
+
+print('Available Brain Structures:')
+print(good_units_df[col].unique())
+print('\n Brain Structure Frequency:')
+print(good_units_df[col].value_counts())
+
+
+# ## Waveforms 
+
+# Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the `unit_id` are mapped to the mean spike waveform values. The dimensions of the DataArrays are `channel` and `time` which are recorded in microvolts and seconds, respectivley. For more information on `xarray.DataArray`, please visit, <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.
+# 
+# To access the mean spike waveforms for all units in a session, use the attribute `mean_waveforms` on your `EcephysSession` object. 
+
+# In[11]:
+
+
+all_mean_waveforms = session.mean_waveforms
+print('Total number of waveforms:')
+print(len(all_mean_waveforms))
+
+
+# We can plot the mean waveforms of our units with the method `plot_mean_waveforms` from the ecephys visualization package. The method uses the `mean_waveforms` dictionary, `unit_id`'s, and `peak_channel_id`'s as arguments. For more information on this method, visit <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.
+# 
+# Below we will compare mean waveforms from different brain areas. We will be looking at one wavefrom from the `CA1`, `LP`, `DG`, `VISp`. We first need to create a list of unit_id's for the waveforms we are interested in. 
+
+# In[12]:
+
+
+# Assign Unit IDs of different brain areas of interest
+CA1_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'CA1'].index
+LP_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'LP'].index
+DG_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'DG'].index
+VISp_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'VISp'].index
+
+# Return first entry of our brain areas of interst
+first_CA1_units_ids = CA1_unit_ids[0]
+first_LP_units_ids = LP_unit_ids[0]
+first_DG_units_ids = DG_unit_ids[1]
+first_VISp_units_ids = VISp_unit_ids[0]
+uois_ids = [first_CA1_units_ids, first_LP_units_ids, first_DG_units_ids, first_VISp_units_ids]
+
+# Return dataframe
+uois_df = good_units_df.loc[uois_ids]
+
+uois_df
+
+
+# Using the `unit_ids`, we can create our own dictionary that maps our ids of interest to the `mean_waveforms` array,
+
+# In[13]:
+
+
+# Create dictionary of waveforms that only include units of interest
+waveforms_oi = {}
+for ids in uois_ids:
+    waveforms_oi[ids] = all_mean_waveforms[ids]
+
+# Create dictionary of peak channels that only include units of interest
+peak_channels_oi = {}
+for ids in uois_ids:
+    peak_channels_oi[ids] = good_units_df.loc[ids, 'peak_channel_id']
+
+# Plot mean waveforms
+fig = ecvis.plot_mean_waveforms(waveforms_oi, uois_ids, peak_channels_oi)
+legend_list = list(uois_df['ecephys_structure_acronym'] )
+plt.legend(legend_list)
+
+
+plt.show()
+
 
 # In[ ]:
 
