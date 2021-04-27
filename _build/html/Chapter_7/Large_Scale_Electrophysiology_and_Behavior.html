@@ -370,6 +370,11 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Session downloaded.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="firing-rate">
 <h2><span class="section-number">7.2.1. </span>Firing Rate<a class="headerlink" href="#firing-rate" title="Permalink to this headline">¶</a></h2>
@@ -490,18 +495,6 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stimuli presented in session</span>
 <span class="n">all_stims</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">stimulus_names</span>
 <span class="n">all_stims</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;spontaneous&#39;,
- &#39;gabors&#39;,
- &#39;flashes&#39;,
- &#39;drifting_gratings&#39;,
- &#39;natural_movie_three&#39;,
- &#39;natural_movie_one&#39;,
- &#39;static_gratings&#39;,
- &#39;natural_scenes&#39;]
 </pre></div>
 </div>
 </div>
@@ -935,7 +928,111 @@
 <img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_30_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_30_0.png" />
 </div>
 </div>
-<p>You are not limited to only plotting the the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion.</p>
+<p>You are not limited to only plotting the the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion. You can use <code class="docutils literal notranslate"><span class="pre">get_stimulus_parameter_values</span></code> to return a dictionary of all parameteres used in a session.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">session_parameters</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_parameter_values</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">session_parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>color: [-1.0 1.0]
+contrast: [0.8 1.0]
+frame: [-1.0 0.0 1.0 ... 3597.0 3598.0 3599.0]
+orientation: [0.0 30.0 45.0 60.0 90.0 120.0 135.0 150.0 180.0 225.0 270.0 315.0]
+phase: [&#39;0.0&#39; &#39;0.25&#39; &#39;0.5&#39; &#39;0.75&#39; &#39;[0.0, 0.0]&#39; &#39;[21211.93333333, 21211.93333333]&#39;
+ &#39;[3644.93333333, 3644.93333333]&#39;]
+size: [&#39;[1920.0, 1080.0]&#39; &#39;[20.0, 20.0]&#39; &#39;[250.0, 250.0]&#39; &#39;[300.0, 300.0]&#39;]
+spatial_frequency: [&#39;0.02&#39; &#39;0.04&#39; &#39;0.08&#39; &#39;0.16&#39; &#39;0.32&#39; &#39;[0.0, 0.0]&#39;]
+temporal_frequency: [1.0 2.0 4.0 8.0 15.0]
+x_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
+y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Below we will focus on the <code class="docutils literal notranslate"><span class="pre">gabors</span></code> presentations in our session and see how different orientations affected the firing rate. We will take a look at the first <code class="docutils literal notranslate"><span class="pre">gabors</span></code> presentation that was oriented 90 degrees.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign dataframe with only &#39;gabors&#39; presentations</span>
+<span class="n">gabors_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">(</span><span class="s1">&#39;gabors&#39;</span><span class="p">)</span>
+
+<span class="c1"># Subselect units that were presented 90 degree orientation stimuli</span>
+<span class="n">subset</span> <span class="o">=</span> <span class="n">gabors_df</span><span class="p">[(</span><span class="n">gabors_df</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">90</span><span class="p">)]</span>
+
+<span class="c1">#  Assign start and end time of first &#39;gabors&#39; presentation</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;start_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">subset</span><span class="p">[</span><span class="s1">&#39;stop_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The function below was made to create a raster plot of spikes with rectangluar bars indicating when the stimulus started and ended.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_raster</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+    
+    <span class="c1"># Assign you will plot</span>
+    <span class="n">num_units</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)</span>
+    <span class="n">ystep</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">num_units</span>
+    
+    <span class="c1"># Set axis limits to include all units of interest</span>
+    <span class="n">ymin</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">ymax</span> <span class="o">=</span> <span class="n">ystep</span>
+
+    <span class="c1"># Plot raster for spikes within the start and end times</span>
+    <span class="k">for</span> <span class="n">unit_id</span><span class="p">,</span> <span class="n">unit_spike_times</span> <span class="ow">in</span> <span class="n">spike_times</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">unit_spike_times</span> <span class="o">=</span> <span class="n">unit_spike_times</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">unit_spike_times</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">,</span> <span class="n">unit_spike_times</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">unit_spike_times</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">ymax</span><span class="p">)</span>
+
+        <span class="n">ymin</span> <span class="o">+=</span> <span class="n">ystep</span>
+        <span class="n">ymax</span> <span class="o">+=</span> <span class="n">ystep</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plot_raster</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">,</span> <span class="n">start</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">end</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Units&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create 1 list containing all the times a unit fired</span>
+<span class="c1">#spike_list = []</span>
+<span class="c1">#for i in (all_spike_times):</span>
+<span class="c1">#    for val in (VISp_unit_ids):</span>
+<span class="c1">#        spikes = all_spike_times[val]</span>
+<span class="c1">#        for j in spikes:</span>
+<span class="c1">#            spike_list.append(j)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create 1 second bins for all spikes</span>
+<span class="c1">#spike_array = np.array(spike_list)</span>
+<span class="c1">#numbins = int(np.ceil(spike_array.max()))</span>
+<span class="c1">#binned_spikes = np.empty(numbins)</span>
+
+<span class="c1"># Assign the frequency of spikes over time</span>
+<span class="c1">#for i in range(numbins):</span>
+<span class="c1">#    binned_spikes[i] = len(spike_array[(spike_array&gt;i)&amp;(spike_array&lt;i+1)])</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="running-speeds">
 <h2><span class="section-number">7.2.4. </span>Running Speeds<a class="headerlink" href="#running-speeds" title="Permalink to this headline">¶</a></h2>
@@ -953,7 +1050,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_34_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_34_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" />
 </div>
 </div>
 <p>With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with more neural activity.</p>
@@ -961,9 +1058,9 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">20</span><span class="o">+</span><span class="p">(</span><span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">5</span><span class="o">+</span><span class="p">(</span><span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="mi">10</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.1</span><span class="p">)</span><span class="o">-</span><span class="mi">10</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">stim_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_stims</span><span class="p">):</span>
     <span class="n">stim</span> <span class="o">=</span> <span class="n">stim_timeblocks</span><span class="p">[</span><span class="n">stim_timeblocks</span><span class="p">[</span><span class="s1">&#39;stimulus_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">stim_name</span><span class="p">]</span>
@@ -977,7 +1074,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_36_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_36_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_44_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_44_0.png" />
 </div>
 </div>
 </div>
@@ -1016,7 +1113,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_40_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_40_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_48_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_48_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1042,7 +1139,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_50_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_50_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1072,7 +1169,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_43_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_43_0.png" />
+<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_51_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_51_0.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameters for presentation 3647
 </pre></div>
 </div>
