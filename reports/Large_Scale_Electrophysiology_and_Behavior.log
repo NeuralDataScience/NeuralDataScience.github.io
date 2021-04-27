@@ -32,8 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# Stimulus presentation dataframe ', 'stim_pres = session.stimulus_presentations', '', '# Stimuli presented in session', 'all_stims = session.stimulus_names']
-...
-['# Could maybe use this w/ running speed', 'stim_timeblocks = session.get_stimulus_epochs()', '', '', 'all_stims']
+# Stimuli presented in session
+all_stims = session.stimulus_names
+all_stims
 -------------------
 

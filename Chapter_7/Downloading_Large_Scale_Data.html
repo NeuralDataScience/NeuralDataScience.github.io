@@ -274,6 +274,16 @@
    7.1.1. Single Session
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#units">
+   7.1.2. Units
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#waveforms">
+   7.1.3. Waveforms
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -292,8 +302,19 @@
 <p>Below we will execute <code class="docutils literal notranslate"><span class="pre">get_session_table()</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> object which will return a dataframe with metadata on each session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary packages </span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="c1"># Import packages necessary to plot behavior</span>
+<span class="kn">import</span> <span class="nn">allensdk.brain_observatory.ecephys.visualization</span> <span class="k">as</span> <span class="nn">ecvis</span>
+<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.visualization</span> <span class="kn">import</span> <span class="n">plot_running_speed</span>
 
 <span class="c1"># Import the Neuropixels Cache</span>
 <span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_cache</span> <span class="kn">import</span> <span class="n">EcephysProjectCache</span>
@@ -539,7 +560,747 @@ Name: full_genotype, dtype: int64
 </div>
 </div>
 </div>
-<p>In the next section we will go over how to use the metrics in <code class="docutils literal notranslate"><span class="pre">units</span></code> to plot the behavior of our neurons.</p>
+</div>
+<div class="section" id="units">
+<h2><span class="section-number">7.1.2. </span>Units<a class="headerlink" href="#units" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have downloaded the single session file, we can begin to explore our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object. The <code class="docutils literal notranslate"><span class="pre">units</span></code> property of our session object returns a dataframe that contains the recorded activity of sorted neurons from a mouse brain. There are many metrics stored within <code class="docutils literal notranslate"><span class="pre">units</span></code> that can be used in your potential analyses. Some key metrics include:</p>
+<ul class="simple">
+<li><p><strong>firing rate</strong>: mean spike rate during the entire session</p></li>
+<li><p><strong>presence ratio</strong>: fraction of session when spikes are present</p></li>
+<li><p><strong>ISI violations</strong>: rate of refractory period violations</p></li>
+<li><p><strong>peak_channel_id</strong>: channel in which peak-to-trough amplitutde is maximized</p></li>
+<li><p><strong>d’</strong>: classification accuracy based on LDA</p></li>
+<li><p><strong>SNR</strong>: signal to noise ratio</p></li>
+<li><p><strong>Maximum drift</strong>: Maximum change in spike depth during recording</p></li>
+<li><p><strong>Cumulative drift</strong>: Cumulative change in spike depth during recording</p></li>
+</ul>
+<p>For a full list of methods and attributes that can be called on an <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object, please see <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return units dataframe</span>
+<span class="n">units_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span>
+<span class="n">units_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>waveform_duration</th>
+      <th>cluster_id</th>
+      <th>peak_channel_id</th>
+      <th>cumulative_drift</th>
+      <th>amplitude_cutoff</th>
+      <th>snr</th>
+      <th>waveform_recovery_slope</th>
+      <th>isolation_distance</th>
+      <th>nn_miss_rate</th>
+      <th>silhouette_score</th>
+      <th>...</th>
+      <th>ecephys_structure_id</th>
+      <th>ecephys_structure_acronym</th>
+      <th>anterior_posterior_ccf_coordinate</th>
+      <th>dorsal_ventral_ccf_coordinate</th>
+      <th>left_right_ccf_coordinate</th>
+      <th>probe_description</th>
+      <th>location</th>
+      <th>probe_sampling_rate</th>
+      <th>probe_lfp_sampling_rate</th>
+      <th>probe_has_lfp_data</th>
+    </tr>
+    <tr>
+      <th>unit_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>950916730</th>
+      <td>0.315913</td>
+      <td>0</td>
+      <td>850252273</td>
+      <td>421.99</td>
+      <td>0.010911</td>
+      <td>2.408535</td>
+      <td>-0.072013</td>
+      <td>115.066739</td>
+      <td>0.001010</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8369.0</td>
+      <td>3658.0</td>
+      <td>6985.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950916822</th>
+      <td>0.233501</td>
+      <td>7</td>
+      <td>850252319</td>
+      <td>294.57</td>
+      <td>0.000025</td>
+      <td>3.769478</td>
+      <td>-0.212549</td>
+      <td>160.983322</td>
+      <td>0.000000</td>
+      <td>0.115187</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8288.0</td>
+      <td>3464.0</td>
+      <td>7039.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950916845</th>
+      <td>0.192295</td>
+      <td>9</td>
+      <td>850252323</td>
+      <td>270.88</td>
+      <td>0.023245</td>
+      <td>3.087942</td>
+      <td>-0.216281</td>
+      <td>77.035531</td>
+      <td>0.002380</td>
+      <td>0.170339</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8281.0</td>
+      <td>3448.0</td>
+      <td>7044.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950916856</th>
+      <td>0.233501</td>
+      <td>10</td>
+      <td>850252325</td>
+      <td>219.19</td>
+      <td>0.011552</td>
+      <td>2.743504</td>
+      <td>-0.087931</td>
+      <td>291.708582</td>
+      <td>0.047256</td>
+      <td>0.141643</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8277.0</td>
+      <td>3440.0</td>
+      <td>7046.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950916892</th>
+      <td>0.343384</td>
+      <td>13</td>
+      <td>850252329</td>
+      <td>558.87</td>
+      <td>0.029890</td>
+      <td>2.428990</td>
+      <td>-0.005812</td>
+      <td>41.639547</td>
+      <td>0.000338</td>
+      <td>0.180152</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8270.0</td>
+      <td>3424.0</td>
+      <td>7051.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 89 columns</p>
+</div></div></div>
+</div>
+<p>To ensure that the recordings we use in our analysis are all of good quality, we will filter the data according to the signal-to-noise ratio (<code class="docutils literal notranslate"><span class="pre">snr</span></code>) and the <code class="docutils literal notranslate"><span class="pre">ISI_Violations</span></code> of our neurons. Below we will plot the distributions of both.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Signal to noise distribution</span>
+<span class="n">col_1</span> <span class="o">=</span> <span class="s1">&#39;snr&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of SNR&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Signal to Noise Ratio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Downloading_Large_Scale_Data_16_0.png" src="../_images/Downloading_Large_Scale_Data_16_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ISI distribution </span>
+<span class="n">col_2</span> <span class="o">=</span> <span class="s1">&#39;isi_violations&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="n">col_2</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of ISI Violations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Rate of Refractory Period Violations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Downloading_Large_Scale_Data_17_0.png" src="../_images/Downloading_Large_Scale_Data_17_0.png" />
+</div>
+</div>
+<p>For the purposes of this tutorial, we will use <code class="docutils literal notranslate"><span class="pre">snr</span></code> values greater than 2 and <code class="docutils literal notranslate"><span class="pre">ISI_violation</span></code> values less than 0.1, define our good quality units.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dataframe with our conditions of interest</span>
+<span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="s1">&#39;isi_violations&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of Recordings with good SNR and Low ISI:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">))</span>
+<span class="n">good_units_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Recordings with good SNR and Low ISI:
+488
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>waveform_duration</th>
+      <th>cluster_id</th>
+      <th>peak_channel_id</th>
+      <th>cumulative_drift</th>
+      <th>amplitude_cutoff</th>
+      <th>snr</th>
+      <th>waveform_recovery_slope</th>
+      <th>isolation_distance</th>
+      <th>nn_miss_rate</th>
+      <th>silhouette_score</th>
+      <th>...</th>
+      <th>ecephys_structure_id</th>
+      <th>ecephys_structure_acronym</th>
+      <th>anterior_posterior_ccf_coordinate</th>
+      <th>dorsal_ventral_ccf_coordinate</th>
+      <th>left_right_ccf_coordinate</th>
+      <th>probe_description</th>
+      <th>location</th>
+      <th>probe_sampling_rate</th>
+      <th>probe_lfp_sampling_rate</th>
+      <th>probe_has_lfp_data</th>
+    </tr>
+    <tr>
+      <th>unit_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>950916730</th>
+      <td>0.315913</td>
+      <td>0</td>
+      <td>850252273</td>
+      <td>421.99</td>
+      <td>0.010911</td>
+      <td>2.408535</td>
+      <td>-0.072013</td>
+      <td>115.066739</td>
+      <td>0.001010</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8369.0</td>
+      <td>3658.0</td>
+      <td>6985.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950916822</th>
+      <td>0.233501</td>
+      <td>7</td>
+      <td>850252319</td>
+      <td>294.57</td>
+      <td>0.000025</td>
+      <td>3.769478</td>
+      <td>-0.212549</td>
+      <td>160.983322</td>
+      <td>0.000000</td>
+      <td>0.115187</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8288.0</td>
+      <td>3464.0</td>
+      <td>7039.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950916856</th>
+      <td>0.233501</td>
+      <td>10</td>
+      <td>850252325</td>
+      <td>219.19</td>
+      <td>0.011552</td>
+      <td>2.743504</td>
+      <td>-0.087931</td>
+      <td>291.708582</td>
+      <td>0.047256</td>
+      <td>0.141643</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8277.0</td>
+      <td>3440.0</td>
+      <td>7046.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950917034</th>
+      <td>0.467002</td>
+      <td>24</td>
+      <td>850252351</td>
+      <td>154.34</td>
+      <td>0.003052</td>
+      <td>2.084643</td>
+      <td>-0.059217</td>
+      <td>179.310426</td>
+      <td>0.013169</td>
+      <td>0.102770</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8229.0</td>
+      <td>3331.0</td>
+      <td>7079.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950916996</th>
+      <td>0.192295</td>
+      <td>21</td>
+      <td>850252349</td>
+      <td>184.14</td>
+      <td>0.003787</td>
+      <td>2.805553</td>
+      <td>-0.221815</td>
+      <td>68.033790</td>
+      <td>0.003977</td>
+      <td>0.054381</td>
+      <td>...</td>
+      <td>215.0</td>
+      <td>APN</td>
+      <td>8232.0</td>
+      <td>3339.0</td>
+      <td>7077.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 89 columns</p>
+</div></div></div>
+</div>
+<p>Just like we did before in our sessions dataframe, we can return the brain structures that our session’s data was recorded from as well as how many neurons were recorded per brain area.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;ecephys_structure_acronym&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Available Brain Structures:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Brain Structure Frequency:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Available Brain Structures:
+[&#39;APN&#39; &#39;DG&#39; &#39;CA1&#39; &#39;VISam&#39; &#39;TH&#39; &#39;Eth&#39; &#39;POL&#39; &#39;LP&#39; &#39;VISpm&#39; &#39;NOT&#39; &#39;SUB&#39; &#39;VISp&#39;
+ &#39;grey&#39; &#39;VL&#39; &#39;CA3&#39; &#39;VISl&#39; &#39;PO&#39; &#39;VPM&#39; &#39;LGd&#39; &#39;VISal&#39; &#39;VISrl&#39;]
+
+ Brain Structure Frequency:
+APN      134
+CA1       57
+LGd       51
+POL       39
+VISp      35
+SUB       30
+VISl      28
+VISam     20
+LP        19
+VPM       18
+VISpm     13
+NOT        9
+CA3        8
+TH         7
+DG         7
+PO         5
+VL         2
+grey       2
+VISal      2
+Eth        1
+VISrl      1
+Name: ecephys_structure_acronym, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="waveforms">
+<h2><span class="section-number">7.1.3. </span>Waveforms<a class="headerlink" href="#waveforms" title="Permalink to this headline">¶</a></h2>
+<p>Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code> are mapped to the mean spike waveform values. The dimensions of the DataArrays are <code class="docutils literal notranslate"><span class="pre">channel</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code> which are recorded in microvolts and seconds, respectivley. For more information on <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>, please visit, <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.</p>
+<p>To access the mean spike waveforms for all units in a session, use the attribute <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> on your <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_mean_waveforms</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">mean_waveforms</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total number of waveforms:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">all_mean_waveforms</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of waveforms:
+755
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can plot the mean waveforms of our units with the method <code class="docutils literal notranslate"><span class="pre">plot_mean_waveforms</span></code> from the ecephys visualization package. The method uses the <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> dictionary, <code class="docutils literal notranslate"><span class="pre">unit_id</span></code>’s, and <code class="docutils literal notranslate"><span class="pre">peak_channel_id</span></code>’s as arguments. For more information on this method, visit <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.</p>
+<p>Below we will compare mean waveforms from different brain areas. We will be looking at one wavefrom from the <code class="docutils literal notranslate"><span class="pre">CA1</span></code>, <code class="docutils literal notranslate"><span class="pre">LP</span></code>, <code class="docutils literal notranslate"><span class="pre">DG</span></code>, <code class="docutils literal notranslate"><span class="pre">VISp</span></code>. We first need to create a list of unit_id’s for the waveforms we are interested in.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign Unit IDs of different brain areas of interest</span>
+<span class="n">CA1_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CA1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">LP_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">DG_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+
+<span class="c1"># Return first entry of our brain areas of interst</span>
+<span class="n">first_CA1_units_ids</span> <span class="o">=</span> <span class="n">CA1_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">first_LP_units_ids</span> <span class="o">=</span> <span class="n">LP_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">first_DG_units_ids</span> <span class="o">=</span> <span class="n">DG_unit_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">first_VISp_units_ids</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">uois_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_CA1_units_ids</span><span class="p">,</span> <span class="n">first_LP_units_ids</span><span class="p">,</span> <span class="n">first_DG_units_ids</span><span class="p">,</span> <span class="n">first_VISp_units_ids</span><span class="p">]</span>
+
+<span class="c1"># Return dataframe</span>
+<span class="n">uois_df</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">uois_ids</span><span class="p">]</span>
+
+<span class="n">uois_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>waveform_duration</th>
+      <th>cluster_id</th>
+      <th>peak_channel_id</th>
+      <th>cumulative_drift</th>
+      <th>amplitude_cutoff</th>
+      <th>snr</th>
+      <th>waveform_recovery_slope</th>
+      <th>isolation_distance</th>
+      <th>nn_miss_rate</th>
+      <th>silhouette_score</th>
+      <th>...</th>
+      <th>ecephys_structure_id</th>
+      <th>ecephys_structure_acronym</th>
+      <th>anterior_posterior_ccf_coordinate</th>
+      <th>dorsal_ventral_ccf_coordinate</th>
+      <th>left_right_ccf_coordinate</th>
+      <th>probe_description</th>
+      <th>location</th>
+      <th>probe_sampling_rate</th>
+      <th>probe_lfp_sampling_rate</th>
+      <th>probe_has_lfp_data</th>
+    </tr>
+    <tr>
+      <th>unit_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>950918424</th>
+      <td>0.288442</td>
+      <td>124</td>
+      <td>850252701</td>
+      <td>138.64</td>
+      <td>0.020835</td>
+      <td>2.185120</td>
+      <td>-0.039858</td>
+      <td>90.797157</td>
+      <td>0.001406</td>
+      <td>0.102849</td>
+      <td>...</td>
+      <td>382.0</td>
+      <td>CA1</td>
+      <td>7767.0</td>
+      <td>1620.0</td>
+      <td>7511.0</td>
+      <td>probeA</td>
+      <td>See electrode locations</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950924138</th>
+      <td>0.302178</td>
+      <td>221</td>
+      <td>850249435</td>
+      <td>132.03</td>
+      <td>0.000049</td>
+      <td>4.994113</td>
+      <td>-0.187781</td>
+      <td>124.487692</td>
+      <td>0.000000</td>
+      <td>0.218848</td>
+      <td>...</td>
+      <td>218.0</td>
+      <td>LP</td>
+      <td>7918.0</td>
+      <td>2983.0</td>
+      <td>7322.0</td>
+      <td>probeB</td>
+      <td>See electrode locations</td>
+      <td>29999.918880</td>
+      <td>1249.996620</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950925274</th>
+      <td>0.549414</td>
+      <td>302</td>
+      <td>850249617</td>
+      <td>79.80</td>
+      <td>0.000065</td>
+      <td>3.726180</td>
+      <td>-0.099074</td>
+      <td>215.917914</td>
+      <td>0.000000</td>
+      <td>0.206406</td>
+      <td>...</td>
+      <td>726.0</td>
+      <td>DG</td>
+      <td>7895.0</td>
+      <td>2110.0</td>
+      <td>7360.0</td>
+      <td>probeB</td>
+      <td>See electrode locations</td>
+      <td>29999.918880</td>
+      <td>1249.996620</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>950934565</th>
+      <td>0.879062</td>
+      <td>336</td>
+      <td>850251321</td>
+      <td>139.52</td>
+      <td>0.000468</td>
+      <td>2.959099</td>
+      <td>-0.025951</td>
+      <td>66.252958</td>
+      <td>0.000239</td>
+      <td>0.171097</td>
+      <td>...</td>
+      <td>385.0</td>
+      <td>VISp</td>
+      <td>8451.0</td>
+      <td>1184.0</td>
+      <td>7704.0</td>
+      <td>probeC</td>
+      <td>See electrode locations</td>
+      <td>29999.997521</td>
+      <td>1249.999897</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+<p>4 rows × 89 columns</p>
+</div></div></div>
+</div>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">unit_ids</span></code>, we can create our own dictionary that maps our ids of interest to the <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> array,</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dictionary of waveforms that only include units of interest</span>
+<span class="n">waveforms_oi</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uois_ids</span><span class="p">:</span>
+    <span class="n">waveforms_oi</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_mean_waveforms</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span>
+
+<span class="c1"># Create dictionary of peak channels that only include units of interest</span>
+<span class="n">peak_channels_oi</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uois_ids</span><span class="p">:</span>
+    <span class="n">peak_channels_oi</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="s1">&#39;peak_channel_id&#39;</span><span class="p">]</span>
+
+<span class="c1"># Plot mean waveforms</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ecvis</span><span class="o">.</span><span class="n">plot_mean_waveforms</span><span class="p">(</span><span class="n">waveforms_oi</span><span class="p">,</span> <span class="n">uois_ids</span><span class="p">,</span> <span class="n">peak_channels_oi</span><span class="p">)</span>
+<span class="n">legend_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">uois_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_list</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Downloading_Large_Scale_Data_28_0.png" src="../_images/Downloading_Large_Scale_Data_28_0.png" />
+</div>
+</div>
 </div>
 </div>
 
