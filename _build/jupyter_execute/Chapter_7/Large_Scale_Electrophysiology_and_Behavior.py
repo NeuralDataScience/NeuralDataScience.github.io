@@ -86,16 +86,15 @@ plt.show()
 all_spike_times = session.spike_times
 
 # Assign a list of unit ids for units in VISp brain area
-VISp_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'VISp'].index.values
+VISp_unit_ids = list(good_units_df[good_units_df['ecephys_structure_acronym'] == 'VISp'].index.values)
 
 # Assign spike times of first VISp entry 
-first_VISp_units_id = VISp_unit_ids[0]
-first_VISp_spike_times = all_spike_times[first_VISp_units_id]
-
-# Return length of spike times and values for for VISp entry 
-print('Spikes found for unit ' + str(first_VISp_units_id) + ': ' + str(len(all_spike_times[first_VISp_units_id])))
-
-print(first_VISp_spike_times)
+VISp_spike_times = []
+for i in range(5):
+    VISp_spike_times.append(all_spike_times[VISp_unit_ids[i]])
+    print(f"Spikes found for unit {VISp_unit_ids[i]} : {len(all_spike_times[VISp_unit_ids[i]])}")
+    print(all_spike_times[VISp_unit_ids[i]])
+    print('\n')
 
 
 # With these spike times, we are able to create a raster plot for our unit of interst. Below we will plot out the first 50 seconds of the session. 
@@ -104,9 +103,16 @@ print(first_VISp_spike_times)
 
 
 plt.figure(figsize=(15,4))
-plt.plot(first_VISp_spike_times, np.repeat(0,len(first_VISp_spike_times)), '|')
+offset = 0
+
+# Plot a raster plot for units of interest
+for i in range(5):
+    plt.plot(VISp_spike_times[i], np.repeat(i,len(VISp_spike_times[i])), '|')
+
 plt.xlim(0,50)
+plt.yticks(ticks = [0,1,2,3,4], labels = VISp_unit_ids[:5])
 plt.xlabel('Time (s)')
+plt.ylabel('Units')
 plt.show()
 
 
@@ -114,6 +120,9 @@ plt.show()
 
 # In[6]:
 
+
+# Focus on one signle unit
+first_VISp_spike_times = VISp_spike_times[0]
 
 # Assign total number of bins 
 numbins = int(np.ceil(first_VISp_spike_times.max()))
@@ -123,39 +132,20 @@ binned_spikes = np.empty((numbins))
 for i in range(numbins):
     binned_spikes[i] = len(first_VISp_spike_times[(first_VISp_spike_times>i)&(first_VISp_spike_times<i+1)])
     
-
+# Plot firing rate of first 50 seconds
 plt.figure(figsize=(20,5))
 plt.plot(binned_spikes)
 plt.xlabel('Time (s)')
 plt.ylabel('FR (Hz)')
+plt.xlim(0, 50)
 plt.show()
-
-
-# The plot above is only for one unit in our session. We can also compare spike times across multiple units by plotting their spike times over each other. 
-
-# In[7]:
-
-
-# Plot first 10 VISp entries spike times
-numunits = 10
-visp_binned = np.empty((numunits, numbins))
-
-for i in range(numunits):
-    unit_id = VISp_unit_ids[i]
-    spikes = all_spike_times[unit_id]
-    for j in range(numbins):
-        visp_binned[i,j] = len(spikes[(spikes>j)&(spikes<j+1)])
-        
-plt.figure(figsize=(20,10))
-for i in range(numunits):
-    plt.plot(i+(visp_binned[i,:]/50), color='gray')
 
 
 # ## Stimulus Presentations
 
 # The spike data can be sorted according to the type of stimulus that was presented to the mouse. You can access the different stimuli that were presented in the session by using the attribute `stimulus_names`. 
 
-# In[8]:
+# In[7]:
 
 
 # Stimuli presented in session
@@ -167,7 +157,7 @@ all_stims
 
 # **Note**: Not all stimuli share the same parameters. If certain parameters do not apply to a stimulus, you will see a `null` value. 
 
-# In[9]:
+# In[51]:
 
 
 # Stimulus presentation dataframe 
@@ -177,7 +167,7 @@ stim_pres.head()
 
 # Each stimulus used in the session is presented to the mouse in various timeblocks. Using the `get_stimulus_epochs()` method will return a pandas dataframe containing the time periods where a single stimulus type was presented continuously. 
 
-# In[10]:
+# In[52]:
 
 
 # Continous timeblocks where only 1 type of stimulus was presented
@@ -188,21 +178,34 @@ stim_timeblocks.head()
 
 # The timeblocks above allow us to compare neural activity of the units when a new stimulus is being presented. By using `plt.axvspan` we can divide our current plot to show when one stimulus ends and a new one begins. Plotting this over the firing rates of our units will reveal what `stimulus_name` elicited the highest neural activity. 
 
-# In[11]:
+# In[67]:
 
 
 plt.figure(figsize=(20,10))
 
-# Plots firing rates 
+# Plot first 10 VISp entries spike times in 1 second bins
+numunits = 10
+visp_binned = np.empty((numunits, numbins))
 for i in range(numunits):
-    plt.plot(i+(visp_binned[i,:]/30.), color='gray')
+    unit_id = VISp_unit_ids[i]
+    spikes = all_spike_times[unit_id]
+    for j in range(numbins):
+        visp_binned[i,j] = len(spikes[(spikes>j)&(spikes<j+1)])
+
+# Plots firing rates, offset each spike train by i
+for i in range(numunits):
+    plt.plot((i*2)+(visp_binned[i,:]/30.), color='black')
 
 # Plots rectangle blocks that indicate new stimulus presentation 
 colors = ['red','blue','orange','purple', 'yellow', 'green', 'pink', 'violet']
+
 for c, stim_name in enumerate(all_stims):
     stim = stim_timeblocks[stim_timeblocks['stimulus_name']==stim_name]
     for j in range(len(stim)):
-        plt.axvspan(xmin=stim['start_time'].iloc[j], xmax=stim['stop_time'].iloc[j], color=colors[c], alpha=0.1)
+        plt.axvspan(xmin=stim['start_time'].iloc[j], 
+                    xmax=stim['stop_time'].iloc[j],
+                    color = colors[c],
+                    alpha = 0.5)
 
 # Legend showing stimulus timeblocks
 colors_leg = []
@@ -210,6 +213,9 @@ for i in range(len(colors)):
     temp_color = mpatches.Patch(color = colors[i], label = (all_stims[i]))
     colors_leg.append(temp_color)  
 plt.legend(handles = colors_leg)
+plt.yticks(ticks = np.arange(0,20,2), labels = VISp_unit_ids[:10])
+plt.ylabel('Units')
+plt.xlabel('Time (s)')
 
 plt.show()
 
@@ -276,7 +282,7 @@ for key, value in session_parameters.items():
 
 # Below we will focus on the `gabors` presentations in our session and see how different orientations affected the firing rate. We will take a look at the first `gabors` presentation that was oriented 90 degrees. 
 
-# In[16]:
+# In[4]:
 
 
 # Assign dataframe with only 'gabors' presentations
@@ -292,7 +298,7 @@ end = subset['stop_time'].iloc[0]
 
 # The function below was made to create a raster plot of spikes with rectangluar bars indicating when the stimulus started and ended.
 
-# In[25]:
+# In[5]:
 
 
 def plot_raster(spike_times, start, end):
@@ -314,7 +320,7 @@ def plot_raster(spike_times, start, end):
         ymax += ystep
 
 
-# In[ ]:
+# In[6]:
 
 
 plt.figure(figsize=(8,6))
@@ -355,7 +361,7 @@ plt.show()
 
 # The running speed of the mice in our session have also been recorded and are available to you. You can acess the running speed by calling `running_speed` on our `EcephysSession` object. This will return a pandas dataframe that contains the `start_time`, `end_time`, and `velocity` of our session.
 
-# In[19]:
+# In[68]:
 
 
 running_speed = session.running_speed
@@ -369,21 +375,38 @@ plt.show()
 
 # With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with more neural activity. 
 
-# In[20]:
+# In[92]:
 
 
-plt.figure(figsize=(20,10))
+fig, ax = plt.subplots(2, figsize = (10,10) )
+
+# Plot firing rates
 for i in range(numunits):
-    plt.plot(i+5+(visp_binned[i,:]/10), color='gray')
+    ax[0].plot((i*5)+(visp_binned[i,:]/10), color='black')
 
-plt.plot(running_speed['end_time'], (running_speed['velocity']*0.1)-10)
+# Plot the running speed underneath     
+ax[1].plot(running_speed['end_time'], (running_speed['velocity']*0.5)-10, alpha = 0.5)
 
+# Add color bars for timeblocks
 for c, stim_name in enumerate(all_stims):
     stim = stim_timeblocks[stim_timeblocks['stimulus_name']==stim_name]
     for j in range(len(stim)):
-        plt.axvspan(xmin=stim['start_time'].iloc[j], xmax=stim['stop_time'].iloc[j], color=colors[c], alpha=0.1)
+        ax[0].axvspan(xmin=stim['start_time'].iloc[j], 
+                    xmax=stim['stop_time'].iloc[j], 
+                    color=colors[c], 
+                    alpha=0.5)
 
-plt.legend(handles = colors_leg)
+
+ax[0].set_title('Firing rates: First 10 VISp Units')
+ax[0].set_xlabel('Time (s)')
+ax[0].set_ylabel('Units')
+ax[0].set_xlim(2000,4000)
+
+ax[1].set_title('Running Speed: Session 721123822')
+ax[1].set_xlabel('Time (s)')
+ax[1].set_ylabel('Velocity (cm/s)')
+ax[1].set_xlim(2000,4000)
+
 plt.ylim(-10,50)
 plt.show()
 
@@ -439,41 +462,6 @@ plt.ylabel('Signal correlation')
 plt.xlabel('Time steps (10 ms)')
 plt.title('Flashes Stimulus Presentation')
 plt.show()
-
-
-# In[25]:
-
-
-# Return presentation ids from stimulus presentation dataframe for 'flashes' stimulus
-flashes_presentation_ids = stim_pres.loc[(stim_pres['stimulus_name'] == 'flashes')].index.values
-
-
-times = session.presentationwise_spike_times(
-    stimulus_presentation_ids=flashes_presentation_ids,
-    unit_ids= None)
-
-# Assign the stimulus presentation id
-first_flashes_presentation_id = times['stimulus_presentation_id'].values[0]
-
-# Assign recording times for 'flashes' stimulus presentations
-plot_times = times[times['stimulus_presentation_id'] == first_flashes_presentation_id]
-
-# Assign Raster plot 
-ecvis.raster_plot(plot_times, title = 'Raster Plot for stimulus presentation 3647')
-
-plt.show()
-
-print('Parameters for presentation 3647')
-stim_pres.loc[first_flashes_presentation_id]
-
-
-# In[26]:
-
-
-spike_statistics = session.conditionwise_spike_statistics(stimulus_presentation_ids = flashes_presentation_ids,
-                                                          unit_ids = None)
-
-spike_statistics.head()
 
 
 # In[ ]:
