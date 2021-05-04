@@ -31,8 +31,8 @@
 # :titlesonly:
 # 
 # 
-# Downloading_Large_Scale_Data
-# Large_Scale_Electrophysiology_and_Behavior
+# Obtaining_Raw_Electrophysiology_Data
+# Correlating_Spike_Trains_with_Stimuli_and_Behavior
 # Identifying_Cells_with_Optogenetics
 # Correlations
 # ```

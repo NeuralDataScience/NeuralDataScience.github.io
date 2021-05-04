@@ -60,7 +60,8 @@ good_units_df = good_snr[good_snr['isi_violations']<0.1]
 print('Session downloaded.')
 
 
-# ## Firing Rate 
+# ## Firing Rate Across Brain Areas
+# 
 
 # In our dataframe, the mean spike rates for each unit can be found under the `firing_rate` column. Let, look at the distibution of firing rates across all brain areas using a violinplot. 
 
@@ -358,7 +359,7 @@ plt.show()
 #    binned_spikes[i] = len(spike_array[(spike_array>i)&(spike_array<i+1)])
 
 
-# ## Running Speeds
+# ## Running Speed
 
 # The running speed of the mice in our session have also been recorded and are available to you. You can acess the running speed by calling `running_speed` on our `EcephysSession` object. This will return a pandas dataframe that contains the `start_time`, `end_time`, and `velocity` of our session.
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-#  # Downloading Large Scale Data
+#  # Obtaining Raw Electrophysiology Data
 
 # This section will teach you how to interact with the Neuropixels dataset, specifically how to download experimental sessions, return procesed data, and subset your data to contain only brain regions you are interested in. 
 # 
@@ -39,12 +39,6 @@ cache = EcephysProjectCache(manifest=manifest_path)
 sessions = cache.get_session_table()
 print('Total number of sessions: ' + str(len(sessions)))
 sessions.head()
-
-
-# In[ ]:
-
-
-
 
 
 # A few columns that we may want to pay attention to for future analysis are the `full_genotype`, `unit_count`, and `ecephys_structure_acronyms`. 
@@ -99,7 +93,7 @@ print('There are '+str(len(session_list))+' sessions that meet this criteria:')
 print(session_list)
 
 
-# ## Single Session
+# ## Downloading a Single Session & the Structure of Session Files
 
 # Now, we can use the session list to get the data we want. Unfortunately, it looks like we can only extract one experiment as a time, so if you want to do this for multiple experiments, you'll need to loop over the `get_session_data` method for your entire session_list. For example, your workflow might be:
 # 
@@ -131,7 +125,7 @@ session = cache.get_session_data(session_list[1])
 print('Session downloaded.')
 
 
-# ## Units
+# ## Obtaining Single Units
 
 # Now that we have downloaded the single session file, we can begin to explore our `EcephysSession` object. The `units` property of our session object returns a dataframe that contains the recorded activity of sorted neurons from a mouse brain. There are many metrics stored within `units` that can be used in your potential analyses. Some key metrics include:
 # 
@@ -208,7 +202,7 @@ print('\n Brain Structure Frequency:')
 print(good_units_df[col].value_counts())
 
 
-# ## Waveforms 
+# ## Obtaining Single Sction Potential Waveforms 
 
 # Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the `unit_id` are mapped to the mean spike waveform values. The dimensions of the DataArrays are `channel` and `time` which are recorded in microvolts and seconds, respectivley. For more information on `xarray.DataArray`, please visit, <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.
 # 
