@@ -32,8 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-["# Download new session with 'sst' cre line", 'session = cache.get_session_data(sst_session_id) ', '', '# Assign new optogenetic table basesd on new session', 'opto_table2 = session.optogenetic_stimulation_epochs']
+['# Assign optogenetic stimuli', "ss_10ms = opto_table[(opto_table['duration'] > 0.009) & (opto_table['duration'] < 0.02)]", '', '# Assign units in brain area of interest', 'units_df = session.units']
 ...
-['da2 = optotagging_spike_counts(bin_edges, ss_10ms_2, VISp_df_2)', '', 'plot_optotagging_response(da2)', "plt.title('Sst-cre mice Session')", 'plt.show()']
+["        dims=['trial_id', 'time_relative_to_stimulus_onset', 'unit_id']", '    )', '', 'da = optotagging_spike_counts(bin_edges, ss_10ms, VISp_df)', 'da']
 -------------------
 
