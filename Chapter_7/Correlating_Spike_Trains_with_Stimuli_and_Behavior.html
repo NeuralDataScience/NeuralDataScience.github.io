@@ -57,7 +57,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="7.3. Identifying Cells with Optogenetics" href="Identifying_Cells_with_Optogenetics.html" />
-    <link rel="prev" title="7.1. Downloading Large Scale Data" href="Downloading_Large_Scale_Data.html" />
+    <link rel="prev" title="7.1. Obtaining Raw Electrophysiology Data" href="Obtaining_Raw_Electrophysiology_Data.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -134,8 +134,8 @@
   </a>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="Downloading_Large_Scale_Data.html">
-     7.1. Downloading Large Scale Data
+    <a class="reference internal" href="Obtaining_Raw_Electrophysiology_Data.html">
+     7.1. Obtaining Raw Electrophysiology Data
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -217,7 +217,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/Chapter_7/Large_Scale_Electrophysiology_and_Behavior.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/Chapter_7/Correlating_Spike_Trains_with_Stimuli_and_Behavior.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -242,7 +242,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_7/Large_Scale_Electrophysiology_and_Behavior.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/NeuralDataScience/NeuralDataScience.github.io/master?urlpath=tree/Chapter_7/Correlating_Spike_Trains_with_Stimuli_and_Behavior.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -250,7 +250,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_7/Large_Scale_Electrophysiology_and_Behavior.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter_7/Correlating_Spike_Trains_with_Stimuli_and_Behavior.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -270,8 +270,8 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#firing-rate">
-   7.2.1. Firing Rate
+  <a class="reference internal nav-link" href="#firing-rate-across-brain-areas">
+   7.2.1. Firing Rate Across Brain Areas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -285,8 +285,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#running-speeds">
-   7.2.4. Running Speeds
+  <a class="reference internal nav-link" href="#running-speed">
+   7.2.4. Running Speed
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -376,8 +376,8 @@
 </div>
 </div>
 </div>
-<div class="section" id="firing-rate">
-<h2><span class="section-number">7.2.1. </span>Firing Rate<a class="headerlink" href="#firing-rate" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="firing-rate-across-brain-areas">
+<h2><span class="section-number">7.2.1. </span>Firing Rate Across Brain Areas<a class="headerlink" href="#firing-rate-across-brain-areas" title="Permalink to this headline">¶</a></h2>
 <p>In our dataframe, the mean spike rates for each unit can be found under the <code class="docutils literal notranslate"><span class="pre">firing_rate</span></code> column. Let, look at the distibution of firing rates across all brain areas using a violinplot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -389,7 +389,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_5_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_5_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_5_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_5_0.png" />
 </div>
 </div>
 </div>
@@ -462,7 +462,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_10_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_10_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_10_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_10_0.png" />
 </div>
 </div>
 <p>A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too man spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin.</p>
@@ -490,7 +490,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_12_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_12_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" />
 </div>
 </div>
 </div>
@@ -798,7 +798,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_22_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_22_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_22_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_22_0.png" />
 </div>
 </div>
 <p>Alternatively, you could use the <code class="docutils literal notranslate"><span class="pre">get_stimulus_table()</span></code> method to return a subset of stimulus presentation by <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. The returned dataframe will only contain parameters that relate to the given <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. Below we will investigate how our neuronal units responded to a <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimulus presentations.</p>
@@ -949,7 +949,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_28_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_28_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_28_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_28_0.png" />
 </div>
 </div>
 <p>You are not limited to only plotting the the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion. You can use <code class="docutils literal notranslate"><span class="pre">get_stimulus_parameter_values</span></code> to return a dictionary of all parameteres used in a session.</p>
@@ -1030,7 +1030,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_35_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_35_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1061,8 +1061,8 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 </div>
-<div class="section" id="running-speeds">
-<h2><span class="section-number">7.2.4. </span>Running Speeds<a class="headerlink" href="#running-speeds" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="running-speed">
+<h2><span class="section-number">7.2.4. </span>Running Speed<a class="headerlink" href="#running-speed" title="Permalink to this headline">¶</a></h2>
 <p>The running speed of the mice in our session have also been recorded and are available to you. You can acess the running speed by calling <code class="docutils literal notranslate"><span class="pre">running_speed</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object. This will return a pandas dataframe that contains the <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, and <code class="docutils literal notranslate"><span class="pre">velocity</span></code> of our session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1077,7 +1077,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_40_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_40_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_40_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_40_0.png" />
 </div>
 </div>
 <p>With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with more neural activity.</p>
@@ -1118,7 +1118,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_42_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_42_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_42_0.png" />
 </div>
 </div>
 </div>
@@ -1157,7 +1157,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_46_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_46_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_46_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_46_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1183,7 +1183,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Large_Scale_Electrophysiology_and_Behavior_48_0.png" src="../_images/Large_Scale_Electrophysiology_and_Behavior_48_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_48_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_48_0.png" />
 </div>
 </div>
 </div>
@@ -1217,7 +1217,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Downloading_Large_Scale_Data.html" title="previous page"><span class="section-number">7.1. </span>Downloading Large Scale Data</a>
+    <a class='left-prev' id="prev-link" href="Obtaining_Raw_Electrophysiology_Data.html" title="previous page"><span class="section-number">7.1. </span>Obtaining Raw Electrophysiology Data</a>
     <a class='right-next' id="next-link" href="Identifying_Cells_with_Optogenetics.html" title="next page"><span class="section-number">7.3. </span>Identifying Cells with Optogenetics</a>
 
     </div>

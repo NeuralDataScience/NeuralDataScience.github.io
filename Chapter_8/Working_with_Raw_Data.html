@@ -330,7 +330,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7fa46a3ced90&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7feb4b3e2510&gt;
 </pre></div>
 </div>
 </div>
@@ -530,14 +530,6 @@ Using a feature of the MouseConnectivityCache, we can show an example of what an
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2021-04-13 23:25:50,809 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/grid_data/download_file/528963991?image=projection_density&amp;resolution=25
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2021-04-13 23:25:56,357 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/grid_data/download_file/528963991?image=injection_density&amp;resolution=25
-</pre></div>
-</div>
-</div>
 </div>
 <p>Now that we have a <code class="docutils literal notranslate"><span class="pre">projection_density</span></code> object for the entire brain, we can project this onto one plane for visualization. Below, we’ll create a maximum intensity image of the projections (left) as well as the injection site (right).</p>
 <div class="cell docutils container">
@@ -585,6 +577,160 @@ Using a feature of the MouseConnectivityCache, we can show an example of what an
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>experiment_id</th>
+      <th>hemisphere_id</th>
+      <th>id</th>
+      <th>is_injection</th>
+      <th>max_voxel_density</th>
+      <th>max_voxel_x</th>
+      <th>max_voxel_y</th>
+      <th>max_voxel_z</th>
+      <th>normalized_projection_volume</th>
+      <th>projection_density</th>
+      <th>projection_energy</th>
+      <th>projection_intensity</th>
+      <th>projection_volume</th>
+      <th>structure_id</th>
+      <th>sum_pixel_intensity</th>
+      <th>sum_pixels</th>
+      <th>sum_projection_pixel_intensity</th>
+      <th>sum_projection_pixels</th>
+      <th>volume</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>510581751</td>
+      <td>1</td>
+      <td>640670909</td>
+      <td>False</td>
+      <td>0.006981</td>
+      <td>7400</td>
+      <td>4660</td>
+      <td>1600</td>
+      <td>0.000008</td>
+      <td>0.000001</td>
+      <td>0.000315</td>
+      <td>275.949890</td>
+      <td>2.447839e-07</td>
+      <td>977</td>
+      <td>3.529224e+10</td>
+      <td>1.747863e+08</td>
+      <td>5.514130e+04</td>
+      <td>1.998236e+02</td>
+      <td>0.214113</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>510581751</td>
+      <td>1</td>
+      <td>640670655</td>
+      <td>False</td>
+      <td>0.669769</td>
+      <td>9370</td>
+      <td>760</td>
+      <td>4990</td>
+      <td>1.184075</td>
+      <td>0.006473</td>
+      <td>5.082322</td>
+      <td>785.145215</td>
+      <td>3.748008e-02</td>
+      <td>254</td>
+      <td>1.021462e+12</td>
+      <td>4.726636e+09</td>
+      <td>2.402229e+10</td>
+      <td>3.059598e+07</td>
+      <td>5.790129</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>510581751</td>
+      <td>2</td>
+      <td>640670374</td>
+      <td>False</td>
+      <td>0.087072</td>
+      <td>8440</td>
+      <td>1340</td>
+      <td>9060</td>
+      <td>0.000091</td>
+      <td>0.000050</td>
+      <td>0.050294</td>
+      <td>1006.508728</td>
+      <td>2.868891e-06</td>
+      <td>1114</td>
+      <td>1.484664e+10</td>
+      <td>4.686840e+07</td>
+      <td>2.357195e+06</td>
+      <td>2.341952e+03</td>
+      <td>0.057414</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>510581751</td>
+      <td>3</td>
+      <td>640674136</td>
+      <td>False</td>
+      <td>0.000000</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000e+00</td>
+      <td>1035</td>
+      <td>4.105123e+11</td>
+      <td>1.050448e+09</td>
+      <td>0.000000e+00</td>
+      <td>0.000000e+00</td>
+      <td>1.286798</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>510581751</td>
+      <td>2</td>
+      <td>640667185</td>
+      <td>False</td>
+      <td>0.206022</td>
+      <td>9140</td>
+      <td>2170</td>
+      <td>8870</td>
+      <td>0.000451</td>
+      <td>0.000677</td>
+      <td>0.406074</td>
+      <td>599.391357</td>
+      <td>1.428108e-05</td>
+      <td>121</td>
+      <td>3.246778e+09</td>
+      <td>1.720800e+07</td>
+      <td>6.987717e+06</td>
+      <td>1.165802e+04</td>
+      <td>0.021080</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>As you can see, <code class="docutils literal notranslate"><span class="pre">structure_unionizes</span></code> is a very large dataframe filled with all the signal projection data for our experiments of interest. We can filter this like any other dataframe. For example, we can filter the dataframe to only include experiments with a large projection density and volume. For the purposes of this lesson, we will consider any <code class="docutils literal notranslate"><span class="pre">projection_density</span></code> and <code class="docutils literal notranslate"><span class="pre">volume</span></code> greater than 0.3 to be <em>large</em>.</p>
 <div class="cell docutils container">
