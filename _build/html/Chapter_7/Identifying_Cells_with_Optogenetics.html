@@ -279,6 +279,11 @@
    7.3.2. Aligning Spikes to Pulses
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#identifying-fast-paced-waveforms">
+   7.3.3. Identifying Fast-Paced Waveforms
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -322,10 +327,11 @@
 </div>
 </div>
 </div>
+<p>Because we the light-gated ion channels are expressed in mice in a Cre-dependent manner, it is important to recall the different cre lines availabe to us in our sessions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sessions</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_table</span><span class="p">()</span>
-<span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;full_genotype&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">all_sessions</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_table</span><span class="p">()</span>
+<span class="n">all_sessions</span><span class="p">[</span><span class="s1">&#39;full_genotype&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -339,15 +345,15 @@
 </div>
 <div class="section" id="accessing-optogenetic-data">
 <h2><span class="section-number">7.3.1. </span>Accessing Optogenetic Data<a class="headerlink" href="#accessing-optogenetic-data" title="Permalink to this headline">¶</a></h2>
-<p>It is important to mention that the procedures in the optogenetic stimulation experiments have some inconsitencies. The light used to evoke the units’ optogenetic response was switched from an LED light to a lazer a little more than halfway through the experiment to evoke a stronger response from the units. The cell below will return a list containing the session id’s of the sessions where a lazer was used.</p>
+<p>Before we begin downloading data, it is important to mention that the procedures in the optogenetic stimulation experiments have some inconsitencies. The light used to evoke the units’ optogenetic response was switched from an LED light to a lazer a little more than halfway through the experiment to evoke a stronger response from the units. The cell below will return a list containing the session id’s of the sessions where a lazer was used.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Halfway through expersiment, LED light was swapped for a Lazer to evoke stronger response</span>
 <span class="n">lazer</span> <span class="o">=</span> <span class="p">[]</span>
 
-<span class="n">session_ids</span> <span class="o">=</span> <span class="n">sessions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+<span class="n">session_ids</span> <span class="o">=</span> <span class="n">all_sessions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">unit_ids</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">session_ids</span><span class="p">:</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">789848216</span><span class="p">):</span>
         <span class="n">lazer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Sessions ID&#39;s conducted with lasers: </span><span class="se">\n</span><span class="s2"> </span><span class="si">{lazer}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -355,16 +361,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">98</span><span class="n">b15215d80c</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">session_ids</span> <span class="o">=</span> <span class="n">sessions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">unit_ids</span><span class="p">:</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">789848216</span><span class="p">):</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span>         <span class="n">lazer</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;unit_ids&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Sessions ID&#39;s conducted with lasers: 
+ [789848216, 791319847, 793224716, 794812542, 797828357, 798911424, 799864342, 816200189, 819186360, 819701982, 821695405, 829720705, 831882777, 835479236, 839068429, 839557629, 840012044, 847657808]
 </pre></div>
 </div>
 </div>
@@ -372,35 +370,19 @@
 <p>To ensure we can see clear optogenetic responses from our units, we will be working with a session that used a lazer to evoke these responses. We will download multiple sessions with different Cre Lines to compare responses between differing genotypes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign Cre lines</span>
-<span class="n">cre_line1</span> <span class="o">=</span> <span class="s1">&#39;Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt&#39;</span>
-<span class="n">cre_line2</span> <span class="o">=</span> <span class="s1">&#39;Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt&#39;</span>
-<span class="n">cre_line3</span> <span class="o">=</span> <span class="s1">&#39;Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt&#39;</span>
-<span class="n">wild_type</span> <span class="o">=</span> <span class="s1">&#39;wt/wt&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign Session IDs with differing cre lines</span>
+<span class="n">pvalb_session_id</span> <span class="o">=</span> <span class="n">all_sessions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">sst_session_id</span> <span class="o">=</span> <span class="n">all_sessions</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
 
-<span class="c1"># Create dataframes for each cre line</span>
-<span class="n">cre1_df</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;full_genotype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cre_line1</span><span class="p">]</span>
-<span class="n">cre2_df</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;full_genotype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cre_line2</span><span class="p">]</span>
-<span class="n">cre3_df</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;full_genotype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">cre_line2</span><span class="p">]</span>
-<span class="n">wt_df</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;full_genotype&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">wild_type</span><span class="p">]</span>
-
-<span class="c1"># Download a session for each cre line using the indices of our newly formed dataframes</span>
-<span class="n">sst_session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">839068429</span><span class="p">)</span> <span class="c1"># Lazer </span>
-<span class="n">pvalb_session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">840012044</span><span class="p">)</span> <span class="c1"># Lazer</span>
-<span class="n">vip_session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">835479236</span><span class="p">)</span> <span class="c1"># Lazer</span>
-<span class="n">wt_session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">847657808</span><span class="p">)</span> <span class="c1"># Lazer</span>
+<span class="c1"># Download a session for one of our cre lines using</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="n">pvalb_session_id</span><span class="p">)</span> <span class="c1"># Lazer</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data Downloaded.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:downloading a 2682.873MiB file from http://api.brain-map.org//api/v2/well_known_file_download/1026123943
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c339ba512c494b2e87d5708648bae45b", "version_major": 2, "version_minor": 0}
-</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Downloaded.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data Downloaded.
 </pre></div>
 </div>
 </div>
@@ -414,6 +396,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">opto_table</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optogenetic_stimulation_epochs</span>
+
 <span class="n">opto_table</span>
 </pre></div>
 </div>
@@ -947,7 +930,7 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><div class='xr-wrap'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'spike_counts'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>trial_id</span>: 75</li><li><span class='xr-has-index'>time_relative_to_stimulus_onset</span>: 70</li><li><span class='xr-has-index'>unit_id</span>: 46</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-cbe5fd0a-a032-45cc-bb86-b61c06f0396e' class='xr-array-in' type='checkbox' ><label for='section-cbe5fd0a-a032-45cc-bb86-b61c06f0396e' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</span></div><pre class='xr-array-data'>array([[[0., 0., 0., ..., 0., 0., 0.],
+</style><div class='xr-wrap'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'spike_counts'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>trial_id</span>: 75</li><li><span class='xr-has-index'>time_relative_to_stimulus_onset</span>: 70</li><li><span class='xr-has-index'>unit_id</span>: 46</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-86e3f7c2-762e-4f85-9dbc-ea250aafad94' class='xr-array-in' type='checkbox' ><label for='section-86e3f7c2-762e-4f85-9dbc-ea250aafad94' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 ... 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</span></div><pre class='xr-array-data'>array([[[0., 0., 0., ..., 0., 0., 0.],
         [0., 0., 0., ..., 0., 0., 0.],
         [0., 0., 0., ..., 0., 0., 0.],
         ...,
@@ -995,12 +978,12 @@ dl.xr-attrs {
         ...,
         [0., 0., 0., ..., 0., 0., 0.],
         [0., 0., 0., ..., 0., 0., 0.],
-        [0., 0., 0., ..., 0., 0., 0.]]])</pre></div></li><li class='xr-section-item'><input id='section-4224aeae-f06b-4110-9bcc-4ab8f81684fa' class='xr-section-summary-in' type='checkbox'  checked><label for='section-4224aeae-f06b-4110-9bcc-4ab8f81684fa' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>trial_id</span></div><div class='xr-var-dims'>(trial_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>1 9 16 21 22 ... 289 294 297 298</div><input id='attrs-fac69c74-603a-4b22-9436-cf253b616e75' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-fac69c74-603a-4b22-9436-cf253b616e75' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-42c7c69a-0c2f-4a49-b20f-1e78ff46e869' class='xr-var-data-in' type='checkbox'><label for='data-42c7c69a-0c2f-4a49-b20f-1e78ff46e869' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([  1,   9,  16,  21,  22,  24,  25,  31,  40,  46,  54,  56,  57,  60,
+        [0., 0., 0., ..., 0., 0., 0.]]])</pre></div></li><li class='xr-section-item'><input id='section-5e4d4c94-7f89-43b6-b728-00463da70d3b' class='xr-section-summary-in' type='checkbox'  checked><label for='section-5e4d4c94-7f89-43b6-b728-00463da70d3b' class='xr-section-summary' >Coordinates: <span>(3)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>trial_id</span></div><div class='xr-var-dims'>(trial_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>1 9 16 21 22 ... 289 294 297 298</div><input id='attrs-2b411df1-d743-4d8f-998b-c4e469967955' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-2b411df1-d743-4d8f-998b-c4e469967955' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-b5309f38-8d11-4b9d-b538-39448f935ecc' class='xr-var-data-in' type='checkbox'><label for='data-b5309f38-8d11-4b9d-b538-39448f935ecc' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([  1,   9,  16,  21,  22,  24,  25,  31,  40,  46,  54,  56,  57,  60,
         62,  71,  78,  80,  87,  92,  93,  96,  98, 100, 105, 114, 115, 119,
        125, 126, 127, 133, 137, 142, 144, 145, 148, 151, 152, 160, 162, 168,
        169, 170, 172, 174, 175, 176, 187, 191, 196, 200, 204, 205, 207, 212,
        213, 215, 225, 226, 227, 236, 242, 251, 253, 263, 271, 272, 274, 275,
-       284, 289, 294, 297, 298])</pre></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time_relative_to_stimulus_onset</span></div><div class='xr-var-dims'>(time_relative_to_stimulus_onset)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-0.01 -0.0095 ... 0.024 0.0245</div><input id='attrs-1125b2f6-2a42-45b1-a4ce-1b1f55fa5844' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-1125b2f6-2a42-45b1-a4ce-1b1f55fa5844' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-71c9ddff-ad6d-42e0-88ec-6923a5cfe241' class='xr-var-data-in' type='checkbox'><label for='data-71c9ddff-ad6d-42e0-88ec-6923a5cfe241' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([-1.000000e-02, -9.500000e-03, -9.000000e-03, -8.500000e-03,
+       284, 289, 294, 297, 298])</pre></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>time_relative_to_stimulus_onset</span></div><div class='xr-var-dims'>(time_relative_to_stimulus_onset)</div><div class='xr-var-dtype'>float64</div><div class='xr-var-preview xr-preview'>-0.01 -0.0095 ... 0.024 0.0245</div><input id='attrs-2c4b0582-9068-48ce-9aef-aec68c2d5bf8' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-2c4b0582-9068-48ce-9aef-aec68c2d5bf8' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c164944a-4ad1-40bb-8fac-5b907ae597b4' class='xr-var-data-in' type='checkbox'><label for='data-c164944a-4ad1-40bb-8fac-5b907ae597b4' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([-1.000000e-02, -9.500000e-03, -9.000000e-03, -8.500000e-03,
        -8.000000e-03, -7.500000e-03, -7.000000e-03, -6.500000e-03,
        -6.000000e-03, -5.500000e-03, -5.000000e-03, -4.500000e-03,
        -4.000000e-03, -3.500000e-03, -3.000000e-03, -2.500000e-03,
@@ -1017,14 +1000,14 @@ dl.xr-attrs {
         1.800000e-02,  1.850000e-02,  1.900000e-02,  1.950000e-02,
         2.000000e-02,  2.050000e-02,  2.100000e-02,  2.150000e-02,
         2.200000e-02,  2.250000e-02,  2.300000e-02,  2.350000e-02,
-        2.400000e-02,  2.450000e-02])</pre></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>unit_id</span></div><div class='xr-var-dims'>(unit_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>951143596 951143585 ... 951144595</div><input id='attrs-f22ce3be-3ed7-421d-8843-795276a15503' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-f22ce3be-3ed7-421d-8843-795276a15503' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-6cd51766-5a9d-4650-bdc4-6483581fa9be' class='xr-var-data-in' type='checkbox'><label for='data-6cd51766-5a9d-4650-bdc4-6483581fa9be' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([951143596, 951143585, 951143567, 951143654, 951143673, 951143733,
+        2.400000e-02,  2.450000e-02])</pre></li><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>unit_id</span></div><div class='xr-var-dims'>(unit_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>951143596 951143585 ... 951144595</div><input id='attrs-c87df89a-e7f6-4a5d-8742-e4264a985f6e' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-c87df89a-e7f6-4a5d-8742-e4264a985f6e' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-cd55b444-31a1-4c4e-a4d3-4f11d49b1a3b' class='xr-var-data-in' type='checkbox'><label for='data-cd55b444-31a1-4c4e-a4d3-4f11d49b1a3b' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([951143596, 951143585, 951143567, 951143654, 951143673, 951143733,
        951143700, 951143721, 951143770, 951143776, 951143807, 951143827,
        951144766, 951143852, 951143919, 951143912, 951143933, 951143908,
        951143895, 951143881, 951143954, 951143991, 951143947, 951143940,
        951143984, 951144783, 951143980, 951143972, 951144042, 951144029,
        951144013, 951144006, 951143999, 951144103, 951144069, 951144165,
        951144148, 951144796, 951144184, 951144801, 951144199, 951144273,
-       951144260, 951144327, 951144438, 951144595])</pre></li></ul></div></li><li class='xr-section-item'><input id='section-e1e8019d-7ede-43ae-8a4d-c0e048bb8ef7' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-e1e8019d-7ede-43ae-8a4d-c0e048bb8ef7' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+       951144260, 951144327, 951144438, 951144595])</pre></li></ul></div></li><li class='xr-section-item'><input id='section-531ea6f1-1981-4383-b0cf-7fb7a65d18c2' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-531ea6f1-1981-4383-b0cf-7fb7a65d18c2' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
 </div>
 <p>The function returns an <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code> that contains the spikes counts of each units. The dimensions for the array are the <code class="docutils literal notranslate"><span class="pre">trial_id</span></code> (an individual pulse from <code class="docutils literal notranslate"><span class="pre">opto_table</span></code>) the <code class="docutils literal notranslate"><span class="pre">time_relative_to_stimulus_onset</span></code>, and the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code>.</p>
 <p>Looking at the DataArray, we can see that in this session there were 75 different times that a 10ms single pulse was given and 46 different units we are focusing on based on brain area.</p>
@@ -1053,14 +1036,46 @@ dl.xr-attrs {
     <span class="n">cb</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;Mean firing rate (Hz)&#39;</span><span class="p">)</span>
     
 <span class="n">plot_optotagging_response</span><span class="p">(</span><span class="n">da</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Pvalb-cre mice session&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Identifying_Cells_with_Optogenetics_15_0.png" src="../_images/Identifying_Cells_with_Optogenetics_15_0.png" />
+<img alt="../_images/Identifying_Cells_with_Optogenetics_16_0.png" src="../_images/Identifying_Cells_with_Optogenetics_16_0.png" />
 </div>
 </div>
 <p>The vertical lines indicate the stimulus window. Increases of firing rate right at the onset of the simulus are considered unrelaible because they are more often then not stimulus artifacts. The same can be said about increases of firing rate at the end of stimulus window.</p>
+<p>There is a lot of variabilty in the firing rates of different cre lines. We can use this type of plot to compare responses between different cre lines and identify the difference in numbers of light-driven neural units. Below we will plot the same time of graph, but with data taken from a session that used the sst cre line.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download new session with &#39;sst&#39; cre line</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="n">sst_session_id</span><span class="p">)</span> 
+
+<span class="c1"># Assign new optogenetic table basesd on new session</span>
+<span class="n">opto_table2</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">optogenetic_stimulation_epochs</span>
+
+<span class="c1"># Assign optogenetic stimuli</span>
+<span class="n">ss_10ms_2</span> <span class="o">=</span> <span class="n">opto_table2</span><span class="p">[(</span><span class="n">opto_table2</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.009</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">opto_table2</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.02</span><span class="p">)]</span>
+
+<span class="c1"># Assign units in brain area of interest for new session</span>
+<span class="n">units_df_2</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span>
+<span class="n">VISp_df_2</span> <span class="o">=</span> <span class="n">units_df_2</span><span class="p">[</span><span class="n">units_df_2</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span>
+
+<span class="c1"># Assign spike counts</span>
+<span class="n">da2</span> <span class="o">=</span> <span class="n">optotagging_spike_counts</span><span class="p">(</span><span class="n">bin_edges</span><span class="p">,</span> <span class="n">ss_10ms_2</span><span class="p">,</span> <span class="n">VISp_df_2</span><span class="p">)</span>
+
+<span class="n">plot_optotagging_response</span><span class="p">(</span><span class="n">da2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sst-cre mice Session&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Identifying_Cells_with_Optogenetics_18_0.png" src="../_images/Identifying_Cells_with_Optogenetics_18_0.png" />
+</div>
+</div>
+<p>Comparing the two plots, one can see that there are less units increasing their firing rate in our session that utilized Sst-cre mice.</p>
 <p>A good way to use this data would be to comapare the baseline firing rate (i.e. firing rate before stimulus) to the evoked firing rate. We can do this by first slicing our time bins into two timeframes, <code class="docutils literal notranslate"><span class="pre">baseline</span></code> and <code class="docutils literal notranslate"><span class="pre">evoked</span></code>. The <code class="docutils literal notranslate"><span class="pre">baseline</span></code> timeframe will begin at the start of our time bins and end just before the stimulus onset. The <code class="docutils literal notranslate"><span class="pre">evoked</span></code> timeframe will begin immidiatley after the onset of the stimulus and end right before the end of the stimulus suration.</p>
 <p>We will then reduce our data to only the mean firing rate of each unit within each time frame.</p>
 <div class="cell docutils container">
@@ -1416,7 +1431,7 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><div class='xr-wrap'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'spike_counts'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>unit_id</span>: 46</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-957c634b-9135-4776-b0b2-040693da1f9d' class='xr-array-in' type='checkbox' ><label for='section-957c634b-9135-4776-b0b2-040693da1f9d' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>8.333 1.667 18.33 8.333 60.0 121.7 ... 1.667 3.333 1.667 30.0 6.667</span></div><pre class='xr-array-data'>array([  8.33333333,   1.66666667,  18.33333333,   8.33333333,
+</style><div class='xr-wrap'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'spike_counts'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>unit_id</span>: 46</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-cbf709a8-3e2b-4ba9-b546-ba6e1853abcb' class='xr-array-in' type='checkbox' ><label for='section-cbf709a8-3e2b-4ba9-b546-ba6e1853abcb' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>8.333 1.667 18.33 8.333 60.0 121.7 ... 1.667 3.333 1.667 30.0 6.667</span></div><pre class='xr-array-data'>array([  8.33333333,   1.66666667,  18.33333333,   8.33333333,
         60.        , 121.66666667,   0.        ,   0.        ,
         96.66666667,  13.33333333, 198.33333333,   1.66666667,
          1.66666667,   1.66666667,   5.        ,   5.        ,
@@ -1427,14 +1442,14 @@ dl.xr-attrs {
          0.        ,  10.        ,   0.        ,  93.33333333,
         35.        ,  81.66666667,   1.66666667,   6.66666667,
          0.        ,   1.66666667,   3.33333333,   1.66666667,
-        30.        ,   6.66666667])</pre></div></li><li class='xr-section-item'><input id='section-a593fe4f-47c2-437e-89d3-ea43bdd5623a' class='xr-section-summary-in' type='checkbox'  checked><label for='section-a593fe4f-47c2-437e-89d3-ea43bdd5623a' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>unit_id</span></div><div class='xr-var-dims'>(unit_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>951143596 951143585 ... 951144595</div><input id='attrs-8d74312d-c6b6-4eb2-b6aa-2c140069bd7d' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-8d74312d-c6b6-4eb2-b6aa-2c140069bd7d' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-0fb21888-6500-41d7-bccb-fdc0672f6479' class='xr-var-data-in' type='checkbox'><label for='data-0fb21888-6500-41d7-bccb-fdc0672f6479' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([951143596, 951143585, 951143567, 951143654, 951143673, 951143733,
+        30.        ,   6.66666667])</pre></div></li><li class='xr-section-item'><input id='section-5291a4ea-b535-4262-be22-73f513273dce' class='xr-section-summary-in' type='checkbox'  checked><label for='section-5291a4ea-b535-4262-be22-73f513273dce' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>unit_id</span></div><div class='xr-var-dims'>(unit_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>951143596 951143585 ... 951144595</div><input id='attrs-e43e643f-9595-4049-ab1d-fdb5c18d4dfb' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-e43e643f-9595-4049-ab1d-fdb5c18d4dfb' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-4210c955-4379-4c30-b8f2-3293bf27b5d6' class='xr-var-data-in' type='checkbox'><label for='data-4210c955-4379-4c30-b8f2-3293bf27b5d6' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([951143596, 951143585, 951143567, 951143654, 951143673, 951143733,
        951143700, 951143721, 951143770, 951143776, 951143807, 951143827,
        951144766, 951143852, 951143919, 951143912, 951143933, 951143908,
        951143895, 951143881, 951143954, 951143991, 951143947, 951143940,
        951143984, 951144783, 951143980, 951143972, 951144042, 951144029,
        951144013, 951144006, 951143999, 951144103, 951144069, 951144165,
        951144148, 951144796, 951144184, 951144801, 951144199, 951144273,
-       951144260, 951144327, 951144438, 951144595])</pre></li></ul></div></li><li class='xr-section-item'><input id='section-ac602e0d-0059-4179-813d-b963d1d6200f' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-ac602e0d-0059-4179-813d-b963d1d6200f' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+       951144260, 951144327, 951144438, 951144595])</pre></li></ul></div></li><li class='xr-section-item'><input id='section-1f09b0e6-1f8c-454f-822d-fe2c796f05f6' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-1f09b0e6-1f8c-454f-822d-fe2c796f05f6' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
 </div>
 <p>We now have two DataArrays, one that contains the mean firing rate of the units at baseline, and one that contains the mean firing rate of the units during the pulse. Plotting a scatter plot with these two areas will show us how a unit’s basline firing rate compares to its evoked firing rate.</p>
 <div class="cell docutils container">
@@ -1460,10 +1475,13 @@ dl.xr-attrs {
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Identifying_Cells_with_Optogenetics_19_0.png" src="../_images/Identifying_Cells_with_Optogenetics_19_0.png" />
+<img alt="../_images/Identifying_Cells_with_Optogenetics_23_0.png" src="../_images/Identifying_Cells_with_Optogenetics_23_0.png" />
 </div>
 </div>
 <p>Each point represent a neural unit. The black line represents a 1:1 ratio in the evoked firing rate to the baseline firing rate of that unit. Any unit below that black line had a larger response at baseline than it did to the light pulse. The red line represents a 2:1 ratio in the evoked firing rate to the baseline firing rate of that unit. We can subselect units whose evoked firing rate is 2x larger than baseline to ensure these are units that are reliabily responding to the light pulse.</p>
+</div>
+<div class="section" id="identifying-fast-paced-waveforms">
+<h2><span class="section-number">7.3.3. </span>Identifying Fast-Paced Waveforms<a class="headerlink" href="#identifying-fast-paced-waveforms" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return units whose firing rates doubled when light was on</span>
@@ -1484,6 +1502,9 @@ dl.xr-attrs {
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 
+<span class="c1"># Reload pvalb session</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="n">pvalb_session_id</span><span class="p">)</span>
+
 <span class="k">for</span> <span class="n">unit_id</span> <span class="ow">in</span> <span class="n">cre_pos_units</span><span class="p">:</span>
     
     <span class="n">peak_channel</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span><span class="o">.</span><span class="n">peak_channel_id</span>
@@ -1493,14 +1514,59 @@ dl.xr-attrs {
 
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (microvolts)&#39;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],[</span><span class="o">-</span><span class="mi">160</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span><span class="s1">&#39;:c&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],[</span><span class="o">-</span><span class="mi">160</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span><span class="s1">&#39;:c&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Identifying_Cells_with_Optogenetics_22_0.png" src="../_images/Identifying_Cells_with_Optogenetics_22_0.png" />
+<img alt="../_images/Identifying_Cells_with_Optogenetics_27_0.png" src="../_images/Identifying_Cells_with_Optogenetics_27_0.png" />
 </div>
 </div>
+<p>Waves that occur before the 1ms timestamp can be considered to be a response to the light pulse. Those that come later than 1ms are thought to be elicited by from retinal input rather than by the light pulse.</p>
+<p>We can compare two different cre lines like we did before, but this time compare the number of fast-paced waveforms to regular waveforms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign time before stimulus occurs</span>
+<span class="n">baseline2</span> <span class="o">=</span> <span class="n">da2</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time_relative_to_stimulus_onset</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span><span class="o">-</span><span class="mf">0.002</span><span class="p">))</span>
+
+<span class="c1"># Assign Mean firing rate of each unit for time before the stimulus window </span>
+<span class="n">baseline_rate2</span> <span class="o">=</span> <span class="n">baseline2</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time_relative_to_stimulus_onset&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;trial_id&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.008</span>
+
+<span class="c1"># Assign time within stimulus window</span>
+<span class="n">evoked2</span> <span class="o">=</span> <span class="n">da2</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time_relative_to_stimulus_onset</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span><span class="mf">0.009</span><span class="p">))</span>
+
+<span class="c1"># Assign Mean firing rate of each unit for time within the stimulus window </span>
+<span class="n">evoked_rate2</span> <span class="o">=</span> <span class="n">evoked2</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;time_relative_to_stimulus_onset&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="s1">&#39;trial_id&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.008</span>
+
+<span class="c1"># Return units whose firing rates doubled when light was on </span>
+<span class="n">cre_pos_units2</span> <span class="o">=</span> <span class="n">da2</span><span class="o">.</span><span class="n">unit_id</span><span class="p">[(</span><span class="n">evoked_rate2</span> <span class="o">/</span> <span class="p">(</span><span class="n">baseline_rate2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="c1"># add 1 to prevent divide-by-zero errors</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Reload sst session</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="n">sst_session_id</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">unit_id</span> <span class="ow">in</span> <span class="n">cre_pos_units2</span><span class="p">:</span>
+    
+    <span class="n">peak_channel</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span><span class="o">.</span><span class="n">peak_channel_id</span>
+    <span class="n">wv</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">mean_waveforms</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">channel_id</span> <span class="o">=</span> <span class="n">peak_channel</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wv</span><span class="o">.</span><span class="n">time</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">wv</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude (microvolts)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],[</span><span class="o">-</span><span class="mi">160</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span><span class="s1">&#39;:c&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Identifying_Cells_with_Optogenetics_29_0.png" src="../_images/Identifying_Cells_with_Optogenetics_29_0.png" />
+</div>
+</div>
+<p>Comparing the two plots we can see that sst-cre mice had las units that were light-driven than the pvalb-cre mice.</p>
 </div>
 </div>
 
