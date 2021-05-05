@@ -37,6 +37,8 @@ from allensdk.brain_observatory.ecephys.ecephys_project_api.rma_engine import Rm
 # Import packages necessary to plot behavior
 import allensdk.brain_observatory.ecephys.visualization as ecvis
 from allensdk.brain_observatory.visualization import plot_running_speed
+from spykes.plot.neurovis import NeuroVis
+from spykes.plot.popvis import PopVis
 
 # Assign where neuropixels data and 2-photon data will be stored
 manifest_path = 'manifest.json' 
@@ -117,28 +119,33 @@ plt.ylabel('Units')
 plt.show()
 
 
-# A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too man spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin. 
+# A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too man spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin using the fucntion below. The funtion takes in single unit's spike times as an argument. 
 
 # In[6]:
 
 
-# Focus on one signle unit
+def plot_firing_rates(spike_times):
+    
+    # Assign total number of bins 
+    numbins = int(np.ceil(spike_times.max()))
+    binned_spikes = np.empty((numbins))
+    
+    # Assign the frequency of spikes over time
+    for i in range(numbins):
+        binned_spikes[i] = len(spike_times[(spike_times>i)&(spike_times<i+1)])
+    
+    plt.plot(binned_spikes)
+    plt.xlabel('Time (s)')
+    plt.ylabel('FR (Hz)')
+    
+    return 
+
+# Assign spike times you would like to plot, focus on a single unit
 first_VISp_spike_times = VISp_spike_times[0]
 
-# Assign total number of bins 
-numbins = int(np.ceil(first_VISp_spike_times.max()))
-binned_spikes = np.empty((numbins))
-
-# Assign the frequency of spikes over time
-for i in range(numbins):
-    binned_spikes[i] = len(first_VISp_spike_times[(first_VISp_spike_times>i)&(first_VISp_spike_times<i+1)])
-    
-# Plot firing rate of first 50 seconds
 plt.figure(figsize=(20,5))
-plt.plot(binned_spikes)
-plt.xlabel('Time (s)')
-plt.ylabel('FR (Hz)')
-plt.xlim(0, 50)
+plot_firing_rates(first_VISp_spike_times)
+plt.xlim([0,50])
 plt.show()
 
 
@@ -158,17 +165,17 @@ all_stims
 
 # **Note**: Not all stimuli share the same parameters. If certain parameters do not apply to a stimulus, you will see a `null` value. 
 
-# In[10]:
+# In[27]:
 
 
 # Stimulus presentation dataframe 
 stim_pres = session.stimulus_presentations
-stim_pres.head()
+stim_pres
 
 
 # Each stimulus used in the session is presented to the mouse in various timeblocks. Using the `get_stimulus_epochs()` method will return a pandas dataframe containing the time periods where a single stimulus type was presented continuously. 
 
-# In[11]:
+# In[8]:
 
 
 # Continous timeblocks where only 1 type of stimulus was presented
@@ -179,7 +186,7 @@ stim_timeblocks.head()
 
 # The timeblocks above allow us to compare neural activity of the units when a new stimulus is being presented. By using `plt.axvspan` we can divide our current plot to show when one stimulus ends and a new one begins. Plotting this over the firing rates of our units will reveal what `stimulus_name` elicited the highest neural activity. 
 
-# In[14]:
+# In[10]:
 
 
 plt.figure(figsize=(20,10))
@@ -224,7 +231,7 @@ plt.show()
 
 # Alternatively, you could use the `get_stimulus_table()` method to return a subset of stimulus presentation by `stimulus_name`. The returned dataframe will only contain parameters that relate to the given `stimulus_name`. Below we will investigate how our neuronal units responded to a `natural_scenes` stimulus presentations.
 
-# In[15]:
+# In[11]:
 
 
 natural_scenes_df = session.get_stimulus_table(['natural_scenes'])
@@ -233,7 +240,7 @@ natural_scenes_df.head()
 
 # We can look even further and check how the parameters of a stimulus affected the firing rate. In `natural_scenes` presentations, different frame/image was presented to the mouse. Below we will focus on the times that the first `frame` in our dataframe above, was presented in the session. 
 
-# In[16]:
+# In[12]:
 
 
 # Assign indices of dataframe
@@ -249,7 +256,7 @@ print(len(natural_scenes_df[natural_scenes_df['frame']==my_image]))
 
 # As you can see from the dataframe above, the `natural_scenes` presentations also cotain start and end times. We can do what we did before and use `plt.axvspan()` to plot the times when the images of interest was presented over the firing rates of our session. 
 
-# In[26]:
+# In[13]:
 
 
 plt.figure(figsize=(20,10))
@@ -274,7 +281,7 @@ plt.show()
 
 # You are not limited to only plotting the the times where a certain image was presented, nor are you limited to only plotting `natural_scenes` stimuli. You can create a similar graph with `gabors`, `flashes`, or any other availabe `stimulus_name`. For example, you can plot all the times when a `gabors` stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion. You can use `get_stimulus_parameter_values` to return a dictionary of all parameteres used in a session. 
 
-# In[15]:
+# In[14]:
 
 
 session_parameters = session.get_stimulus_parameter_values()
@@ -284,7 +291,7 @@ for key, value in session_parameters.items():
 
 # Below we will focus on the `gabors` presentations in our session and see how different orientations affected the firing rate. We will take a look at the first `gabors` presentation that was oriented 90 degrees. 
 
-# In[4]:
+# In[15]:
 
 
 # Assign dataframe with only 'gabors' presentations
@@ -300,7 +307,7 @@ end = subset['stop_time'].iloc[0]
 
 # The function below was made to create a raster plot of spikes with rectangluar bars indicating when the stimulus started and ended.
 
-# In[5]:
+# In[16]:
 
 
 def plot_raster(spike_times, start, end):
@@ -322,7 +329,7 @@ def plot_raster(spike_times, start, end):
         ymax += ystep
 
 
-# In[6]:
+# In[17]:
 
 
 plt.figure(figsize=(8,6))
@@ -334,7 +341,25 @@ plt.tick_params(axis="y", labelleft=False, left=False)
 plt.show()
 
 
-# In[24]:
+# In[32]:
+
+
+pop = NeuroVis(VISp_spike_times[0], name = 'VISp')
+
+fig = plt.figure(figsize=(5, 5))
+
+pop.get_raster(event='start_time', df=stim_pres)
+plt.show()
+
+
+# In[40]:
+
+
+pop.get_psth(event='start_time', df=stim_pres, binsize = 10, window = [-100, 1000])
+plt.show()
+
+
+# In[18]:
 
 
 # Create 1 list containing all the times a unit fired
@@ -346,7 +371,7 @@ plt.show()
 #            spike_list.append(j)
 
 
-# In[23]:
+# In[19]:
 
 
 # Create 1 second bins for all spikes
@@ -363,7 +388,7 @@ plt.show()
 
 # The running speed of the mice in our session have also been recorded and are available to you. You can acess the running speed by calling `running_speed` on our `EcephysSession` object. This will return a pandas dataframe that contains the `start_time`, `end_time`, and `velocity` of our session.
 
-# In[68]:
+# In[20]:
 
 
 running_speed = session.running_speed
@@ -377,7 +402,7 @@ plt.show()
 
 # With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with more neural activity. 
 
-# In[92]:
+# In[21]:
 
 
 fig, ax = plt.subplots(2, figsize = (10,10) )
@@ -415,14 +440,14 @@ plt.show()
 
 # ## Signal Correlations
 
-# In[15]:
+# In[22]:
 
 
 spf = flashes_histogram[0]
 max_len = spf.shape[0]
 
 
-# In[16]:
+# In[ ]:
 
 
 # get two spike trains in flashes activity
@@ -430,7 +455,7 @@ spike_train_1_flash=spf[:max_len, 0]
 spike_train_2_flash=spf[:max_len, 9]
 
 
-# In[17]:
+# In[ ]:
 
 
 fig, ax = plt.subplots(1, 2,figsize=(10,4))
@@ -445,7 +470,7 @@ ax[1].set_xlabel('Time bins (10 ms)')
 plt.show()
 
 
-# In[18]:
+# In[ ]:
 
 
 # compute the correlogram for spontaneous activity
@@ -455,7 +480,7 @@ xcorr_flashes = sp.signal.correlate(spike_train_1_flash,spike_train_2_flash)
 time_shift_flashes = np.arange(-len(xcorr_flashes)/2,len(xcorr_flashes)/2,1)
 
 
-# In[19]:
+# In[ ]:
 
 
 plt.figure(figsize=(14,8))

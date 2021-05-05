@@ -151,7 +151,7 @@ da
 # 
 # For more information on how to use `xarray.DataArray` objects, please visit <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.mean.html#xarray.DataArray.mean'> here</a>.
 
-# In[7]:
+# In[61]:
 
 
 def plot_optotagging_response(da):
@@ -183,7 +183,7 @@ plt.show()
 # 
 # There is a lot of variabilty in the firing rates of different cre lines. We can use this type of plot to compare responses between different cre lines and identify the difference in numbers of light-driven neural units. Below we will plot the same time of graph, but with data taken from a session that used the sst cre line. 
 
-# In[8]:
+# In[62]:
 
 
 # Download new session with 'sst' cre line
