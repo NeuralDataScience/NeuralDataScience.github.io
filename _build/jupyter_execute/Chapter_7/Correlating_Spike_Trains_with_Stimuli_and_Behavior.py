@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Large Scale Single Cell Electrophysiology & Behavior
+# # Correlating Spike Trains with Stimuli and Behavior
 
 # In[1]:
 
@@ -149,11 +149,46 @@ plt.xlim([0,50])
 plt.show()
 
 
+# In[7]:
+
+
+def plot_firing_rates(spike_times):
+
+    # Create Subplot
+    fig, ax = plt.subplots(len(spike_times))
+    
+    
+    # Create PSTH on each sublot
+    for i in range(len(spike_times)):
+
+
+
+        # Assign total number of bins 
+        numbins = int(np.ceil(spike_times[i].max()))
+        binned_spikes = np.empty((numbins))
+
+    
+        # Assign the frequency of spikes over time
+        for j in range(numbins):
+            binned_spikes[j] = len(spike_times[i][(spike_times[i]>j)&(spike_times[i]<j+1)])
+        
+        
+        ax[i].plot(binned_spikes)
+        ax[i].set_xlabel('Time (s)')
+        ax[i].set_ylabel('FR (Hz)')
+    
+    return 
+
+#plt.figure(figsize=(20,5))
+plot_firing_rates(VISp_spike_times)
+plt.show()
+
+
 # ## Stimulus Presentations
 
 # The spike data can be sorted according to the type of stimulus that was presented to the mouse. You can access the different stimuli that were presented in the session by using the attribute `stimulus_names`. 
 
-# In[7]:
+# In[8]:
 
 
 # Stimuli presented in session

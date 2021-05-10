@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>7.2. Large Scale Single Cell Electrophysiology &amp; Behavior &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>7.2. Correlating Spike Trains with Stimuli and Behavior &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -140,7 +140,7 @@
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     7.2. Large Scale Single Cell Electrophysiology &amp; Behavior
+     7.2. Correlating Spike Trains with Stimuli and Behavior
     </a>
    </li>
    <li class="toctree-l2">
@@ -305,8 +305,8 @@
         
               <div>
                 
-  <div class="section" id="large-scale-single-cell-electrophysiology-behavior">
-<h1><span class="section-number">7.2. </span>Large Scale Single Cell Electrophysiology &amp; Behavior<a class="headerlink" href="#large-scale-single-cell-electrophysiology-behavior" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="correlating-spike-trains-with-stimuli-and-behavior">
+<h1><span class="section-number">7.2. </span>Correlating Spike Trains with Stimuli and Behavior<a class="headerlink" href="#correlating-spike-trains-with-stimuli-and-behavior" title="Permalink to this headline">¶</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will ensure that the AllenSDK is installed.</span>
@@ -498,6 +498,45 @@ Spikes found for unit 950908448 : 120843
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_firing_rates</span><span class="p">(</span><span class="n">spike_times</span><span class="p">):</span>
+
+    <span class="c1"># Create Subplot</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">))</span>
+    
+    
+    <span class="c1"># Create PSTH on each sublot</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)):</span>
+
+
+
+        <span class="c1"># Assign total number of bins </span>
+        <span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
+        <span class="n">binned_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">numbins</span><span class="p">))</span>
+
+    
+        <span class="c1"># Assign the frequency of spikes over time</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numbins</span><span class="p">):</span>
+            <span class="n">binned_spikes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">][(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">j</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
+        
+        
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">binned_spikes</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;FR (Hz)&#39;</span><span class="p">)</span>
+    
+    <span class="k">return</span> 
+
+<span class="c1">#plt.figure(figsize=(20,5))</span>
+<span class="n">plot_firing_rates</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_13_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_13_0.png" />
 </div>
 </div>
 </div>
@@ -920,7 +959,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_22_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_22_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_23_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_23_0.png" />
 </div>
 </div>
 <p>Alternatively, you could use the <code class="docutils literal notranslate"><span class="pre">get_stimulus_table()</span></code> method to return a subset of stimulus presentation by <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. The returned dataframe will only contain parameters that relate to the given <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. Below we will investigate how our neuronal units responded to a <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimulus presentations.</p>
@@ -1071,7 +1110,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_28_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_28_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_29_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_29_0.png" />
 </div>
 </div>
 <p>You are not limited to only plotting the the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion. You can use <code class="docutils literal notranslate"><span class="pre">get_stimulus_parameter_values</span></code> to return a dictionary of all parameteres used in a session.</p>
@@ -1152,7 +1191,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1167,7 +1206,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1178,7 +1217,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_38_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_38_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1225,7 +1264,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_42_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_42_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" />
 </div>
 </div>
 <p>With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with more neural activity.</p>
@@ -1266,7 +1305,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_44_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_44_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_45_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_45_0.png" />
 </div>
 </div>
 </div>
