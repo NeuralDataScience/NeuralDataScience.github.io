@@ -3,7 +3,9 @@
 
 # # Identifying Cells with Optogenetics
 
-# In this section you will learn how to access the optogenetic data within the Neuropixels dataset and plot your data. In these experiments, light-gated ion channels were expressed in mice in a Cre-dependent manner. These ion channels elicit a response in Cre+ cells when light is shined on the surface of the brain. The concept behind this procedure is that only units with our cre-line of interest will respond to the light allowing for subrgroups of neuronal untis to be identified and analyzed across differing genotypes. 
+# In this section, you will learn how to access the optogenetic data within the AllenSDK's Neuropixels dataset. In these experiments, light-gated ion channels were expressed in mice in a Cre-dependent manner. These ion channels can depolarize Cre+ cells when specific wavelengths of light are shined on the brain.
+# 
+# Although it can be hard to identify cell types with extracellular electrophysiology, the integration of optogenetics into these experiments is one way to help identify subsets of cells. Only units with our cre-line of interest will respond to the light allowing for subgroups of neuronal untis to be identified and analyzed across differing genotypes. This technique is called **optotagging**.
 # 
 # **Note**: the presence of light artifacts can create the appearance of false positives, and false negatives (cells that are Cre+ but do not respond to light) are nearly impossible to avoid. We will go over how to deal with these cases later in the notebook. 
 
@@ -12,10 +14,6 @@
 
 # Import necessary packages 
 import numpy as np 
-import pandas as pd 
-import scipy as sp
-import seaborn as sns
-from scipy import signal
 import matplotlib.pyplot as plt
 import xarray as xr
 import warnings
@@ -33,8 +31,10 @@ manifest_path = 'manifest.json'
 cache = EcephysProjectCache(manifest=manifest_path,
                             fetch_api=EcephysProjectWarehouseApi(RmaEngine(scheme="http",host="api.brain-map.org",timeout= 50 * 60)))          
 
+print('Packages imported and cache instance created.')
 
-# Because we the light-gated ion channels are expressed in mice in a Cre-dependent manner, it is important to recall the different cre lines availabe to us in our sessions. 
+
+# Because optogenetic channels are expressed in a Cre-dependent manner, let's first see which Cre-lines are available.
 
 # In[2]:
 
@@ -43,35 +43,50 @@ all_sessions = cache.get_session_table()
 all_sessions['full_genotype'].unique()
 
 
+# **About these Cre-lines**
+# 
+# Each of these cre-lines mark specific subsets of inhibitory neurons in the brain.
+
 # ## Accessing Optogenetic Data
 
-# Before we begin downloading data, it is important to mention that the procedures in the optogenetic stimulation experiments have some inconsitencies. The light used to evoke the units' optogenetic response was switched from an LED light to a lazer a little more than halfway through the experiment to evoke a stronger response from the units. The cell below will return a list containing the session id's of the sessions where a lazer was used. 
+# Before we begin downloading data, it is important to mention that the procedures in the optogenetic stimulation experiments have some inconsistencies. The light used to evoke the units' optogenetic response was switched from an LED light to a laser a little more than halfway through the experiment to evoke a stronger response from the units. The cell below will return a list containing the session id's of the sessions where a laser was used. 
 
 # In[3]:
 
 
-# Halfway through expersiment, LED light was swapped for a Lazer to evoke stronger response
-lazer = []
+# Halfway through expersiment, LED light was swapped for a laser to evoke stronger response
+laser = []
+first_laser_session = 789848216
 
 session_ids = all_sessions.index.values
 
 for i in session_ids:
-    if (i >= 789848216):
-        lazer.append(i)
-print(f" Sessions ID's conducted with lasers: \n {lazer}")
+    if (i >= first_laser_session):
+        laser.append(i)
+print(f" Sessions ID's conducted with lasers: \n {laser}")
 
 
-# To ensure we can see clear optogenetic responses from our units, we will be working with a session that used a lazer to evoke these responses. We will download multiple sessions with different Cre Lines to compare responses between differing genotypes. 
+# To ensure we can see clear optogenetic responses from our units, we will be working with a session that used a laser to evoke these responses. We will download multiple sessions with different Cre Lines to compare responses between differing genotypes. 
 
 # In[4]:
 
 
-# Assign Session IDs with differing cre lines
-pvalb_session_id = all_sessions.index.values[-2]
-sst_session_id = all_sessions.index.values[-4]
+pvalb_sessions = all_sessions[all_sessions.full_genotype == 'Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt']
+#pvalb_laser_sessions = pvalb_sessions[pvalb_sessions.index in laser] # this is where we'll filter by laser as index
+pavalb_laser_sessions = pvalb_sessions[pvalb_sessions.index > first_laser_session]
+pavalb_laser_sessions
+
+
+# In[5]:
+
+
+pvalb_sessions = all_sessions[all_sessions.full_genotype == 'Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt']
+pavalb_laser_sessions = pvalb_sessions[pvalb_sessions.index > first_laser_session] # this is where we'll filter by laser as index
+
+pvalb_session_id = pavalb_laser_sessions.index[0] # fix me
 
 # Download a session for one of our cre lines using
-session = cache.get_session_data(pvalb_session_id) # Lazer
+session = cache.get_session_data(pvalb_session_id)
 
 print('Data Downloaded.')
 
@@ -82,7 +97,7 @@ print('Data Downloaded.')
 # - half period of a cosine wave: 1 second duration
 # - 2.5 ms pulses at 10 Hz: 1 second duration
 
-# In[5]:
+# In[6]:
 
 
 opto_table = session.optogenetic_stimulation_epochs
@@ -92,11 +107,11 @@ opto_table
 
 # ## Aligning Spikes to Pulses 
 
-# Unlike the stimulus presentations that we covered in the previous section, there is no built in function for aligning spikes to light pulses in the Allen SDK. Below, we have copied a function from the Allen SDK Optotagging Analysis tutorial that does this for you. If you are interested, you can find the whole tutorial, <a href = 'https://github.com/jsiegle/AllenSDK/blob/opto-tutorial/doc_template/examples_root/examples/nb/ecephys_optotagging.ipynb'> here</a>.
+# Unlike the stimulus presentations that we covered in the previous section, there is no built in function for aligning spikes to light pulses in the Allen SDK. Below, we have copied a function from the <a href = 'https://github.com/jsiegle/AllenSDK/blob/opto-tutorial/doc_template/examples_root/examples/nb/ecephys_optotagging.ipynb'> Allen SDK Optotagging Analysis tutorial</a> that does this for you.
 # 
-# The funtion below needs bin edges, optogenetic trials, and units in order to return the spike counts. For this reason, you must first specify your desired bins, optogenetic stimuli, and units of interest. We will be focusing units found in the `VISp` brain area. The Allen Institute has discovered that "10 ms pulses are the most useful stimulus for finding true light-evoked activity" <a href = 'https://github.com/jsiegle/AllenSDK/blob/opto-tutorial/doc_template/examples_root/examples/nb/ecephys_optotagging.ipynb'> (link) </a> so will subselect data with that stimulus. 
+# The funtion below needs bin edges, optogenetic trials, and units in order to return the spike counts. For this reason, you must first specify your desired bins, optogenetic stimuli, and units of interest. We will be focusing units found in the `VISp` brain area. The Allen Institute has discovered that "10 ms pulses are the most useful stimulus for finding true light-evoked activity" so will subselect data with that stimulus.
 
-# In[6]:
+# In[7]:
 
 
 # Assign optogenetic stimuli
@@ -140,7 +155,7 @@ def optotagging_spike_counts(bin_edges, trials, units):
     )
 
 da = optotagging_spike_counts(bin_edges, ss_10ms, VISp_df)
-da
+print('Data Array Succefully created.')
 
 
 # The function returns an `xarray.DataArray` that contains the spikes counts of each units. The dimensions for the array are the `trial_id` (an individual pulse from `opto_table`) the `time_relative_to_stimulus_onset`, and the `unit_id`. 
@@ -149,9 +164,9 @@ da
 # 
 # We can use the DataArray to plot a heatmap of units' response to the light pulses. The funtion below was also copied from the Allen SDK Optogenetic Analysis tutortial. The funtion takes our DataArray and reduces the data within by computing the mean spike counts across the `trial_id` dimension for every unit in the array. The reduced data is then plotted with respect to the time bins that we specified earlier. 
 # 
-# For more information on how to use `xarray.DataArray` objects, please visit <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.mean.html#xarray.DataArray.mean'> here</a>.
+# For more information on how to use `xarray.DataArray` objects, please visit the <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.mean.html#xarray.DataArray.mean'> Xarray original documentation online</a>.
 
-# In[61]:
+# In[8]:
 
 
 def plot_optotagging_response(da):
@@ -179,41 +194,11 @@ plt.title('Pvalb-cre mice session')
 plt.show()
 
 
-# The vertical lines indicate the stimulus window. Increases of firing rate right at the onset of the simulus are considered unrelaible because they are more often then not stimulus artifacts. The same can be said about increases of firing rate at the end of stimulus window. 
-# 
-# There is a lot of variabilty in the firing rates of different cre lines. We can use this type of plot to compare responses between different cre lines and identify the difference in numbers of light-driven neural units. Below we will plot the same time of graph, but with data taken from a session that used the sst cre line. 
-
-# In[62]:
-
-
-# Download new session with 'sst' cre line
-session = cache.get_session_data(sst_session_id) 
-
-# Assign new optogenetic table basesd on new session
-opto_table2 = session.optogenetic_stimulation_epochs
-
-# Assign optogenetic stimuli
-ss_10ms_2 = opto_table2[(opto_table2['duration'] > 0.009) & (opto_table2['duration'] < 0.02)]
-
-# Assign units in brain area of interest for new session
-units_df_2 = session.units
-VISp_df_2 = units_df_2[units_df_2['ecephys_structure_acronym'] == 'VISp']
-
-# Assign spike counts
-da2 = optotagging_spike_counts(bin_edges, ss_10ms_2, VISp_df_2)
-
-plot_optotagging_response(da2)
-plt.title('Sst-cre mice Session')
-plt.show()
-
-
-# Comparing the two plots, one can see that there are less units increasing their firing rate in our session that utilized Sst-cre mice. 
-
 # A good way to use this data would be to comapare the baseline firing rate (i.e. firing rate before stimulus) to the evoked firing rate. We can do this by first slicing our time bins into two timeframes, `baseline` and `evoked`. The `baseline` timeframe will begin at the start of our time bins and end just before the stimulus onset. The `evoked` timeframe will begin immidiatley after the onset of the stimulus and end right before the end of the stimulus suration. 
 # 
 # We will then reduce our data to only the mean firing rate of each unit within each time frame.
 
-# In[63]:
+# In[9]:
 
 
 # Assign time before stimulus occurs
@@ -233,7 +218,7 @@ evoked_rate
 
 # We now have two DataArrays, one that contains the mean firing rate of the units at baseline, and one that contains the mean firing rate of the units during the pulse. Plotting a scatter plot with these two areas will show us how a unit's basline firing rate compares to its evoked firing rate. 
 
-# In[64]:
+# In[10]:
 
 
 plt.figure(figsize=(5,5))
@@ -259,16 +244,23 @@ _ = plt.ylabel('Evoked rate (Hz)')
 
 # ## Identifying Fast-Paced Waveforms
 
-# In[65]:
+# In[11]:
 
 
 # Return units whose firing rates doubled when light was on
 cre_pos_units = da.unit_id[(evoked_rate / (baseline_rate + 1)) > 2].values # add 1 to prevent divide-by-zero errors
 
-cre_pos_units
+# also get cre neg units
+cre_neg_units = da.unit_id[(evoked_rate / (baseline_rate + 1)) < 2].values
+
+print("Pvalv+ Cre lines")
+print(cre_pos_units)
+
+print(' \n Pvalb- Cre lines')
+print(cre_neg_units)
 
 
-# In[66]:
+# In[12]:
 
 
 plt.figure(figsize=(5,5))
@@ -289,35 +281,15 @@ plt.plot([1.0, 1.0],[-160, 100],':c')
 plt.show()
 
 
-# Waves that occur before the 1ms timestamp can be considered to be a response to the light pulse. Those that come later than 1ms are thought to be elicited by from retinal input rather than by the light pulse. 
-# 
-# We can compare two different cre lines like we did before, but this time compare the number of fast-paced waveforms to regular waveforms. 
-
-# In[67]:
-
-
-# Assign time before stimulus occurs
-baseline2 = da2.sel(time_relative_to_stimulus_onset=slice(-0.01,-0.002))
-
-# Assign Mean firing rate of each unit for time before the stimulus window 
-baseline_rate2 = baseline2.sum(dim='time_relative_to_stimulus_onset').mean(dim='trial_id') / 0.008
-
-# Assign time within stimulus window
-evoked2 = da2.sel(time_relative_to_stimulus_onset=slice(0.001,0.009))
-
-# Assign Mean firing rate of each unit for time within the stimulus window 
-evoked_rate2 = evoked2.sum(dim='time_relative_to_stimulus_onset').mean(dim='trial_id') / 0.008
-
-# Return units whose firing rates doubled when light was on 
-cre_pos_units2 = da2.unit_id[(evoked_rate2 / (baseline_rate2 + 1)) > 2].values # add 1 to prevent divide-by-zero errors
+# In[13]:
 
 
 plt.figure(figsize=(5,5))
 
-# Reload sst session
-session = cache.get_session_data(sst_session_id)
+# Reload pvalb session
+session = cache.get_session_data(pvalb_session_id)
 
-for unit_id in cre_pos_units2:
+for unit_id in cre_neg_units:
     
     peak_channel = session.units.loc[unit_id].peak_channel_id
     wv = session.mean_waveforms[unit_id].sel(channel_id = peak_channel)
@@ -329,8 +301,6 @@ plt.ylabel('Amplitude (microvolts)')
 plt.plot([1.0, 1.0],[-160, 100],':c')
 plt.show()
 
-
-# Comparing the two plots we can see that sst-cre mice had las units that were light-driven than the pvalb-cre mice. 
 
 # In[ ]:
 
