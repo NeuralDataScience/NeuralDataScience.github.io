@@ -56,7 +56,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="7.2. Large Scale Single Cell Electrophysiology &amp; Behavior" href="Correlating_Spike_Trains_with_Stimuli_and_Behavior.html" />
+    <link rel="next" title="7.2. Correlating Spike Trains with Stimuli and Behavior" href="Correlating_Spike_Trains_with_Stimuli_and_Behavior.html" />
     <link rel="prev" title="7. Large Scale Electrophysiology" href="Large_Scale_Electrophysiology.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -140,17 +140,12 @@
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Correlating_Spike_Trains_with_Stimuli_and_Behavior.html">
-     7.2. Large Scale Single Cell Electrophysiology &amp; Behavior
+     7.2. Correlating Spike Trains with Stimuli and Behavior
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Identifying_Cells_with_Optogenetics.html">
      7.3. Identifying Cells with Optogenetics
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Correlations.html">
-     7.4. Spike Sorting Neuropixels Data
     </a>
    </li>
   </ul>
@@ -298,32 +293,28 @@
   <div class="section" id="obtaining-raw-electrophysiology-data">
 <h1><span class="section-number">7.1. </span>Obtaining Raw Electrophysiology Data<a class="headerlink" href="#obtaining-raw-electrophysiology-data" title="Permalink to this headline">¶</a></h1>
 <p>This section will teach you how to interact with the Neuropixels dataset, specifically how to download experimental sessions, return procesed data, and subset your data to contain only brain regions you are interested in.</p>
-<p>We will first need to import the <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> from the Allen SDK and create an instance of the class. The class is used to download the metadata and data for all sessions in the Neuropixels dataset. For the full list of methods, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'> original documentation</a>.</p>
+<p>We will first need to import the <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> from the Allen SDK and create an instance of the class. The class is used to download the metadata and data for all sessions in the Neuropixels dataset. For the full list of methods, please visit the <code class="docutils literal notranslate"><span class="pre">allensdk.brain_observatory.ecephys.ecephys_project_cache</span></code> module documentation on the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'>Allen SDK website</a>. We’ll create an instance of <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> with a larger <code class="docutils literal notranslate"><span class="pre">timeout</span></code> value to ensure enough time is allowed for our session file to download below.</p>
 <p>Below we will execute <code class="docutils literal notranslate"><span class="pre">get_session_table()</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> object which will return a dataframe with metadata on each session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary packages </span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Import packages necessary to plot behavior</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-
-<span class="c1"># Import packages necessary to plot behavior</span>
 <span class="kn">import</span> <span class="nn">allensdk.brain_observatory.ecephys.visualization</span> <span class="k">as</span> <span class="nn">ecvis</span>
-<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.visualization</span> <span class="kn">import</span> <span class="n">plot_running_speed</span>
 
 <span class="c1"># Import the Neuropixels Cache</span>
 <span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_cache</span> <span class="kn">import</span> <span class="n">EcephysProjectCache</span>
+<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_api</span> <span class="kn">import</span> <span class="n">EcephysProjectWarehouseApi</span>
+<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_api.rma_engine</span> <span class="kn">import</span> <span class="n">RmaEngine</span>
 
 <span class="c1"># Assign where data will be stored</span>
 <span class="n">manifest_path</span> <span class="o">=</span> <span class="s1">&#39;manifest.json&#39;</span> 
 
 <span class="c1"># Create the EcephysProjectCache object</span>
-<span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="n">manifest_path</span><span class="p">)</span>
+<span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="n">manifest_path</span><span class="p">,</span>
+                            <span class="n">fetch_api</span><span class="o">=</span><span class="n">EcephysProjectWarehouseApi</span><span class="p">(</span><span class="n">RmaEngine</span><span class="p">(</span><span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;api.brain-map.org&quot;</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)))</span>    
+
 
 <span class="c1"># Return all sessions available in this dataset</span>
 <span class="n">sessions</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_table</span><span class="p">()</span>
@@ -332,122 +323,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of sessions: 58
-</pre></div>
-</div>
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>published_at</th>
-      <th>specimen_id</th>
-      <th>session_type</th>
-      <th>age_in_days</th>
-      <th>sex</th>
-      <th>full_genotype</th>
-      <th>unit_count</th>
-      <th>channel_count</th>
-      <th>probe_count</th>
-      <th>ecephys_structure_acronyms</th>
-    </tr>
-    <tr>
-      <th>id</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>715093703</th>
-      <td>2019-10-03T00:00:00Z</td>
-      <td>699733581</td>
-      <td>brain_observatory_1.1</td>
-      <td>118.0</td>
-      <td>M</td>
-      <td>Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
-      <td>884</td>
-      <td>2219</td>
-      <td>6</td>
-      <td>[CA1, VISrl, nan, PO, LP, LGd, CA3, DG, VISl, ...</td>
-    </tr>
-    <tr>
-      <th>719161530</th>
-      <td>2019-10-03T00:00:00Z</td>
-      <td>703279284</td>
-      <td>brain_observatory_1.1</td>
-      <td>122.0</td>
-      <td>M</td>
-      <td>Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
-      <td>755</td>
-      <td>2214</td>
-      <td>6</td>
-      <td>[TH, Eth, APN, POL, LP, DG, CA1, VISpm, nan, N...</td>
-    </tr>
-    <tr>
-      <th>721123822</th>
-      <td>2019-10-03T00:00:00Z</td>
-      <td>707296982</td>
-      <td>brain_observatory_1.1</td>
-      <td>125.0</td>
-      <td>M</td>
-      <td>Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
-      <td>444</td>
-      <td>2229</td>
-      <td>6</td>
-      <td>[MB, SCig, PPT, NOT, DG, CA1, VISam, nan, LP, ...</td>
-    </tr>
-    <tr>
-      <th>732592105</th>
-      <td>2019-10-03T00:00:00Z</td>
-      <td>717038288</td>
-      <td>brain_observatory_1.1</td>
-      <td>100.0</td>
-      <td>M</td>
-      <td>wt/wt</td>
-      <td>824</td>
-      <td>1847</td>
-      <td>5</td>
-      <td>[grey, VISpm, nan, VISp, VISl, VISal, VISrl]</td>
-    </tr>
-    <tr>
-      <th>737581020</th>
-      <td>2019-10-03T00:00:00Z</td>
-      <td>718643567</td>
-      <td>brain_observatory_1.1</td>
-      <td>108.0</td>
-      <td>M</td>
-      <td>wt/wt</td>
-      <td>568</td>
-      <td>2218</td>
-      <td>6</td>
-      <td>[grey, VISmma, nan, VISpm, VISp, VISl, VISrl]</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
 </div>
 <p>A few columns that we may want to pay attention to for future analysis are the <code class="docutils literal notranslate"><span class="pre">full_genotype</span></code>, <code class="docutils literal notranslate"><span class="pre">unit_count</span></code>, and <code class="docutils literal notranslate"><span class="pre">ecephys_structure_acronyms</span></code>.</p>
 <p>In this dataset, a <code class="docutils literal notranslate"><span class="pre">unit</span></code> referes to an individual neuron that was recorded in the session. The <code class="docutils literal notranslate"><span class="pre">unit_count</span></code> refers to the total number of neurons recorded in a particluar sesssion. As mentioned in the chapter introduction, three different genotypes were used alongside the wildtype for these experiments. You can find the genotype under <code class="docutils literal notranslate"><span class="pre">full_genotype</span></code>. Lastly, you can find what structures the data in a session was collected from under <code class="docutils literal notranslate"><span class="pre">ecephys_structure_acronyms</span></code>.</p>
@@ -500,7 +375,7 @@ Name: full_genotype, dtype: int64
 </div>
 </div>
 </div>
-<p>Let’s say we only want sessions where the data has recordings from CA1. We can do the following to create a session list that we want.</p>
+<p>Let’s say we only want sessions where the data has recordings from VISp. We can do the following to create a session list that we want.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a session list based on some criteria</span>
@@ -508,7 +383,7 @@ Name: full_genotype, dtype: int64
 <span class="n">session_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">idx</span><span class="p">,</span><span class="n">structure_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronyms&#39;</span><span class="p">]):</span>
-    <span class="k">if</span> <span class="s1">&#39;CA1&#39;</span> <span class="ow">in</span> <span class="n">structure_list</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s1">&#39;VISp&#39;</span> <span class="ow">in</span> <span class="n">structure_list</span><span class="p">:</span>
         <span class="n">session_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sessions</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>   
         
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There are &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">session_list</span><span class="p">))</span><span class="o">+</span><span class="s1">&#39; sessions that meet this criteria:&#39;</span><span class="p">)</span>
@@ -517,8 +392,8 @@ Name: full_genotype, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 52 sessions that meet this criteria:
-[715093703, 719161530, 721123822, 743475441, 744228101, 746083955, 750332458, 750749662, 751348571, 754312389, 754829445, 755434585, 756029989, 757216464, 757970808, 758798717, 759883607, 760345702, 761418226, 762602078, 763673393, 766640955, 767871931, 768515987, 771160300, 771990200, 773418906, 774875821, 778240327, 778998620, 779839471, 781842082, 786091066, 787025148, 789848216, 791319847, 793224716, 794812542, 797828357, 798911424, 799864342, 816200189, 819186360, 819701982, 821695405, 829720705, 831882777, 835479236, 839068429, 839557629, 840012044, 847657808]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>There are 56 sessions that meet this criteria:
+[715093703, 719161530, 721123822, 732592105, 737581020, 739448407, 742951821, 743475441, 744228101, 746083955, 750332458, 750749662, 751348571, 754312389, 754829445, 755434585, 756029989, 757216464, 757970808, 758798717, 759883607, 760345702, 760693773, 761418226, 762120172, 762602078, 763673393, 766640955, 767871931, 768515987, 771160300, 771990200, 773418906, 774875821, 778240327, 778998620, 779839471, 781842082, 786091066, 787025148, 789848216, 791319847, 793224716, 794812542, 797828357, 798911424, 799864342, 816200189, 821695405, 829720705, 831882777, 835479236, 839068429, 839557629, 840012044, 847657808]
 </pre></div>
 </div>
 </div>
@@ -533,22 +408,11 @@ Name: full_genotype, dtype: int64
 <li><p>Append those values to a list of firing rates.</p></li>
 <li><p>Loop back around to the next session.</p></li>
 </ol>
-<p>The <code class="docutils literal notranslate"><span class="pre">get_session_data</span></code> downloads the <code class="docutils literal notranslate"><span class="pre">NWB</span></code> data file of our experiment session and returns a session object that contains data and metadata for a single session. For a full list of methods and attributes for an ecephys session object, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> original dcumentation</a>. Here, we’ll just take one session as an example.</p>
-<p><strong>Note</strong>: The session files are very large files that will take some time to download depending on your connection speed. It is important that you do not stop the download as the cell is running becasue this will truncate the file and you will not be able to work with the data. The cell block below creates a new instance of <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> with a larger <code class="docutils literal notranslate"><span class="pre">timeout</span></code> value to ensure enough time is allowed for the file to download.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">get_session_data</span></code> downloads the <code class="docutils literal notranslate"><span class="pre">NWB</span></code> data file of our experiment session and returns a session object that contains data and metadata for a single session. For a full list of methods and attributes for an ecephys session object, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> Allen SDK session module documentation</a>. Here, we’ll just take one session as an example.</p>
+<p><strong>Note</strong>: The session files are very large files that will take some time to download depending on your connection speed. It is important that you do not stop the download as the cell is running becasue this will truncate the file and you will not be able to work with the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_api</span> <span class="kn">import</span> <span class="n">EcephysProjectWarehouseApi</span>
-<span class="kn">from</span> <span class="nn">allensdk.brain_observatory.ecephys.ecephys_project_api.rma_engine</span> <span class="kn">import</span> <span class="n">RmaEngine</span>
-
-<span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="n">manifest_path</span><span class="p">,</span>
-                            <span class="n">fetch_api</span><span class="o">=</span><span class="n">EcephysProjectWarehouseApi</span><span class="p">(</span><span class="n">RmaEngine</span><span class="p">(</span><span class="n">scheme</span><span class="o">=</span><span class="s2">&quot;http&quot;</span><span class="p">,</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;api.brain-map.org&quot;</span><span class="p">,</span><span class="n">timeout</span><span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)))</span>          
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download our session data </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download our single session data </span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="n">session_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Session downloaded.&#39;</span><span class="p">)</span>
 </pre></div>
@@ -574,7 +438,7 @@ Name: full_genotype, dtype: int64
 <li><p><strong>Maximum drift</strong>: Maximum change in spike depth during recording</p></li>
 <li><p><strong>Cumulative drift</strong>: Cumulative change in spike depth during recording</p></li>
 </ul>
-<p>For a full list of methods and attributes that can be called on an <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object, please see <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> here</a>.</p>
+<p>For a full list of methods and attributes that can be called on an <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object, please review the original documentation for the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> ecephys_session module</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return units dataframe</span>
@@ -775,7 +639,7 @@ Name: full_genotype, dtype: int64
 <p>5 rows × 89 columns</p>
 </div></div></div>
 </div>
-<p>To ensure that the recordings we use in our analysis are all of good quality, we will filter the data according to the signal-to-noise ratio (<code class="docutils literal notranslate"><span class="pre">snr</span></code>) and the <code class="docutils literal notranslate"><span class="pre">ISI_Violations</span></code> of our neurons. Below we will plot the distributions of both.</p>
+<p>To ensure that the recordings we use in our analysis are all reliable and of good quality, we will filter the data according to the signal-to-noise ratio (<code class="docutils literal notranslate"><span class="pre">snr</span></code>) and the <code class="docutils literal notranslate"><span class="pre">ISI_Violations</span></code> of our neurons. Below we will plot the distributions of both.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Signal to noise distribution</span>
@@ -789,7 +653,7 @@ Name: full_genotype, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_16_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_16_0.png" />
+<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_15_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_15_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -805,25 +669,25 @@ Name: full_genotype, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_17_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_17_0.png" />
+<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_16_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_16_0.png" />
 </div>
 </div>
-<p>For the purposes of this tutorial, we will use <code class="docutils literal notranslate"><span class="pre">snr</span></code> values greater than 2 and <code class="docutils literal notranslate"><span class="pre">ISI_violation</span></code> values less than 0.1, define our good quality units.</p>
+<p>For the purposes of this tutorial, we will focus on units with <code class="docutils literal notranslate"><span class="pre">snr</span></code> values greater than 2 and <code class="docutils literal notranslate"><span class="pre">ISI_violation</span></code> values less than 0.1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dataframe with our conditions of interest</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dataframe from units that fit criteria</span>
 <span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="s1">&#39;isi_violations&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
 
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of Recordings with good SNR and Low ISI:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of Recordings with good SNR and low ISI:&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">))</span>
 <span class="n">good_units_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Recordings with good SNR and Low ISI:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of Recordings with good SNR and low ISI:
 488
 </pre></div>
 </div>
@@ -1018,54 +882,10 @@ Name: full_genotype, dtype: int64
 <p>5 rows × 89 columns</p>
 </div></div></div>
 </div>
-<p>Just like we did before in our sessions dataframe, we can return the brain structures that our session’s data was recorded from as well as how many neurons were recorded per brain area.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;ecephys_structure_acronym&#39;</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Available Brain Structures:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Brain Structure Frequency:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Available Brain Structures:
-[&#39;APN&#39; &#39;DG&#39; &#39;CA1&#39; &#39;VISam&#39; &#39;TH&#39; &#39;Eth&#39; &#39;POL&#39; &#39;LP&#39; &#39;VISpm&#39; &#39;NOT&#39; &#39;SUB&#39; &#39;VISp&#39;
- &#39;grey&#39; &#39;VL&#39; &#39;CA3&#39; &#39;VISl&#39; &#39;PO&#39; &#39;VPM&#39; &#39;LGd&#39; &#39;VISal&#39; &#39;VISrl&#39;]
-
- Brain Structure Frequency:
-APN      134
-CA1       57
-LGd       51
-POL       39
-VISp      35
-SUB       30
-VISl      28
-VISam     20
-LP        19
-VPM       18
-VISpm     13
-NOT        9
-CA3        8
-TH         7
-DG         7
-PO         5
-VISal      2
-VL         2
-grey       2
-VISrl      1
-Eth        1
-Name: ecephys_structure_acronym, dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="obtaining-single-sction-potential-waveforms">
 <h2><span class="section-number">7.1.3. </span>Obtaining Single Sction Potential Waveforms<a class="headerlink" href="#obtaining-single-sction-potential-waveforms" title="Permalink to this headline">¶</a></h2>
-<p>Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code> are mapped to the mean spike waveform values. The dimensions of the DataArrays are <code class="docutils literal notranslate"><span class="pre">channel</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code> which are recorded in microvolts and seconds, respectivley. For more information on <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>, please visit, <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.</p>
+<p>Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code> are mapped to the mean spike waveform values. The dimensions of the DataArrays are <code class="docutils literal notranslate"><span class="pre">channel</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code> which are recorded in microvolts and seconds, respectivley. For more information on <code class="docutils literal notranslate"><span class="pre">xarray.DataArray</span></code>, please visit the <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> xarray original documentation</a>.</p>
 <p>To access the mean spike waveforms for all units in a session, use the attribute <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> on your <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1082,8 +902,8 @@ Name: ecephys_structure_acronym, dtype: int64
 </div>
 </div>
 </div>
-<p>We can plot the mean waveforms of our units with the method <code class="docutils literal notranslate"><span class="pre">plot_mean_waveforms</span></code> from the ecephys visualization package. The method uses the <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> dictionary, <code class="docutils literal notranslate"><span class="pre">unit_id</span></code>’s, and <code class="docutils literal notranslate"><span class="pre">peak_channel_id</span></code>’s as arguments. For more information on this method, visit <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.</p>
-<p>Below we will compare mean waveforms from different brain areas. We will be looking at one wavefrom from the <code class="docutils literal notranslate"><span class="pre">CA1</span></code>, <code class="docutils literal notranslate"><span class="pre">LP</span></code>, <code class="docutils literal notranslate"><span class="pre">DG</span></code>, <code class="docutils literal notranslate"><span class="pre">VISp</span></code>. We first need to create a list of unit_id’s for the waveforms we are interested in.</p>
+<p>We can plot the mean waveforms of our units with the method <code class="docutils literal notranslate"><span class="pre">plot_mean_waveforms</span></code> from the ecephys visualization package. The method uses the <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> dictionary, <code class="docutils literal notranslate"><span class="pre">unit_id</span></code>’s, and <code class="docutils literal notranslate"><span class="pre">peak_channel_id</span></code>’s as arguments. For more information on this method, visit the <code class="docutils literal notranslate"><span class="pre">allensdk.brain_observatory.ecephys.visualization</span></code> package documentation on the <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> Allen Brain Atlas website</a>.</p>
+<p>Below we will compare mean waveforms from units of different brain areas. We will be looking at one wavefrom from the <code class="docutils literal notranslate"><span class="pre">CA1</span></code>, <code class="docutils literal notranslate"><span class="pre">LP</span></code>, <code class="docutils literal notranslate"><span class="pre">DG</span></code>, <code class="docutils literal notranslate"><span class="pre">VISp</span></code>. We first need to create a list of unit_id’s for the units we are interested in.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign Unit IDs of different brain areas of interest</span>
@@ -1095,14 +915,14 @@ Name: ecephys_structure_acronym, dtype: int64
 <span class="c1"># Return first entry of our brain areas of interst</span>
 <span class="n">first_CA1_units_ids</span> <span class="o">=</span> <span class="n">CA1_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">first_LP_units_ids</span> <span class="o">=</span> <span class="n">LP_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">first_DG_units_ids</span> <span class="o">=</span> <span class="n">DG_unit_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">first_DG_units_ids</span> <span class="o">=</span> <span class="n">DG_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">first_VISp_units_ids</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">uois_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_CA1_units_ids</span><span class="p">,</span> <span class="n">first_LP_units_ids</span><span class="p">,</span> <span class="n">first_DG_units_ids</span><span class="p">,</span> <span class="n">first_VISp_units_ids</span><span class="p">]</span>
+<span class="n">uoi_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">first_CA1_units_ids</span><span class="p">,</span> <span class="n">first_LP_units_ids</span><span class="p">,</span> <span class="n">first_DG_units_ids</span><span class="p">,</span> <span class="n">first_VISp_units_ids</span><span class="p">]</span>
 
 <span class="c1"># Return dataframe</span>
-<span class="n">uois_df</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">uois_ids</span><span class="p">]</span>
+<span class="n">uoi_df</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">uoi_ids</span><span class="p">]</span>
 
-<span class="n">uois_df</span>
+<span class="n">uoi_df</span>
 </pre></div>
 </div>
 </div>
@@ -1222,27 +1042,27 @@ Name: ecephys_structure_acronym, dtype: int64
       <td>True</td>
     </tr>
     <tr>
-      <th>950925274</th>
-      <td>0.549414</td>
-      <td>302</td>
-      <td>850249617</td>
-      <td>79.80</td>
-      <td>0.000065</td>
-      <td>3.726180</td>
-      <td>-0.099074</td>
-      <td>215.917914</td>
-      <td>0.000000</td>
-      <td>0.206406</td>
+      <th>950918182</th>
+      <td>0.315913</td>
+      <td>105</td>
+      <td>850252619</td>
+      <td>112.89</td>
+      <td>0.001606</td>
+      <td>2.447300</td>
+      <td>-0.087164</td>
+      <td>75.802888</td>
+      <td>0.009311</td>
+      <td>0.044917</td>
       <td>...</td>
       <td>726.0</td>
       <td>DG</td>
-      <td>7895.0</td>
-      <td>2110.0</td>
-      <td>7360.0</td>
-      <td>probeB</td>
+      <td>7856.0</td>
+      <td>2095.0</td>
+      <td>7339.0</td>
+      <td>probeA</td>
       <td>See electrode locations</td>
-      <td>29999.918880</td>
-      <td>1249.996620</td>
+      <td>29999.967418</td>
+      <td>1249.998642</td>
       <td>True</td>
     </tr>
     <tr>
@@ -1274,22 +1094,22 @@ Name: ecephys_structure_acronym, dtype: int64
 <p>4 rows × 89 columns</p>
 </div></div></div>
 </div>
-<p>Using the <code class="docutils literal notranslate"><span class="pre">unit_ids</span></code>, we can create our own dictionary that maps our ids of interest to the <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> array,</p>
+<p>Using the <code class="docutils literal notranslate"><span class="pre">unit_ids</span></code>, we can create our own dictionary that maps our units of interest to their <code class="docutils literal notranslate"><span class="pre">mean_waveforms</span></code> array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dictionary of waveforms that only include units of interest</span>
 <span class="n">waveforms_oi</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uois_ids</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uoi_ids</span><span class="p">:</span>
     <span class="n">waveforms_oi</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_mean_waveforms</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span>
 
 <span class="c1"># Create dictionary of peak channels that only include units of interest</span>
 <span class="n">peak_channels_oi</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uois_ids</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">ids</span> <span class="ow">in</span> <span class="n">uoi_ids</span><span class="p">:</span>
     <span class="n">peak_channels_oi</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="s1">&#39;peak_channel_id&#39;</span><span class="p">]</span>
 
 <span class="c1"># Plot mean waveforms</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">ecvis</span><span class="o">.</span><span class="n">plot_mean_waveforms</span><span class="p">(</span><span class="n">waveforms_oi</span><span class="p">,</span> <span class="n">uois_ids</span><span class="p">,</span> <span class="n">peak_channels_oi</span><span class="p">)</span>
-<span class="n">legend_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">uois_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ecvis</span><span class="o">.</span><span class="n">plot_mean_waveforms</span><span class="p">(</span><span class="n">waveforms_oi</span><span class="p">,</span> <span class="n">uoi_ids</span><span class="p">,</span> <span class="n">peak_channels_oi</span><span class="p">)</span>
+<span class="n">legend_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">uoi_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_list</span><span class="p">)</span>
 
 
@@ -1298,7 +1118,7 @@ Name: ecephys_structure_acronym, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_28_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_28_0.png" />
+<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_25_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_25_0.png" />
 </div>
 </div>
 </div>
@@ -1333,7 +1153,7 @@ Name: ecephys_structure_acronym, dtype: int64
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="Large_Scale_Electrophysiology.html" title="previous page"><span class="section-number">7. </span>Large Scale Electrophysiology</a>
-    <a class='right-next' id="next-link" href="Correlating_Spike_Trains_with_Stimuli_and_Behavior.html" title="next page"><span class="section-number">7.2. </span>Large Scale Single Cell Electrophysiology &amp; Behavior</a>
+    <a class='right-next' id="next-link" href="Correlating_Spike_Trains_with_Stimuli_and_Behavior.html" title="next page"><span class="section-number">7.2. </span>Correlating Spike Trains with Stimuli and Behavior</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

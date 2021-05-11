@@ -5,35 +5,31 @@
 
 # This section will teach you how to interact with the Neuropixels dataset, specifically how to download experimental sessions, return procesed data, and subset your data to contain only brain regions you are interested in. 
 # 
-# We will first need to import the `EcephysProjectCache` from the Allen SDK and create an instance of the class. The class is used to download the metadata and data for all sessions in the Neuropixels dataset. For the full list of methods, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'> original documentation</a>.
+# We will first need to import the `EcephysProjectCache` from the Allen SDK and create an instance of the class. The class is used to download the metadata and data for all sessions in the Neuropixels dataset. For the full list of methods, please visit the `allensdk.brain_observatory.ecephys.ecephys_project_cache` module documentation on the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_project_cache.html'>Allen SDK website</a>. We'll create an instance of `EcephysProjectCache` with a larger `timeout` value to ensure enough time is allowed for our session file to download below. 
 # 
-# Below we will execute `get_session_table()` on our `EcephysProjectCache` object which will return a dataframe with metadata on each session. 
+# Below we will execute `get_session_table()` on our `EcephysProjectCache` object which will return a dataframe with metadata on each session.
 
 # In[1]:
 
 
-# Import necessary packages 
-import numpy as np 
-import pandas as pd 
-import scipy as sp
-import seaborn as sns
-from scipy import signal
+# # Import packages necessary to plot behavior
 import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings('ignore')
-
-# Import packages necessary to plot behavior
 import allensdk.brain_observatory.ecephys.visualization as ecvis
-from allensdk.brain_observatory.visualization import plot_running_speed
 
 # Import the Neuropixels Cache
 from allensdk.brain_observatory.ecephys.ecephys_project_cache import EcephysProjectCache
+from allensdk.brain_observatory.ecephys.ecephys_project_api import EcephysProjectWarehouseApi
+from allensdk.brain_observatory.ecephys.ecephys_project_api.rma_engine import RmaEngine
 
 # Assign where data will be stored
 manifest_path = 'manifest.json' 
 
 # Create the EcephysProjectCache object
-cache = EcephysProjectCache(manifest=manifest_path)
+cache = EcephysProjectCache(manifest=manifest_path,
+                            fetch_api=EcephysProjectWarehouseApi(RmaEngine(scheme="http",host="api.brain-map.org",timeout= 50 * 60)))    
+
 
 # Return all sessions available in this dataset
 sessions = cache.get_session_table()
@@ -76,7 +72,7 @@ print('\n All brain areas:')
 print(brain_areas)
 
 
-# Let's say we only want sessions where the data has recordings from CA1. We can do the following to create a session list that we want.
+# Let's say we only want sessions where the data has recordings from VISp. We can do the following to create a session list that we want.
 
 # In[3]:
 
@@ -86,7 +82,7 @@ print(brain_areas)
 session_list = []
 
 for idx,structure_list in enumerate(sessions['ecephys_structure_acronyms']):
-    if 'CA1' in structure_list:
+    if 'VISp' in structure_list:
         session_list.append(sessions.index[idx])   
         
 print('There are '+str(len(session_list))+' sessions that meet this criteria:')
@@ -103,24 +99,14 @@ print(session_list)
 # 4. Append those values to a list of firing rates.
 # 5. Loop back around to the next session.
 # 
-# The `get_session_data` downloads the `NWB` data file of our experiment session and returns a session object that contains data and metadata for a single session. For a full list of methods and attributes for an ecephys session object, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> original dcumentation</a>. Here, we'll just take one session as an example.
+# The `get_session_data` downloads the `NWB` data file of our experiment session and returns a session object that contains data and metadata for a single session. For a full list of methods and attributes for an ecephys session object, please visit the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> Allen SDK session module documentation</a>. Here, we'll just take one session as an example.
 
-# **Note**: The session files are very large files that will take some time to download depending on your connection speed. It is important that you do not stop the download as the cell is running becasue this will truncate the file and you will not be able to work with the data. The cell block below creates a new instance of `EcephysProjectCache` with a larger `timeout` value to ensure enough time is allowed for the file to download. 
+# **Note**: The session files are very large files that will take some time to download depending on your connection speed. It is important that you do not stop the download as the cell is running becasue this will truncate the file and you will not be able to work with the data.
 
 # In[4]:
 
 
-from allensdk.brain_observatory.ecephys.ecephys_project_api import EcephysProjectWarehouseApi
-from allensdk.brain_observatory.ecephys.ecephys_project_api.rma_engine import RmaEngine
-
-cache = EcephysProjectCache(manifest=manifest_path,
-                            fetch_api=EcephysProjectWarehouseApi(RmaEngine(scheme="http",host="api.brain-map.org",timeout= 50 * 60)))          
-
-
-# In[5]:
-
-
-# Download our session data 
+# Download our single session data 
 session = cache.get_session_data(session_list[1])
 print('Session downloaded.')
 
@@ -138,9 +124,9 @@ print('Session downloaded.')
 # - **Maximum drift**: Maximum change in spike depth during recording
 # - **Cumulative drift**: Cumulative change in spike depth during recording
 # 
-# For a full list of methods and attributes that can be called on an `EcephysSession` object, please see <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> here</a>.
+# For a full list of methods and attributes that can be called on an `EcephysSession` object, please review the original documentation for the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> ecephys_session module</a>.
 
-# In[6]:
+# In[5]:
 
 
 # Return units dataframe
@@ -148,9 +134,9 @@ units_df = session.units
 units_df.head()
 
 
-# To ensure that the recordings we use in our analysis are all of good quality, we will filter the data according to the signal-to-noise ratio (`snr`) and the `ISI_Violations` of our neurons. Below we will plot the distributions of both.
+# To ensure that the recordings we use in our analysis are all reliable and of good quality, we will filter the data according to the signal-to-noise ratio (`snr`) and the `ISI_Violations` of our neurons. Below we will plot the distributions of both.
 
-# In[7]:
+# In[6]:
 
 
 # Signal to noise distribution
@@ -162,7 +148,7 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# In[8]:
+# In[7]:
 
 
 # ISI distribution 
@@ -174,41 +160,28 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# For the purposes of this tutorial, we will use `snr` values greater than 2 and `ISI_violation` values less than 0.1, define our good quality units. 
+# For the purposes of this tutorial, we will focus on units with `snr` values greater than 2 and `ISI_violation` values less than 0.1.
 
-# In[9]:
+# In[8]:
 
 
-# Create dataframe with our conditions of interest
+# Create dataframe from units that fit criteria
 good_snr = units_df[units_df['snr']>2]
 good_units_df = good_snr[good_snr['isi_violations']<0.1]
 
 
-print('Number of Recordings with good SNR and Low ISI:')
+print('Number of Recordings with good SNR and low ISI:')
 print(len(good_units_df))
 good_units_df.head()
 
 
-# Just like we did before in our sessions dataframe, we can return the brain structures that our session's data was recorded from as well as how many neurons were recorded per brain area. 
-
-# In[10]:
-
-
-col = 'ecephys_structure_acronym'
-
-print('Available Brain Structures:')
-print(good_units_df[col].unique())
-print('\n Brain Structure Frequency:')
-print(good_units_df[col].value_counts())
-
-
 # ## Obtaining Single Sction Potential Waveforms 
 
-# Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the `unit_id` are mapped to the mean spike waveform values. The dimensions of the DataArrays are `channel` and `time` which are recorded in microvolts and seconds, respectivley. For more information on `xarray.DataArray`, please visit, <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> here</a>.
+# Each session contains a dictionary of mean waveforms for all the units recorded in that session. They are stored inside a xarray DataArray where the `unit_id` are mapped to the mean spike waveform values. The dimensions of the DataArrays are `channel` and `time` which are recorded in microvolts and seconds, respectivley. For more information on `xarray.DataArray`, please visit the <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.html'> xarray original documentation</a>.
 # 
 # To access the mean spike waveforms for all units in a session, use the attribute `mean_waveforms` on your `EcephysSession` object. 
 
-# In[11]:
+# In[9]:
 
 
 all_mean_waveforms = session.mean_waveforms
@@ -216,11 +189,11 @@ print('Total number of waveforms:')
 print(len(all_mean_waveforms))
 
 
-# We can plot the mean waveforms of our units with the method `plot_mean_waveforms` from the ecephys visualization package. The method uses the `mean_waveforms` dictionary, `unit_id`'s, and `peak_channel_id`'s as arguments. For more information on this method, visit <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> here</a>.
+# We can plot the mean waveforms of our units with the method `plot_mean_waveforms` from the ecephys visualization package. The method uses the `mean_waveforms` dictionary, `unit_id`'s, and `peak_channel_id`'s as arguments. For more information on this method, visit the `allensdk.brain_observatory.ecephys.visualization` package documentation on the <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.ecephys.visualization.html'> Allen Brain Atlas website</a>.
 # 
-# Below we will compare mean waveforms from different brain areas. We will be looking at one wavefrom from the `CA1`, `LP`, `DG`, `VISp`. We first need to create a list of unit_id's for the waveforms we are interested in. 
+# Below we will compare mean waveforms from units of different brain areas. We will be looking at one wavefrom from the `CA1`, `LP`, `DG`, `VISp`. We first need to create a list of unit_id's for the units we are interested in. 
 
-# In[12]:
+# In[10]:
 
 
 # Assign Unit IDs of different brain areas of interest
@@ -232,34 +205,34 @@ VISp_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'VIS
 # Return first entry of our brain areas of interst
 first_CA1_units_ids = CA1_unit_ids[0]
 first_LP_units_ids = LP_unit_ids[0]
-first_DG_units_ids = DG_unit_ids[1]
+first_DG_units_ids = DG_unit_ids[0]
 first_VISp_units_ids = VISp_unit_ids[0]
-uois_ids = [first_CA1_units_ids, first_LP_units_ids, first_DG_units_ids, first_VISp_units_ids]
+uoi_ids = [first_CA1_units_ids, first_LP_units_ids, first_DG_units_ids, first_VISp_units_ids]
 
 # Return dataframe
-uois_df = good_units_df.loc[uois_ids]
+uoi_df = good_units_df.loc[uoi_ids]
 
-uois_df
+uoi_df
 
 
-# Using the `unit_ids`, we can create our own dictionary that maps our ids of interest to the `mean_waveforms` array,
+# Using the `unit_ids`, we can create our own dictionary that maps our units of interest to their `mean_waveforms` array.
 
-# In[13]:
+# In[11]:
 
 
 # Create dictionary of waveforms that only include units of interest
 waveforms_oi = {}
-for ids in uois_ids:
+for ids in uoi_ids:
     waveforms_oi[ids] = all_mean_waveforms[ids]
 
 # Create dictionary of peak channels that only include units of interest
 peak_channels_oi = {}
-for ids in uois_ids:
+for ids in uoi_ids:
     peak_channels_oi[ids] = good_units_df.loc[ids, 'peak_channel_id']
 
 # Plot mean waveforms
-fig = ecvis.plot_mean_waveforms(waveforms_oi, uois_ids, peak_channels_oi)
-legend_list = list(uois_df['ecephys_structure_acronym'] )
+fig = ecvis.plot_mean_waveforms(waveforms_oi, uoi_ids, peak_channels_oi)
+legend_list = list(uoi_df['ecephys_structure_acronym'] )
 plt.legend(legend_list)
 
 

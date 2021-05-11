@@ -45,11 +45,11 @@ all_sessions['full_genotype'].unique()
 
 # **About these Cre-lines**
 # 
-# Each of these cre-lines mark specific subsets of inhibitory neurons in the brain.
+# Each of these cre-lines mark specific subsets of inhibitory neurons in the brain. You can find a brief description, as well as Two-Photon tomography images, of these cre lines on the <a href = 'https://observatory.brain-map.org/visualcoding/transgenic'> Allen Brain Atlas website</a>.
 
 # ## Accessing Optogenetic Data
 
-# Before we begin downloading data, it is important to mention that the procedures in the optogenetic stimulation experiments have some inconsistencies. The light used to evoke the units' optogenetic response was switched from an LED light to a laser a little more than halfway through the experiment to evoke a stronger response from the units. The cell below will return a list containing the session id's of the sessions where a laser was used. 
+# Before we begin downloading data, it is important to mention that the procedures in the optogenetic stimulation experiments have some inconsistencies. The light used to evoke the units' optogenetic response was switched from an LED light to a laser a little more than halfway through the experiments to evoke a stronger response from the units. The cell below will return a list containing the session id's of the sessions where a laser was used. 
 
 # In[3]:
 
@@ -63,41 +63,34 @@ session_ids = all_sessions.index.values
 for i in session_ids:
     if (i >= first_laser_session):
         laser.append(i)
-print(f" Sessions ID's conducted with lasers: \n {laser}")
+print(f" Sessions conducted with lasers: \n {laser}")
 
 
-# To ensure we can see clear optogenetic responses from our units, we will be working with a session that used a laser to evoke these responses. We will download multiple sessions with different Cre Lines to compare responses between differing genotypes. 
+# To ensure we can see clear optogenetic responses from our units, we will be working with a session that used a laser to evoke these responses. We will download a session that untilizes parvalbumin cells because they fire at high rates and are the most common in the cortex.
 
 # In[4]:
 
 
-pvalb_sessions = all_sessions[all_sessions.full_genotype == 'Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt']
-#pvalb_laser_sessions = pvalb_sessions[pvalb_sessions.index in laser] # this is where we'll filter by laser as index
-pavalb_laser_sessions = pvalb_sessions[pvalb_sessions.index > first_laser_session]
-pavalb_laser_sessions
-
-
-# In[5]:
-
-
+# Return session ids for pvalb, laser sessions only
 pvalb_sessions = all_sessions[all_sessions.full_genotype == 'Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt']
 pavalb_laser_sessions = pvalb_sessions[pvalb_sessions.index > first_laser_session] # this is where we'll filter by laser as index
 
-pvalb_session_id = pavalb_laser_sessions.index[0] # fix me
+# Download first pvalb laser session
+pvalb_session_id = pavalb_laser_sessions.index[0]
 
 # Download a session for one of our cre lines using
 session = cache.get_session_data(pvalb_session_id)
 
-print('Data Downloaded.')
+print('Session Downloaded.')
 
 
-# The optotagging stimuli is different than the stimulation presentations that were used in the previous section. To access the table containing the optogenetic stimuli data, execute `optogenetic_stimulation_epochs` on the session object. The table contains the start, stop, and duration of each light pulse as well as the pulse's condition and level. The `level` column contains the power level of the light source defined by the peak voltage of the control signal delivered to the light source. The type of pulse used is stored in the `condition` column and each pulse is defined below. 
+# The optotagging stimuli are different than the stimulation presentations that were used in the previous section. To access the table containing the optogenetic stimuli data, execute `optogenetic_stimulation_epochs` on the session object. The table contains the start, stop, and duration of each light pulse as well as the pulse's condition and level. The `level` column contains the power level of the light source defined by the peak voltage of the control signal delivered to the light source. The type of pulse used is stored in the `condition` column and each pulse is defined below. 
 # 
 # - single square pulse: 5ms or 10ms duration
 # - half period of a cosine wave: 1 second duration
 # - 2.5 ms pulses at 10 Hz: 1 second duration
 
-# In[6]:
+# In[5]:
 
 
 opto_table = session.optogenetic_stimulation_epochs
@@ -111,7 +104,7 @@ opto_table
 # 
 # The funtion below needs bin edges, optogenetic trials, and units in order to return the spike counts. For this reason, you must first specify your desired bins, optogenetic stimuli, and units of interest. We will be focusing units found in the `VISp` brain area. The Allen Institute has discovered that "10 ms pulses are the most useful stimulus for finding true light-evoked activity" so will subselect data with that stimulus.
 
-# In[7]:
+# In[6]:
 
 
 # Assign optogenetic stimuli
@@ -162,11 +155,11 @@ print('Data Array Succefully created.')
 # 
 # Looking at the DataArray, we can see that in this session there were 75 different times that a 10ms single pulse was given and 46 different units we are focusing on based on brain area. 
 # 
-# We can use the DataArray to plot a heatmap of units' response to the light pulses. The funtion below was also copied from the Allen SDK Optogenetic Analysis tutortial. The funtion takes our DataArray and reduces the data within by computing the mean spike counts across the `trial_id` dimension for every unit in the array. The reduced data is then plotted with respect to the time bins that we specified earlier. 
+# We can use the DataArray to plot a heatmap of the units' response to the light pulses. The funtion below was also copied from the Allen SDK Optogenetic Analysis tutortial. The funtion takes our DataArray and reduces the data within by computing the mean spike counts across the `trial_id` dimension for every unit in the array. The reduced data is then plotted with respect to the time bins that we specified earlier. 
 # 
-# For more information on how to use `xarray.DataArray` objects, please visit the <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.mean.html#xarray.DataArray.mean'> Xarray original documentation online</a>.
+# For more information on how to use `xarray.DataArray` objects, please visit the <a href = 'http://xarray.pydata.org/en/stable/generated/xarray.DataArray.mean.html#xarray.DataArray.mean'> xarray original documentation online</a>.
 
-# In[8]:
+# In[7]:
 
 
 def plot_optotagging_response(da):
@@ -198,19 +191,19 @@ plt.show()
 # 
 # We will then reduce our data to only the mean firing rate of each unit within each time frame.
 
-# In[9]:
+# In[8]:
 
 
 # Assign time before stimulus occurs
 baseline = da.sel(time_relative_to_stimulus_onset=slice(-0.01,-0.002))
 
-# Assign Mean firing rate of each unit for time before the stimulus window 
+# Calculate Mean firing rate of each unit for time before the stimulus window 
 baseline_rate = baseline.sum(dim='time_relative_to_stimulus_onset').mean(dim='trial_id') / 0.008
 
 # Assign time within stimulus window
 evoked = da.sel(time_relative_to_stimulus_onset=slice(0.001,0.009))
 
-# Assign Mean firing rate of each unit for time within the stimulus window 
+# Calculate Mean firing rate of each unit for time within the stimulus window 
 evoked_rate = evoked.sum(dim='time_relative_to_stimulus_onset').mean(dim='trial_id') / 0.008
 
 evoked_rate
@@ -218,7 +211,7 @@ evoked_rate
 
 # We now have two DataArrays, one that contains the mean firing rate of the units at baseline, and one that contains the mean firing rate of the units during the pulse. Plotting a scatter plot with these two areas will show us how a unit's basline firing rate compares to its evoked firing rate. 
 
-# In[10]:
+# In[9]:
 
 
 plt.figure(figsize=(5,5))
@@ -240,11 +233,13 @@ plt.xlabel('Baseline rate (Hz)')
 _ = plt.ylabel('Evoked rate (Hz)')
 
 
-# Each point represent a neural unit. The black line represents a 1:1 ratio in the evoked firing rate to the baseline firing rate of that unit. Any unit below that black line had a larger response at baseline than it did to the light pulse. The red line represents a 2:1 ratio in the evoked firing rate to the baseline firing rate of that unit. We can subselect units whose evoked firing rate is 2x larger than baseline to ensure these are units that are reliabily responding to the light pulse.
+# Each point represent a neural unit. The black line represents a 1:1 ratio in the evoked firing rate to the baseline firing rate of that unit. Any unit below that black line had a larger response at baseline than it did to the light pulse. The red line represents a 2:1 ratio in the evoked firing rate to the baseline firing rate of that unit. We can subselect units whose evoked firing rate is 2x larger than baseline to define the cre+ units.
 
 # ## Identifying Fast-Paced Waveforms
 
-# In[11]:
+# Defining what units are cre+ from those that are cre- is the first step in comparing optogenetic responses. Below we will create two lists, one with IDs of units who had an evoked firing rate 2x greater than baseline, and one with IDs of units whose evoked response was smaller than 2x the baseline. 
+
+# In[10]:
 
 
 # Return units whose firing rates doubled when light was on
@@ -260,13 +255,12 @@ print(' \n Pvalb- Cre lines')
 print(cre_neg_units)
 
 
-# In[12]:
+# Lets take a look at the wavefroms of cre+ units and see how they compare to cre- units. 
+
+# In[11]:
 
 
 plt.figure(figsize=(5,5))
-
-# Reload pvalb session
-session = cache.get_session_data(pvalb_session_id)
 
 for unit_id in cre_pos_units:
     
@@ -277,17 +271,15 @@ for unit_id in cre_pos_units:
 
 plt.xlabel('Time (ms)')
 plt.ylabel('Amplitude (microvolts)')
+plt.title('Pvalb+ Waveforms')
 plt.plot([1.0, 1.0],[-160, 100],':c')
 plt.show()
 
 
-# In[13]:
+# In[12]:
 
 
 plt.figure(figsize=(5,5))
-
-# Reload pvalb session
-session = cache.get_session_data(pvalb_session_id)
 
 for unit_id in cre_neg_units:
     
@@ -298,6 +290,7 @@ for unit_id in cre_neg_units:
 
 plt.xlabel('Time (ms)')
 plt.ylabel('Amplitude (microvolts)')
+plt.title('Pvalb- Waveforms')
 plt.plot([1.0, 1.0],[-160, 100],':c')
 plt.show()
 

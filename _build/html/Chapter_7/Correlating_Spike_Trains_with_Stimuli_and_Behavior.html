@@ -148,11 +148,6 @@
      7.3. Identifying Cells with Optogenetics
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Correlations.html">
-     7.4. Spike Sorting Neuropixels Data
-    </a>
-   </li>
   </ul>
  </li>
  <li class="toctree-l1">
@@ -328,8 +323,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary packages </span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
@@ -360,14 +354,6 @@
 <span class="c1"># Download our session data </span>
 <span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">721123822</span><span class="p">)</span>
 
-<span class="c1"># Return units dataframe with specified snr and isi</span>
-<span class="n">units_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span>
-<span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="s1">&#39;isi_violations&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
-
-
-
-
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Session downloaded.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -380,10 +366,16 @@
 </div>
 <div class="section" id="firing-rate-across-brain-areas">
 <h2><span class="section-number">7.2.1. </span>Firing Rate Across Brain Areas<a class="headerlink" href="#firing-rate-across-brain-areas" title="Permalink to this headline">¶</a></h2>
-<p>In our dataframe, the mean spike rates for each unit can be found under the <code class="docutils literal notranslate"><span class="pre">firing_rate</span></code> column. Let, look at the distibution of firing rates across all brain areas using a violinplot.</p>
+<p>In our dataframe, the mean spike rates for each unit can be found under the <code class="docutils literal notranslate"><span class="pre">firing_rate</span></code> column. Let, look at the distibution of firing rates across all brain areas using a violinplot. We will filter out units that do not meet our criteria for <code class="docutils literal notranslate"><span class="pre">snr</span></code> and <code class="docutils literal notranslate"><span class="pre">isi_violations</span></code>, like we did in the previous section.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return units dataframe with specified snr and isi</span>
+<span class="n">units_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span>
+<span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="s1">&#39;isi_violations&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
+
+<span class="c1"># Plot our distribution</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">violinplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;firing_rate&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">,</span><span class="n">data</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Violinplot of Firing Rates across Brain Structures&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -397,17 +389,17 @@
 </div>
 <div class="section" id="spike-times">
 <h2><span class="section-number">7.2.2. </span>Spike Times<a class="headerlink" href="#spike-times" title="Permalink to this headline">¶</a></h2>
-<p>Our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object contains spike times for each unit and they can be accessed via the <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> attribute. This returns a dictionary where the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code> of the neural units in our session are mapped to a list of spike times.  With this data, we are able to compare <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> across units and across stimuli by plotting a rasterplot.</p>
-<p>We first need to select a unit to focus on. For the purposes of this notebook we will work units that were taken from the primary visual area (<code class="docutils literal notranslate"><span class="pre">VISp</span></code>). Below, we will assign the spike times of a unit from the <code class="docutils literal notranslate"><span class="pre">VISp</span></code> area.</p>
+<p>Our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object contains spike times for each unit and they can be accessed via the <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> attribute. This returns a dictionary where the <code class="docutils literal notranslate"><span class="pre">unit_id</span></code> of the neural units are mapped to a list of spike times.  With this data, we are able to compare <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> across units and across stimuli by plotting rasterplots and peristimulus time histograms (PSTHs).</p>
+<p>Because there are many units in a given session, we first need to select a subgroup of units to focus on. For the purposes of this notebook we will work with units that were taken from the primary visual area (<code class="docutils literal notranslate"><span class="pre">VISp</span></code>). Below, we will assign spike times of units from the <code class="docutils literal notranslate"><span class="pre">VISp</span></code> area.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the spike times</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the spike times in this particular session session</span>
 <span class="n">all_spike_times</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">spike_times</span>
 
 <span class="c1"># Assign a list of unit ids for units in VISp brain area</span>
-<span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
-<span class="c1"># Assign spike times of first VISp entry </span>
+<span class="c1"># Assign spike times of first 5 VISp unit entries </span>
 <span class="n">VISp_spike_times</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">VISp_spike_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">[</span><span class="n">VISp_unit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
@@ -449,7 +441,6 @@ Spikes found for unit 950908448 : 120843
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
 
 <span class="c1"># Plot a raster plot for units of interest</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
@@ -467,51 +458,17 @@ Spikes found for unit 950908448 : 120843
 <img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_10_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_10_0.png" />
 </div>
 </div>
-<p>A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too man spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin using the fucntion below. The funtion takes in single unit’s spike times as an argument.</p>
+<p>A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too many spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin using the fucntion below. The funtion takes in a list of spike times for a unit as an argument. The function will also work with a list of lists or <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> array containing multiple units’ spike times.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_firing_rates</span><span class="p">(</span><span class="n">spike_times</span><span class="p">):</span>
-    
-    <span class="c1"># Assign total number of bins </span>
-    <span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">spike_times</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
-    <span class="n">binned_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">numbins</span><span class="p">))</span>
-    
-    <span class="c1"># Assign the frequency of spikes over time</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numbins</span><span class="p">):</span>
-        <span class="n">binned_spikes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[(</span><span class="n">spike_times</span><span class="o">&gt;</span><span class="n">i</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">spike_times</span><span class="o">&lt;</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
-    
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">binned_spikes</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FR (Hz)&#39;</span><span class="p">)</span>
-    
-    <span class="k">return</span> 
-
-<span class="c1"># Assign spike times you would like to plot, focus on a single unit</span>
-<span class="n">first_VISp_spike_times</span> <span class="o">=</span> <span class="n">VISp_spike_times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plot_firing_rates</span><span class="p">(</span><span class="n">first_VISp_spike_times</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_firing_rates</span><span class="p">(</span><span class="n">spike_times</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_firing_rates</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">start_time</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span> <span class="n">end_time</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 
     <span class="c1"># Create Subplot</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">),</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
     
     
     <span class="c1"># Create PSTH on each sublot</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)):</span>
-
-
 
         <span class="c1"># Assign total number of bins </span>
         <span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
@@ -526,17 +483,19 @@ Spikes found for unit 950908448 : 120843
         <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">binned_spikes</span><span class="p">)</span>
         <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
         <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;FR (Hz)&#39;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="n">start_time</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
     
     <span class="k">return</span> 
 
-<span class="c1">#plt.figure(figsize=(20,5))</span>
-<span class="n">plot_firing_rates</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">)</span>
+<span class="n">plot_firing_rates</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_13_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_13_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_12_0.png" />
 </div>
 </div>
 </div>
@@ -837,7 +796,6 @@ Spikes found for unit 950908448 : 120843
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Continous timeblocks where only 1 type of stimulus was presented</span>
-<span class="c1"># Could maybe use this w/ running speed</span>
 <span class="n">stim_timeblocks</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_epochs</span><span class="p">()</span>
 <span class="n">stim_timeblocks</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -914,24 +872,30 @@ Spikes found for unit 950908448 : 120843
 </table>
 </div></div></div>
 </div>
-<p>The timeblocks above allow us to compare neural activity of the units when a new stimulus is being presented. By using <code class="docutils literal notranslate"><span class="pre">plt.axvspan</span></code> we can divide our current plot to show when one stimulus ends and a new one begins. Plotting this over the firing rates of our units will reveal what <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code> elicited the highest neural activity.</p>
+<p>The timeblocks above allow us to compare neural activity when a new stimulus is being presented. By using <code class="docutils literal notranslate"><span class="pre">plt.axvspan</span></code> we can divide our current plot to show when one stimulus ends and a new one begins. Plotting this over the firing rates of our units will reveal what <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code> elicited the highest neural activity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 
 <span class="c1"># Plot first 10 VISp entries spike times in 1 second bins</span>
 <span class="n">numunits</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
 <span class="n">visp_binned</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">numunits</span><span class="p">,</span> <span class="n">numbins</span><span class="p">))</span>
+
+
+<span class="c1"># Bin each unit&#39;s spike times into 1 second bins</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
     <span class="n">unit_id</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
     <span class="n">spikes</span> <span class="o">=</span> <span class="n">all_spike_times</span><span class="p">[</span><span class="n">unit_id</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numbins</span><span class="p">):</span>
         <span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spikes</span><span class="p">[(</span><span class="n">spikes</span><span class="o">&gt;</span><span class="n">j</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">spikes</span><span class="o">&lt;</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
 
+        
 <span class="c1"># Plots firing rates, offset each spike train by i</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numunits</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">visp_binned</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="mf">30.</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
 
+    
 <span class="c1"># Plots rectangle blocks that indicate new stimulus presentation </span>
 <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;purple&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;pink&#39;</span><span class="p">,</span> <span class="s1">&#39;violet&#39;</span><span class="p">]</span>
 
@@ -943,11 +907,13 @@ Spikes found for unit 950908448 : 120843
                     <span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">c</span><span class="p">],</span>
                     <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
 
+        
 <span class="c1"># Legend showing stimulus timeblocks</span>
 <span class="n">colors_leg</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">)):</span>
     <span class="n">temp_color</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_stims</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="n">colors_leg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_color</span><span class="p">)</span>  
+
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span> <span class="o">=</span> <span class="n">colors_leg</span><span class="p">,</span> <span class="n">bbox_to_anchor</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;upper left&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Units&#39;</span><span class="p">)</span>
@@ -959,7 +925,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_23_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_23_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_22_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_22_0.png" />
 </div>
 </div>
 <p>Alternatively, you could use the <code class="docutils literal notranslate"><span class="pre">get_stimulus_table()</span></code> method to return a subset of stimulus presentation by <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. The returned dataframe will only contain parameters that relate to the given <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. Below we will investigate how our neuronal units responded to a <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimulus presentations.</p>
@@ -1063,13 +1029,13 @@ Spikes found for unit 950908448 : 120843
 </table>
 </div></div></div>
 </div>
-<p>We can look even further and check how the parameters of a stimulus affected the firing rate. In <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> presentations, different frame/image was presented to the mouse. Below we will focus on the times that the first <code class="docutils literal notranslate"><span class="pre">frame</span></code> in our dataframe above, was presented in the session.</p>
+<p>We can look even further and check how the parameters of a stimulus affected the firing rate. In <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> presentations, different frames/images were presented to the mouse. Below we will focus on the times that the first <code class="docutils literal notranslate"><span class="pre">frame</span></code> in <code class="docutils literal notranslate"><span class="pre">natural_scenes_df</span></code>, was presented in the session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign indices of dataframe</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign indices for presentations of our frame of interest</span>
 <span class="n">natural_scenes_ids</span> <span class="o">=</span> <span class="n">natural_scenes_df</span><span class="o">.</span><span class="n">index</span>
 
-<span class="c1"># Assign first &#39;natural_scenes&#39; image presented in the session</span>
+<span class="c1"># Assign &#39;natural_scenes&#39; image id of interest</span>
 <span class="n">my_image</span> <span class="o">=</span> <span class="n">natural_scenes_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">natural_scenes_ids</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;frame&#39;</span><span class="p">]</span>
 
 <span class="c1"># Return the number of times this image was presented</span>
@@ -1085,7 +1051,7 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 </div>
-<p>As you can see from the dataframe above, the <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> presentations also cotain start and end times. We can do what we did before and use <code class="docutils literal notranslate"><span class="pre">plt.axvspan()</span></code> to plot the times when the images of interest was presented over the firing rates of our session.</p>
+<p>As you can see from the dataframe above, we also have start and end times for a given stimulus presentation available to us. We can do what we did before and use <code class="docutils literal notranslate"><span class="pre">plt.axvspan()</span></code> to plot the times when the images of interest was presented over the firing rates of our session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
@@ -1110,10 +1076,10 @@ Spikes found for unit 950908448 : 120843
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_29_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_29_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_28_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_28_0.png" />
 </div>
 </div>
-<p>You are not limited to only plotting the the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion. You can use <code class="docutils literal notranslate"><span class="pre">get_stimulus_parameter_values</span></code> to return a dictionary of all parameteres used in a session.</p>
+<p>You are not limited to only plotting the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a cetain spatial frequncy, temporal frequency, or orientaion. You can use <code class="docutils literal notranslate"><span class="pre">get_stimulus_parameter_values</span></code> to return a dictionary of all parameteres used in a session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">session_parameters</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get_stimulus_parameter_values</span><span class="p">()</span>
@@ -1174,6 +1140,13 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 
         <span class="n">ymin</span> <span class="o">+=</span> <span class="n">ystep</span>
         <span class="n">ymax</span> <span class="o">+=</span> <span class="n">ystep</span>
+        
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Function successfully created.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Function successfully created.
 </pre></div>
 </div>
 </div>
@@ -1191,16 +1164,16 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop</span> <span class="o">=</span> <span class="n">NeuroVis</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;VISp&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nvs</span> <span class="o">=</span> <span class="n">NeuroVis</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;VISp&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
-<span class="n">pop</span><span class="o">.</span><span class="n">get_raster</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="s1">&#39;start_time&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">stim_pres</span><span class="p">)</span>
+<span class="n">nvs</span><span class="o">.</span><span class="n">get_raster</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="s1">&#39;start_time&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">stim_pres</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1211,7 +1184,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pop</span><span class="o">.</span><span class="n">get_psth</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="s1">&#39;start_time&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">stim_pres</span><span class="p">,</span> <span class="n">binsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">window</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nvs</span><span class="o">.</span><span class="n">get_psth</span><span class="p">(</span><span class="n">event</span><span class="o">=</span><span class="s1">&#39;start_time&#39;</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">stim_pres</span><span class="p">,</span> <span class="n">binsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">window</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1220,37 +1193,10 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 <img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_38_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_38_0.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create 1 list containing all the times a unit fired</span>
-<span class="c1">#spike_list = []</span>
-<span class="c1">#for i in (all_spike_times):</span>
-<span class="c1">#    for val in (VISp_unit_ids):</span>
-<span class="c1">#        spikes = all_spike_times[val]</span>
-<span class="c1">#        for j in spikes:</span>
-<span class="c1">#            spike_list.append(j)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create 1 second bins for all spikes</span>
-<span class="c1">#spike_array = np.array(spike_list)</span>
-<span class="c1">#numbins = int(np.ceil(spike_array.max()))</span>
-<span class="c1">#binned_spikes = np.empty(numbins)</span>
-
-<span class="c1"># Assign the frequency of spikes over time</span>
-<span class="c1">#for i in range(numbins):</span>
-<span class="c1">#    binned_spikes[i] = len(spike_array[(spike_array&gt;i)&amp;(spike_array&lt;i+1)])</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 <div class="section" id="running-speed">
 <h2><span class="section-number">7.2.4. </span>Running Speed<a class="headerlink" href="#running-speed" title="Permalink to this headline">¶</a></h2>
-<p>The running speed of the mice in our session have also been recorded and are available to you. You can acess the running speed by calling <code class="docutils literal notranslate"><span class="pre">running_speed</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object. This will return a pandas dataframe that contains the <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, and <code class="docutils literal notranslate"><span class="pre">velocity</span></code> of our session.</p>
+<p>The running speed of the mice in our session have also been recorded and are available to you. You can access the running speed by calling <code class="docutils literal notranslate"><span class="pre">running_speed</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysSession</span></code> object. This will return a dataframe that contains the <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, and <code class="docutils literal notranslate"><span class="pre">velocity</span></code> of our session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">running_speed</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">running_speed</span>
@@ -1264,10 +1210,10 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_41_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_41_0.png" />
 </div>
 </div>
-<p>With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with more neural activity.</p>
+<p>With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with increases in neural activity.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="p">)</span>
@@ -1292,12 +1238,12 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Firing rates: First 10 VISp Units&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Units&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">4000</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2200</span><span class="p">,</span><span class="mi">2900</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Running Speed: Session 721123822&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Velocity (cm/s)&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2000</span><span class="p">,</span><span class="mi">4000</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">2200</span><span class="p">,</span><span class="mi">2900</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1305,79 +1251,12 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_45_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_45_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="signal-correlations">
 <h2><span class="section-number">7.2.5. </span>Signal Correlations<a class="headerlink" href="#signal-correlations" title="Permalink to this headline">¶</a></h2>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spf</span> <span class="o">=</span> <span class="n">flashes_histogram</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">max_len</span> <span class="o">=</span> <span class="n">spf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">22</span><span class="o">-</span><span class="mi">00</span><span class="n">c5fa63a4ba</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">spf</span> <span class="o">=</span> <span class="n">flashes_histogram</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">max_len</span> <span class="o">=</span> <span class="n">spf</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="ne">NameError</span>: name &#39;flashes_histogram&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get two spike trains in flashes activity</span>
-<span class="n">spike_train_1_flash</span><span class="o">=</span><span class="n">spf</span><span class="p">[:</span><span class="n">max_len</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-<span class="n">spike_train_2_flash</span><span class="o">=</span><span class="n">spf</span><span class="p">[:</span><span class="n">max_len</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spike_train_1_flash</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count 1&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time bins (10 ms)&#39;</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">spike_train_2_flash</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Spike count 2&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time bins (10 ms)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># compute the correlogram for spontaneous activity</span>
-<span class="n">xcorr_flashes</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">spike_train_1_flash</span><span class="p">,</span><span class="n">spike_train_2_flash</span><span class="p">)</span>
-
-<span class="c1"># time steps</span>
-<span class="n">time_shift_flashes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">xcorr_flashes</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">xcorr_flashes</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_shift_flashes</span><span class="p">,</span><span class="n">xcorr_flashes</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Signal correlation&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time steps (10 ms)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Flashes Stimulus Presentation&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
 </div>
 </div>
 
