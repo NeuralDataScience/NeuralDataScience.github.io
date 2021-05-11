@@ -32,13 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-# Define an experiment of interest 
-experiment_id = VISp_experiments.index[1]
-
-# Get the projection density: number of projecting pixels / voxel volume
-projection_density, pd_info = mcc.get_projection_density(experiment_id)
-
-# Injection density: number of projecting pixels in injection site / voxel volume
-ind, ind_info = mcc.get_injection_density(experiment_id)
+['# # Import packages necessary to plot behavior', 'import matplotlib.pyplot as plt', 'import warnings', "warnings.filterwarnings('ignore')", 'import allensdk.brain_observatory.ecephys.visualization as ecvis']
+...
+['', '# Return all sessions available in this dataset', 'sessions = cache.get_session_table()', "print('Total number of sessions: ' + str(len(sessions)))", 'sessions.head()']
 -------------------
 

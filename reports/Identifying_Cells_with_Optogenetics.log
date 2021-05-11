@@ -32,8 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# Assign optogenetic stimuli', "ss_10ms = opto_table[(opto_table['duration'] > 0.009) & (opto_table['duration'] < 0.02)]", '', '# Assign units in brain area of interest', 'units_df = session.units']
+['# Import necessary packages ', 'import numpy as np ', 'import matplotlib.pyplot as plt', 'import xarray as xr', 'import warnings']
 ...
-["        dims=['trial_id', 'time_relative_to_stimulus_onset', 'unit_id']", '    )', '', 'da = optotagging_spike_counts(bin_edges, ss_10ms, VISp_df)', 'da']
+['# Create the EcephysProjectCache object', 'cache = EcephysProjectCache(manifest=manifest_path,', '                            fetch_api=EcephysProjectWarehouseApi(RmaEngine(scheme="http",host="api.brain-map.org",timeout= 50 * 60)))          ', '', "print('Packages imported and cache instance created.')"]
 -------------------
 
