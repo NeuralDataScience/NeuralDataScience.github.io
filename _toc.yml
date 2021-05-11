@@ -47,7 +47,6 @@
     - file: Chapter_7/Obtaining_Raw_Electrophysiology_Data
     - file: Chapter_7/Correlating_Spike_Trains_with_Stimuli_and_Behavior
     - file: Chapter_7/Identifying_Cells_with_Optogenetics
-    - file: Chapter_7/Correlations
     
 - file: Chapter_8/Connectivity_Atlas
   sections: 
