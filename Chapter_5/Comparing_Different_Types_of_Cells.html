@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5.4. Comparing Different Types of Cells &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,14 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -302,7 +300,28 @@
                 
   <div class="section" id="comparing-different-types-of-cells">
 <h1><span class="section-number">5.4. </span>Comparing Different Types of Cells<a class="headerlink" href="#comparing-different-types-of-cells" title="Permalink to this headline">¶</a></h1>
-<p>In this section we will discuss how to interact with different types of cells and take a look at how we can, analyze, draw connections, and plot differences between our cell types. We will be covering Humans vs Mice, how to utilize the Allens data of Cre lines, looking at diferences between differing dendrite types, and learn how to inspect the different layers of cortex.</p>
+<p>In this section we will discuss how to interact with different cell types and take a look at how we can, analyze, draw connections, and plot differences between our cell types. We will be covering Humans vs Mice cells, how to utilize the Allen’s data of Cre lines, diferences between differing dendrite types, and learn how to inspect the different layers of cortex.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will ensure that the AllenSDK is installed.</span>
+<span class="c1"># If not, it will install it for you.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">allensdk</span>
+    <span class="k">if</span> <span class="n">allensdk</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="s1">&#39;2.11.2&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk already installed.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;incompatible version of allensdk installed&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="o">!</span>pip install allensdk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk already installed.
+</pre></div>
+</div>
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import the &quot;Cell Types Cache&quot; from the AllenSDK core package</span>
@@ -313,7 +332,6 @@
 
 <span class="c1"># Import Toolkits </span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span> 
 <span class="o">%</span><span class="k">matplotlib</span> inline 
 
@@ -332,7 +350,7 @@
 </div>
 <div class="section" id="humans-vs-mice">
 <h2><span class="section-number">5.4.1. </span>Humans vs Mice<a class="headerlink" href="#humans-vs-mice" title="Permalink to this headline">¶</a></h2>
-<p>As stated in previous sections, the <code class="docutils literal notranslate"><span class="pre">get_cells</span></code> method downloads metadata for all cells in the database. By specifying a species within the method, <code class="docutils literal notranslate"><span class="pre">get_cells</span></code> will only retrieve the data from the species of interest. Our database has two species to work with; mice and humans.  To download our human cells you would need to specify <code class="docutils literal notranslate"><span class="pre">species</span> <span class="pre">=</span> <span class="pre">[CellTypesApi.HUMAN]</span></code> within <code class="docutils literal notranslate"><span class="pre">get_cells()</span></code>.</p>
+<p>As stated in previous sections, the <code class="docutils literal notranslate"><span class="pre">get_cells</span></code> method downloads metadata for all cells in the database. By specifying a species within the method, <code class="docutils literal notranslate"><span class="pre">get_cells</span></code> will only retrieve the data from the species of interest. Our database has two species to work with; mice and humans. To only download human cells you would need to specify <code class="docutils literal notranslate"><span class="pre">species</span> <span class="pre">=</span> <span class="pre">[CellTypesApi.HUMAN]</span></code> within <code class="docutils literal notranslate"><span class="pre">get_cells()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download meatadata for only human cells </span>
@@ -747,30 +765,26 @@
 <p>Let’s get some information about our cells. We can use <code class="docutils literal notranslate"><span class="pre">len()</span></code> on a dataframe to get the number of rows. Alternatively, we can use the <code class="docutils literal notranslate"><span class="pre">count()</span></code> method on our dataframe to get the number of values each column contains. The number of rows is equivalent to the number of observations (i.e. length of the dataframe).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">human_cells_df</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
-<span class="n">n_human_cells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">human_cells_df</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">human_ephys_df</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="n">n_human_cells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">human_ephys_df</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Length of dataframe:&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">n_human_cells</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reporter_status            0
-cell_soma_location       413
-species                  413
-name                     413
-structure_layer_name     413
-structure_area_id        413
-structure_area_abbrev    413
-transgenic_line          413
-dendrite_type            413
-apical                   413
-reconstruction_type      158
-disease_state            413
-donor_id                 413
-structure_hemisphere     413
-normalized_depth         162
-dtype: int64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reporter_status                             0
+cell_soma_location                        413
+species                                   413
+name                                      413
+structure_layer_name                      413
+                                         ... 
+upstroke_downstroke_ratio_long_square     413
+upstroke_downstroke_ratio_ramp            412
+upstroke_downstroke_ratio_short_square    413
+vm_for_sag                                413
+vrest                                     413
+Length: 70, dtype: int64
 
 Length of dataframe:
 413
@@ -780,30 +794,26 @@ Length of dataframe:
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mouse_df</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
-<span class="n">n_mouse_cells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mouse_df</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mouse_ephys_df</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+<span class="n">n_mouse_cells</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mouse_ephys_df</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Length of dataframe:&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">n_mouse_cells</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reporter_status          1920
-cell_soma_location       1920
-species                  1920
-name                     1920
-structure_layer_name     1920
-structure_area_id        1920
-structure_area_abbrev    1920
-transgenic_line          1920
-dendrite_type            1920
-apical                   1920
-reconstruction_type       509
-disease_state            1920
-donor_id                 1920
-structure_hemisphere     1920
-normalized_depth         1297
-dtype: int64
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>reporter_status                           1920
+cell_soma_location                        1920
+species                                   1920
+name                                      1920
+structure_layer_name                      1920
+                                          ... 
+upstroke_downstroke_ratio_long_square     1920
+upstroke_downstroke_ratio_ramp            1861
+upstroke_downstroke_ratio_short_square    1920
+vm_for_sag                                1920
+vrest                                     1920
+Length: 70, dtype: int64
 
 Length of dataframe:
 1920
@@ -834,11 +844,11 @@ Length of dataframe:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Comparing_Different_Types_of_Cells_14_0.png" src="../_images/Comparing_Different_Types_of_Cells_14_0.png" />
+<img alt="../_images/Comparing_Different_Types_of_Cells_15_0.png" src="../_images/Comparing_Different_Types_of_Cells_15_0.png" />
 </div>
 </div>
 <p>As you can see, the median and distribution of resting membrane potential between mouse cells and human cells is similar. This is good to know cosidering that mice are frequently used to conduct experiments to research human physiology.</p>
-<p>For more information on <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> and the figures that you can build with it, please visit <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html">here</a>.</p>
+<p>For more information on <code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot</span></code> and the figures that you can build with it, please visit the <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.html">matplotlib website</a>.</p>
 </div>
 <div class="section" id="two-different-cre-lines">
 <h2><span class="section-number">5.4.2. </span>Two Different Cre-Lines<a class="headerlink" href="#two-different-cre-lines" title="Permalink to this headline">¶</a></h2>
@@ -920,7 +930,7 @@ Length of dataframe:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Comparing_Different_Types_of_Cells_25_0.png" src="../_images/Comparing_Different_Types_of_Cells_25_0.png" />
+<img alt="../_images/Comparing_Different_Types_of_Cells_26_0.png" src="../_images/Comparing_Different_Types_of_Cells_26_0.png" />
 </div>
 </div>
 <p>Since the number of cells greatly differs between our cre lines, it would be more appropriate to plot a boxplot than plotting the distributions.</p>
@@ -944,16 +954,16 @@ Length of dataframe:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Comparing_Different_Types_of_Cells_27_0.png" src="../_images/Comparing_Different_Types_of_Cells_27_0.png" />
+<img alt="../_images/Comparing_Different_Types_of_Cells_28_0.png" src="../_images/Comparing_Different_Types_of_Cells_28_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="spiny-vs-aspiny">
 <h2><span class="section-number">5.4.3. </span>Spiny vs Aspiny<a class="headerlink" href="#spiny-vs-aspiny" title="Permalink to this headline">¶</a></h2>
-<p>The Allen cells contains cells of different dedrite types. To find out what dendrite types make up our cells, we can execute <code class="docutils literal notranslate"><span class="pre">unique()</span></code> on the <code class="docutils literal notranslate"><span class="pre">dendrite_type</span></code> column of our dataframe.</p>
+<p>The database also contains cells of different dedrite types. To find out what dendrite types make up our cells, we can execute <code class="docutils literal notranslate"><span class="pre">unique()</span></code> on the <code class="docutils literal notranslate"><span class="pre">dendrite_type</span></code> column of our dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">human_cells_df</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">human_ephys_df</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -980,7 +990,7 @@ Length of dataframe:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Comparing_Different_Types_of_Cells_32_0.png" src="../_images/Comparing_Different_Types_of_Cells_32_0.png" />
+<img alt="../_images/Comparing_Different_Types_of_Cells_33_0.png" src="../_images/Comparing_Different_Types_of_Cells_33_0.png" />
 </div>
 </div>
 <p>Let’s see how the different dendrite types differ when it comes to their electrophysiological properties. Below we will filter out cells by dendrite type and assign them to their repective dataframe.</p>
@@ -1006,7 +1016,7 @@ Length of dataframe:
 </div>
 </div>
 </div>
-<p>Next, we select an electrophysiological feature that we could like to compare across the three dendrite types. In this example, we will be taking a look at <code class="docutils literal notranslate"><span class="pre">fast_though_v_long_square</span></code> for each of our dendrite types and create a boxplot.</p>
+<p>Next, we select an electrophysiological feature that we could like to compare across the three dendrite types. In this example, we will be taking a look at the <code class="docutils literal notranslate"><span class="pre">fast_though_v_long_square</span></code> response for each of our dendrite types and create a boxplot.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose what you would like to compare between the cell types </span>
@@ -1031,7 +1041,7 @@ Length of dataframe:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Comparing_Different_Types_of_Cells_36_0.png" src="../_images/Comparing_Different_Types_of_Cells_36_0.png" />
+<img alt="../_images/Comparing_Different_Types_of_Cells_37_0.png" src="../_images/Comparing_Different_Types_of_Cells_37_0.png" />
 </div>
 </div>
 </div>
@@ -1050,7 +1060,7 @@ Length of dataframe:
 </div>
 </div>
 </div>
-<p>Knowing what layers our cells are coming from allows us to check for any strong differences in electrophysiological, morphological features between different layers. Below we will walk through how to choose structure layers to compare, created our dataframes from our selcted structure layers, and eventually plot some metrics of these layers.</p>
+<p>Knowing what layers our cells are coming from allows us to check for any strong differences in electrophysiological, morphological features between different layers. Below we will walk through how to subselect the data according to structure layers and eventually plot some metrics of cells from these layers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the structure layers you would like to compare</span>
@@ -1071,7 +1081,7 @@ Length of dataframe:
 </div>
 </div>
 </div>
-<p>Once we have set up our dataframes, we are able to plot out some of the morphological and electrophysiological features and attempt to draw connections between the two layers. Below we will create boxplots that compares cells from layers 1 and 4 with respect to the rheobase, resting membrane potential, and membrane time constant.</p>
+<p>Once we have set up our dataframes, we are able to plot out the morphological and electrophysiological features and attempt to draw connections between the different layers. Below we will create boxplots that compare the rheobase, resting membrane potential, and membrane time constant of cells from layers 1 and 4 of the cortex.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a 1 by 3 figure for our boxplots </span>
@@ -1126,7 +1136,7 @@ Length of dataframe:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Comparing_Different_Types_of_Cells_43_0.png" src="../_images/Comparing_Different_Types_of_Cells_43_0.png" />
+<img alt="../_images/Comparing_Different_Types_of_Cells_44_0.png" src="../_images/Comparing_Different_Types_of_Cells_44_0.png" />
 </div>
 </div>
 </div>

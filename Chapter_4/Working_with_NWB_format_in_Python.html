@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>4.2. Working with NWB in Python &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,14 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -311,38 +309,26 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import any necessary packages</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span> 
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBHDF5IO</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages succesfully imported.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages succesfully imported.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># read the NWB file</span>
+
+<span class="c1"># read the NWB file</span>
 <span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000006/sub-anm369962/sub-anm369962_ses-20170310.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File downloaded.&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pynwb.file.NWBFile&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File downloaded.
+&lt;class &#39;pynwb.file.NWBFile&#39;&gt;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="file-hierarchy-groups-datasets-and-attributes">
 <h2><span class="section-number">4.2.1. </span>File Hierarchy: Groups, Datasets, and Attributes¶<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
-<p>The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute returns a dictionary contiaining the metadata of the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.</p>
+<p>The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute returns a dictionary contiaining the the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the Groups for the nwb file </span>
@@ -357,7 +343,7 @@
 </div>
 </div>
 </div>
-<p>Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. This information can be accessed using <code class="docutils literal notranslate"><span class="pre">institution</span></code>, <code class="docutils literal notranslate"><span class="pre">lab</span></code>, and <code class="docutils literal notranslate"><span class="pre">experiment_description</span></code>, attributes on our nwb_file, respectively.</p>
+<p>Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. These Groups can be accessed using <code class="docutils literal notranslate"><span class="pre">institution</span></code>, <code class="docutils literal notranslate"><span class="pre">lab</span></code>, and <code class="docutils literal notranslate"><span class="pre">experiment_description</span></code>, attributes on our nwb_file, respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get Meta-Data from NWB file </span>
@@ -371,8 +357,8 @@
 </div>
 </div>
 </div>
-<p>We can access metadata from each group in our nwb_file with the following syntax: <code class="docutils literal notranslate"><span class="pre">nwb_file.group</span></code>. This is no different than executing a method and/or attribute. Below we will demonstrate some of the useful groups within an <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> object.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">acquisition</span></code> contains datasets of acquisition data, mainly <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> objects belonging to this NWBFile.</p>
+<p>We can access datasets from each group in our nwb_file with the following syntax: <code class="docutils literal notranslate"><span class="pre">nwb_file.group</span></code>. This is no different than executing a method and/or attribute. Below we will demonstrate some of the useful groups within an <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> object.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">acquisition</span></code> group contains datasets of acquisition data, mainly <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> objects belonging to this NWBFile.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwb_file</span><span class="o">.</span><span class="n">acquisition</span>
@@ -380,7 +366,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140661907110992
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140492891752272
  Fields:
    time_series: {
      lick_left_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
@@ -390,13 +376,13 @@
 </div>
 </div>
 </div>
-<p>In this file, the acquisition group contains two different dataets, <code class="docutils literal notranslate"><span class="pre">lick_left_times</span></code> and <code class="docutils literal notranslate"><span class="pre">lick_right_times</span></code> within <code class="docutils literal notranslate"><span class="pre">lick_times</span></code>. To access the actual data array of these datasets we must first subset our dataset of interest from the group. We can then use <code class="docutils literal notranslate"><span class="pre">data[:]</span></code> to return our actual data array.</p>
+<p>In this file, the acquisition group contains two different <code class="docutils literal notranslate"><span class="pre">Fields</span></code>, <code class="docutils literal notranslate"><span class="pre">lick_left_times</span></code> and <code class="docutils literal notranslate"><span class="pre">lick_right_times</span></code> within the <code class="docutils literal notranslate"><span class="pre">lick_times</span></code> dataset. To access the actual data arrays of these fields we must first subset our dataset of interest from the group. We can then use <code class="docutils literal notranslate"><span class="pre">data[:]</span></code> to return our actual data array.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select our dataset of interest </span>
-<span class="n">subgroup</span> <span class="o">=</span> <span class="s1">&#39;lick_times&#39;</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;lick_right_times&#39;</span>
-<span class="n">lick_r_dataset</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="n">subgroup</span><span class="p">][</span><span class="n">dataset</span><span class="p">]</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="s1">&#39;lick_times&#39;</span>
+<span class="n">field</span> <span class="o">=</span> <span class="s1">&#39;lick_right_times&#39;</span>
+<span class="n">lick_r_dataset</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">acquisition</span><span class="p">[</span><span class="n">dataset</span><span class="p">][</span><span class="n">field</span><span class="p">]</span>
 
 <span class="c1"># return first 10 values in data array </span>
 <span class="n">lick_r_data_array</span> <span class="o">=</span> <span class="n">lick_r_dataset</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
@@ -411,7 +397,7 @@
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group contains all time interval tables from the experiemnt. We can look at the description field in the metadata to understand what each dataset in the group contains.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group contains all time interval tables from the experiemnt. We can look at the <code class="docutils literal notranslate"><span class="pre">description</span></code> field to understand what each dataset in contains.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example showing how to return meta data from groups in nwb file </span>
@@ -420,7 +406,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140661907242576
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140492892058320
  Fields:
    colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;type&#39; &#39;response&#39; &#39;stim_present&#39; &#39;is_good&#39;
   &#39;cue_start_time&#39; &#39;pole_in_time&#39; &#39;pole_out_time&#39;]
@@ -441,7 +427,7 @@
 </div>
 </div>
 </div>
-<p>Within the intervals group is the <code class="docutils literal notranslate"><span class="pre">trials</span></code> dataset which is a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> contianing intervals from our experimental trials. Each column in <code class="docutils literal notranslate"><span class="pre">trials</span></code> is a <code class="docutils literal notranslate"><span class="pre">VectorData</span></code> object and the table can be assigned to a dataframe using <code class="docutils literal notranslate"><span class="pre">to_dataframe()</span></code>.</p>
+<p>Within the intervals group is the <code class="docutils literal notranslate"><span class="pre">trials</span></code> dataset which is a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> contianing intervals from our experimental trials. Each column in <code class="docutils literal notranslate"><span class="pre">trials</span></code> is a <code class="docutils literal notranslate"><span class="pre">VectorData</span></code> object which can all be assigned to a dataframe using <code class="docutils literal notranslate"><span class="pre">to_dataframe()</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select the group of interest from the nwb file </span>
@@ -610,7 +596,7 @@ onset of the delay period
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">units</span></code> group in our nwb_file contains all our unit metadata including of our neural spike data for scientific analysis. Much like the <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group, <code class="docutils literal notranslate"><span class="pre">units</span></code> is also a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> that can be assigned to a dataframe.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">units</span></code> group in our nwb_file contains the neural activity of our units, including spike data for scientific analysis. Much like the <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group, <code class="docutils literal notranslate"><span class="pre">units</span></code> is also a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> that can be assigned to a dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">units</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">units</span>
@@ -660,8 +646,8 @@ onset of the delay period
       <td>Poor</td>
       <td>unidentified</td>
       <td>[933.873288, 948.2774710000008, 950.5357110000...</td>
-      <td>x        y        z       imp  \
-id ...</td>
+      <td>x      y      z     imp  \
+id         ...</td>
     </tr>
     <tr>
       <th>2</th>
@@ -669,8 +655,8 @@ id ...</td>
       <td>Fair</td>
       <td>unidentified</td>
       <td>[329.95417899999956, 330.01945899999953, 330.0...</td>
-      <td>x        y        z       imp  \
-id ...</td>
+      <td>x      y      z     imp  \
+id         ...</td>
     </tr>
     <tr>
       <th>3</th>
@@ -678,8 +664,8 @@ id ...</td>
       <td></td>
       <td>unidentified</td>
       <td>[329.94165899999956, 329.9998989999996, 330.00...</td>
-      <td>x        y        z       imp  \
-id ...</td>
+      <td>x      y      z     imp  \
+id         ...</td>
     </tr>
     <tr>
       <th>4</th>
@@ -687,8 +673,8 @@ id ...</td>
       <td>[]</td>
       <td>unidentified</td>
       <td>[329.93145899999956, 330.7492189999995, 330.77...</td>
-      <td>x        y        z       imp  \
-id ...</td>
+      <td>x      y      z     imp  \
+id         ...</td>
     </tr>
     <tr>
       <th>5</th>
@@ -696,8 +682,8 @@ id ...</td>
       <td>Fair</td>
       <td>unidentified</td>
       <td>[331.09961899999956, 332.14505899999955, 333.3...</td>
-      <td>x        y        z       imp  \
-id ...</td>
+      <td>x      y      z     imp  \
+id         ...</td>
     </tr>
   </tbody>
 </table>

@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5.2. Plotting a Signle Sweep of Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,14 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -276,6 +274,27 @@
 <p>In this section we will go over how to access electrophysiology data from our cells. Once downloaded, we will be able to plot our cells’ electrophysiology features to compare characteristics across specimen. We will also learn how to download electrophysiology traces of single cells and plot single sweeps of these cells.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will ensure that the AllenSDK is installed.</span>
+<span class="c1"># If not, it will install it for you.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">allensdk</span>
+    <span class="k">if</span> <span class="n">allensdk</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="s1">&#39;2.11.2&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk already installed.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;incompatible version of allensdk installed&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="o">!</span>pip install allensdk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk already installed.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import the &quot;Cell Types Cache&quot; from the AllenSDK core package</span>
 <span class="kn">from</span> <span class="nn">allensdk.core.cell_types_cache</span> <span class="kn">import</span> <span class="n">CellTypesCache</span>
 
@@ -307,7 +326,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redownload the metadata for all our cells</span>
 <span class="n">all_cells</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_cells</span><span class="p">()</span>
 <span class="n">all_cells_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">all_cells</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
-<span class="n">all_cells_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">all_cells_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -420,15 +439,51 @@
       <td>right</td>
       <td>0.469578</td>
     </tr>
+    <tr>
+      <th>528642047</th>
+      <td>None</td>
+      <td>[69.0, 254.0, 96.0]</td>
+      <td>Homo Sapiens</td>
+      <td>H16.06.009.01.02.06.05</td>
+      <td>5</td>
+      <td>12141</td>
+      <td>MTG</td>
+      <td></td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>None</td>
+      <td>epilepsy</td>
+      <td>528574320</td>
+      <td>left</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>605889373</th>
+      <td>positive</td>
+      <td>[9400.0, 1520.74232706376, 2188.13845194139]</td>
+      <td>Mus musculus</td>
+      <td>Vipr2-IRES2-Cre;Slc32a1-T2A-FlpO;Ai65-337419.0...</td>
+      <td>2/3</td>
+      <td>385</td>
+      <td>VISp</td>
+      <td>Slc32a1-T2A-FlpO|Vipr2-IRES2-Cre</td>
+      <td>aspiny</td>
+      <td>NA</td>
+      <td>None</td>
+      <td></td>
+      <td>605622695</td>
+      <td>right</td>
+      <td>NaN</td>
+    </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
 <p>At this point, you might have realized that this dataframe doesn’t contain any data about the electrophysiology of our cells either. In order to get information about the electrophysiological properties of these cells, we need to use the <code class="docutils literal notranslate"><span class="pre">get_ephys_features()</span></code> method on our instance of the cell types cache.</p>
-<p>Just as we did before with morphology, we will will assign the output of <code class="docutils literal notranslate"><span class="pre">get_ephys_features()</span></code> to a variable and store it as a pandas dataframe.</p>
+<p>Just as we did before with morphology, we will will assign the output of <code class="docutils literal notranslate"><span class="pre">get_ephys_features()</span></code> and store it as a Pandas dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download our electrophysiology data </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download electrophysiology data </span>
 <span class="n">ephys_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_features</span><span class="p">())</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;specimen_id&#39;</span><span class="p">)</span>
 <span class="n">ephys_features</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -828,6 +883,7 @@
 </div></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">get_ephys_data()</span></code> method can download electrophysiology traces for a single cell in the database. This method returns a class instance with helper methods for retrieving stimulus and response traces out of an NWB file. In order to use this method, you must specify the id of the cell specimen whose electrophysiology you would like to download.</p>
+<p>Below we go over methods that can be used to access the electrophysiology data for single cells, the source documentation for all the methods we cover can be found on the <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.core.nwb_data_set.html'> Allen Brain Atlas website</a>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">get_experiment_sweep_numbers()</span></code> method downloads all of the sweep numbers for experiments in the file. Each sweep contains metadata and electrophysiology data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -849,7 +905,7 @@
 </div>
 </div>
 </div>
-<p>Now that we have sweep numbers to choose from, we can take a look at a sweep’s metadata by calling <code class="docutils literal notranslate"><span class="pre">get_sweep_metadata()</span></code>. This return a dictionary contianing information such as stimulus paramaters and recording quality.</p>
+<p>Now that we have sweep numbers to choose from, we can take a look at a sweep’s metadata by calling <code class="docutils literal notranslate"><span class="pre">get_sweep_metadata()</span></code>. This returns a dictionary containing information such as stimulus paramaters and recording quality.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select a sweep number </span>
@@ -865,6 +921,10 @@
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;aibs_stimulus_amplitude_pa&#39;: 830.000013163357, &#39;aibs_stimulus_name&#39;: &#39;Short Square - Triple&#39;, &#39;initial_access_resistance&#39;: 12.931512, &#39;seal&#39;: 1.125671168}
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:386: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  sweep_metadata[field] = stim_details[field].value
+</pre></div>
+</div>
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">get_sweep()</span></code> downloads the stimulus, response, index_range, and sampling rate for a particular sweep.</p>
@@ -878,6 +938,20 @@
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;stimulus&#39;: array([0., 0., 0., ..., 0., 0., 0.], dtype=float32), &#39;response&#39;: array([-0.06978125, -0.06975   , -0.06975   , ..., -0.06981251,
        -0.06984375, -0.06978125], dtype=float32), &#39;stimulus_unit&#39;: &#39;Amps&#39;, &#39;index_range&#39;: (37500, 183449), &#39;sampling_rate&#39;: 50000.0}
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:108: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  stimulus = stimulus_dataset.value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:109: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  response = swp[&#39;response&#39;][&#39;timeseries&#39;][&#39;data&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:125: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  swp_idx_start = swp[&#39;stimulus&#39;][&#39;idx_start&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:126: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  swp_length = swp[&#39;stimulus&#39;][&#39;count&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:135: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  exp_idx_start = exp[&#39;stimulus&#39;][&#39;idx_start&#39;].value
+/Users/VictorMagdaleno/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/nwb_data_set.py:136: H5pyDeprecationWarning: dataset.value has been deprecated. Use dataset[()] instead.
+  exp_length = exp[&#39;stimulus&#39;][&#39;count&#39;].value
 </pre></div>
 </div>
 </div>
@@ -905,11 +979,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Plotting_A_Single_Sweep_of_Data_18_0.png" src="../_images/Plotting_A_Single_Sweep_of_Data_18_0.png" />
+<img alt="../_images/Plotting_A_Single_Sweep_of_Data_19_0.png" src="../_images/Plotting_A_Single_Sweep_of_Data_19_0.png" />
 </div>
 </div>
 <p>Without changing the limits on the x-axis, you won’t be able to see individual action potentials. To modify the x-axis using <code class="docutils literal notranslate"><span class="pre">plt.xlim([min,max])</span></code> to specify the limits (replace min and max with numbers that make sense for this x-axis)</p>
-<p>For more information on the helper methods that can be used on this NwbDataSet instance, please click <a href="https://allensdk.readthedocs.io/en/latest/allensdk.core.nwb_data_set.html">here</a></p>
 </div>
 
     <script type="text/x-thebe-config">
