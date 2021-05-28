@@ -22,7 +22,6 @@ except ImportError as e:
 
 # Import necessary packages
 import numpy as np
-import pandas as pd 
 from matplotlib import pyplot as plt
 from pynwb import NWBHDF5IO
 # read the file 
@@ -40,7 +39,9 @@ print(type(nwb_file))
 
 units = nwb_file.units
 units_df = units.to_dataframe()
-units_df = units_df[units_df['quality']=='Fair']
+col = 'quality'
+desired_value = 'Fair'
+units_df = units_df[units_df[col]==desired_value]
 units_df.head()
 
 
@@ -50,7 +51,8 @@ units_df.head()
 
 
 # return the first 10 spike times for neurons 2-8
-neural_data = units_df['spike_times'][1:6][:10]
+col = 'spike_times'
+neural_data = units_df[col][1:6][:10]
 neural_data
 
 

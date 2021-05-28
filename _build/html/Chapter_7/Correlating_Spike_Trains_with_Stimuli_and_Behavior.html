@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>7.2. Correlating Spike Trains with Stimuli and Behavior &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,14 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -308,7 +306,10 @@
 <span class="c1"># If not, it will install it for you.</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">allensdk</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk already installed.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">allensdk</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="s1">&#39;2.11.2&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk already installed.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;incompatible version of allensdk installed&#39;</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="o">!</span>pip install allensdk
 </pre></div>
@@ -324,9 +325,7 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary packages </span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">signal</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
@@ -403,7 +402,7 @@
 <span class="n">VISp_spike_times</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
     <span class="n">VISp_spike_times</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">[</span><span class="n">VISp_unit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spikes found for unit </span><span class="si">{VISp_unit_ids[i]}</span><span class="s2"> : {len(all_spike_times[VISp_unit_ids[i]])}&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spikes found for unit </span><span class="si">{</span><span class="n">VISp_unit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">[</span><span class="n">VISp_unit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">[</span><span class="n">VISp_unit_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
@@ -510,6 +509,110 @@ Spikes found for unit 950908448 : 120843
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="n">cd41ac8bffaf</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Stimuli presented in session</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">all_stims</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">stimulus_names</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">all_stims</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property_mixin.py</span> in <span class="ni">__getattribute__</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> 
+<span class="g g-Whitespace">     </span><span class="mi">12</span>         <span class="n">lazy_class</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s1">&#39;LazyProperty&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">13</span>         <span class="n">curr_attr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">,</span> <span class="n">lazy_class</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>             <span class="k">return</span> <span class="n">curr_attr</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session.py</span> in <span class="ni">stimulus_names</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>     <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="k">def</span> <span class="nf">stimulus_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">165</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stimulus_presentations</span><span class="p">[</span><span class="s1">&#39;stimulus_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span> 
+<span class="g g-Whitespace">    </span><span class="mi">167</span>     <span class="nd">@property</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property_mixin.py</span> in <span class="ni">__getattribute__</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> 
+<span class="g g-Whitespace">     </span><span class="mi">12</span>         <span class="n">lazy_class</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s1">&#39;LazyProperty&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">13</span>         <span class="n">curr_attr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">,</span> <span class="n">lazy_class</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>             <span class="k">return</span> <span class="n">curr_attr</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session.py</span> in <span class="ni">stimulus_presentations</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">241</span>     <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">242</span>     <span class="k">def</span> <span class="nf">stimulus_presentations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">243</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_remove_detailed_stimulus_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stimulus_presentations</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span> 
+<span class="g g-Whitespace">    </span><span class="mi">245</span>     <span class="nd">@property</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property_mixin.py</span> in <span class="ni">__getattribute__</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>         <span class="n">curr_attr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">,</span> <span class="n">lazy_class</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">15</span>             <span class="k">return</span> <span class="n">curr_attr</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>             <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property.py</span> in <span class="ni">__get__</span><span class="nt">(self, obj, objtype)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> 
+<span class="g g-Whitespace">     </span><span class="mi">19</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">20</span>             <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> 
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property.py</span> in <span class="ni">calculate</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span> 
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">30</span>         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_method</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span>         <span class="k">for</span> <span class="n">wrapper</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrappers</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>             <span class="n">result</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session_api/ecephys_nwb_session_api.py</span> in <span class="ni">get_stimulus_presentations</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span> 
+<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="k">def</span> <span class="nf">get_stimulus_presentations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">87</span>         <span class="n">table</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">EcephysNwbSessionApi</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_stimulus_presentations</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> 
+<span class="g g-Whitespace">     </span><span class="mi">89</span>         <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/nwb/nwb_api.py</span> in <span class="ni">get_stimulus_presentations</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>                 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">interval</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>                     <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">columns_to_ignore</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">81</span>                         <span class="n">presentations</span><span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">presentations</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;N/A&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">})</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>                 <span class="n">presentation_dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/h5py/_hl/dataset.py</span> in <span class="ni">__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">472</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t iterate over a scalar dataset&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">473</span>         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+<span class="ne">--&gt; </span><span class="mi">474</span>             <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">475</span> 
+<span class="g g-Whitespace">    </span><span class="mi">476</span>     <span class="nd">@with_phil</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/h5py/_hl/dataset.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">536</span>         <span class="c1"># === Scalar dataspaces =================</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span> 
+<span class="ne">--&gt; </span><span class="mi">538</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>             <span class="n">fspace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">get_space</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">540</span>             <span class="n">selection</span> <span class="o">=</span> <span class="n">sel2</span><span class="o">.</span><span class="n">select_read</span><span class="p">(</span><span class="n">fspace</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">~/opt/anaconda3/lib/python3.7/site-packages/h5py/_hl/dataset.py</span> in <span class="ni">shape</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">284</span>     <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span>         <span class="sd">&quot;&quot;&quot;Numpy-style shape tuple giving dataset dimensions&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">286</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">shape</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span>     <span class="nd">@shape</span><span class="o">.</span><span class="n">setter</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span>     <span class="nd">@with_phil</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
 </div>
 <p>Each stimulus contains a set of parameters that were used when presented to the mouse. For example two gabors stimuli may be presented, but they may have differing temporal frequencies or different x and y positions. Ececuting the <code class="docutils literal notranslate"><span class="pre">stimulus_presentations</span></code> method on our session object will return a pandas dataframe with parameters for each stimulus as the columns which we can use to compare the resoponses of units to different stimulus presentations.</p>
 <p><strong>Note</strong>: Not all stimuli share the same parameters. If certain parameters do not apply to a stimulus, you will see a <code class="docutils literal notranslate"><span class="pre">null</span></code> value.</p>
@@ -517,7 +620,7 @@ Spikes found for unit 950908448 : 120843
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stimulus presentation dataframe </span>
 <span class="n">stim_pres</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">stimulus_presentations</span>
-<span class="n">stim_pres</span>
+<span class="n">stim_pres</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -602,17 +705,17 @@ Spikes found for unit 950908448 : 120843
       <td>null</td>
       <td>0.8</td>
       <td>null</td>
-      <td>45.0</td>
+      <td>45</td>
       <td>[3644.93333333, 3644.93333333]</td>
       <td>[20.0, 20.0]</td>
       <td>0.08</td>
       <td>86.285852</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>gabors</td>
       <td>86.519369</td>
-      <td>4.0</td>
-      <td>-10.0</td>
-      <td>-20.0</td>
+      <td>4</td>
+      <td>-10</td>
+      <td>-20</td>
       <td>0.233517</td>
       <td>1</td>
     </tr>
@@ -621,17 +724,17 @@ Spikes found for unit 950908448 : 120843
       <td>null</td>
       <td>0.8</td>
       <td>null</td>
-      <td>45.0</td>
+      <td>45</td>
       <td>[3644.93333333, 3644.93333333]</td>
       <td>[20.0, 20.0]</td>
       <td>0.08</td>
       <td>86.519369</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>gabors</td>
       <td>86.769565</td>
-      <td>4.0</td>
-      <td>-40.0</td>
-      <td>-30.0</td>
+      <td>4</td>
+      <td>-40</td>
+      <td>-30</td>
       <td>0.250196</td>
       <td>2</td>
     </tr>
@@ -640,17 +743,17 @@ Spikes found for unit 950908448 : 120843
       <td>null</td>
       <td>0.8</td>
       <td>null</td>
-      <td>90.0</td>
+      <td>90</td>
       <td>[3644.93333333, 3644.93333333]</td>
       <td>[20.0, 20.0]</td>
       <td>0.08</td>
       <td>86.769565</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>gabors</td>
       <td>87.019762</td>
-      <td>4.0</td>
-      <td>-10.0</td>
-      <td>-10.0</td>
+      <td>4</td>
+      <td>-10</td>
+      <td>-10</td>
       <td>0.250196</td>
       <td>3</td>
     </tr>
@@ -659,137 +762,22 @@ Spikes found for unit 950908448 : 120843
       <td>null</td>
       <td>0.8</td>
       <td>null</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>[3644.93333333, 3644.93333333]</td>
       <td>[20.0, 20.0]</td>
       <td>0.08</td>
       <td>87.019762</td>
-      <td>0.0</td>
+      <td>0</td>
       <td>gabors</td>
       <td>87.269958</td>
-      <td>4.0</td>
-      <td>20.0</td>
-      <td>-10.0</td>
+      <td>4</td>
+      <td>20</td>
+      <td>-10</td>
       <td>0.250196</td>
       <td>4</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>70383</th>
-      <td>null</td>
-      <td>0.8</td>
-      <td>null</td>
-      <td>30.0</td>
-      <td>0.25</td>
-      <td>[250.0, 250.0]</td>
-      <td>0.08</td>
-      <td>9146.618199</td>
-      <td>14.0</td>
-      <td>static_gratings</td>
-      <td>9146.868408</td>
-      <td>null</td>
-      <td>null</td>
-      <td>null</td>
-      <td>0.250209</td>
-      <td>4798</td>
-    </tr>
-    <tr>
-      <th>70384</th>
-      <td>null</td>
-      <td>0.8</td>
-      <td>null</td>
-      <td>120.0</td>
-      <td>0.75</td>
-      <td>[250.0, 250.0]</td>
-      <td>0.08</td>
-      <td>9146.868408</td>
-      <td>14.0</td>
-      <td>static_gratings</td>
-      <td>9147.118617</td>
-      <td>null</td>
-      <td>null</td>
-      <td>null</td>
-      <td>0.250208</td>
-      <td>4865</td>
-    </tr>
-    <tr>
-      <th>70385</th>
-      <td>null</td>
-      <td>0.8</td>
-      <td>null</td>
-      <td>30.0</td>
-      <td>0.25</td>
-      <td>[250.0, 250.0]</td>
-      <td>0.32</td>
-      <td>9147.118617</td>
-      <td>14.0</td>
-      <td>static_gratings</td>
-      <td>9147.368825</td>
-      <td>null</td>
-      <td>null</td>
-      <td>null</td>
-      <td>0.250208</td>
-      <td>4904</td>
-    </tr>
-    <tr>
-      <th>70386</th>
-      <td>null</td>
-      <td>0.8</td>
-      <td>null</td>
-      <td>30.0</td>
-      <td>0.5</td>
-      <td>[250.0, 250.0]</td>
-      <td>0.32</td>
-      <td>9147.368825</td>
-      <td>14.0</td>
-      <td>static_gratings</td>
-      <td>9147.619034</td>
-      <td>null</td>
-      <td>null</td>
-      <td>null</td>
-      <td>0.250208</td>
-      <td>4849</td>
-    </tr>
-    <tr>
-      <th>70387</th>
-      <td>null</td>
-      <td>0.8</td>
-      <td>null</td>
-      <td>150.0</td>
-      <td>0.25</td>
-      <td>[250.0, 250.0]</td>
-      <td>0.08</td>
-      <td>9147.619034</td>
-      <td>14.0</td>
-      <td>static_gratings</td>
-      <td>9147.869242</td>
-      <td>null</td>
-      <td>null</td>
-      <td>null</td>
-      <td>0.250208</td>
-      <td>4838</td>
-    </tr>
   </tbody>
 </table>
-<p>70388 rows × 16 columns</p>
 </div></div></div>
 </div>
 <p>Each stimulus used in the session is presented to the mouse in various timeblocks. Using the <code class="docutils literal notranslate"><span class="pre">get_stimulus_epochs()</span></code> method will return a pandas dataframe containing the time periods where a single stimulus type was presented continuously.</p>
@@ -842,7 +830,7 @@ Spikes found for unit 950908448 : 120843
       <td>998.280652</td>
       <td>911.994800</td>
       <td>gabors</td>
-      <td>0.0</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>2</th>
@@ -858,7 +846,7 @@ Spikes found for unit 950908448 : 120843
       <td>1585.771259</td>
       <td>298.499237</td>
       <td>flashes</td>
-      <td>1.0</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>4</th>
@@ -977,9 +965,9 @@ Spikes found for unit 950908448 : 120843
   <tbody>
     <tr>
       <th>51353</th>
-      <td>92.0</td>
+      <td>92</td>
       <td>5905.128132</td>
-      <td>9.0</td>
+      <td>9</td>
       <td>natural_scenes</td>
       <td>5905.378346</td>
       <td>0.250214</td>
@@ -987,9 +975,9 @@ Spikes found for unit 950908448 : 120843
     </tr>
     <tr>
       <th>51354</th>
-      <td>114.0</td>
+      <td>114</td>
       <td>5905.378346</td>
-      <td>9.0</td>
+      <td>9</td>
       <td>natural_scenes</td>
       <td>5905.628560</td>
       <td>0.250214</td>
@@ -997,9 +985,9 @@ Spikes found for unit 950908448 : 120843
     </tr>
     <tr>
       <th>51355</th>
-      <td>114.0</td>
+      <td>114</td>
       <td>5905.628560</td>
-      <td>9.0</td>
+      <td>9</td>
       <td>natural_scenes</td>
       <td>5905.878774</td>
       <td>0.250214</td>
@@ -1007,9 +995,9 @@ Spikes found for unit 950908448 : 120843
     </tr>
     <tr>
       <th>51356</th>
-      <td>0.0</td>
+      <td>0</td>
       <td>5905.878774</td>
-      <td>9.0</td>
+      <td>9</td>
       <td>natural_scenes</td>
       <td>5906.128988</td>
       <td>0.250214</td>
@@ -1017,9 +1005,9 @@ Spikes found for unit 950908448 : 120843
     </tr>
     <tr>
       <th>51357</th>
-      <td>37.0</td>
+      <td>37</td>
       <td>5906.128988</td>
-      <td>9.0</td>
+      <td>9</td>
       <td>natural_scenes</td>
       <td>5906.379197</td>
       <td>0.250208</td>
@@ -1120,41 +1108,26 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 </div>
-<p>The function below was made to create a raster plot of spikes with rectangluar bars indicating when the stimulus started and ended.</p>
+<p>Below we will plot a raster plot containing the neural activity of all the neurons in response to the first gabors presentation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_raster</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign number of units you will plot</span>
+<span class="n">num_units</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">)</span>
+<span class="n">ystep</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">num_units</span>
     
-    <span class="c1"># Assign you will plot</span>
-    <span class="n">num_units</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)</span>
-    <span class="n">ystep</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">num_units</span>
-    
-    <span class="c1"># Set axis limits to include all units of interest</span>
-    <span class="n">ymin</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">ymax</span> <span class="o">=</span> <span class="n">ystep</span>
+<span class="c1"># Set axis limits to include all units of interest</span>
+<span class="n">ymin</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">ymax</span> <span class="o">=</span> <span class="n">ystep</span>
 
-    <span class="c1"># Plot raster for spikes within the start and end times</span>
-    <span class="k">for</span> <span class="n">unit_id</span><span class="p">,</span> <span class="n">unit_spike_times</span> <span class="ow">in</span> <span class="n">spike_times</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">unit_spike_times</span> <span class="o">=</span> <span class="n">unit_spike_times</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">unit_spike_times</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">,</span> <span class="n">unit_spike_times</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)]</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">unit_spike_times</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">ymax</span><span class="p">)</span>
+<span class="c1"># Plot raster for spikes within the start and end times of the stimulus presentation</span>
+<span class="k">for</span> <span class="n">unit_id</span><span class="p">,</span> <span class="n">unit_spike_times</span> <span class="ow">in</span> <span class="n">all_spike_times</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">unit_spike_times</span> <span class="o">=</span> <span class="n">unit_spike_times</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">unit_spike_times</span> <span class="o">&gt;=</span> <span class="n">start</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">unit_spike_times</span> <span class="o">&lt;</span> <span class="n">end</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">unit_spike_times</span><span class="p">,</span> <span class="n">ymin</span><span class="o">=</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="o">=</span><span class="n">ymax</span><span class="p">)</span>
 
-        <span class="n">ymin</span> <span class="o">+=</span> <span class="n">ystep</span>
-        <span class="n">ymax</span> <span class="o">+=</span> <span class="n">ystep</span>
-        
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Function successfully created.&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Function successfully created.
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">plot_raster</span><span class="p">(</span><span class="n">all_spike_times</span><span class="p">,</span> <span class="n">start</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">end</span><span class="o">+</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ymin</span> <span class="o">+=</span> <span class="n">ystep</span>
+    <span class="n">ymax</span> <span class="o">+=</span> <span class="n">ystep</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">start</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">end</span><span class="o">+</span><span class="mf">0.5</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (sec)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Units&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
@@ -1164,12 +1137,14 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_34_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_34_0.png" />
 </div>
 </div>
+<p>Peri stimulus time histograms and raster plots can also be created with classes and functions from the <code class="docutils literal notranslate"><span class="pre">spykes</span></code> module. With this, we are able to plot the firing activity of single neurons or of neuron populations. The <code class="docutils literal notranslate"><span class="pre">NeuroVis()</span></code> class is used to visualize single neuron activity. It takes in an array of spike times as an arguement as well as the <code class="docutils literal notranslate"><span class="pre">name</span></code> of the neuron. We can then use the fucntion <code class="docutils literal notranslate"><span class="pre">get_raster()</span></code> to compute and plot a raster plot across all stimulus presentations.</p>
+<p>Please visit the<a href = 'http://kordinglab.com/spykes/api/plot.html'> spykes plotting section</a> of the spykes documentation for additional help on the classes and functions used below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nvs</span> <span class="o">=</span> <span class="n">NeuroVis</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;VISp&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nvs</span> <span class="o">=</span> <span class="n">NeuroVis</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;950908410&#39;</span><span class="p">)</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 
@@ -1179,7 +1154,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_36_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1190,7 +1165,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_38_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_38_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_37_0.png" />
 </div>
 </div>
 </div>
@@ -1210,7 +1185,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_41_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_41_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_40_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_40_0.png" />
 </div>
 </div>
 <p>With the running speed, we can ask if their is correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with increases in neural activity.</p>
@@ -1226,6 +1201,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;end_time&#39;</span><span class="p">],</span> <span class="p">(</span><span class="n">running_speed</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">]</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
 
 <span class="c1"># Add color bars for timeblocks</span>
+<span class="c1"># Remove colorblocks </span>
 <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">stim_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_stims</span><span class="p">):</span>
     <span class="n">stim</span> <span class="o">=</span> <span class="n">stim_timeblocks</span><span class="p">[</span><span class="n">stim_timeblocks</span><span class="p">[</span><span class="s1">&#39;stimulus_name&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">stim_name</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">stim</span><span class="p">)):</span>
@@ -1251,7 +1227,7 @@ y_position: [-40.0 -30.0 -20.0 -10.0 0.0 10.0 20.0 30.0 40.0]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_43_0.png" />
+<img alt="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_42_0.png" src="../_images/Correlating_Spike_Trains_with_Stimuli_and_Behavior_42_0.png" />
 </div>
 </div>
 </div>

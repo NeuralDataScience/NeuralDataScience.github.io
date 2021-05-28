@@ -15,7 +15,10 @@
 # If not, it will install it for you.
 try:
     import allensdk
-    print('allensdk already installed.')
+    if allensdk.__version__ == '2.11.2':
+        print('allensdk already installed.')
+    else:
+        print('incompatible version of allensdk installed')
 except ImportError as e:
     get_ipython().system('pip install allensdk')
 
@@ -32,7 +35,10 @@ import matplotlib.pyplot as plt
 print('Packages imported.')
 
 
-# As a final setup step, we need to once again create an instance of the Brain Observatory Cache as an object, `boc`.
+# ## Download & inspect the natural scenes imaging session
+# First, we'll look at an experiment where the mouse viewed natural scenes. Below, we'll assign an experiment container ID (the same one we worked with in the previous section), designate that we're interested in only the natural scenes experiments, and download the data for the first experiment in the container.
+# 
+# **Note**: The cell below downloads some data, and make take a minute or so to run. It is important that you do not interrupt the download of the data or else the file will become corrupted and you will have to delete it and try again. 
 
 # In[3]:
 
@@ -40,16 +46,7 @@ print('Packages imported.')
 # Create an instance of the Brain Observatory cache
 boc = BrainObservatoryCache(manifest_file='manifest.json')
 
-
-# ## Download & inspect the natural scenes imaging session
-# First, we'll look at an experiment where the mouse viewed natural scenes. Below, we'll assign an experiment container ID (the same one we worked with in the previous section), designate that we're interested in only the natural scenes experiments, and download the data for the first experiment in the container.
-# 
-# **Note**: The cell below downloads some data, and make take a minute or so to run. It is important that you do not interrupt the download of the data or else the file will become corrupted and you will have to delete it and try again. 
-
-# In[4]:
-
-
-# Assign previous container ID
+# Assign container ID from previous section
 exp_container_id = 627823571
 stim = ['natural_scenes']
 
@@ -64,13 +61,13 @@ experiment_data = boc.get_ophys_experiment_data(experiment_id)
 print('Data acquired.')
 
 
-# Let's take a quick look at the data you just downloaded. We'll create a **maximum projection image** of the data, so that we can see the cells in our field of view. If we just looked at one snapshot of the raw imaging data, the cells would look dim -- they only become bright when they're actively firing. A maximum projection image shows us the maximum brightness for each pixel, across the entire experiment. Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_nwb_data_set.html'> here </a> for the original documentation to the methods used in the fluorescence imaging and natural scenes section. 
+# Let's take a quick look at the data you just downloaded. We'll create a **maximum projection image** of the data, so that we can see the cells in our field of view. If we just looked at one snapshot of the raw imaging data, the cells would look dim -- they only become bright when they're actively firing. A maximum projection image shows us the maximum brightness for each pixel, across the entire experiment. Please visit the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_nwb_data_set.html'> Brain Observatory NWB Data Set documentation </a> for the original documentation to the methods used in the fluorescence imaging and natural scenes section. 
 # 
 # Below, we are using the `get_max_projection()` method on our data, and then using the `imshow()` method in order to see our projection.
 # 
-# **Note**: The weird text for the ylabel is called "TeX" markup, in order to get the greek symbol *mu* ($\mu$). See documentation <a href="https://matplotlib.org/tutorials/text/mathtext.html">here</a>.
+# **Note**: The weird text for the ylabel is called "TeX" markup, in order to get the greek symbol *mu* ($\mu$). See documentation on the <a href="https://matplotlib.org/tutorials/text/mathtext.html">matplotlib website</a>.
 
-# In[5]:
+# In[4]:
 
 
 # Get the maximum projection (a numpy array) of our data
@@ -96,7 +93,7 @@ plt.show()
 # 
 # Below, we've also added a line in our loop that offsets each cell by a predetermined amount so that we can see individual calcium traces. Each line is a different neuron, and the small blips in the data are calcium-mediated changes in fluorescence.
 
-# In[6]:
+# In[5]:
 
 
 # Assign timestamps and deltaF/F
@@ -114,7 +111,7 @@ for cell in range(2,12):
 plt.xlabel('Timestamp (s)')
 plt.ylabel('Neurons ($\Delta$F\F)')
 plt.yticks([])
-plt.xlim([2700,2875])
+plt.xlim([2700,2720])
 plt.show()
 
 
@@ -125,7 +122,7 @@ plt.show()
 # 
 # The dataframe that this creates will have a lot more information about what the cells in our experiment prefer. Each row is a different cell, each with its own preferences and response patterns.
 
-# In[7]:
+# In[6]:
 
 
 # Get the cell specimens information for this experiment
@@ -138,7 +135,7 @@ cell_specimens_df.head()
 # 
 # The `pref_image_ns` column contains the image IDs of the stimulus being presented. We can create our bar graph from this column to see how many cells responded to these statistically significant images.
 
-# In[8]:
+# In[7]:
 
 
 # Subset dataframe to contain significantly preferred images 
@@ -167,7 +164,7 @@ plt.show()
 # 
 # *Note*: Not every experiment contains the data for the natural scenes experiment. If you change the experiment ID above and try the next cell, you may receive an error. You can use `data.list_stimuli()` to see all of the stimuli available within your experiment.
 
-# In[9]:
+# In[8]:
 
 
 # Get the natural scene information
@@ -194,11 +191,11 @@ plt.show()
 # ## Examine the direction selectivity of your cell
 # Sometimes, the function of a cell is not particularly clear from natural stimuli. Those stimuli have a lot of information in them, and it might be hard to tell what a cell is actually responding to. Instead, we can use simple drifting gratings to look at one straightforward property of a cell: <b>does it respond to specific directions of movement?</b></br> To do so, we'll examine the **drifting gratings** experiments.
 # 
-# We will now show how to plot a heatmap of a cell's response organized by orientation and temporal frequency. We will be using one of the three cells from the dataframe above which showed direction selectivity from the significantly preferred images. Click on the link<a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.drifting_gratings.html'> here </a> for the original documentation to the methods used in the drifting gratings section. 
+# We will now show how to plot a heatmap of a cell's response organized by orientation and temporal frequency. We will be using one of the three cells from the dataframe above which showed direction selectivity from the significantly preferred images. Please visit the <a href = 'https://allensdk.readthedocs.io/en/latest/allensdk.brain_observatory.drifting_gratings.html'> Drifting Gratings module documentation </a> for additional help on the methods used in the drifting gratings section. 
 # 
 # Below, we'll use the same experiment container but a different stimulus to create a separate experiment dataset, `dg_experiment`.
 
-# In[10]:
+# In[9]:
 
 
 # Get experiment for our container id and stimuli of interest
@@ -227,7 +224,7 @@ print('Data acquired.')
 # - run_modulation_dg
 # - cv_dg (circular variance)
 
-# In[11]:
+# In[10]:
 
 
 from allensdk.brain_observatory.drifting_gratings import DriftingGratings
@@ -246,7 +243,7 @@ dg_df.head()
 # 
 # Below, we'll simply grab the first `cell_specimen_id` in our table.
 
-# In[28]:
+# In[11]:
 
 
 # Select specimen ID from first row
@@ -262,7 +259,7 @@ print('Cell loc:', cell_loc)
 # 
 # Below, we'll use `plt.imshow()` to plot the mean responses across orientation and frequency, skipping the blank sweep column (0).
 
-# In[23]:
+# In[17]:
 
 
 # Plot our data, skiping the blank sweep column (0) of the temporal frequency dimension
@@ -275,13 +272,14 @@ plt.ylabel("Direction (deg)", fontsize=20)
 plt.tick_params(labelsize=14)
 cbar= plt.colorbar()
 cbar.set_label("$\Delta$F/F (%)")
+plt.show()
 
 
 # The preferred directions temporal frequency are stored within `ori_dg` and `tf_dg` in are table above and can be indexed through `dg.orivals` and `tf.tfvals` respectively. 
 # 
 # For more explanation on the available pre-computed metrics, please see <a href = 'https://alleninstitute.github.io/AllenSDK/_static/examples/nb/brain_observatory_analysis.html#Drifting-Gratings'> here</a>. 
 
-# In[29]:
+# In[13]:
 
 
 pref_ori = dg.orivals[dg.peak.ori_dg[cell_loc]]

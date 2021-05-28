@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>6.1. Retrieving Calcium Imaging Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,14 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -302,7 +300,10 @@
 <span class="c1"># If not, it will install it for you.</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">allensdk</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk already installed.&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">allensdk</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="s1">&#39;2.11.2&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk already installed.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;incompatible version of allensdk installed&#39;</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="o">!</span>pip install allensdk
 </pre></div>
@@ -344,12 +345,12 @@
 </div>
 </div>
 <p>Next, we’ll use <code class="docutils literal notranslate"><span class="pre">get_all_cre_lines()</span></code> on our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return all of the possible Cre lines and brain areas are that we can analyze. We can also use the <code class="docutils literal notranslate"><span class="pre">get_all_targeted_structures()</span></code> method to return all brain areas in our dataset.</p>
-<p>You can find more info about the Cre-lines <a href="http://observatory.brain-map.org/visualcoding/transgenic">here</a>. Refer back to the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about the different visual areas. Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'> here </a> for the original documentation to the BrainObservatoryCache object.</p>
+<p>You can find more info about the Cre-lines on the Allen Brain Atlas <a href="http://observatory.brain-map.org/visualcoding/transgenic"> Transgenic Mouse Lines page</a>. Refer back to the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about the different visual areas. Make sure to visit the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'>BrainObservatoryCache doucumentation </a> for additional help with the methods used in this notebook.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll assign the list of cre lines to a variable, &#39;cre-lines&#39;.</span>
 <span class="n">cre_lines</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_all_cre_lines</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;all cre lines: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cre_lines</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;all cre lines: </span><span class="si">{</span><span class="n">cre_lines</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="c1"># We&#39;ll assign the list of possible structures to a variable, &#39;brain_areas&#39;.</span>
 <span class="n">brain_areas</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_all_targeted_structures</span><span class="p">()</span>
@@ -358,19 +359,19 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>all cre lines: [&#39;Cux2-CreERT2&#39;, &#39;Emx1-IRES-Cre&#39;, &#39;Fezf2-CreER&#39;, &#39;Nr5a1-Cre&#39;, &#39;Ntsr1-Cre_GN220&#39;, &#39;Pvalb-IRES-Cre&#39;, &#39;Rbp4-Cre_KL100&#39;, &#39;Rorb-IRES2-Cre&#39;, &#39;Scnn1a-Tg3-Cre&#39;, &#39;Slc17a7-IRES2-Cre&#39;, &#39;Sst-IRES-Cre&#39;, &#39;Tlx3-Cre_PL56&#39;, &#39;Vip-IRES-Cre&#39;]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>all cre lines: [&#39;Cux2-CreERT2&#39;, &#39;Emx1-IRES-Cre&#39;, &#39;Fezf2-CreER&#39;, &#39;Nr5a1-Cre&#39;, &#39;Ntsr1-Cre_GN220&#39;, &#39;Pvalb-IRES-Cre&#39;, &#39;Rbp4-Cre_KL100&#39;, &#39;Rorb-IRES2-Cre&#39;, &#39;Scnn1a-Tg3-Cre&#39;, &#39;Slc17a7-IRES2-Cre&#39;, &#39;Sst-IRES-Cre&#39;, &#39;Tlx3-Cre_PL56&#39;, &#39;Vip-IRES-Cre&#39;] 
 
 all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&#39;, &#39;VISpm&#39;, &#39;VISrl&#39;]
 </pre></div>
 </div>
 </div>
 </div>
-<p>With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiement containers from our desired cre lines and brain regions. Each experiment container has a group of experiments that share the same targeted brain area, cre line, and depth. However, the stimuli conditions may differ across experiments for a given contianer.</p>
-<p>We can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return a list of dictionaries with data on the available experiment contianers. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">targeted_structures</span></code> which both require lists as inputs.</p>
-<p><em>Note</em>: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute on your new datafram to check if it is empty.</p>
 </div>
 <div class="section" id="extract-an-experiment-session">
 <h2><span class="section-number">6.1.3. </span>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
+<p>With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiement containers from our desired cre lines and brain regions. Each experiment container has a group of experiments that share the same targeted brain area, cre line, and depth. However, the stimuli conditions may differ across experiments for a given contianer.</p>
+<p>We can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return a list of dictionaries with data on the available experiment contianers. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">targeted_structures</span></code> which both require lists as inputs.</p>
+<p><em>Note</em>: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute on your new datafram to check if it is empty.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign visual area and cre line of interest for analysis </span>
@@ -508,7 +509,7 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 <p>Let’s look into one of these experiment containers, most of which have three different sessions for different types of visual stimuli. We can call <code class="docutils literal notranslate"><span class="pre">get_ophys_experiments()</span></code> on our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return the experiments within a container. This method takes in the arguments <code class="docutils literal notranslate"><span class="pre">experiment_container_ids</span></code> and <code class="docutils literal notranslate"><span class="pre">stimuli</span></code> which both require lists. We can select an id from our dataframe and choose a stimuli. In our case, we’ll filter for experiments with the <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign experiment ontainer id and stimuli </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign experiment container id and stimuli </span>
 <span class="n">exp_container_id</span> <span class="o">=</span> <span class="mi">627823571</span>
 <span class="n">stim</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">]</span>
 
@@ -567,7 +568,7 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.brain_observatory_nwb_data_set.BrainObservatoryNwbDataSet object at 0x7f9eced6ba50&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.brain_observatory_nwb_data_set.BrainObservatoryNwbDataSet object at 0x7fc528e251d0&gt;
 </pre></div>
 </div>
 </div>

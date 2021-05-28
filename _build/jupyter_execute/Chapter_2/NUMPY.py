@@ -3,7 +3,7 @@
 
 # # NumPy
 
-#  NumPy is a useful package that can help store and wrangle homogeneous data. This means data that the data are of the same [data type](https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data-types.html) such as all **floats** or all **integers**.
+# NumPy is a useful package that can help store and wrangle homogeneous data. Homogenous data refers to data that are of the same [data type],(https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data-types.html) such as all **floats** or all **integers**.
 # 
 # We strongly recommend working through the ["NumPy Quickstart Tutorial"](https://numpy.org/doc/stable/user/quickstart.html) for a more comprehensive introduction to NumPy. Here, we'll introduce some useful tools using the *NumPy* package to analyze large datasets.
 
@@ -15,13 +15,13 @@
 # Import packages
 import numpy as np
 
-# Use whos 'magic command' to see available modules
-get_ipython().run_line_magic('whos', '')
+# Use whos to see available modules
+print('NumPy imported.')
 
 
 # ## NumPy Arrays
 
-# The basis of the NumPy package is the **array**. A NumPy array is similar to a list of lists or a grid of values. You can create a [NumPy array](https://numpy.org/doc/stable/reference/generated/numpy.array.html) from a list using `np.array()`, by reading in a file, or through functions built into the NumPy package such as such as `arange`, `linspace`, `empty`, which we will discuss later. 
+# The basis of the NumPy package is the **array**. A NumPy array is similar to a list of lists or a grid of values. You can create a [NumPy array](https://numpy.org/doc/stable/reference/generated/numpy.array.html) from a list using `np.array()`, by reading in a file, or through functions built into the NumPy package such as such as `arange`, `linspace`, `empty`, etc.
 
 # In[2]:
 
@@ -49,7 +49,7 @@ print(array1)
 
 # ## Accessing attributes of NumPy arrays
 
-# We can return the shape and size of an arry either by looking at the attribute of the array, or by using the `shape()` and `size()` functions. The `shape` attribute returns a tuple for the number of rows and columns of an array. The `size` attribute returns the total number of values stored within an array. 
+# We can return the shape and size of an array by using the attributes `size` and `shape`. The `shape` attribute returns a tuple for the number of rows and columns of an array. The `size` attribute returns the total number of values stored within an array. 
 
 # In[4]:
 
@@ -75,7 +75,7 @@ print(array1.dtype)
 
 # ## Indexing & Slicing Arrays
 
-# You can index NumPy arrays using `array_name[row,column]` to select a single value. If you omit the column, it will give you the entire row. You can also use `:` for either row or column and it will return all of those values. We will demonstrate by indexing into `array1`. 
+# You can index NumPy arrays using `array_name[row,column]` to select a single value. If you omit the column, it will give you the entire row. You can also use `:` in place of either `row` or `column` to indicate you want to return all those values. We will demonstrate by indexing into `array1`. 
 
 # In[6]:
 
@@ -89,7 +89,7 @@ print('The values stored in row 2 are:')
 print(array1[1])
 
 
-# You may want to look at a slice of columns or a slice of rows. You can do so using `array(start_index:stop_index)` for either row or columns to select your slice.
+# You may want to look at a slice of columns or a slice of rows. You can slice your array like the following: `array(start_row:stop_row, start_col:end_col)`. 
 
 # In[7]:
 
@@ -98,7 +98,7 @@ print(array1[1])
 print(array1[: ,0:3])
 
 
-# You can also select multiple specifc columns by inputing a `list` as your `columns`. Lets try to index the first, third, and last column in `array1`.
+# You can also select multiple, nonsequential columns by inputing a `list` as your `columns`. Lets try to index the first, third, and last column in `array1`.
 
 # In[8]:
 
@@ -122,7 +122,7 @@ print(array1)
 
 # ## Subsetting 
 
-# We can also subet our original array to only include data that meets our criteria. We can think of this as *filtering* the array by applying a condition to our array. The syntax for this would be `new_array = original_array[condition]`.
+# We can also subet our original array to only include data that meets our criteria. We can think of this as *subsetting* the array by applying a condition to our array. The syntax for this would be `new_array = original_array[condition]`.
 
 # In[10]:
 
@@ -130,7 +130,7 @@ print(array1)
 # Reassign our original array 
 array1 = np.array([list1, list2])
 
-# Return values greater than 5 from our array 
+# Return only values greater than 5 from our array 
 condition = (array1 > 5)
 filtered_array = array1[condition]
 print(filtered_array)
@@ -138,7 +138,7 @@ print(filtered_array)
 
 # ## Benefits of Using Arrays 
 
-# The list of lists format is not wrong per say, but it makes working with the data more difficult. For example, if you were trying to add the numbers of the two lists together, simply adding the lists would only append one list at the end of the other. However, if you add two NumPy arrays together, the values of both arrays will be summed. 
+# Using list of lists is not wrong per say, but it makes working with data more difficult. For example, if you were trying to add the numbers of the two lists together, simply adding the lists would only append one list at the end of the other. However, if you add two NumPy arrays together, the values of both arrays will be summed. 
 
 # In[11]:
 
