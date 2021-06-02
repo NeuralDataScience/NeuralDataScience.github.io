@@ -3,6 +3,8 @@
 
 # # Sample Analyses
 
+# Now that we are familiar with the structure of an `NWBFile` as well as the groups encapsulated within it, we are ready to work with the data. In this chapter you will learn to search the `NWBFile` for its available data and plot analyses such as raster plots.
+
 # In[1]:
 
 
@@ -30,8 +32,6 @@ nwb_file = io.read()
 print(type(nwb_file))
 
 
-# Now that we are familiar with the structure of an `NWBFile` as well as the groups encapsulated within it, we are ready to work with the data. 
-# 
 # The first group that we will look at is `units` becasue it contains information on our neural spikes. Let familiarize ourselves with our dataframe once again. This time we will subselect our dataframe to only contain neurons with `fair` quality. 
 
 # In[3]:
@@ -41,8 +41,8 @@ units = nwb_file.units
 units_df = units.to_dataframe()
 col = 'quality'
 desired_value = 'Fair'
-units_df = units_df[units_df[col]==desired_value]
-units_df.head()
+fair_units_df = units_df[units_df[col]==desired_value]
+fair_units_df.head()
 
 
 # The `spike_times` column the times at which the recorded neuron fired. Each neuron has a list of spike times for their `spike_times` column. 
@@ -112,7 +112,7 @@ plt.show()
 
 
 # Import module needed for scrollable axes 
-get_ipython().run_line_magic('matplotlib', 'nbagg')
+# %matplotlib nbagg
 from matplotlib.widgets import Slider
 
 # Set up figure
@@ -151,7 +151,93 @@ spos.on_changed(update)
 plt.show()
 
 
-# ## Additional Resources 
+# ## Binning Firing Rates 
+
+# Raster plots are great for seeing individual neural spikes, but difficult to see the overall firing rates of the units. To get a better sense of the overall firing rates of our units, we can bin our spikes into time bins of 1 second. The function below, `plot_firing_rates()` takes in the following parameter:
+# 
+# - `spike_times`: *list* of spike times
+# - `start_time`: start time for spike binning ; sets lower-most bound for x axis 
+# - `end_time`: end time for spike binning ; sets upper-most bound for x axis
+# 
+# The function plots the overall firing rate for each array of spike times in the list that is passed through it, in 1 second time bins. Below, we will plot the firing rates of the spikes times stored in `neural_data`.
+
+# In[7]:
+
+
+def plot_firing_rates(spike_times, start_time = None , end_time = None):
+
+    # Create Subplot
+    fig, ax = plt.subplots(len(spike_times), figsize = (10, 15))
+    
+    
+    # Create PSTH on each sublot
+    for i in range(len(spike_times)):
+
+        # Assign total number of bins 
+        numbins = int(np.ceil(spike_times[i].max()))
+        binned_spikes = np.empty((numbins))
+
+    
+        # Assign the frequency of spikes over time
+        for j in range(numbins):
+            binned_spikes[j] = len(spike_times[i][(spike_times[i]>j)&(spike_times[i]<j+1)])
+        
+        
+        ax[i].plot(binned_spikes)
+        ax[i].set_xlabel('Time (s)')
+        ax[i].set_ylabel('FR (Hz)')
+        
+        if (start_time != None) and (end_time != None):
+            ax[i].set_xlim(start_time, end_time)
+    
+    return 
+
+
+# In[8]:
+
+
+neural_list = list(neural_data)
+plot_firing_rates(neural_list, 300,500)
+plt.show()
+
+
+# The units in our data were recorded from various coritcal depths, therefore we can compare the firing units from differing cortical depths to test for differing firing rates. Lets take a look at the ditribution of depth from our units.
+
+# In[9]:
+
+
+# Distrubution of neuron depth 
+col = 'depth'
+
+plt.figure(figsize = [4,3])
+plt.hist(units_df[col], bins=30)
+plt.title(f'Distribution of {col}')
+plt.xlabel(f'{col}')
+plt.ylabel('Frequency')
+plt.show()
+
+print(f"Corital {col}s:")
+print(units_df[col].unique())
+
+
+# We will compare the units that were recorded from 1165nm and 715nm coritcal depths.
+
+# In[10]:
+
+
+# Assign Units from differnt depths 
+depth_1165 = units_df[units_df[col]==1165]
+depth_715 = units_df[units_df[col]==715]
+
+# Combine lists of spike times to a single list
+neural_list_1165 = list(depth_1165['spike_times'])
+neural_list_715 = list(depth_715['spike_times'])
+combined_list = neural_list_1165 + neural_list_715
+
+# Plot firing rates
+plot_firing_rates(combined_list, 300, 500)
+plt.show()
+
 
 # In[ ]:
 

@@ -13,6 +13,7 @@ import pandas as pd
 from allensdk.core.cell_types_cache import CellTypesCache
 from allensdk.api.queries.cell_types_api import CellTypesApi
 import matplotlib.pyplot as plt
+
 ctc = CellTypesCache(manifest_file='cell_types/manifest.json')
 
 print('Packages succesfully downloaded.')
@@ -107,27 +108,48 @@ plt.title('Average ISI of MTG Cells vs MFG Cells')
 plt.show()
 
 
-# Below is a table of all the pre computed features available in the Allen with a description for each variable. 
-
 # In[7]:
 
 
-columns = ['Variable', 'Description']
-data = [['adaptation', 'The rate at which firing speeds up or slows down during a stimulus'],
-       ['avg_isi', 'The mean value of all interspike intervals in a sweep'],
-       ['fast_trough', 'timestamp (_t) or voltage (_v) of the trough within in the interval 5 ms after the peak  in response to a short square stimulus (_short_square), a long square (_long_square), a ramp (_ramp).'],
-       ['f_i_curve_slope', 'slope of the curve between firing rate (f) and current injected; see the Allen Institute Whitepaper for details'],
-       ['input_resistance_mohm', 'input resistance of the cell, in mega ohms'],
-       ['latency', 'time for the stimulus onset to the threshold of the first spike'],
-       ['peak', 'timestamp (_t) or voltage (_v) of the maximum value of the membrane potential during the action potential (i.e., between the action potential’s threshold and the time of the next action potential, or end of the response) in response to a (_short_square), a long square (_long_square), a ramp (_ramp) stimulus'],
-       ['sag', 'measurement of sag, or the return to steady state divided by the peak deflection'],
-       ['slow_trough', 'timestamp (_t) or voltage (_v) of the membrane potential in the interval between the peak and the time of the next action potential in response to a short square stimulus (_short_square), a long square (_long_square), a ramp (_ramp)'],
-       ['tau', 'membrane time constant, in ms'],
-       ['upstroke_downstroke_ratio', 'the ratio between the absolute values of the action potential peak upstroke and the action potential peak downstroke.during a short square (_short_square), a long square (_long_square), a ramp (_ramp) stimulus'],
-       ['vrest', 'resting membrane potential, in mV']]
+print(f'Number of available pre computed features: {len(ephys_df)}')
+ephys_df.head()
 
-principle_fts = pd.DataFrame(data, columns = columns)
-principle_fts
+
+# In[8]:
+
+
+col_1 = 'fast_trough_v_long_square'
+col_2 = 'upstroke_downstroke_ratio_long_square'
+
+fast_trough = ephys_df[col_1]
+upstroke_downstroke = ephys_df[col_2]
+
+plt.scatter(fast_trough, upstroke_downstroke)
+
+plt.show()
+
+
+# 
+
+# In[9]:
+
+
+mouse_df = pd.DataFrame(ctc.get_cells(species = [CellTypesApi.MOUSE])).set_index('id')
+ephys_df = pd.DataFrame(ctc.get_ephys_features()).set_index('specimen_id')
+mouse_ephys_df = mouse_df.join(ephys_df)
+
+col_3 = 'dendrite_type'
+desired_value1 = 'spiny'
+desired_value2 = 'aspiny'
+
+spiny_df = mouse_ephys_df[mouse_ephys_df[col_3]==desired_value1]
+aspiny_df = mouse_ephys_df[mouse_ephys_df[col_3]==desired_value2]
+
+plt.scatter(spiny_df[col_1], spiny_df[col_2])
+plt.scatter(aspiny_df[col_1], aspiny_df[col_2])
+plt.legend([desired_value1,desired_value2])
+
+plt.show()
 
 
 # In[ ]:
