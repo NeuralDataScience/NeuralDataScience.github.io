@@ -15,7 +15,10 @@
 # If not, it will install it for you.
 try:
     import allensdk
-    print('allensdk already installed.')
+    if allensdk.__version__ == '2.11.2':
+        print('allensdk already installed.')
+    else:
+        print('incompatible version of allensdk installed')
 except ImportError as e:
     get_ipython().system('pip install allensdk')
 
@@ -44,27 +47,27 @@ boc = BrainObservatoryCache(manifest_file='manifest.json')
 
 # Next, we'll use `get_all_cre_lines()` on our `boc` object to return all of the possible Cre lines and brain areas are that we can analyze. We can also use the `get_all_targeted_structures()` method to return all brain areas in our dataset. 
 # 
-# You can find more info about the Cre-lines <a href="http://observatory.brain-map.org/visualcoding/transgenic">here</a>. Refer back to the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about the different visual areas. Click on the link<a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'> here </a> for the original documentation to the BrainObservatoryCache object. 
+# You can find more info about the Cre-lines on the Allen Brain Atlas <a href="http://observatory.brain-map.org/visualcoding/transgenic"> Transgenic Mouse Lines page</a>. Refer back to the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about the different visual areas. Make sure to visit the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html'>BrainObservatoryCache doucumentation </a> for additional help with the methods used in this notebook. 
 
 # In[4]:
 
 
 # We'll assign the list of cre lines to a variable, 'cre-lines'.
 cre_lines = boc.get_all_cre_lines()
-print("all cre lines: " + str(cre_lines) + '\n')
+print(f"all cre lines: {cre_lines} \n")
 
 # We'll assign the list of possible structures to a variable, 'brain_areas'.
 brain_areas = boc.get_all_targeted_structures()
 print("all brain regions: " + str(brain_areas))
 
 
+# ## Extract an experiment session
+
 # With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiement containers from our desired cre lines and brain regions. Each experiment container has a group of experiments that share the same targeted brain area, cre line, and depth. However, the stimuli conditions may differ across experiments for a given contianer. 
 # 
 # We can use the `get_experiment_containers()` method of our `boc` object to return a list of dictionaries with data on the available experiment contianers. The method takes in the arguments `cre_lines` and `targeted_structures` which both require lists as inputs. 
 # 
 # *Note*: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the `empty` attribute on your new datafram to check if it is empty. 
-
-# ## Extract an experiment session
 
 # In[5]:
 
@@ -94,7 +97,7 @@ exp_cont_df
 # In[6]:
 
 
-# Assign experiment ontainer id and stimuli 
+# Assign experiment container id and stimuli 
 exp_container_id = 627823571
 stim = ['natural_scenes']
 

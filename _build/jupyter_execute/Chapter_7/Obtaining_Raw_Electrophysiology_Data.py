@@ -12,8 +12,24 @@
 # In[1]:
 
 
+# This will ensure that the AllenSDK is installed.
+# If not, it will install it for you.
+try:
+    import allensdk
+    if allensdk.__version__ == '2.11.2':
+        print('allensdk already installed.')
+    else:
+        print('incompatible version of allensdk installed')
+except ImportError as e:
+    get_ipython().system('pip install allensdk')
+
+
+# In[2]:
+
+
 # # Import packages necessary to plot behavior
 import matplotlib.pyplot as plt
+get_ipython().run_line_magic('matplotlib', 'inline')
 import warnings
 warnings.filterwarnings('ignore')
 import allensdk.brain_observatory.ecephys.visualization as ecvis
@@ -46,12 +62,14 @@ sessions.head()
 # - the average number of units recorded per session
 # - what brain structures were used in our sessions
 
-# In[2]:
+# In[3]:
 
 
-genotypes = sessions['full_genotype'].value_counts()
+col_1 = 'full_genotype'
+genotypes = sessions[col_1].value_counts()
 
-avg_units = sessions['unit_count'].mean()
+col_2 = 'unit_count'
+avg_units = sessions[col_2].mean()
 
 brain_areas = []
 
@@ -74,7 +92,7 @@ print(brain_areas)
 
 # Let's say we only want sessions where the data has recordings from VISp. We can do the following to create a session list that we want.
 
-# In[3]:
+# In[4]:
 
 
 # Create a session list based on some criteria
@@ -103,7 +121,7 @@ print(session_list)
 
 # **Note**: The session files are very large files that will take some time to download depending on your connection speed. It is important that you do not stop the download as the cell is running becasue this will truncate the file and you will not be able to work with the data.
 
-# In[4]:
+# In[5]:
 
 
 # Download our single session data 
@@ -126,7 +144,7 @@ print('Session downloaded.')
 # 
 # For a full list of methods and attributes that can be called on an `EcephysSession` object, please review the original documentation for the <a href = 'https://allensdk.readthedocs.io/en/v1.7.1/allensdk.brain_observatory.ecephys.ecephys_session.html'> ecephys_session module</a>.
 
-# In[5]:
+# In[6]:
 
 
 # Return units dataframe
@@ -136,24 +154,28 @@ units_df.head()
 
 # To ensure that the recordings we use in our analysis are all reliable and of good quality, we will filter the data according to the signal-to-noise ratio (`snr`) and the `ISI_Violations` of our neurons. Below we will plot the distributions of both.
 
-# In[6]:
+# In[7]:
 
 
 # Signal to noise distribution
-col_1 = 'snr'
-plt.hist(units_df['snr'], bins=30)
-plt.title('Distribution of SNR')
+col_3 = 'snr'
+
+plt.figure(figsize = [5,5])
+plt.hist(units_df[col_3], bins=30)
+plt.title(f'Distribution of {col_3}')
 plt.xlabel('Signal to Noise Ratio')
 plt.ylabel('Frequency')
 plt.show()
 
 
-# In[7]:
+# In[8]:
 
 
 # ISI distribution 
-col_2 = 'isi_violations'
-plt.hist(units_df[col_2], bins=30)
+col_4 = 'isi_violations'
+
+plt.figure(figsize = [5,5])
+plt.hist(units_df[col_4], bins=30)
 plt.title('Distribution of ISI Violations')
 plt.xlabel('Rate of Refractory Period Violations')
 plt.ylabel('Frequency')
@@ -162,12 +184,12 @@ plt.show()
 
 # For the purposes of this tutorial, we will focus on units with `snr` values greater than 2 and `ISI_violation` values less than 0.1.
 
-# In[8]:
+# In[9]:
 
 
 # Create dataframe from units that fit criteria
-good_snr = units_df[units_df['snr']>2]
-good_units_df = good_snr[good_snr['isi_violations']<0.1]
+good_snr = units_df[units_df[col_3]>2]
+good_units_df = good_snr[good_snr[col_4]<0.1]
 
 
 print('Number of Recordings with good SNR and low ISI:')
@@ -181,7 +203,7 @@ good_units_df.head()
 # 
 # To access the mean spike waveforms for all units in a session, use the attribute `mean_waveforms` on your `EcephysSession` object. 
 
-# In[9]:
+# In[10]:
 
 
 all_mean_waveforms = session.mean_waveforms
@@ -193,14 +215,15 @@ print(len(all_mean_waveforms))
 # 
 # Below we will compare mean waveforms from units of different brain areas. We will be looking at one wavefrom from the `CA1`, `LP`, `DG`, `VISp`. We first need to create a list of unit_id's for the units we are interested in. 
 
-# In[10]:
+# In[11]:
 
 
 # Assign Unit IDs of different brain areas of interest
-CA1_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'CA1'].index
-LP_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'LP'].index
-DG_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'DG'].index
-VISp_unit_ids = good_units_df[good_units_df['ecephys_structure_acronym'] == 'VISp'].index
+col_of_interest = 'ecephys_structure_acronym'
+CA1_unit_ids = good_units_df[good_units_df[col_of_interest] == 'CA1'].index
+LP_unit_ids = good_units_df[good_units_df[col_of_interest] == 'LP'].index
+DG_unit_ids = good_units_df[good_units_df[col_of_interest] == 'DG'].index
+VISp_unit_ids = good_units_df[good_units_df[col_of_interest] == 'VISp'].index
 
 # Return first entry of our brain areas of interst
 first_CA1_units_ids = CA1_unit_ids[0]
@@ -217,7 +240,7 @@ uoi_df
 
 # Using the `unit_ids`, we can create our own dictionary that maps our units of interest to their `mean_waveforms` array.
 
-# In[11]:
+# In[12]:
 
 
 # Create dictionary of waveforms that only include units of interest
@@ -231,11 +254,10 @@ for ids in uoi_ids:
     peak_channels_oi[ids] = good_units_df.loc[ids, 'peak_channel_id']
 
 # Plot mean waveforms
-fig = ecvis.plot_mean_waveforms(waveforms_oi, uoi_ids, peak_channels_oi)
+ecvis.plot_mean_waveforms(waveforms_oi, uoi_ids, peak_channels_oi)
+
 legend_list = list(uoi_df['ecephys_structure_acronym'] )
 plt.legend(legend_list)
-
-
 plt.show()
 
 

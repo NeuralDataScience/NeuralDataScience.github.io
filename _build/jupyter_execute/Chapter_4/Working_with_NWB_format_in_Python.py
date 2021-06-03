@@ -23,27 +23,20 @@ except ImportError as e:
 
 
 # Import any necessary packages
-import numpy as np
-import pandas as pd 
-from matplotlib import pyplot as plt
 from pynwb import NWBHDF5IO
-print('Packages succesfully imported.')
-
-
-# In[3]:
-
 
 # read the NWB file
 io = NWBHDF5IO('000006/sub-anm369962/sub-anm369962_ses-20170310.nwb', 'r')
 nwb_file = io.read()
+print('File downloaded.')
 print(type(nwb_file))
 
 
 # ## File Hierarchy: Groups, Datasets, and Attributes¶
 
-# The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The `fields` attribute returns a dictionary contiaining the metadata of the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.
+# The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The `fields` attribute returns a dictionary contiaining the the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.
 
-# In[4]:
+# In[3]:
 
 
 # Get the Groups for the nwb file 
@@ -51,34 +44,34 @@ nwb_fields = nwb_file.fields
 print(nwb_fields.keys())
 
 
-# Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. This information can be accessed using `institution`, `lab`, and `experiment_description`, attributes on our nwb_file, respectively.
+# Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. These Groups can be accessed using `institution`, `lab`, and `experiment_description`, attributes on our nwb_file, respectively.
 
-# In[5]:
+# In[4]:
 
 
 # Get Meta-Data from NWB file 
 print('The experiment within this NWB file was conducted at {} in the lab of {}. The experiment is detailed as follows: {}'.format(nwb_file.institution, nwb_file.lab, nwb_file.experiment_description))
 
 
-# We can access metadata from each group in our nwb_file with the following syntax: `nwb_file.group`. This is no different than executing a method and/or attribute. Below we will demonstrate some of the useful groups within an `NWBFile` object. 
+# We can access datasets from each group in our nwb_file with the following syntax: `nwb_file.group`. This is no different than executing a method and/or attribute. Below we will demonstrate some of the useful groups within an `NWBFile` object. 
 
-# The `acquisition` contains datasets of acquisition data, mainly `TimeSeries` objects belonging to this NWBFile. 
+# The `acquisition` group contains datasets of acquisition data, mainly `TimeSeries` objects belonging to this NWBFile. 
 
-# In[6]:
+# In[5]:
 
 
 nwb_file.acquisition
 
 
-# In this file, the acquisition group contains two different dataets, `lick_left_times` and `lick_right_times` within `lick_times`. To access the actual data array of these datasets we must first subset our dataset of interest from the group. We can then use `data[:]` to return our actual data array.
+# In this file, the acquisition group contains two different `Fields`, `lick_left_times` and `lick_right_times` within the `lick_times` dataset. To access the actual data arrays of these fields we must first subset our dataset of interest from the group. We can then use `data[:]` to return our actual data array.
 
-# In[7]:
+# In[6]:
 
 
 # select our dataset of interest 
-subgroup = 'lick_times'
-dataset = 'lick_right_times'
-lick_r_dataset = nwb_file.acquisition[subgroup][dataset]
+dataset = 'lick_times'
+field = 'lick_right_times'
+lick_r_dataset = nwb_file.acquisition[dataset][field]
 
 # return first 10 values in data array 
 lick_r_data_array = lick_r_dataset.data[:10]
@@ -86,18 +79,18 @@ lick_r_data_array = lick_r_dataset.data[:10]
 print(lick_r_data_array)
 
 
-# The `intervals` group contains all time interval tables from the experiemnt. We can look at the description field in the metadata to understand what each dataset in the group contains.  
+# The `intervals` group contains all time interval tables from the experiemnt. We can look at the `description` field to understand what each dataset in contains.
 
-# In[8]:
+# In[7]:
 
 
 # example showing how to return meta data from groups in nwb file 
 nwb_file.intervals
 
 
-# Within the intervals group is the `trials` dataset which is a `DynamicTable` contianing intervals from our experimental trials. Each column in `trials` is a `VectorData` object and the table can be assigned to a dataframe using `to_dataframe()`.
+# Within the intervals group is the `trials` dataset which is a `DynamicTable` contianing intervals from our experimental trials. Each column in `trials` is a `VectorData` object which can all be assigned to a dataframe using `to_dataframe()`.
 
-# In[9]:
+# In[8]:
 
 
 # Select the group of interest from the nwb file 
@@ -110,7 +103,7 @@ interval_trials_df.head()
 
 # The `description` attribute provides a short description on each column of the dataframe.
 
-# In[10]:
+# In[9]:
 
 
 # return the description of each col in our dataframe
@@ -120,9 +113,9 @@ for col in intervals['trials'].to_dataframe():
     print('\n')
 
 
-# The `units` group in our nwb_file contains all our unit metadata including of our neural spike data for scientific analysis. Much like the `intervals` group, `units` is also a `DynamicTable` that can be assigned to a dataframe.
+# The `units` group in our nwb_file contains the neural activity of our units, including spike data for scientific analysis. Much like the `intervals` group, `units` is also a `DynamicTable` that can be assigned to a dataframe.
 
-# In[11]:
+# In[10]:
 
 
 units = nwb_file.units
@@ -132,7 +125,7 @@ units_df.head()
 
 # The `electrodes` group contians metadata from the elctrodes used in the experimental trials. Also a `DynamicTable`, the data includes location of the electrodes, type of filtering, and the whats electrode group the electrode belongs to. 
 
-# In[12]:
+# In[11]:
 
 
 # electrode positions 

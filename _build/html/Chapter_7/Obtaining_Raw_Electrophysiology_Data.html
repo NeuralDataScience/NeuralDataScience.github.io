@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>7.1. Obtaining Raw Electrophysiology Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,14 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -297,8 +295,30 @@
 <p>Below we will execute <code class="docutils literal notranslate"><span class="pre">get_session_table()</span></code> on our <code class="docutils literal notranslate"><span class="pre">EcephysProjectCache</span></code> object which will return a dataframe with metadata on each session.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will ensure that the AllenSDK is installed.</span>
+<span class="c1"># If not, it will install it for you.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">allensdk</span>
+    <span class="k">if</span> <span class="n">allensdk</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="s1">&#39;2.11.2&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk already installed.&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;incompatible version of allensdk installed&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="o">!</span>pip install allensdk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk already installed.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Import packages necessary to plot behavior</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline 
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">allensdk.brain_observatory.ecephys.visualization</span> <span class="k">as</span> <span class="nn">ecvis</span>
@@ -323,6 +343,122 @@
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Total number of sessions: 58
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>published_at</th>
+      <th>specimen_id</th>
+      <th>session_type</th>
+      <th>age_in_days</th>
+      <th>sex</th>
+      <th>full_genotype</th>
+      <th>unit_count</th>
+      <th>channel_count</th>
+      <th>probe_count</th>
+      <th>ecephys_structure_acronyms</th>
+    </tr>
+    <tr>
+      <th>id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>715093703</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>699733581</td>
+      <td>brain_observatory_1.1</td>
+      <td>118.0</td>
+      <td>M</td>
+      <td>Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
+      <td>884</td>
+      <td>2219</td>
+      <td>6</td>
+      <td>[CA1, VISrl, nan, PO, LP, LGd, CA3, DG, VISl, ...</td>
+    </tr>
+    <tr>
+      <th>719161530</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>703279284</td>
+      <td>brain_observatory_1.1</td>
+      <td>122.0</td>
+      <td>M</td>
+      <td>Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
+      <td>755</td>
+      <td>2214</td>
+      <td>6</td>
+      <td>[TH, Eth, APN, POL, LP, DG, CA1, VISpm, nan, N...</td>
+    </tr>
+    <tr>
+      <th>721123822</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>707296982</td>
+      <td>brain_observatory_1.1</td>
+      <td>125.0</td>
+      <td>M</td>
+      <td>Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt</td>
+      <td>444</td>
+      <td>2229</td>
+      <td>6</td>
+      <td>[MB, SCig, PPT, NOT, DG, CA1, VISam, nan, LP, ...</td>
+    </tr>
+    <tr>
+      <th>732592105</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>717038288</td>
+      <td>brain_observatory_1.1</td>
+      <td>100.0</td>
+      <td>M</td>
+      <td>wt/wt</td>
+      <td>824</td>
+      <td>1847</td>
+      <td>5</td>
+      <td>[grey, VISpm, nan, VISp, VISl, VISal, VISrl]</td>
+    </tr>
+    <tr>
+      <th>737581020</th>
+      <td>2019-10-03T00:00:00Z</td>
+      <td>718643567</td>
+      <td>brain_observatory_1.1</td>
+      <td>108.0</td>
+      <td>M</td>
+      <td>wt/wt</td>
+      <td>568</td>
+      <td>2218</td>
+      <td>6</td>
+      <td>[grey, VISmma, nan, VISpm, VISp, VISl, VISrl]</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>A few columns that we may want to pay attention to for future analysis are the <code class="docutils literal notranslate"><span class="pre">full_genotype</span></code>, <code class="docutils literal notranslate"><span class="pre">unit_count</span></code>, and <code class="docutils literal notranslate"><span class="pre">ecephys_structure_acronyms</span></code>.</p>
 <p>In this dataset, a <code class="docutils literal notranslate"><span class="pre">unit</span></code> referes to an individual neuron that was recorded in the session. The <code class="docutils literal notranslate"><span class="pre">unit_count</span></code> refers to the total number of neurons recorded in a particluar sesssion. As mentioned in the chapter introduction, three different genotypes were used alongside the wildtype for these experiments. You can find the genotype under <code class="docutils literal notranslate"><span class="pre">full_genotype</span></code>. Lastly, you can find what structures the data in a session was collected from under <code class="docutils literal notranslate"><span class="pre">ecephys_structure_acronyms</span></code>.</p>
@@ -334,9 +470,11 @@
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">genotypes</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;full_genotype&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_1</span> <span class="o">=</span> <span class="s1">&#39;full_genotype&#39;</span>
+<span class="n">genotypes</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">col_1</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 
-<span class="n">avg_units</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;unit_count&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">col_2</span> <span class="o">=</span> <span class="s1">&#39;unit_count&#39;</span>
+<span class="n">avg_units</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">col_2</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
 <span class="n">brain_areas</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -643,26 +781,12 @@ Name: full_genotype, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Signal to noise distribution</span>
-<span class="n">col_1</span> <span class="o">=</span> <span class="s1">&#39;snr&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of SNR&#39;</span><span class="p">)</span>
+<span class="n">col_3</span> <span class="o">=</span> <span class="s1">&#39;snr&#39;</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="n">col_3</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distribution of </span><span class="si">{</span><span class="n">col_3</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Signal to Noise Ratio&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_15_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_15_0.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ISI distribution </span>
-<span class="n">col_2</span> <span class="o">=</span> <span class="s1">&#39;isi_violations&#39;</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="n">col_2</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of ISI Violations&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Rate of Refractory Period Violations&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -672,12 +796,30 @@ Name: full_genotype, dtype: int64
 <img alt="../_images/Obtaining_Raw_Electrophysiology_Data_16_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_16_0.png" />
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ISI distribution </span>
+<span class="n">col_4</span> <span class="o">=</span> <span class="s1">&#39;isi_violations&#39;</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">units_df</span><span class="p">[</span><span class="n">col_4</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Distribution of ISI Violations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Rate of Refractory Period Violations&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Frequency&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_17_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_17_0.png" />
+</div>
+</div>
 <p>For the purposes of this tutorial, we will focus on units with <code class="docutils literal notranslate"><span class="pre">snr</span></code> values greater than 2 and <code class="docutils literal notranslate"><span class="pre">ISI_violation</span></code> values less than 0.1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create dataframe from units that fit criteria</span>
-<span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="s1">&#39;isi_violations&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
+<span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="n">col_3</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="n">col_4</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
 
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of Recordings with good SNR and low ISI:&#39;</span><span class="p">)</span>
@@ -907,10 +1049,11 @@ Name: full_genotype, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign Unit IDs of different brain areas of interest</span>
-<span class="n">CA1_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CA1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-<span class="n">LP_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-<span class="n">DG_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-<span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">col_of_interest</span> <span class="o">=</span> <span class="s1">&#39;ecephys_structure_acronym&#39;</span>
+<span class="n">CA1_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col_of_interest</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CA1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">LP_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col_of_interest</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;LP&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">DG_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col_of_interest</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;DG&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">col_of_interest</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
 
 <span class="c1"># Return first entry of our brain areas of interst</span>
 <span class="n">first_CA1_units_ids</span> <span class="o">=</span> <span class="n">CA1_unit_ids</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -1108,17 +1251,16 @@ Name: full_genotype, dtype: int64
     <span class="n">peak_channels_oi</span><span class="p">[</span><span class="n">ids</span><span class="p">]</span> <span class="o">=</span> <span class="n">good_units_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ids</span><span class="p">,</span> <span class="s1">&#39;peak_channel_id&#39;</span><span class="p">]</span>
 
 <span class="c1"># Plot mean waveforms</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">ecvis</span><span class="o">.</span><span class="n">plot_mean_waveforms</span><span class="p">(</span><span class="n">waveforms_oi</span><span class="p">,</span> <span class="n">uoi_ids</span><span class="p">,</span> <span class="n">peak_channels_oi</span><span class="p">)</span>
+<span class="n">ecvis</span><span class="o">.</span><span class="n">plot_mean_waveforms</span><span class="p">(</span><span class="n">waveforms_oi</span><span class="p">,</span> <span class="n">uoi_ids</span><span class="p">,</span> <span class="n">peak_channels_oi</span><span class="p">)</span>
+
 <span class="n">legend_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">uoi_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">legend_list</span><span class="p">)</span>
-
-
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_25_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_25_0.png" />
+<img alt="../_images/Obtaining_Raw_Electrophysiology_Data_26_0.png" src="../_images/Obtaining_Raw_Electrophysiology_Data_26_0.png" />
 </div>
 </div>
 </div>

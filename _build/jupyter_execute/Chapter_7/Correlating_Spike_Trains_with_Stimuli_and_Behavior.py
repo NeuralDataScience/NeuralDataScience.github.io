@@ -10,7 +10,10 @@
 # If not, it will install it for you.
 try:
     import allensdk
-    print('allensdk already installed.')
+    if allensdk.__version__ == '2.11.2':
+        print('allensdk already installed.')
+    else: 
+        print('incompatible version of allensdk installed')
 except ImportError as e:
     get_ipython().system('pip install allensdk')
 
@@ -20,9 +23,7 @@ except ImportError as e:
 
 # Import necessary packages 
 import numpy as np
-import scipy as sp
 import seaborn as sns
-from scipy import signal
 import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings('ignore')
@@ -173,7 +174,7 @@ all_stims
 
 # Stimulus presentation dataframe 
 stim_pres = session.stimulus_presentations
-stim_pres
+stim_pres.head()
 
 
 # Each stimulus used in the session is presented to the mouse in various timeblocks. Using the `get_stimulus_epochs()` method will return a pandas dataframe containing the time periods where a single stimulus type was presented continuously. 
@@ -315,37 +316,28 @@ start = subset['start_time'].iloc[0]
 end = subset['stop_time'].iloc[0]
 
 
-# The function below was made to create a raster plot of spikes with rectangluar bars indicating when the stimulus started and ended.
+# Below we will plot a raster plot containing the neural activity of all the neurons in response to the first gabors presentation. 
 
-# In[16]:
+# In[27]:
 
 
-def plot_raster(spike_times, start, end):
+# Assign number of units you will plot
+num_units = len(all_spike_times)
+ystep = 1 / num_units
     
-    # Assign you will plot
-    num_units = len(spike_times)
-    ystep = 1 / num_units
-    
-    # Set axis limits to include all units of interest
-    ymin = 0
-    ymax = ystep
+# Set axis limits to include all units of interest
+ymin = 0
+ymax = ystep
 
-    # Plot raster for spikes within the start and end times
-    for unit_id, unit_spike_times in spike_times.items():
-        unit_spike_times = unit_spike_times[np.logical_and(unit_spike_times >= start, unit_spike_times < end)]
-        plt.vlines(unit_spike_times, ymin=ymin, ymax=ymax)
+# Plot raster for spikes within the start and end times of the stimulus presentation
+for unit_id, unit_spike_times in all_spike_times.items():
+    unit_spike_times = unit_spike_times[np.logical_and(unit_spike_times >= start -0.5, unit_spike_times < end+0.5)]
+    plt.vlines(unit_spike_times, ymin=ymin, ymax=ymax)
 
-        ymin += ystep
-        ymax += ystep
-        
-print('Function successfully created.')
+    ymin += ystep
+    ymax += ystep
 
-
-# In[17]:
-
-
-plt.figure(figsize=(8,6))
-plot_raster(all_spike_times, start-0.5, end+0.5)
+plt.xlim([start - 0.5, end+0.5])
 plt.axvspan(start, end, color='red', alpha=0.1)
 plt.xlabel('Time (sec)', fontsize=16)
 plt.ylabel('Units', fontsize=16)
@@ -353,16 +345,14 @@ plt.tick_params(axis="y", labelleft=False, left=False)
 plt.show()
 
 
-# In[ ]:
-
-
-
-
+# Peri stimulus time histograms and raster plots can also be created with classes and functions from the `spykes` module. With this, we are able to plot the firing activity of single neurons or of neuron populations. The `NeuroVis()` class is used to visualize single neuron activity. It takes in an array of spike times as an arguement as well as the `name` of the neuron. We can then use the fucntion `get_raster()` to compute and plot a raster plot across all stimulus presentations. 
+# 
+# Please visit the<a href = 'http://kordinglab.com/spykes/api/plot.html'> spykes plotting section</a> of the spykes documentation for additional help on the classes and functions used below. 
 
 # In[18]:
 
 
-nvs = NeuroVis(VISp_spike_times[0], name = 'VISp')
+nvs = NeuroVis(VISp_spike_times[0], name = '950908410')
 
 fig = plt.figure(figsize=(5, 5))
 
@@ -408,6 +398,7 @@ for i in range(numunits):
 ax[1].plot(running_speed['end_time'], (running_speed['velocity']*0.5)-10, alpha = 0.5)
 
 # Add color bars for timeblocks
+# Remove colorblocks 
 for c, stim_name in enumerate(all_stims):
     stim = stim_timeblocks[stim_timeblocks['stimulus_name']==stim_name]
     for j in range(len(stim)):

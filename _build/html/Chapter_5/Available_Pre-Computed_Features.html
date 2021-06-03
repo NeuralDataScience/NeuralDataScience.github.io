@@ -1,9 +1,10 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>5.3. Available Pre-Computed Features &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
@@ -24,8 +25,8 @@
     href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -39,14 +40,11 @@
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -281,6 +279,7 @@
 <span class="kn">from</span> <span class="nn">allensdk.core.cell_types_cache</span> <span class="kn">import</span> <span class="n">CellTypesCache</span>
 <span class="kn">from</span> <span class="nn">allensdk.api.queries.cell_types_api</span> <span class="kn">import</span> <span class="n">CellTypesApi</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Packages succesfully downloaded.&#39;</span><span class="p">)</span>
@@ -584,29 +583,17 @@
 <img alt="../_images/Available_Pre-Computed_Features_12_0.png" src="../_images/Available_Pre-Computed_Features_12_0.png" />
 </div>
 </div>
-<p>Below is a table of all the pre computed features available in the Allen with a description for each variable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Variable&#39;</span><span class="p">,</span> <span class="s1">&#39;Description&#39;</span><span class="p">]</span>
-<span class="n">data</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;adaptation&#39;</span><span class="p">,</span> <span class="s1">&#39;The rate at which firing speeds up or slows down during a stimulus&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;avg_isi&#39;</span><span class="p">,</span> <span class="s1">&#39;The mean value of all interspike intervals in a sweep&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;fast_trough&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp (_t) or voltage (_v) of the trough within in the interval 5 ms after the peak  in response to a short square stimulus (_short_square), a long square (_long_square), a ramp (_ramp).&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;f_i_curve_slope&#39;</span><span class="p">,</span> <span class="s1">&#39;slope of the curve between firing rate (f) and current injected; see the Allen Institute Whitepaper for details&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;input_resistance_mohm&#39;</span><span class="p">,</span> <span class="s1">&#39;input resistance of the cell, in mega ohms&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;latency&#39;</span><span class="p">,</span> <span class="s1">&#39;time for the stimulus onset to the threshold of the first spike&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;peak&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp (_t) or voltage (_v) of the maximum value of the membrane potential during the action potential (i.e., between the action potential’s threshold and the time of the next action potential, or end of the response) in response to a (_short_square), a long square (_long_square), a ramp (_ramp) stimulus&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;sag&#39;</span><span class="p">,</span> <span class="s1">&#39;measurement of sag, or the return to steady state divided by the peak deflection&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;slow_trough&#39;</span><span class="p">,</span> <span class="s1">&#39;timestamp (_t) or voltage (_v) of the membrane potential in the interval between the peak and the time of the next action potential in response to a short square stimulus (_short_square), a long square (_long_square), a ramp (_ramp)&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;tau&#39;</span><span class="p">,</span> <span class="s1">&#39;membrane time constant, in ms&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;upstroke_downstroke_ratio&#39;</span><span class="p">,</span> <span class="s1">&#39;the ratio between the absolute values of the action potential peak upstroke and the action potential peak downstroke.during a short square (_short_square), a long square (_long_square), a ramp (_ramp) stimulus&#39;</span><span class="p">],</span>
-       <span class="p">[</span><span class="s1">&#39;vrest&#39;</span><span class="p">,</span> <span class="s1">&#39;resting membrane potential, in mV&#39;</span><span class="p">]]</span>
-
-<span class="n">principle_fts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span><span class="p">)</span>
-<span class="n">principle_fts</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Number of available pre computed features: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">ephys_df</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ephys_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Number of available pre computed features: 2333
+</pre></div>
+</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -625,74 +612,221 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Variable</th>
-      <th>Description</th>
+      <th>adaptation</th>
+      <th>avg_isi</th>
+      <th>electrode_0_pa</th>
+      <th>f_i_curve_slope</th>
+      <th>fast_trough_t_long_square</th>
+      <th>fast_trough_t_ramp</th>
+      <th>fast_trough_t_short_square</th>
+      <th>fast_trough_v_long_square</th>
+      <th>fast_trough_v_ramp</th>
+      <th>fast_trough_v_short_square</th>
+      <th>...</th>
+      <th>trough_t_ramp</th>
+      <th>trough_t_short_square</th>
+      <th>trough_v_long_square</th>
+      <th>trough_v_ramp</th>
+      <th>trough_v_short_square</th>
+      <th>upstroke_downstroke_ratio_long_square</th>
+      <th>upstroke_downstroke_ratio_ramp</th>
+      <th>upstroke_downstroke_ratio_short_square</th>
+      <th>vm_for_sag</th>
+      <th>vrest</th>
+    </tr>
+    <tr>
+      <th>specimen_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>adaptation</td>
-      <td>The rate at which firing speeds up or slows do...</td>
+      <th>529878215</th>
+      <td>NaN</td>
+      <td>134.700000</td>
+      <td>22.697498</td>
+      <td>8.335459e-02</td>
+      <td>1.187680</td>
+      <td>13.295200</td>
+      <td>1.025916</td>
+      <td>-56.375004</td>
+      <td>-57.385420</td>
+      <td>-57.431251</td>
+      <td>...</td>
+      <td>13.295680</td>
+      <td>1.134780</td>
+      <td>-56.593754</td>
+      <td>-57.739586</td>
+      <td>-74.143753</td>
+      <td>3.029695</td>
+      <td>3.061646</td>
+      <td>2.969821</td>
+      <td>-80.468750</td>
+      <td>-73.553391</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>avg_isi</td>
-      <td>The mean value of all interspike intervals in ...</td>
+      <th>548459652</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-24.887498</td>
+      <td>-3.913630e-19</td>
+      <td>1.099840</td>
+      <td>20.650105</td>
+      <td>1.025460</td>
+      <td>-54.000000</td>
+      <td>-54.828129</td>
+      <td>-54.656254</td>
+      <td>...</td>
+      <td>20.650735</td>
+      <td>1.160940</td>
+      <td>-55.406254</td>
+      <td>-55.242191</td>
+      <td>-73.500000</td>
+      <td>2.441895</td>
+      <td>2.245653</td>
+      <td>2.231575</td>
+      <td>-84.406258</td>
+      <td>-73.056595</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>fast_trough</td>
-      <td>timestamp (_t) or voltage (_v) of the trough w...</td>
+      <th>579978640</th>
+      <td>0.009770</td>
+      <td>39.044800</td>
+      <td>-46.765002</td>
+      <td>5.267857e-01</td>
+      <td>1.157840</td>
+      <td>2.551310</td>
+      <td>1.025387</td>
+      <td>-59.500000</td>
+      <td>-58.234378</td>
+      <td>-59.940975</td>
+      <td>...</td>
+      <td>2.551960</td>
+      <td>1.089851</td>
+      <td>-60.062500</td>
+      <td>-58.570314</td>
+      <td>-61.371531</td>
+      <td>2.023762</td>
+      <td>2.162878</td>
+      <td>2.006406</td>
+      <td>-93.375008</td>
+      <td>-60.277321</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>f_i_curve_slope</td>
-      <td>slope of the curve between firing rate (f) and...</td>
+      <th>439024551</th>
+      <td>-0.007898</td>
+      <td>117.816429</td>
+      <td>5.996250</td>
+      <td>1.542553e-01</td>
+      <td>1.989165</td>
+      <td>9.572025</td>
+      <td>1.028733</td>
+      <td>-47.531250</td>
+      <td>-50.359375</td>
+      <td>-65.500000</td>
+      <td>...</td>
+      <td>9.576308</td>
+      <td>1.423229</td>
+      <td>-49.406254</td>
+      <td>-52.718752</td>
+      <td>-75.273443</td>
+      <td>3.105931</td>
+      <td>3.491663</td>
+      <td>1.733896</td>
+      <td>-87.656250</td>
+      <td>-75.205559</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>input_resistance_mohm</td>
-      <td>input resistance of the cell, in mega ohms</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>latency</td>
-      <td>time for the stimulus onset to the threshold o...</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>peak</td>
-      <td>timestamp (_t) or voltage (_v) of the maximum ...</td>
-    </tr>
-    <tr>
-      <th>7</th>
-      <td>sag</td>
-      <td>measurement of sag, or the return to steady st...</td>
-    </tr>
-    <tr>
-      <th>8</th>
-      <td>slow_trough</td>
-      <td>timestamp (_t) or voltage (_v) of the membrane...</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>tau</td>
-      <td>membrane time constant, in ms</td>
-    </tr>
-    <tr>
-      <th>10</th>
-      <td>upstroke_downstroke_ratio</td>
-      <td>the ratio between the absolute values of the a...</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>vrest</td>
-      <td>resting membrane potential, in mV</td>
+      <th>515188639</th>
+      <td>0.022842</td>
+      <td>68.321429</td>
+      <td>14.910000</td>
+      <td>1.714041e-01</td>
+      <td>1.081980</td>
+      <td>2.462880</td>
+      <td>1.025620</td>
+      <td>-48.437504</td>
+      <td>-46.520837</td>
+      <td>-51.406253</td>
+      <td>...</td>
+      <td>2.490433</td>
+      <td>1.479690</td>
+      <td>-53.000004</td>
+      <td>-54.645837</td>
+      <td>-64.250003</td>
+      <td>3.285760</td>
+      <td>3.363504</td>
+      <td>4.234701</td>
+      <td>-81.625008</td>
+      <td>-63.474991</td>
     </tr>
   </tbody>
 </table>
+<p>5 rows × 55 columns</p>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">col_1</span> <span class="o">=</span> <span class="s1">&#39;fast_trough_v_long_square&#39;</span>
+<span class="n">col_2</span> <span class="o">=</span> <span class="s1">&#39;upstroke_downstroke_ratio_long_square&#39;</span>
+
+<span class="n">fast_trough</span> <span class="o">=</span> <span class="n">ephys_df</span><span class="p">[</span><span class="n">col_1</span><span class="p">]</span>
+<span class="n">upstroke_downstroke</span> <span class="o">=</span> <span class="n">ephys_df</span><span class="p">[</span><span class="n">col_2</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fast_trough</span><span class="p">,</span> <span class="n">upstroke_downstroke</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Available_Pre-Computed_Features_14_0.png" src="../_images/Available_Pre-Computed_Features_14_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mouse_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_cells</span><span class="p">(</span><span class="n">species</span> <span class="o">=</span> <span class="p">[</span><span class="n">CellTypesApi</span><span class="o">.</span><span class="n">MOUSE</span><span class="p">]))</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+<span class="n">ephys_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_features</span><span class="p">())</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;specimen_id&#39;</span><span class="p">)</span>
+<span class="n">mouse_ephys_df</span> <span class="o">=</span> <span class="n">mouse_df</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ephys_df</span><span class="p">)</span>
+
+<span class="n">col_3</span> <span class="o">=</span> <span class="s1">&#39;dendrite_type&#39;</span>
+<span class="n">desired_value1</span> <span class="o">=</span> <span class="s1">&#39;spiny&#39;</span>
+<span class="n">desired_value2</span> <span class="o">=</span> <span class="s1">&#39;aspiny&#39;</span>
+
+<span class="n">spiny_df</span> <span class="o">=</span> <span class="n">mouse_ephys_df</span><span class="p">[</span><span class="n">mouse_ephys_df</span><span class="p">[</span><span class="n">col_3</span><span class="p">]</span><span class="o">==</span><span class="n">desired_value1</span><span class="p">]</span>
+<span class="n">aspiny_df</span> <span class="o">=</span> <span class="n">mouse_ephys_df</span><span class="p">[</span><span class="n">mouse_ephys_df</span><span class="p">[</span><span class="n">col_3</span><span class="p">]</span><span class="o">==</span><span class="n">desired_value2</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">spiny_df</span><span class="p">[</span><span class="n">col_1</span><span class="p">],</span> <span class="n">spiny_df</span><span class="p">[</span><span class="n">col_2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">aspiny_df</span><span class="p">[</span><span class="n">col_1</span><span class="p">],</span> <span class="n">aspiny_df</span><span class="p">[</span><span class="n">col_2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="n">desired_value1</span><span class="p">,</span><span class="n">desired_value2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Available_Pre-Computed_Features_16_0.png" src="../_images/Available_Pre-Computed_Features_16_0.png" />
+</div>
 </div>
 </div>
 
