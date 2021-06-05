@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8.2. Working with Raw Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>Working with Raw Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -54,8 +54,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="9. Brain Imaging Data Structures" href="../Chapter_9/Brain_Imaging_Data_Structures.html" />
-    <link rel="prev" title="8.1. Downloading Experimental Data" href="Downloading_Experimental_Data.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -95,72 +93,30 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
-   1. Neural Data Science
+  <a class="reference internal" href="../Chapter_01/Data_Science_In_Python.html">
+   1. Data Science in Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_2/Data_Science_In_Python.html">
-   2. Data Science in Python
+  <a class="reference internal" href="../Chapter_02/Obtaining_and_Working_with_NWB_Datasets.html">
+   2. Neurodata Without Borders
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_3/Statistical_Concepts.html">
-   3. Statistical Concepts
+  <a class="reference internal" href="../Chapter_03/Large_Scale_Electrophysiology.html">
+   3. Large Scale Electrophysiology
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_4/Neurodata_Without_Borders.html">
-   4. Neurodata Without Borders
+  <a class="reference internal" href="../Chapter_04/Single-Cell_Electrophysiology.html">
+   4. Single-Cell Electrophysiology
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_5/Single-Cell_Electrophysiology.html">
-   5. Single-Cell Electrophysiology
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_6/Two_Photon_Imaging.html">
-   6. Two Photon Imaging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_7/Large_Scale_Electrophysiology.html">
-   7. Large Scale Electrophysiology
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="reference internal" href="Connectivity_Atlas.html">
-   8. Allen Mouse Brain Connectivity Atlas
-  </a>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="Downloading_Experimental_Data.html">
-     8.1. Downloading Experimental Data
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     8.2. Working with Raw Data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
-   9. Brain Imaging Data Structures
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
-   10. Text Analyses of Neuroscience Literature
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
-   11. Approaches to Analyzing Large Datasets
+  <a class="reference internal" href="../Chapter_05/Two_Photon_Imaging.html">
+   5. Two Photon Imaging
   </a>
  </li>
 </ul>
@@ -259,27 +215,27 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setup">
-   8.2.1. Setup
+   Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plot-the-projection-density-for-an-experiment">
-   8.2.2. Plot the projection density for an experiment
+   Plot the projection density for an experiment
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#download-and-visualize-gridded-projection-signal-volumes">
-   8.2.3. Download and visualize gridded projection signal volumes
+   Download and visualize gridded projection signal volumes
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#build-a-structure-to-structure-matrix-of-projection-signal-values">
-   8.2.4. Build a structure-to-structure matrix of projection signal values
+   Build a structure-to-structure matrix of projection signal values
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-resources">
-   8.2.5. Additional Resources
+   Additional Resources
   </a>
  </li>
 </ul>
@@ -294,10 +250,10 @@
               <div>
                 
   <div class="section" id="working-with-raw-data">
-<h1><span class="section-number">8.2. </span>Working with Raw Data<a class="headerlink" href="#working-with-raw-data" title="Permalink to this headline">¶</a></h1>
+<h1>Working with Raw Data<a class="headerlink" href="#working-with-raw-data" title="Permalink to this headline">¶</a></h1>
 <p>This section will serve as a tutorial on how to analyze and visualize data stored in the Allen Brain Mouse Connectivity Atlas. This section will cover how to download and visualize raw data as well as create projection matrices.</p>
 <div class="section" id="setup">
-<h2><span class="section-number">8.2.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import common packages</span>
@@ -328,7 +284,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7fd12cea2210&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7f949bea3210&gt;
 </pre></div>
 </div>
 </div>
@@ -512,7 +468,7 @@
 </div>
 </div>
 <div class="section" id="plot-the-projection-density-for-an-experiment">
-<h2><span class="section-number">8.2.2. </span>Plot the projection density for an experiment<a class="headerlink" href="#plot-the-projection-density-for-an-experiment" title="Permalink to this headline">¶</a></h2>
+<h2>Plot the projection density for an experiment<a class="headerlink" href="#plot-the-projection-density-for-an-experiment" title="Permalink to this headline">¶</a></h2>
 <p>Before we look at the calculated projection density for multiple brain areas, let’s take a look at the raw data.
 Using a feature of the MouseConnectivityCache, we can show an example of what an image of fluorescence would look like for a given experiment. The code below demonstrates how you can load the projection density for a particular experiment.</p>
 <div class="cell docutils container">
@@ -555,7 +511,7 @@ Using a feature of the MouseConnectivityCache, we can show an example of what an
 </div>
 </div>
 <div class="section" id="download-and-visualize-gridded-projection-signal-volumes">
-<h2><span class="section-number">8.2.3. </span>Download and visualize gridded projection signal volumes<a class="headerlink" href="#download-and-visualize-gridded-projection-signal-volumes" title="Permalink to this headline">¶</a></h2>
+<h2>Download and visualize gridded projection signal volumes<a class="headerlink" href="#download-and-visualize-gridded-projection-signal-volumes" title="Permalink to this headline">¶</a></h2>
 <p>Given the variability in injection sites and virus expression, often, we’ll want to look across multiple experiments to see the consistency in projection patterns. To do, we can use the <strong>ProjectStructureUnionizes API</strong>.</p>
 <p>The ProjectionStructureUnionizes API data tells you how much signal there was in a given structure and experiment. In this data, the “signal” is the fluorescence from our viral tracers. This data contains the density of projecting signal, volume of projecting signal, and other information. <a class="reference external" href="https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html">MouseConnectivityCache</a> provides methods for querying and storing this data. To access to this signal projection data, you must call the <a class="reference external" href="https://alleninstitute.github.io/AllenSDK/unionizes.html"><code class="docutils literal notranslate"><span class="pre">get_structure_unionizes()</span></code></a> method on our MouseConnectivityCache instance.</p>
 <p><em>Note</em>: Since this is pulling quite a bit of data, it may take a minute or two.</p>
@@ -923,7 +879,7 @@ Name: name, Length: 100, dtype: object
 </div>
 </div>
 <div class="section" id="build-a-structure-to-structure-matrix-of-projection-signal-values">
-<h2><span class="section-number">8.2.4. </span>Build a structure-to-structure matrix of projection signal values<a class="headerlink" href="#build-a-structure-to-structure-matrix-of-projection-signal-values" title="Permalink to this headline">¶</a></h2>
+<h2>Build a structure-to-structure matrix of projection signal values<a class="headerlink" href="#build-a-structure-to-structure-matrix-of-projection-signal-values" title="Permalink to this headline">¶</a></h2>
 <p>The MouseConnectivityCache class provides a helper method for converting ProjectionStructureUnionize data for a set of experiments and structures into a matrix. This is done by calling <a class="reference external" href="https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html#allensdk.core.mouse_connectivity_cache.MouseConnectivityCache.get_projection_matrix"><code class="docutils literal notranslate"><span class="pre">get_projection_matrix</span></code></a> on our MouseConnectivityCache instance. The method can take in arguements <code class="docutils literal notranslate"><span class="pre">experiment_ids</span></code>, <code class="docutils literal notranslate"><span class="pre">projection_structure_ids</span></code>, <code class="docutils literal notranslate"><span class="pre">hemisphere_ids</span></code>, <code class="docutils literal notranslate"><span class="pre">parameter</span></code>, and <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> to further specify your matrix.</p>
 <p>The code below demonstrates how to make a matrix of projection density values in auditory sub-structures for injections into VISp.</p>
 <div class="cell docutils container">
@@ -971,7 +927,7 @@ Name: name, Length: 100, dtype: object
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h2><span class="section-number">8.2.5. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>For more information on all the functions used to download the projection signals and create the projection matrices, please look at the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html'> original documentaion</a>. For information on how to create heat maps like the one created for the flourecense image, please visit the <a href = 'https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.axes.Axes.imshow.html'> matplotlib documentation</a>.</p>
 </div>
 </div>
@@ -1004,8 +960,6 @@ Name: name, Length: 100, dtype: object
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Downloading_Experimental_Data.html" title="previous page"><span class="section-number">8.1. </span>Downloading Experimental Data</a>
-    <a class='right-next' id="next-link" href="../Chapter_9/Brain_Imaging_Data_Structures.html" title="next page"><span class="section-number">9. </span>Brain Imaging Data Structures</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8.1. Downloading Experimental Data &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>Downloading Experimental Data &#8212; A Hands-On Guide to Neural Data Science</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -54,8 +54,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="8.2. Working with Raw Data" href="Working_with_Raw_Data.html" />
-    <link rel="prev" title="8. Allen Mouse Brain Connectivity Atlas" href="Connectivity_Atlas.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -95,72 +93,30 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_1/Neural_Data_Science.html">
-   1. Neural Data Science
+  <a class="reference internal" href="../Chapter_01/Data_Science_In_Python.html">
+   1. Data Science in Python
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_2/Data_Science_In_Python.html">
-   2. Data Science in Python
+  <a class="reference internal" href="../Chapter_02/Obtaining_and_Working_with_NWB_Datasets.html">
+   2. Neurodata Without Borders
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_3/Statistical_Concepts.html">
-   3. Statistical Concepts
+  <a class="reference internal" href="../Chapter_03/Large_Scale_Electrophysiology.html">
+   3. Large Scale Electrophysiology
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_4/Neurodata_Without_Borders.html">
-   4. Neurodata Without Borders
+  <a class="reference internal" href="../Chapter_04/Single-Cell_Electrophysiology.html">
+   4. Single-Cell Electrophysiology
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_5/Single-Cell_Electrophysiology.html">
-   5. Single-Cell Electrophysiology
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_6/Two_Photon_Imaging.html">
-   6. Two Photon Imaging
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_7/Large_Scale_Electrophysiology.html">
-   7. Large Scale Electrophysiology
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="reference internal" href="Connectivity_Atlas.html">
-   8. Allen Mouse Brain Connectivity Atlas
-  </a>
-  <ul class="current">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     8.1. Downloading Experimental Data
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Working_with_Raw_Data.html">
-     8.2. Working with Raw Data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_9/Brain_Imaging_Data_Structures.html">
-   9. Brain Imaging Data Structures
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_10/Text_Analyses_of_Neuroscience_Literature.html">
-   10. Text Analyses of Neuroscience Literature
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../Chapter_11/Approaches_to_Analyzing_Large_Datasets.html">
-   11. Approaches to Analyzing Large Datasets
+  <a class="reference internal" href="../Chapter_05/Two_Photon_Imaging.html">
+   5. Two Photon Imaging
   </a>
  </li>
 </ul>
@@ -259,27 +215,27 @@
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setup">
-   8.1.1. Setup
+   Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#download-experimental-metadata-by-transgenic-line">
-   8.1.2. Download experimental metadata by transgenic line
+   Download experimental metadata by transgenic line
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#download-experimental-metadata-by-injection-structure">
-   8.1.3. Download experimental metadata by injection structure
+   Download experimental metadata by injection structure
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#putting-it-all-together">
-   8.1.4. Putting it All Together
+   Putting it All Together
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#structure-tree">
-   8.1.5. Structure Tree
+   Structure Tree
   </a>
  </li>
 </ul>
@@ -294,7 +250,7 @@
               <div>
                 
   <div class="section" id="downloading-experimental-data">
-<h1><span class="section-number">8.1. </span>Downloading Experimental Data<a class="headerlink" href="#downloading-experimental-data" title="Permalink to this headline">¶</a></h1>
+<h1>Downloading Experimental Data<a class="headerlink" href="#downloading-experimental-data" title="Permalink to this headline">¶</a></h1>
 <p>This section will serve as a tutorial on how to access and download experimental data from the Allen Brain Mouse Connectivity Atlas. In this tutorial you will learn to download metadata by transgenic line as well as by injection structure. By the end of this tutorial you will be ready to use this downloaded data to check for connections between brain areas and build out analyses of your own.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -305,7 +261,7 @@
 </div>
 </div>
 <div class="section" id="setup">
-<h2><span class="section-number">8.1.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>To access the mouse connectivity data through the SDK, we first need to <code class="docutils literal notranslate"><span class="pre">import</span></code> the <a class="reference external" href="https://alleninstitute.github.io/AllenSDK/connectivity.html">MouseConnectivityCache class</a>. This class caches metadata about the mouse connectivty database and provides methods needed to download and analyze the data. For a full list of methods for the Mouse Connectivity Class object, please visit the <a href = 'https://alleninstitute.github.io/AllenSDK/allensdk.core.mouse_connectivity_cache.html'> original documentation</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -319,14 +275,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7fb2a819d950&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.mouse_connectivity_cache.MouseConnectivityCache object at 0x7faab916dad0&gt;
 </pre></div>
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="download-experimental-metadata-by-transgenic-line">
-<h2><span class="section-number">8.1.2. </span>Download experimental metadata by transgenic line<a class="headerlink" href="#download-experimental-metadata-by-transgenic-line" title="Permalink to this headline">¶</a></h2>
+<h2>Download experimental metadata by transgenic line<a class="headerlink" href="#download-experimental-metadata-by-transgenic-line" title="Permalink to this headline">¶</a></h2>
 <p>Now that we have our instance of the mouse connectivity cache (<code class="docutils literal notranslate"><span class="pre">mcc</span></code>), we can download our experimental metadata. To do this, we will call <code class="docutils literal notranslate"><span class="pre">get_experiments()</span></code> on our connectivity instance. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre</span></code> and <code class="docutils literal notranslate"><span class="pre">injection_structure_ids</span></code>, to filter the downoaded data to match your given criteria (cre line and injection structure, respectively). We’ll also use the argument <code class="docutils literal notranslate"><span class="pre">dataframe=True</span></code> to automatically assign this dowloaded data into a dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -717,7 +673,7 @@
 </div>
 </div>
 <div class="section" id="download-experimental-metadata-by-injection-structure">
-<h2><span class="section-number">8.1.3. </span>Download experimental metadata by injection structure<a class="headerlink" href="#download-experimental-metadata-by-injection-structure" title="Permalink to this headline">¶</a></h2>
+<h2>Download experimental metadata by injection structure<a class="headerlink" href="#download-experimental-metadata-by-injection-structure" title="Permalink to this headline">¶</a></h2>
 <p>In order to use the <code class="docutils literal notranslate"><span class="pre">injection_structure_ids</span></code> argument above, you need the structure IDs. The MouseConnectivityCache has a method for retrieving the adult mouse structure tree as an StructureTree class instance. The StructureTree class has many methods that allows you to access lists of brain structures through their ID, name, acronym, and many other properties. This is done by executing the <code class="docutils literal notranslate"><span class="pre">get_structure_tree()</span></code> method on your MouseConnectivityCache instance (<code class="docutils literal notranslate"><span class="pre">mcc</span></code>).</p>
 <p>Below we will access information on the hypothalamus via its name by calling <code class="docutils literal notranslate"><span class="pre">get_structures_by_name()</span></code> on our StructureTree instance.</p>
 <div class="cell docutils container">
@@ -922,7 +878,7 @@
 </div>
 </div>
 <div class="section" id="putting-it-all-together">
-<h2><span class="section-number">8.1.4. </span>Putting it All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
+<h2>Putting it All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
 <p>Below is an example of how we can combine both filtering by both transgenic mouse line and by injection structure to get a more refined set of data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1130,7 +1086,7 @@
 </div>
 </div>
 <div class="section" id="structure-tree">
-<h2><span class="section-number">8.1.5. </span>Structure Tree<a class="headerlink" href="#structure-tree" title="Permalink to this headline">¶</a></h2>
+<h2>Structure Tree<a class="headerlink" href="#structure-tree" title="Permalink to this headline">¶</a></h2>
 <p>So far, we know that the hypothalamus is a brain structure available to us in our experiments, but what about the rest of the brain structures? How do we find what are all the brain structures availabe to us? To do so, we can take a look at the unique values under the <code class="docutils literal notranslate"><span class="pre">name</span></code> column, in our summary of brain structures.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1377,8 +1333,6 @@
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="Connectivity_Atlas.html" title="previous page"><span class="section-number">8. </span>Allen Mouse Brain Connectivity Atlas</a>
-    <a class='right-next' id="next-link" href="Working_with_Raw_Data.html" title="next page"><span class="section-number">8.2. </span>Working with Raw Data</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
