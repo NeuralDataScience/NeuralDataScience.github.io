@@ -26,15 +26,3 @@
 
 
 
-
-# 
-# ```{toctree}
-# :hidden:
-# :titlesonly:
-# 
-# 
-# NumPy
-# Pandas
-# SciPy
-# ```
-# 

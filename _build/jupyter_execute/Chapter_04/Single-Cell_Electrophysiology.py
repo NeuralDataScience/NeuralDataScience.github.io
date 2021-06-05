@@ -34,14 +34,3 @@ YouTubeVideo('mF7Vd5olw18')
 
 
 
-
-# 
-# ```{toctree}
-# :hidden:
-# :titlesonly:
-# 
-# 
-# Obtaining_Data_For_Single_Cells
-# Analyzing_Computed_Features
-# ```
-# 

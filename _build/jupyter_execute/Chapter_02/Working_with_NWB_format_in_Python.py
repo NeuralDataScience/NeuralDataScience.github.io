@@ -36,7 +36,7 @@ print(type(nwb_file))
 
 # The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The `fields` attribute returns a dictionary contiaining the the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.
 
-# In[3]:
+# In[4]:
 
 
 # Get the Groups for the nwb file 
@@ -46,7 +46,7 @@ print(nwb_fields.keys())
 
 # Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. These Groups can be accessed using `institution`, `lab`, and `experiment_description`, attributes on our nwb_file, respectively.
 
-# In[4]:
+# In[5]:
 
 
 # Get Meta-Data from NWB file 
@@ -57,7 +57,7 @@ print('The experiment within this NWB file was conducted at {} in the lab of {}.
 
 # The `acquisition` group contains datasets of acquisition data, mainly `TimeSeries` objects belonging to this NWBFile. 
 
-# In[5]:
+# In[6]:
 
 
 nwb_file.acquisition
@@ -65,7 +65,7 @@ nwb_file.acquisition
 
 # In this file, the acquisition group contains one dataset, `lick_times`. This dataset has one `Field`, `time_series`, which contains two time series objects, `lick_left_times` and `lick_right_times`. To access the actual data arrays of these objects we must first subset our dataset of interest from the group. We can then use `data[:]` to return our actual data array.
 
-# In[6]:
+# In[7]:
 
 
 # select our dataset of interest 
@@ -81,7 +81,7 @@ print(lick_r_data_array)
 
 # The `intervals` group contains all time interval tables from the experiemnt. We can look at the `description` field to understand what each dataset in contains.
 
-# In[7]:
+# In[8]:
 
 
 # example showing how to return meta data from groups in nwb file 
@@ -90,7 +90,7 @@ nwb_file.intervals
 
 # Within the intervals group is the `trials` dataset which is a `DynamicTable` contianing intervals from our experimental trials. Each column in `trials` is a `VectorData` object which can all be assigned to a dataframe using `to_dataframe()`.
 
-# In[8]:
+# In[9]:
 
 
 # Select the group of interest from the nwb file 
@@ -103,7 +103,7 @@ interval_trials_df.head()
 
 # The `description` attribute provides a short description on each column of the dataframe.
 
-# In[9]:
+# In[10]:
 
 
 # return the description of each col in our dataframe
@@ -115,7 +115,7 @@ for col in intervals['trials'].to_dataframe():
 
 # The `units` group in our nwb_file contains the neural activity of our units, including spike data for scientific analysis. Much like the `intervals` group, `units` is also a `DynamicTable` that can be assigned to a dataframe.
 
-# In[10]:
+# In[17]:
 
 
 units = nwb_file.units

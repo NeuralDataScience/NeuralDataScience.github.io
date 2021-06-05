@@ -24,15 +24,3 @@
 
 
 
-
-# 
-# ```{toctree}
-# :hidden:
-# :titlesonly:
-# 
-# 
-# Obtaining_Raw_Electrophysiology_Data
-# Correlating_Spike_Trains_with_Stimuli_and_Behavior
-# Identifying_Cells_with_Optogenetics
-# ```
-# 

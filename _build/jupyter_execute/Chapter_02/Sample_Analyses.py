@@ -47,7 +47,7 @@ fair_units_df.head()
 
 # The `spike_times` column the times at which the recorded neuron fired. Each neuron has a list of spike times for their `spike_times` column. 
 
-# In[4]:
+# In[16]:
 
 
 # return the first 10 spike times for one neuron
@@ -151,7 +151,7 @@ def plot_firing_rates(spike_times, start_time = None , end_time = None):
     return 
 
 
-# In[7]:
+# In[17]:
 
 
 neural_list = list(neural_data)
@@ -180,7 +180,7 @@ print(units_df[col_2].unique())
 
 # We will compare the units that were recorded from 1165nm and 715nm coritcal depths.
 
-# In[9]:
+# In[24]:
 
 
 # Assign dataframes for differnt depths 

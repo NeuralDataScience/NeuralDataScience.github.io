@@ -40,7 +40,7 @@ get_ipython().system('dandi download https://dandiarchive.org/dandiset/000006/dr
 # 
 # **Note**: a downloaded dandiset may contain multiple NWB files that pertain to various subjects and multiple sessions for a given experiment. Make sure you specify the exact file path to the single NWB file you wish to read. 
 
-# In[9]:
+# In[3]:
 
 
 from pynwb import NWBHDF5IO

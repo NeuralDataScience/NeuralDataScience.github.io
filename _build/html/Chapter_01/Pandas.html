@@ -5,9 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>1.2. Pandas &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>1.2. Pandas &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,14 +20,10 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -34,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -44,7 +41,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -56,14 +53,14 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="1.3. SciPy" href="SciPy.html" />
     <link rel="prev" title="1.1. NumPy" href="NumPy.html" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
-
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
     
 
     <div class="container-xl">
@@ -72,34 +69,36 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
-  
-  <img src="../_static/brainz.jpeg" class="logo" alt="logo">
-  
-  
-  <h1 class="site-logo" id="site-title">A Hands-On Guide to Neural Data Science</h1>
-  
-</a>
-</div>
-
-<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/nwb_learning.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Teaching & Learning with NWB Datasets</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form>
-
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../landing_page.html">
-   A Hands-On Guide to Neural Data Science
+   Teaching and Learning with NWB Datasets
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="Data_Science_In_Python.html">
    1. Data Science in Python
   </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="NumPy.html">
@@ -118,31 +117,113 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_02/Obtaining_and_Working_with_NWB_Datasets.html">
-   2. Neurodata Without Borders
+   2. Obtaining and Working with NWB Datasets
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_02/Obtaining_Datasets_with_DANDI.html">
+     2.1. Obtaining Datasets with DANDI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_02/Working_with_NWB_format_in_Python.html">
+     2.2. Working with NWB in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_02/Sample_Analyses.html">
+     2.3. Sample Analyses
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_03/Large_Scale_Electrophysiology.html">
    3. Large Scale Electrophysiology
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_03/Obtaining_Raw_Electrophysiology_Data.html">
+     3.1. Obtaining Raw Electrophysiology Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_03/Correlating_Spike_Trains_with_Stimuli_and_Behavior.html">
+     3.2. Correlating Spike Trains with Stimuli and Behavior
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_03/Identifying_Cells_with_Optogenetics.html">
+     3.3. Identifying Cells with Optogenetics
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_04/Single-Cell_Electrophysiology.html">
    4. Single-Cell Electrophysiology
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_04/Obtaining_Data_For_Single_Cells.html">
+     4.1. Obtaining Data for Single Cells
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_04/Analyzing_Computed_Features.html">
+     4.2. Analyzing Computed Features
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_05/Two_Photon_Imaging.html">
    5. Two Photon Imaging
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_05/Retrieving_Brain_Observatory_Data.html">
+     5.1. Retrieving Calcium Imaging Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_05/Analyzing_Two_Photon_Data.html">
+     5.2. Analyzing Two Photon Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_05/Correlations_in_Two_Photon_Data.html">
+     5.3. Correlations in Two Photon Data
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
-</nav>
-
- <!-- To handle the deprecated key -->
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
   Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
@@ -157,25 +238,25 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
-    
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         
@@ -187,18 +268,18 @@
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
-    
 </div>
-        <!-- Source interaction buttons -->
 
+            <!-- Source interaction buttons -->
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
 
-        <!-- Launch buttons -->
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -222,16 +303,16 @@
     </div>
 </div>
 
-    </div>
-
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
         </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#create-and-manipulate-dataframes">
    1.2.1. Create and Manipulate Dataframes
@@ -259,8 +340,8 @@
  </li>
 </ul>
 
-        </nav>
-        
+            </nav>
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -308,172 +389,58 @@ pd         module    &lt;module &#39;pandas&#39; from &#39;/U&lt;...&gt;ages/pan
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">aa8ae6225639</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Read in the list of lists as a data frame</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;brainarea_vs_genes_exp_w_reannotations-Copy1.tsv&#39;</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">gene_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># &#39;.head()&#39; returns the first 5 rows in the dataframe</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">parser_f</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)</span>
+<span class="g g-Whitespace">    </span><span class="mi">683</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">684</span> 
+<span class="ne">--&gt; </span><span class="mi">685</span>         <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">686</span> 
+<span class="g g-Whitespace">    </span><span class="mi">687</span>     <span class="n">parser_f</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>gene_symbol</th>
-      <th>CA1 field</th>
-      <th>CA2 field</th>
-      <th>CA3 field</th>
-      <th>CA4 field</th>
-      <th>Crus I, lateral hemisphere</th>
-      <th>Crus I, paravermis</th>
-      <th>Crus II, lateral hemisphere</th>
-      <th>Crus II, paravermis</th>
-      <th>Edinger-Westphal nucleus</th>
-      <th>...</th>
-      <th>temporal pole, inferior aspect</th>
-      <th>temporal pole, medial aspect</th>
-      <th>temporal pole, superior aspect</th>
-      <th>transverse gyri</th>
-      <th>trochlear nucleus</th>
-      <th>tuberomammillary nucleus</th>
-      <th>ventral tegmental area</th>
-      <th>ventromedial hypothalamic nucleus</th>
-      <th>vestibular nuclei</th>
-      <th>zona incerta</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>A1BG</td>
-      <td>0.856487</td>
-      <td>-1.773695</td>
-      <td>-0.678679</td>
-      <td>-0.986914</td>
-      <td>0.826986</td>
-      <td>0.948039</td>
-      <td>0.935427</td>
-      <td>1.120774</td>
-      <td>-1.018554</td>
-      <td>...</td>
-      <td>0.277830</td>
-      <td>0.514923</td>
-      <td>0.733368</td>
-      <td>-0.104286</td>
-      <td>-0.910245</td>
-      <td>1.039610</td>
-      <td>-0.155167</td>
-      <td>-0.444398</td>
-      <td>-0.901361</td>
-      <td>-0.236790</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>A1BG-AS1</td>
-      <td>0.257664</td>
-      <td>-1.373085</td>
-      <td>-0.619923</td>
-      <td>-0.636275</td>
-      <td>0.362799</td>
-      <td>0.353296</td>
-      <td>0.422766</td>
-      <td>0.346853</td>
-      <td>-0.812015</td>
-      <td>...</td>
-      <td>1.074116</td>
-      <td>0.821031</td>
-      <td>1.219272</td>
-      <td>0.901213</td>
-      <td>-1.522431</td>
-      <td>0.598719</td>
-      <td>-1.709745</td>
-      <td>-0.054156</td>
-      <td>-1.695843</td>
-      <td>-1.155961</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>A1CF</td>
-      <td>-0.089614</td>
-      <td>-0.546903</td>
-      <td>0.282914</td>
-      <td>-0.528926</td>
-      <td>0.507916</td>
-      <td>0.577696</td>
-      <td>0.647671</td>
-      <td>0.306824</td>
-      <td>0.089958</td>
-      <td>...</td>
-      <td>-0.030265</td>
-      <td>-0.187367</td>
-      <td>-0.428358</td>
-      <td>-0.465863</td>
-      <td>-0.136936</td>
-      <td>1.229487</td>
-      <td>-0.110680</td>
-      <td>-0.118175</td>
-      <td>-0.139776</td>
-      <td>0.123829</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>A2M</td>
-      <td>0.552415</td>
-      <td>-0.635485</td>
-      <td>-0.954995</td>
-      <td>-0.259745</td>
-      <td>-1.687391</td>
-      <td>-1.756847</td>
-      <td>-1.640242</td>
-      <td>-1.733110</td>
-      <td>-0.091695</td>
-      <td>...</td>
-      <td>-0.058505</td>
-      <td>0.207109</td>
-      <td>-0.161808</td>
-      <td>0.183630</td>
-      <td>0.948098</td>
-      <td>-0.977692</td>
-      <td>0.911896</td>
-      <td>-0.499357</td>
-      <td>1.469386</td>
-      <td>0.557998</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>A2ML1</td>
-      <td>0.758031</td>
-      <td>1.549857</td>
-      <td>1.262225</td>
-      <td>1.338780</td>
-      <td>-0.289888</td>
-      <td>-0.407026</td>
-      <td>-0.358798</td>
-      <td>-0.589988</td>
-      <td>0.944684</td>
-      <td>...</td>
-      <td>-0.472908</td>
-      <td>-0.598317</td>
-      <td>-0.247797</td>
-      <td>-0.282673</td>
-      <td>1.396365</td>
-      <td>0.945043</td>
-      <td>0.158202</td>
-      <td>0.572771</td>
-      <td>0.073088</td>
-      <td>-0.886780</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 233 columns</p>
-</div></div></div>
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">455</span> 
+<span class="g g-Whitespace">    </span><span class="mi">456</span>     <span class="c1"># Create the parser.</span>
+<span class="ne">--&gt; </span><span class="mi">457</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">fp_or_buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">458</span> 
+<span class="g g-Whitespace">    </span><span class="mi">459</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">893</span>             <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">894</span> 
+<span class="ne">--&gt; </span><span class="mi">895</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">896</span> 
+<span class="g g-Whitespace">    </span><span class="mi">897</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, engine)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1133</span>     <span class="k">def</span> <span class="nf">_make_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">1134</span>         <span class="k">if</span> <span class="n">engine</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1135</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="n">CParserWrapper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1136</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1137</span>             <span class="k">if</span> <span class="n">engine</span> <span class="o">==</span> <span class="s2">&quot;python&quot;</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">__init__</span><span class="nt">(self, src, **kwds)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1915</span>         <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;usecols&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">usecols</span>
+<span class="g g-Whitespace">   </span><span class="mi">1916</span> 
+<span class="ne">-&gt; </span><span class="mi">1917</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span> <span class="o">=</span> <span class="n">parsers</span><span class="o">.</span><span class="n">TextReader</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1918</span>         <span class="bp">self</span><span class="o">.</span><span class="n">unnamed_cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">unnamed_cols</span>
+<span class="g g-Whitespace">   </span><span class="mi">1919</span> 
+
+<span class="nn">pandas/_libs/parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader.__cinit__</span><span class="nt">()</span>
+
+<span class="nn">pandas/_libs/parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader._setup_parser_source</span><span class="nt">()</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] File b&#39;brainarea_vs_genes_exp_w_reannotations-Copy1.tsv&#39; does not exist: b&#39;brainarea_vs_genes_exp_w_reannotations-Copy1.tsv&#39;
+</pre></div>
+</div>
+</div>
 </div>
 <p>At the moment, our rows and columns don’t have any useful information – they’re simply a list of indices. We can reassign the row values by using the method <code class="docutils literal notranslate"><span class="pre">set_index()</span></code>. We can choose any column in our present dataframe to be the row values. Let’s assign the row lables to be the <code class="docutils literal notranslate"><span class="pre">gene_symbol</span></code> and reassign the dataframe.</p>
 <div class="cell docutils container">
@@ -1704,15 +1671,15 @@ Length: 232, dtype: float64
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="NumPy.html" title="previous page"><span class="section-number">1.1. </span>NumPy</a>
     <a class='right-next' id="next-link" href="SciPy.html" title="next page"><span class="section-number">1.3. </span>SciPy</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
@@ -1720,7 +1687,7 @@ Length: 232, dtype: float64
         
           By Victor Magdaleno-Garcia<br/>
         
-            &copy; Copyright 2020.<br/>
+            &copy; Copyright 2021.<br/>
       </p>
     </div>
   </footer>
@@ -1729,11 +1696,9 @@ Length: 232, dtype: float64
 
       </div>
     </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
-
-
-    
+  
   </body>
 </html>

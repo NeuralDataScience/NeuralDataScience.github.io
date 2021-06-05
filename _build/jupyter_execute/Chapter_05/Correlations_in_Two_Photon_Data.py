@@ -73,7 +73,7 @@ print('Signal correlation acquired.')
 
 # Lets gets some information on our signal correlation object by returning the shape and its values. 
 
-# In[4]:
+# In[5]:
 
 
 print(sc.shape)
@@ -87,7 +87,7 @@ print(sc)
 
 # We can now plot a heatmap of the signal correltations between neurons. The heatmap will plot our 122 neurons against each other to determine functional connectivity. The idea behind this is that if brain areas are active together, they may be coming together to accomplish the same task in the brain, forming neuronal networks. 
 
-# In[5]:
+# In[6]:
 
 
 plt.figure(figsize = [6, 6])
@@ -101,7 +101,7 @@ plt.ylabel('Cell #')
 
 # Neurons that are closer together in space tend to have stronger correlations. For this reason it is a good idea to calculate the distance between the neurons. To remind ourselves of what our fluroecent image looks like, the maximum projection of our cells is displayed below. 
 
-# In[6]:
+# In[7]:
 
 
 # Get the max projection of the data and show it
@@ -118,7 +118,7 @@ plt.show()
 
 # In the block below, we'll get the regions of interest (ROIs) and then calculate the distance between these ROIs, using simple geometric distance. The `get_roi_mask_array()` method will return a NumPy array containing all the regions of interest for our experiment. All of the cells in our maximum projection image are defined as a region of interest. For a better understanding, below we will show how one region of interest corresponds to our image above.
 
-# In[7]:
+# In[8]:
 
 
 rois = data_set.get_roi_mask_array()
@@ -129,7 +129,7 @@ plt.show()
 
 # This distance that we calculate will be in "pixels" of the image -- we'd need to know the size of our field of view in order to get this into actual units of distance. The plot will display how far a cell is to every other cell. 
 
-# In[8]:
+# In[9]:
 
 
 rois = data_set.get_roi_mask_array()
@@ -162,7 +162,7 @@ plt.show()
 
 # Below, we'll plot the distribution of distances. Importantly, we only count each distance once, so we'll use a numpy function called <a href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.triu_indices.html">triu_indices</a> to get the x and y indices of the the values. This is becasue in our matrices our symmetrical, meaning the top right triangle is identical to the bottom left triangle. `triu_indices()` will return a pair of indices for each location on our matrix , thus creating a vector that contains all the values in our matrix.
 
-# In[9]:
+# In[10]:
 
 
 inds = np.triu_indices(num_cells, k=1)
@@ -175,7 +175,7 @@ plt.show()
 
 # We now have a matrix of the signal correlations and a matrix of the distance. Our next step is to as if these two things are correlated. To test this, we can plot a scatter plot of the distance versus the signal correlation. However, it is better to plot the `distance_vector` versus the `sc_vector`, becasue this will remove the point where the cells are plotted against themselves in our matrices (i.e the diagonal).
 
-# In[10]:
+# In[11]:
 
 
 plt.figure(figsize=(8,5))

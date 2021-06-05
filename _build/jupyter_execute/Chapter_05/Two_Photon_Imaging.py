@@ -42,15 +42,3 @@ YouTubeVideo('m13Tk9_Ul-M')
 
 
 
-
-# 
-# ```{toctree}
-# :hidden:
-# :titlesonly:
-# 
-# 
-# Retrieving_Brain_Observatory_Data
-# Analyzing_Two_Photon_Data
-# Correlations_in_Two_Photon_Data
-# ```
-# 

@@ -5,9 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3.3. Identifying Cells with Optogenetics &#8212; A Hands-On Guide to Neural Data Science</title>
+    <title>3.3. Identifying Cells with Optogenetics &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,14 +20,10 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.acff12b8f9c144ce68a297486a2fa670.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -34,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -44,7 +41,7 @@
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -56,14 +53,14 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="4. Single-Cell Electrophysiology" href="../Chapter_04/Single-Cell_Electrophysiology.html" />
     <link rel="prev" title="3.2. Correlating Spike Trains with Stimuli and Behavior" href="Correlating_Spike_Trains_with_Stimuli_and_Behavior.html" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
-
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
     
 
     <div class="container-xl">
@@ -72,44 +69,90 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
-  
-  <img src="../_static/brainz.jpeg" class="logo" alt="logo">
-  
-  
-  <h1 class="site-logo" id="site-title">A Hands-On Guide to Neural Data Science</h1>
-  
-</a>
-</div>
-
-<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      <img src="../_static/nwb_learning.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Teaching & Learning with NWB Datasets</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form>
-
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../landing_page.html">
-   A Hands-On Guide to Neural Data Science
+   Teaching and Learning with NWB Datasets
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_01/Data_Science_In_Python.html">
    1. Data Science in Python
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_01/NumPy.html">
+     1.1. NumPy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_01/Pandas.html">
+     1.2. Pandas
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_01/SciPy.html">
+     1.3. SciPy
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_02/Obtaining_and_Working_with_NWB_Datasets.html">
-   2. Neurodata Without Borders
+   2. Obtaining and Working with NWB Datasets
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_02/Obtaining_Datasets_with_DANDI.html">
+     2.1. Obtaining Datasets with DANDI
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_02/Working_with_NWB_format_in_Python.html">
+     2.2. Working with NWB in Python
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_02/Sample_Analyses.html">
+     2.3. Sample Analyses
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1 current active">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="Large_Scale_Electrophysiology.html">
    3. Large Scale Electrophysiology
   </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Obtaining_Raw_Electrophysiology_Data.html">
@@ -128,21 +171,59 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_04/Single-Cell_Electrophysiology.html">
    4. Single-Cell Electrophysiology
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_04/Obtaining_Data_For_Single_Cells.html">
+     4.1. Obtaining Data for Single Cells
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_04/Analyzing_Computed_Features.html">
+     4.2. Analyzing Computed Features
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../Chapter_05/Two_Photon_Imaging.html">
    5. Two Photon Imaging
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_05/Retrieving_Brain_Observatory_Data.html">
+     5.1. Retrieving Calcium Imaging Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_05/Analyzing_Two_Photon_Data.html">
+     5.2. Analyzing Two Photon Data
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_05/Correlations_in_Two_Photon_Data.html">
+     5.3. Correlations in Two Photon Data
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
-</nav>
-
- <!-- To handle the deprecated key -->
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
   Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
@@ -157,25 +238,25 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
-    
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         
@@ -187,18 +268,18 @@
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
-    
 </div>
-        <!-- Source interaction buttons -->
 
+            <!-- Source interaction buttons -->
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
 
-        <!-- Launch buttons -->
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -222,16 +303,16 @@
     </div>
 </div>
 
-    </div>
-
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
         </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#accessing-optogenetic-data">
    3.3.1. Accessing Optogenetic Data
@@ -249,8 +330,8 @@
  </li>
 </ul>
 
-        </nav>
-        
+            </nav>
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -311,6 +392,14 @@
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ashley/anaconda3/lib/python3.7/site-packages/dask/config.py:168: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  data = yaml.load(f.read()) or {}
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ashley/anaconda3/lib/python3.7/site-packages/distributed/config.py:20: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  defaults = yaml.load(f)
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Packages imported and cache instance created.
 </pre></div>
 </div>
@@ -326,9 +415,181 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;Sst-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt&#39;,
-       &#39;Pvalb-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt&#39;, &#39;wt/wt&#39;,
-       &#39;Vip-IRES-Cre/wt;Ai32(RCL-ChR2(H134R)_EYFP)/wt&#39;], dtype=object)
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">3960</span><span class="n">c8f0ce11</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">all_sessions</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_table</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">col</span> <span class="o">=</span> <span class="s1">&#39;full_genotype&#39;</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">all_sessions</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">get_session_table</span><span class="nt">(self, suppress)</span>
+<span class="g g-Whitespace">    </span><span class="mi">273</span>         <span class="n">sessions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sessions</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">274</span> 
+<span class="ne">--&gt; </span><span class="mi">275</span>         <span class="n">count_owned</span><span class="p">(</span><span class="n">sessions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_annotated_units</span><span class="p">(),</span> <span class="s2">&quot;ecephys_session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;unit_count&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span>         <span class="n">count_owned</span><span class="p">(</span><span class="n">sessions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_annotated_channels</span><span class="p">(),</span> <span class="s2">&quot;ecephys_session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;channel_count&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">277</span>         <span class="n">count_owned</span><span class="p">(</span><span class="n">sessions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_annotated_probes</span><span class="p">(),</span> <span class="s2">&quot;ecephys_session_id&quot;</span><span class="p">,</span> <span class="s2">&quot;probe_count&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">_get_annotated_units</span><span class="nt">(self, filter_by_validity, **unit_filter_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span> 
+<span class="g g-Whitespace">    </span><span class="mi">258</span>     <span class="k">def</span> <span class="nf">_get_annotated_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_by_validity</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">unit_filter_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">259</span>         <span class="n">units</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_units</span><span class="p">(</span><span class="n">filter_by_validity</span><span class="o">=</span><span class="n">filter_by_validity</span><span class="p">,</span> <span class="o">**</span><span class="n">unit_filter_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>         <span class="n">channels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_annotated_channels</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span>         <span class="n">annotated_units</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">units</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">left_on</span><span class="o">=</span><span class="s1">&#39;ecephys_channel_id&#39;</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">suffixes</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;_unit&#39;</span><span class="p">,</span> <span class="s1">&#39;_channel&#39;</span><span class="p">])</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">_get_units</span><span class="nt">(self, filter_by_validity, **unit_filter_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">215</span>         <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">UNITS_KEY</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">216</span> 
+<span class="ne">--&gt; </span><span class="mi">217</span>         <span class="n">units</span> <span class="o">=</span> <span class="n">one_file_call_caching</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_api</span><span class="o">.</span><span class="n">get_units</span><span class="p">,</span> <span class="n">write_csv</span><span class="p">,</span> <span class="n">read_csv</span><span class="p">,</span> <span class="n">num_tries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_tries</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>         <span class="n">units</span> <span class="o">=</span> <span class="n">units</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+<span class="g g-Whitespace">    </span><span class="mi">219</span>             <span class="s1">&#39;PT_ratio&#39;</span><span class="p">:</span> <span class="s1">&#39;waveform_PT_ratio&#39;</span><span class="p">,</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">one_file_call_caching</span><span class="nt">(path, fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>         <span class="n">lazy</span><span class="o">=</span><span class="n">lazy</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>         <span class="n">num_tries</span><span class="o">=</span><span class="n">num_tries</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">187</span>         <span class="n">failure_message</span><span class="o">=</span><span class="n">failure_message</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>     <span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>             <span class="n">lazy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span>             <span class="n">num_tries</span><span class="o">=</span><span class="n">num_tries</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">137</span>             <span class="n">failure_message</span><span class="o">=</span><span class="n">failure_message</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">lazy</span> <span class="ow">or</span> <span class="n">read</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">95</span>             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Fetching data from remote&quot;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">96</span>             <span class="n">data</span> <span class="o">=</span> <span class="n">fetch</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span>             <span class="k">if</span> <span class="n">pre_write</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>                 <span class="n">data</span> <span class="o">=</span> <span class="n">pre_write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/ecephys_project_warehouse_api.py</span> in <span class="ni">get_units</span><span class="nt">(self, unit_ids, channel_ids, probe_ids, session_ids, *a, **k)</span>
+<span class="g g-Whitespace">    </span><span class="mi">222</span>             <span class="n">probe_ids</span><span class="o">=</span><span class="n">probe_ids</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span>             <span class="n">channel_ids</span><span class="o">=</span><span class="n">channel_ids</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">224</span>             <span class="n">unit_ids</span><span class="o">=</span><span class="n">unit_ids</span>
+<span class="g g-Whitespace">    </span><span class="mi">225</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/utilities.py</span> in <span class="ni">build_and_execute</span><span class="nt">(query, base, engine, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">71</span> <span class="k">def</span> <span class="nf">build_and_execute</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="n">env</span> <span class="o">=</span> <span class="n">build_environment</span><span class="p">({</span><span class="s2">&quot;__tmp__&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">},</span> <span class="n">base</span><span class="o">=</span><span class="n">base</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">73</span>     <span class="k">return</span> <span class="n">execute_templated</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="s2">&quot;__tmp__&quot;</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span> 
+<span class="g g-Whitespace">     </span><span class="mi">75</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/utilities.py</span> in <span class="ni">execute_templated</span><span class="nt">(environment, name, engine, engine_kwargs, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">91</span>     <span class="n">rendered</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span> 
+<span class="ne">---&gt; </span><span class="mi">93</span>     <span class="k">return</span> <span class="n">engine</span><span class="p">(</span><span class="n">rendered</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/rma_engine.py</span> in <span class="ni">get_rma_tabular</span><span class="nt">(self, query, try_infer_dtypes)</span>
+<span class="g g-Whitespace">     </span><span class="mi">94</span> 
+<span class="g g-Whitespace">     </span><span class="mi">95</span>     <span class="k">def</span> <span class="nf">get_rma_tabular</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">try_infer_dtypes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">96</span>         <span class="n">response</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_rma_list</span><span class="p">(</span><span class="n">query</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">97</span> 
+<span class="g g-Whitespace">     </span><span class="mi">98</span>         <span class="k">if</span> <span class="n">try_infer_dtypes</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/rma_engine.py</span> in <span class="ni">get_rma_list</span><span class="nt">(self, query)</span>
+<span class="g g-Whitespace">     </span><span class="mi">89</span>     <span class="k">def</span> <span class="nf">get_rma_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">90</span>         <span class="n">response</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ne">---&gt; </span><span class="mi">91</span>         <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_rma</span><span class="p">(</span><span class="n">query</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">92</span>             <span class="n">response</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">93</span>         <span class="k">return</span> <span class="n">response</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/rma_engine.py</span> in <span class="ni">get_rma</span><span class="nt">(self, query)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span>         <span class="k">while</span> <span class="n">total_rows</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">start_row</span> <span class="o">&lt;</span> <span class="n">total_rows</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">76</span>             <span class="n">current_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_page_params</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">start_row</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">77</span>             <span class="n">response_json</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current_url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span>             <span class="k">if</span> <span class="ow">not</span> <span class="n">response_json</span><span class="p">[</span><span class="s2">&quot;success&quot;</span><span class="p">]:</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>                 <span class="k">raise</span> <span class="n">RmaRequestError</span><span class="p">(</span><span class="n">response_json</span><span class="p">[</span><span class="s2">&quot;msg&quot;</span><span class="p">])</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/requests/api.py</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span> 
+<span class="g g-Whitespace">     </span><span class="mi">75</span>     <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;allow_redirects&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">76</span>     <span class="k">return</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span> 
+<span class="g g-Whitespace">     </span><span class="mi">78</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/requests/api.py</span> in <span class="ni">request</span><span class="nt">(method, url, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span>     <span class="c1"># cases, and look like a memory leak in others.</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="k">with</span> <span class="n">sessions</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">61</span>         <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">62</span> 
+<span class="g g-Whitespace">     </span><span class="mi">63</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/requests/sessions.py</span> in <span class="ni">request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
+<span class="g g-Whitespace">    </span><span class="mi">540</span>         <span class="p">}</span>
+<span class="g g-Whitespace">    </span><span class="mi">541</span>         <span class="n">send_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">542</span>         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prep</span><span class="p">,</span> <span class="o">**</span><span class="n">send_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">543</span> 
+<span class="g g-Whitespace">    </span><span class="mi">544</span>         <span class="k">return</span> <span class="n">resp</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/requests/sessions.py</span> in <span class="ni">send</span><span class="nt">(self, request, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">653</span> 
+<span class="g g-Whitespace">    </span><span class="mi">654</span>         <span class="c1"># Send the request</span>
+<span class="ne">--&gt; </span><span class="mi">655</span>         <span class="n">r</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">656</span> 
+<span class="g g-Whitespace">    </span><span class="mi">657</span>         <span class="c1"># Total elapsed time of the request (approximately)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/requests/adapters.py</span> in <span class="ni">send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span>                     <span class="n">decode_content</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">448</span>                     <span class="n">retries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">449</span>                     <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+<span class="g g-Whitespace">    </span><span class="mi">450</span>                 <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">451</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/connectionpool.py</span> in <span class="ni">urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">704</span>                 <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">705</span>                 <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">706</span>                 <span class="n">chunked</span><span class="o">=</span><span class="n">chunked</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">707</span>             <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">708</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/connectionpool.py</span> in <span class="ni">_make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">443</span>                     <span class="c1"># Python 3 (including for exceptions like SystemExit).</span>
+<span class="g g-Whitespace">    </span><span class="mi">444</span>                     <span class="c1"># Otherwise it looks like a bug in the code.</span>
+<span class="ne">--&gt; </span><span class="mi">445</span>                     <span class="n">six</span><span class="o">.</span><span class="n">raise_from</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">446</span>         <span class="k">except</span> <span class="p">(</span><span class="n">SocketTimeout</span><span class="p">,</span> <span class="n">BaseSSLError</span><span class="p">,</span> <span class="n">SocketError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">447</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_raise_timeout</span><span class="p">(</span><span class="n">err</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout_value</span><span class="o">=</span><span class="n">read_timeout</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/packages/six.py</span> in <span class="ni">raise_from</span><span class="nt">(value, from_value)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/connectionpool.py</span> in <span class="ni">_make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span>                 <span class="c1"># Python 3</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span>                 <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">440</span>                     <span class="n">httplib_response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span>                 <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">442</span>                     <span class="c1"># Remove the TypeError from the exception chain in</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/http/client.py</span> in <span class="ni">getresponse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1319</span>         <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1320</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1321</span>                 <span class="n">response</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1322</span>             <span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1323</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/http/client.py</span> in <span class="ni">begin</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">294</span>         <span class="c1"># read until we get a non-100 response</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span>         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">296</span>             <span class="n">version</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_status</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">297</span>             <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">CONTINUE</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">298</span>                 <span class="k">break</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/http/client.py</span> in <span class="ni">_read_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">255</span> 
+<span class="g g-Whitespace">    </span><span class="mi">256</span>     <span class="k">def</span> <span class="nf">_read_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">257</span>         <span class="n">line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="n">_MAXLINE</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;iso-8859-1&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span>         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">_MAXLINE</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="k">raise</span> <span class="n">LineTooLong</span><span class="p">(</span><span class="s2">&quot;status line&quot;</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/socket.py</span> in <span class="ni">readinto</span><span class="nt">(self, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">587</span>         <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span>             <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">589</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span>             <span class="k">except</span> <span class="n">timeout</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">591</span>                 <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_occurred</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -1058,7 +1319,7 @@ dl.xr-attrs {
   stroke: currentColor;
   fill: currentColor;
 }
-</style><div class='xr-wrap'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'spike_counts'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>unit_id</span>: 52</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-ad3f4ba7-758b-4478-a788-a177000c5e99' class='xr-array-in' type='checkbox' ><label for='section-ad3f4ba7-758b-4478-a788-a177000c5e99' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>0.0 198.3 0.0 1.667 6.667 0.0 5.0 ... 0.0 0.0 0.0 0.0 3.333 0.0 0.0</span></div><pre class='xr-array-data'>array([  0.        , 198.33333333,   0.        ,   1.66666667,
+</style><div class='xr-wrap'><div class='xr-header'><div class='xr-obj-type'>xarray.DataArray</div><div class='xr-array-name'>'spike_counts'</div><ul class='xr-dim-list'><li><span class='xr-has-index'>unit_id</span>: 52</li></ul></div><ul class='xr-sections'><li class='xr-section-item'><div class='xr-array-wrap'><input id='section-2c17402a-7acc-448e-932e-03a6b953e76a' class='xr-array-in' type='checkbox' ><label for='section-2c17402a-7acc-448e-932e-03a6b953e76a' title='Show/hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-array-preview xr-preview'><span>0.0 198.3 0.0 1.667 6.667 0.0 5.0 ... 0.0 0.0 0.0 0.0 3.333 0.0 0.0</span></div><pre class='xr-array-data'>array([  0.        , 198.33333333,   0.        ,   1.66666667,
          6.66666667,   0.        ,   5.        ,  15.        ,
          6.66666667,   3.33333333,   0.        ,   6.66666667,
          1.66666667, 131.66666667,  10.        ,  55.        ,
@@ -1070,7 +1331,7 @@ dl.xr-attrs {
        235.        ,   1.66666667,  10.        ,   0.        ,
         21.66666667,   0.        ,   3.33333333,   1.66666667,
          0.        ,   0.        ,   0.        ,   0.        ,
-         0.        ,   3.33333333,   0.        ,   0.        ])</pre></div></li><li class='xr-section-item'><input id='section-828bd727-9cb2-4cfb-81ba-9db765d46825' class='xr-section-summary-in' type='checkbox'  checked><label for='section-828bd727-9cb2-4cfb-81ba-9db765d46825' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>unit_id</span></div><div class='xr-var-dims'>(unit_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>951132060 951132054 ... 951132419</div><input id='attrs-3f100d39-42ba-4023-a60e-3a0e4d934e12' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-3f100d39-42ba-4023-a60e-3a0e4d934e12' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-c887765a-9ab8-4950-9f99-0401bfb72db5' class='xr-var-data-in' type='checkbox'><label for='data-c887765a-9ab8-4950-9f99-0401bfb72db5' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([951132060, 951132054, 951132379, 951132066, 951132064, 951132062,
+         0.        ,   3.33333333,   0.        ,   0.        ])</pre></div></li><li class='xr-section-item'><input id='section-5cb00223-5793-4268-a6a8-067f9bd27b3e' class='xr-section-summary-in' type='checkbox'  checked><label for='section-5cb00223-5793-4268-a6a8-067f9bd27b3e' class='xr-section-summary' >Coordinates: <span>(1)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><ul class='xr-var-list'><li class='xr-var-item'><div class='xr-var-name'><span class='xr-has-index'>unit_id</span></div><div class='xr-var-dims'>(unit_id)</div><div class='xr-var-dtype'>int64</div><div class='xr-var-preview xr-preview'>951132060 951132054 ... 951132419</div><input id='attrs-746c35ca-cfa5-44c8-97c5-ab6721987617' class='xr-var-attrs-in' type='checkbox' disabled><label for='attrs-746c35ca-cfa5-44c8-97c5-ab6721987617' title='Show/Hide attributes'><svg class='icon xr-icon-file-text2'><use xlink:href='#icon-file-text2'></use></svg></label><input id='data-23ad2596-8588-4441-bc1f-23dcc93692d4' class='xr-var-data-in' type='checkbox'><label for='data-23ad2596-8588-4441-bc1f-23dcc93692d4' title='Show/Hide data repr'><svg class='icon xr-icon-database'><use xlink:href='#icon-database'></use></svg></label><div class='xr-var-attrs'><dl class='xr-attrs'></dl></div><pre class='xr-var-data'>array([951132060, 951132054, 951132379, 951132066, 951132064, 951132062,
        951132381, 951132070, 951132078, 951132090, 951132092, 951132112,
        951132124, 951132138, 951132136, 951132140, 951132393, 951132395,
        951132153, 951132159, 951132175, 951132173, 951132171, 951132179,
@@ -1078,7 +1339,7 @@ dl.xr-attrs {
        951132401, 951132218, 951132212, 951132208, 951132205, 951132226,
        951132224, 951132403, 951132220, 951132459, 951132236, 951132234,
        951132232, 951132230, 951132405, 951132254, 951132258, 951132288,
-       951132290, 951132302, 951132308, 951132419])</pre></li></ul></div></li><li class='xr-section-item'><input id='section-729604cc-ee7b-4094-88b7-33625f762dc9' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-729604cc-ee7b-4094-88b7-33625f762dc9' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
+       951132290, 951132302, 951132308, 951132419])</pre></li></ul></div></li><li class='xr-section-item'><input id='section-d3372225-bce2-44c4-8e69-675a09968a68' class='xr-section-summary-in' type='checkbox' disabled ><label for='section-d3372225-bce2-44c4-8e69-675a09968a68' class='xr-section-summary'  title='Expand/collapse section'>Attributes: <span>(0)</span></label><div class='xr-section-inline-details'></div><div class='xr-section-details'><dl class='xr-attrs'></dl></div></li></ul></div></div></div></div>
 </div>
 <p>We now have two DataArrays, one that contains the mean firing rate of the units at baseline, and one that contains the mean firing rate of the units during the pulse. Plotting a scatter plot with these two areas will show us how a unit’s basline firing rate compares to its evoked firing rate.</p>
 <div class="cell docutils container">
@@ -1210,15 +1471,15 @@ dl.xr-attrs {
 
               </div>
               
-        </div>
-    </div>
-    
-    
-    <div class='prev-next-bottom'>
         
+        <div class='prev-next-bottom'>
+            
     <a class='left-prev' id="prev-link" href="Correlating_Spike_Trains_with_Stimuli_and_Behavior.html" title="previous page"><span class="section-number">3.2. </span>Correlating Spike Trains with Stimuli and Behavior</a>
     <a class='right-next' id="next-link" href="../Chapter_04/Single-Cell_Electrophysiology.html" title="next page"><span class="section-number">4. </span>Single-Cell Electrophysiology</a>
 
+        </div>
+        
+        </div>
     </div>
     <footer class="footer mt-5 mt-md-0">
     <div class="container">
@@ -1226,7 +1487,7 @@ dl.xr-attrs {
         
           By Victor Magdaleno-Garcia<br/>
         
-            &copy; Copyright 2020.<br/>
+            &copy; Copyright 2021.<br/>
       </p>
     </div>
   </footer>
@@ -1235,11 +1496,9 @@ dl.xr-attrs {
 
       </div>
     </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
-
-
-    
+  
   </body>
 </html>
