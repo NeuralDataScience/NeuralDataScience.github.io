@@ -1,5 +1,0 @@
-allensdk==2.11.2
-numpy==1.18.5
-pandas==0.25.3
-matplotlib==3.4.2
-scipy==1.6.3
