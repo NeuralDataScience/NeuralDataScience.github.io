@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.4. Sample Visualizations &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>2.3. Sample Visualizations &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. Large Scale Electrophysiology" href="../Chapter_03/Large_Scale_Electrophysiology.html" />
-    <link rel="prev" title="2.3. Working with NWB in Python" href="Working_with_NWB_format_in_Python.html" />
+    <link rel="next" title="2.4. Chapter 2 Problem Set" href="Chapter_2_ProblemSet.html" />
+    <link rel="prev" title="2.2. Working with NWB in Python" href="Working_with_NWB_format_in_Python.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -129,17 +129,22 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Obtaining_Datasets_with_DANDI.html">
-     2.2. Obtaining Datasets with DANDI
+     2.1. Obtaining Datasets with DANDI
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Working_with_NWB_format_in_Python.html">
-     2.3. Working with NWB in Python
+     2.2. Working with NWB in Python
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.4. Sample Visualizations
+     2.3. Sample Visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Chapter_2_ProblemSet.html">
+     2.4. Chapter 2 Problem Set
     </a>
    </li>
   </ul>
@@ -315,17 +320,17 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#binning-firing-rates">
-   2.4.1. Binning Firing Rates
+   2.3.1. Binning Firing Rates
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#compare-firing-rates-at-different-depths-of-cortex">
-   2.4.2. Compare firing rates at different depths of cortex
+   2.3.2. Compare firing rates at different depths of cortex
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-resources">
-   2.4.3. Additional resources
+   2.3.3. Additional resources
   </a>
  </li>
 </ul>
@@ -340,7 +345,7 @@
               <div>
                 
   <div class="section" id="sample-visualizations">
-<h1><span class="section-number">2.4. </span>Sample Visualizations<a class="headerlink" href="#sample-visualizations" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2.3. </span>Sample Visualizations<a class="headerlink" href="#sample-visualizations" title="Permalink to this headline">¶</a></h1>
 <p>Now that we are familiar with the structure of an <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> as well as the groups encapsulated within it, we are ready to work with the data. In this chapter you will learn to search the <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> for its available data and plot visualizations such as raster plots.</p>
 <p>Below, we’ll import some now familiar packages and once again work with the dataset we obtained in <a class="reference external" href="https://neuraldatascience.github.io/Chapter_02/Obtaining_Datasets_with_DANDI.html">Chapter 2.1</a>.</p>
 <div class="cell docutils container">
@@ -521,7 +526,7 @@ id ...</td>
 </div>
 <p>The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings!</p>
 <div class="section" id="binning-firing-rates">
-<h2><span class="section-number">2.4.1. </span>Binning Firing Rates<a class="headerlink" href="#binning-firing-rates" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3.1. </span>Binning Firing Rates<a class="headerlink" href="#binning-firing-rates" title="Permalink to this headline">¶</a></h2>
 <p>Raster plots are great for seeing individual neural spikes, but difficult to see the overall firing rates of the units. To get a better sense of the overall firing rates of our units, we can bin our spikes into time bins of 1 second. The function below, <code class="docutils literal notranslate"><span class="pre">plot_firing_rates()</span></code> take the following arguments:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">spike_times</span></code>: <em>list</em> of spike times, in seconds</p></li>
@@ -531,35 +536,12 @@ id ...</td>
 <p>The function plots the overall firing rate for each array of spike times in the list that is passed through it, in 1 second time bins. Below, we will plot the firing rates of the spikes times stored in <code class="docutils literal notranslate"><span class="pre">neural_data</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">neural_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-<span class="n">numbins</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">7</span><span class="n">dfe8844375f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">neural_data</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">numbins</span>
-
-<span class="ne">NameError</span>: name &#39;neural_data&#39; is not defined
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_firing_rates</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">start_time</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">end_time</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-
-    <span class="c1"># Create figure</span>
-    <span class="c1">#plt.figure(figsize = (7,5))</span>
     
     <span class="c1"># Assign total number of bins </span>
     <span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
     <span class="n">binned_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">numbins</span><span class="p">))</span>
-
-    
+  
     <span class="c1"># Assign the frequency of spikes over time</span>
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numbins</span><span class="p">):</span>
         <span class="n">binned_spikes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[(</span><span class="n">spike_times</span><span class="o">&gt;</span><span class="n">j</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">spike_times</span><span class="o">&lt;</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
@@ -588,12 +570,12 @@ id ...</td>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Sample_Visualizations_14_0.png" src="../_images/Sample_Visualizations_14_0.png" />
+<img alt="../_images/Sample_Visualizations_13_0.png" src="../_images/Sample_Visualizations_13_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="compare-firing-rates-at-different-depths-of-cortex">
-<h2><span class="section-number">2.4.2. </span>Compare firing rates at different depths of cortex<a class="headerlink" href="#compare-firing-rates-at-different-depths-of-cortex" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3.2. </span>Compare firing rates at different depths of cortex<a class="headerlink" href="#compare-firing-rates-at-different-depths-of-cortex" title="Permalink to this headline">¶</a></h2>
 <p>The units in our data were recorded from various cortical depths, therefore we can compare the firing units from differing cortical depths to test for differing firing rates. Let’s first take a look at the distribution of depth from our units.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -608,10 +590,10 @@ id ...</td>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Sample_Visualizations_16_0.png" src="../_images/Sample_Visualizations_16_0.png" />
+<img alt="../_images/Sample_Visualizations_15_0.png" src="../_images/Sample_Visualizations_15_0.png" />
 </div>
 </div>
-<p>We will compare the units that were recorded from 1165nm and 715nm coritcal depths.</p>
+<p>We will compare the units that were recorded from 1165um and 715um coritcal depths.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign dataframes for different depths </span>
@@ -630,13 +612,13 @@ id ...</td>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Sample_Visualizations_18_0.png" src="../_images/Sample_Visualizations_18_0.png" />
-<img alt="../_images/Sample_Visualizations_18_1.png" src="../_images/Sample_Visualizations_18_1.png" />
+<img alt="../_images/Sample_Visualizations_17_0.png" src="../_images/Sample_Visualizations_17_0.png" />
+<img alt="../_images/Sample_Visualizations_17_1.png" src="../_images/Sample_Visualizations_17_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h2><span class="section-number">2.4.3. </span>Additional resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3.3. </span>Additional resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>For more ideas about how to play with this dataset, see this <a class="reference external" href="https://github.com/vathes/DJ-NWB-Economo-2018/blob/master/notebooks/Economo-2018-examples.ipynb">Github repository</a>.</p>
 </div>
 </div>
@@ -666,8 +648,8 @@ id ...</td>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Working_with_NWB_format_in_Python.html" title="previous page"><span class="section-number">2.3. </span>Working with NWB in Python</a>
-    <a class='right-next' id="next-link" href="../Chapter_03/Large_Scale_Electrophysiology.html" title="next page"><span class="section-number">3. </span>Large Scale Electrophysiology</a>
+    <a class='left-prev' id="prev-link" href="Working_with_NWB_format_in_Python.html" title="previous page"><span class="section-number">2.2. </span>Working with NWB in Python</a>
+    <a class='right-next' id="next-link" href="Chapter_2_ProblemSet.html" title="next page"><span class="section-number">2.4. </span>Chapter 2 Problem Set</a>
 
         </div>
         

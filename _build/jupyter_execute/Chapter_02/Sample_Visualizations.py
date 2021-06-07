@@ -100,23 +100,12 @@ plt.show()
 # In[5]:
 
 
-numbins = int(np.ceil(neural_data[-1]))
-numbins
-
-
-# In[112]:
-
-
 def plot_firing_rates(spike_times, start_time = None, end_time = None):
-
-    # Create figure
-    #plt.figure(figsize = (7,5))
     
     # Assign total number of bins 
     numbins = int(np.ceil(spike_times[-1]))
     binned_spikes = np.empty((numbins))
-
-    
+  
     # Assign the frequency of spikes over time
     for j in range(numbins):
         binned_spikes[j] = len(spike_times[(spike_times>j)&(spike_times<j+1)])
@@ -133,7 +122,7 @@ def plot_firing_rates(spike_times, start_time = None, end_time = None):
     return 
 
 
-# In[130]:
+# In[6]:
 
 
 # Plot our data
@@ -146,7 +135,7 @@ plt.show()
 # 
 # The units in our data were recorded from various cortical depths, therefore we can compare the firing units from differing cortical depths to test for differing firing rates. Let's first take a look at the distribution of depth from our units.
 
-# In[45]:
+# In[7]:
 
 
 # Plot distribution of neuron depth 
@@ -158,9 +147,9 @@ plt.ylabel('Frequency')
 plt.show()
 
 
-# We will compare the units that were recorded from 1165nm and 715nm coritcal depths.
+# We will compare the units that were recorded from 1165um and 715um coritcal depths.
 
-# In[127]:
+# In[8]:
 
 
 # Assign dataframes for different depths 
