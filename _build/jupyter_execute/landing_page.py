@@ -3,15 +3,16 @@
 
 # # Teaching and Learning with NWB Datasets
 
-# ## Overview
-
-# ### This is a work in progress.
+# With a rapidly growing field comes a growing body of diverse data. In neuroscience, and in research more broadly, there are many obstacles when it comes to data sharing with other labs. Most labs collect and store their data in different data formats and analyze their data with custom analysis code, making it tough to compare and integrate data.
 # 
-# This online textbook will provide interactive resources for researchers, educators, and students who would like to use open neuroscience datasets for research and teaching. This book will provide tutorials in the form of interactive notebooks and videos for how to use Python to wrangle neuroscience datasets, with a focus on [Neurodata Without Borders](https://www.nwb.org/) datasets.
-
-# ## Contributors
-# Ashley Juavinett & Victor Magdaleno-Garcia
+# That's where [Neurodata Without Borders](https://www.nwb.org/)(NWB) comes in. NWB is a consortium of researchers who are aiming to "standardize neuroscience data on an international scale."
 # 
+# The creation of this standard dataset format will make sharing and contributing to open source projects easier, ultimately accelerating discovery. There is much more about NWB on [their website](https://www.nwb.org/about-nwb/).
+# 
+# ## About this online textbook
+# 
+# A standardized data format like NWB also opens possibilities for more easily integrating these cutting-edge datasets into the classroom. This online textbook aims to provide interactive and self-guidedd resources for researchers, educators, and students who would like to use open neuroscience datasets for research and/or teaching. Within, you'll find tutorials in the form of interactive notebooks for how to use Python to wrangle NWB datasets. At the end of each chapter, there are problem sets so that you can test your skills at wrangling and analyzing the data.
+
 # ## Support
 # <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Logo_Kavli_Foundation.png"
 #      alt="Kavli Logo"
@@ -28,7 +29,7 @@
 # 
 # Many thanks to the NWB team for their feedback and input.
 
-# ## Additional Resources 
+# ## Additional resources 
 # There are several great online resources for neural data science beyond NWB formats:
 # 
 # - [Data Science in Practice](https://datascienceinpractice.github.io/)

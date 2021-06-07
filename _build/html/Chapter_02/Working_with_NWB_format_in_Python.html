@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.2. Working with NWB in Python &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>2.3. Working with NWB in Python &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.3. Sample Analyses" href="Sample_Analyses.html" />
-    <link rel="prev" title="2.1. Obtaining Datasets with DANDI" href="Obtaining_Datasets_with_DANDI.html" />
+    <link rel="next" title="2.4. Sample Visualizations" href="Sample_Visualizations.html" />
+    <link rel="prev" title="2.2. Obtaining Datasets with DANDI" href="Obtaining_Datasets_with_DANDI.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -129,17 +129,17 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Obtaining_Datasets_with_DANDI.html">
-     2.1. Obtaining Datasets with DANDI
+     2.2. Obtaining Datasets with DANDI
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.2. Working with NWB in Python
+     2.3. Working with NWB in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Sample_Analyses.html">
-     2.3. Sample Analyses
+    <a class="reference internal" href="Sample_Visualizations.html">
+     2.4. Sample Visualizations
     </a>
    </li>
   </ul>
@@ -315,12 +315,12 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#file-hierarchy-groups-datasets-and-attributes">
-   2.2.1. File Hierarchy: Groups, Datasets, and Attributes¶
+   2.3.1. File Hierarchy: Groups, Datasets, and Attributes¶
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-resources">
-   2.2.2. Additional Resources
+   2.3.2. Additional Resources
   </a>
  </li>
 </ul>
@@ -335,7 +335,8 @@
               <div>
                 
   <div class="section" id="working-with-nwb-in-python">
-<h1><span class="section-number">2.2. </span>Working with NWB in Python<a class="headerlink" href="#working-with-nwb-in-python" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2.3. </span>Working with NWB in Python<a class="headerlink" href="#working-with-nwb-in-python" title="Permalink to this headline">¶</a></h1>
+<p>On the previous page, we demonstrated how to obtain a dataset with DANDI. Now that you have a dataset downloaded, let’s take a close look at it so that we can understand how to work with these NWB files.</p>
 <p><strong>Important</strong>: This notebook will only work with the 2.10.0 version of the h5py package. The cell below will ensure that you have this version installed. If not, you should run the <code class="docutils literal notranslate"><span class="pre">!pip</span> <span class="pre">install</span></code> line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -365,56 +366,20 @@
 <span class="c1"># read the NWB file</span>
 <span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000006/sub-anm369962/sub-anm369962_ses-20170310.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File downloaded.&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File found and read.&#39;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">UnsupportedOperation</span><span class="g g-Whitespace">                      </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">574</span><span class="n">fe71b07ce</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># read the NWB file</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000006/sub-anm369962/sub-anm369962_ses-20170310.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File downloaded.&#39;</span><span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">func_call</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">559</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">560</span>                 <span class="n">pargs</span> <span class="o">=</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">561</span>                 <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">pargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">562</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">563</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/pynwb/__init__.py</span> in <span class="ni">__init__</span><span class="nt">(self, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">244</span>             <span class="k">elif</span> <span class="n">manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">245</span>                 <span class="n">manager</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">246</span>         <span class="nb">super</span><span class="p">(</span><span class="n">NWBHDF5IO</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="n">manager</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file_obj</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="n">comm</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span> 
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="nd">@docval</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;src_io&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">HDMFIO</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;the HDMFIO object for reading the data to export&#39;</span><span class="p">},</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">func_call</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">559</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">560</span>                 <span class="n">pargs</span> <span class="o">=</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">561</span>                 <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">pargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">562</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">563</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/hdmf/backends/hdf5/h5tools.py</span> in <span class="ni">__init__</span><span class="nt">(self, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">53</span>         <span class="k">if</span> <span class="n">file_obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r+&#39;</span><span class="p">):</span>
-<span class="nn">     54             msg = &quot;Unable to open file %s</span> in <span class="ni">&#39;%s&#39; mode. File does not exist.&quot; % </span><span class="nt">(path, mode)</span>
-<span class="ne">---&gt; </span><span class="mi">55</span>             <span class="k">raise</span> <span class="n">UnsupportedOperation</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">56</span> 
-<span class="g g-Whitespace">     </span><span class="mi">57</span>         <span class="k">if</span> <span class="n">file_obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;w-&#39;</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">):</span>
-
-<span class="ne">UnsupportedOperation</span>: Unable to open file 000006/sub-anm369962/sub-anm369962_ses-20170310.nwb in &#39;r&#39; mode. File does not exist.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>File found and read.
+&lt;class &#39;pynwb.file.NWBFile&#39;&gt;
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="file-hierarchy-groups-datasets-and-attributes">
-<h2><span class="section-number">2.2.1. </span>File Hierarchy: Groups, Datasets, and Attributes¶<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3.1. </span>File Hierarchy: Groups, Datasets, and Attributes¶<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
 <p>The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute returns a dictionary contiaining the the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -430,20 +395,6 @@
 </div>
 </div>
 </div>
-<p>Each NWB file will have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. These Groups can be accessed using <code class="docutils literal notranslate"><span class="pre">institution</span></code>, <code class="docutils literal notranslate"><span class="pre">lab</span></code>, and <code class="docutils literal notranslate"><span class="pre">experiment_description</span></code>, attributes on our nwb_file, respectively.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get Meta-Data from NWB file </span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The experiment within this NWB file was conducted at </span><span class="si">{}</span><span class="s1"> in the lab of </span><span class="si">{}</span><span class="s1">. The experiment is detailed as follows: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nwb_file</span><span class="o">.</span><span class="n">institution</span><span class="p">,</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">lab</span><span class="p">,</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">experiment_description</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The experiment within this NWB file was conducted at Janelia Research Campus in the lab of None. The experiment is detailed as follows: Extracellular electrophysiology recordings performed on mouse anterior lateral motor cortex (ALM) in delay response task. Neural activity from two neuron populations, pyramidal track upper and lower, were characterized, in relation to movement execution.
-</pre></div>
-</div>
-</div>
-</div>
 <p>We can access datasets from each group in our nwb_file with the following syntax: <code class="docutils literal notranslate"><span class="pre">nwb_file.group</span></code>. This is no different than executing a method and/or attribute. Below we will demonstrate some of the useful groups within an <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> object.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">acquisition</span></code> group contains datasets of acquisition data, mainly <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> objects belonging to this NWBFile.</p>
 <div class="cell docutils container">
@@ -453,7 +404,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140688819106384
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140297132276200
  Fields:
    time_series: {
      lick_left_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
@@ -484,7 +435,7 @@
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group contains all time interval tables from the experiemnt. We can look at the <code class="docutils literal notranslate"><span class="pre">description</span></code> field to understand what each dataset in contains.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group contains all time interval tables from the experiment. We can look at the <code class="docutils literal notranslate"><span class="pre">description</span></code> field to understand what each contains.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># example showing how to return meta data from groups in nwb file </span>
@@ -493,7 +444,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140688819287440
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140297132336352
  Fields:
    colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;type&#39; &#39;response&#39; &#39;stim_present&#39; &#39;is_good&#39;
   &#39;cue_start_time&#39; &#39;pole_in_time&#39; &#39;pole_out_time&#39;]
@@ -638,52 +589,25 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># return the description of each col in our dataframe</span>
 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">col</span> <span class="o">+</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="n">intervals</span><span class="p">[</span><span class="s1">&#39;trials&#39;</span><span class="p">][</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>start_time:
-Start time of epoch, in seconds
-
-
-stop_time:
-Stop time of epoch, in seconds
-
-
-type:
-
-
-
-response:
-
-
-
-stim_present:
-is this a stim or no-stim trial
-
-
-is_good:
-good/bad status of trial (bad trials are not analyzed)
-
-
-cue_start_time:
-onset of response period
-
-
-pole_in_time:
-onset of sample period
-
-
-pole_out_time:
-onset of the delay period
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>start_time : Start time of epoch, in seconds
+stop_time : Stop time of epoch, in seconds
+type : 
+response : 
+stim_present : is this a stim or no-stim trial
+is_good : good/bad status of trial (bad trials are not analyzed)
+cue_start_time : onset of response period
+pole_in_time : onset of sample period
+pole_out_time : onset of the delay period
 </pre></div>
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">units</span></code> group in our nwb_file contains the neural activity of our units, including spike data for scientific analysis. Much like the <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group, <code class="docutils literal notranslate"><span class="pre">units</span></code> is also a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> that can be assigned to a dataframe.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">units</span></code> group in our nwb_file contains the neural activity of our units, including spike data. Much like the <code class="docutils literal notranslate"><span class="pre">intervals</span></code> group, <code class="docutils literal notranslate"><span class="pre">units</span></code> is also a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code> that can be assigned to a dataframe.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">units</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">units</span>
@@ -776,7 +700,7 @@ id ...</td>
 </table>
 </div></div></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">electrodes</span></code> group contians metadata from the elctrodes used in the experimental trials. Also a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code>, the data includes location of the electrodes, type of filtering, and the whats electrode group the electrode belongs to.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">electrodes</span></code> group contains metadata from the elctrodes used in the experimental trials. Also a <code class="docutils literal notranslate"><span class="pre">DynamicTable</span></code>, <code class="docutils literal notranslate"><span class="pre">electrodes</span></code> includes location of the electrodes, type of filtering, and which electrode group the electrode belongs to.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># electrode positions </span>
@@ -888,7 +812,7 @@ id ...</td>
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h2><span class="section-number">2.2.2. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.3.2. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>For an in depth explanation of all groups contained within an <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> object please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.file.html'> pynwb.file.NWBFile </a> section of the PyNWB documentation.</p>
 </div>
 </div>
@@ -918,8 +842,8 @@ id ...</td>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Obtaining_Datasets_with_DANDI.html" title="previous page"><span class="section-number">2.1. </span>Obtaining Datasets with DANDI</a>
-    <a class='right-next' id="next-link" href="Sample_Analyses.html" title="next page"><span class="section-number">2.3. </span>Sample Analyses</a>
+    <a class='left-prev' id="prev-link" href="Obtaining_Datasets_with_DANDI.html" title="previous page"><span class="section-number">2.2. </span>Obtaining Datasets with DANDI</a>
+    <a class='right-next' id="next-link" href="Sample_Visualizations.html" title="next page"><span class="section-number">2.4. </span>Sample Visualizations</a>
 
         </div>
         
@@ -929,7 +853,7 @@ id ...</td>
     <div class="container">
       <p>
         
-          By Victor Magdaleno-Garcia<br/>
+          By Victor Magdaleno-Garcia & Ashley Juavinett<br/>
         
             &copy; Copyright 2021.<br/>
       </p>

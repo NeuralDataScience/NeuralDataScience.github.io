@@ -51,7 +51,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.1. Obtaining Datasets with DANDI" href="Obtaining_Datasets_with_DANDI.html" />
+    <link rel="next" title="2.2. Obtaining Datasets with DANDI" href="Obtaining_Datasets_with_DANDI.html" />
     <link rel="prev" title="1.3. SciPy" href="../Chapter_01/SciPy.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -129,17 +129,17 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="Obtaining_Datasets_with_DANDI.html">
-     2.1. Obtaining Datasets with DANDI
+     2.2. Obtaining Datasets with DANDI
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Working_with_NWB_format_in_Python.html">
-     2.2. Working with NWB in Python
+     2.3. Working with NWB in Python
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="Sample_Analyses.html">
-     2.3. Sample Analyses
+    <a class="reference internal" href="Sample_Visualizations.html">
+     2.4. Sample Visualizations
     </a>
    </li>
   </ul>
@@ -308,6 +308,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#neurodata-without-borders-neurophysiology">
+   2.1. Neurodata Without Borders: Neurophysiology
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -318,11 +331,13 @@
                 
   <div class="section" id="obtaining-and-working-with-nwb-datasets">
 <h1><span class="section-number">2. </span>Obtaining and Working with NWB Datasets<a class="headerlink" href="#obtaining-and-working-with-nwb-datasets" title="Permalink to this headline">¶</a></h1>
-<p>In neuroscience, and research more broadly, there are many obstacles when it comes to data sharing with other labs. With a rapidly growing field comes the strain of there being too much data to work with, which makes the data difficult to analyze and share with other scientists around the world. The aim of Neurodata Without Borders is to standardize neuroscience data on an international scale. The creation of this standard dataset format will make sharing and contributing to open source projects easier, ultimatly accelerating discovery.</p>
-<p><strong>The goal of NWB</strong></p>
-<p>There is currently no standardized way to collect and share data in neuroscience. No standard makes it challenging for experimental results to be compared across labs, slowing down the overall progression of the field. The goal of Neurodata Without Bordersis to develop a unified, extensible, open-source data format for cellular-based neurophysiology data  to improve the collaboration of neuroscience projects around the world. For more information please visit <a href = 'https://www.nwb.org/'> nwb.org</a>.</p>
-<p><strong>Neurodata Without Borders: Neurophysiology</strong></p>
-<p><a class="reference external" href="https://www.nwb.org/nwb-neurophysiology/">Neurodata Without Borders: Neurophysiolgy (NWB:N)</a> is the common standard to share, store, and build analysis tools for neuroscience data. NWB:N contains software to stadardize data, API’s to read and write data, and important datasets in the neuroscience community that have been converted to NWB format. It also takes into account factors such as experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions.</p>
+<p>NWB datasets can be found in a few different places. In this textbook, we’ll introduce two primary ways to obtain NWB datasets: through DANDI, and through the Allen Institute SDK. This chapter deals with obtaining and analyzing a sample dataset via DANDI.</p>
+<div class="section" id="neurodata-without-borders-neurophysiology">
+<h2><span class="section-number">2.1. </span>Neurodata Without Borders: Neurophysiology<a class="headerlink" href="#neurodata-without-borders-neurophysiology" title="Permalink to this headline">¶</a></h2>
+<p>All of the datasets that we’ll work with here are in the <a class="reference external" href="https://www.nwb.org/nwb-neurophysiology/">Neurodata Without Borders: Neurophysiology (NWB:N)</a> format. NWB:N is the common standard to share, store, and build analysis tools for neuroscience data. NWB:N contains software to stadardize data, APIs to read and write data, and important datasets in the neuroscience community that have been converted to NWB format. As we’ll see in our first dataset, NWB:N also includes factors such as experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions.</p>
+<p>Several of the available NWB:N datasets are highlighted on the <a class="reference external" href="https://www.nwb.org/example-datasets/">NWB website</a>.</p>
+<p>In this chapter, we’ll dig into one of the datasets that uses a technology known as Neuropixels to simultaneously record from many neurons. First, let’s get the dataset.</p>
+</div>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -353,7 +368,7 @@
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="../Chapter_01/SciPy.html" title="previous page"><span class="section-number">1.3. </span>SciPy</a>
-    <a class='right-next' id="next-link" href="Obtaining_Datasets_with_DANDI.html" title="next page"><span class="section-number">2.1. </span>Obtaining Datasets with DANDI</a>
+    <a class='right-next' id="next-link" href="Obtaining_Datasets_with_DANDI.html" title="next page"><span class="section-number">2.2. </span>Obtaining Datasets with DANDI</a>
 
         </div>
         
@@ -363,7 +378,7 @@
     <div class="container">
       <p>
         
-          By Victor Magdaleno-Garcia<br/>
+          By Victor Magdaleno-Garcia & Ashley Juavinett<br/>
         
             &copy; Copyright 2021.<br/>
       </p>

@@ -3,12 +3,12 @@
 
 # # Obtaining and Working with NWB Datasets
 # 
-# In neuroscience, and research more broadly, there are many obstacles when it comes to data sharing with other labs. With a rapidly growing field comes the strain of there being too much data to work with, which makes the data difficult to analyze and share with other scientists around the world. The aim of Neurodata Without Borders is to standardize neuroscience data on an international scale. The creation of this standard dataset format will make sharing and contributing to open source projects easier, ultimatly accelerating discovery. 
-
-# **The goal of NWB**
-
-# There is currently no standardized way to collect and share data in neuroscience. No standard makes it challenging for experimental results to be compared across labs, slowing down the overall progression of the field. The goal of Neurodata Without Bordersis to develop a unified, extensible, open-source data format for cellular-based neurophysiology data  to improve the collaboration of neuroscience projects around the world. For more information please visit <a href = 'https://www.nwb.org/'> nwb.org</a>.
-
-# **Neurodata Without Borders: Neurophysiology**
-
-# [Neurodata Without Borders: Neurophysiolgy (NWB:N)](https://www.nwb.org/nwb-neurophysiology/) is the common standard to share, store, and build analysis tools for neuroscience data. NWB:N contains software to stadardize data, API's to read and write data, and important datasets in the neuroscience community that have been converted to NWB format. It also takes into account factors such as experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions.
+# NWB datasets can be found in a few different places. In this textbook, we'll introduce two primary ways to obtain NWB datasets: through DANDI, and through the Allen Institute SDK. This chapter deals with obtaining and analyzing a sample dataset via DANDI.
+# 
+# ### Neurodata Without Borders: Neurophysiology
+# All of the datasets that we'll work with here are in the [Neurodata Without Borders: Neurophysiology (NWB:N)](https://www.nwb.org/nwb-neurophysiology/) format. NWB:N is the common standard to share, store, and build analysis tools for neuroscience data. NWB:N contains software to stadardize data, APIs to read and write data, and important datasets in the neuroscience community that have been converted to NWB format. As we'll see in our first dataset, NWB:N also includes factors such as experimental design, experimental subjects, behavior, data aquisition, neural activity, and extensions.
+# 
+# Several of the available NWB:N datasets are highlighted on the [NWB website](https://www.nwb.org/example-datasets/). 
+# 
+# In this chapter, we'll dig into one of the datasets that uses a technology known as Neuropixels to simultaneously record from many neurons. First, let's get the dataset.
+# 
