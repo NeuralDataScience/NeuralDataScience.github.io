@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.3. Working with NWB in Python &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>2.2. Working with NWB in Python &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="2.4. Sample Visualizations" href="Sample_Visualizations.html" />
-    <link rel="prev" title="2.2. Obtaining Datasets with DANDI" href="Obtaining_Datasets_with_DANDI.html" />
+    <link rel="next" title="2.3. Sample Visualizations" href="Sample_Visualizations.html" />
+    <link rel="prev" title="2.1. Obtaining Datasets with DANDI" href="Obtaining_Datasets_with_DANDI.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -129,17 +129,22 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Obtaining_Datasets_with_DANDI.html">
-     2.2. Obtaining Datasets with DANDI
+     2.1. Obtaining Datasets with DANDI
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.3. Working with NWB in Python
+     2.2. Working with NWB in Python
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Sample_Visualizations.html">
-     2.4. Sample Visualizations
+     2.3. Sample Visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Chapter_2_ProblemSet.html">
+     2.4. Chapter 2 Problem Set
     </a>
    </li>
   </ul>
@@ -315,12 +320,12 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#file-hierarchy-groups-datasets-and-attributes">
-   2.3.1. File Hierarchy: Groups, Datasets, and Attributes¶
+   2.2.1. File Hierarchy: Groups, Datasets, and Attributes¶
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#additional-resources">
-   2.3.2. Additional Resources
+   2.2.2. Additional Resources
   </a>
  </li>
 </ul>
@@ -335,7 +340,7 @@
               <div>
                 
   <div class="section" id="working-with-nwb-in-python">
-<h1><span class="section-number">2.3. </span>Working with NWB in Python<a class="headerlink" href="#working-with-nwb-in-python" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2.2. </span>Working with NWB in Python<a class="headerlink" href="#working-with-nwb-in-python" title="Permalink to this headline">¶</a></h1>
 <p>On the previous page, we demonstrated how to obtain a dataset with DANDI. Now that you have a dataset downloaded, let’s take a close look at it so that we can understand how to work with these NWB files.</p>
 <p><strong>Important</strong>: This notebook will only work with the 2.10.0 version of the h5py package. The cell below will ensure that you have this version installed. If not, you should run the <code class="docutils literal notranslate"><span class="pre">!pip</span> <span class="pre">install</span></code> line.</p>
 <div class="cell docutils container">
@@ -379,7 +384,7 @@
 </div>
 </div>
 <div class="section" id="file-hierarchy-groups-datasets-and-attributes">
-<h2><span class="section-number">2.3.1. </span>File Hierarchy: Groups, Datasets, and Attributes¶<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2.1. </span>File Hierarchy: Groups, Datasets, and Attributes¶<a class="headerlink" href="#file-hierarchy-groups-datasets-and-attributes" title="Permalink to this headline">¶</a></h2>
 <p>The NWB file is composed of various Groups, Datasets, and Attributes. The data/datasets and cooresponding meta-data are encapsulated within these Groups. The <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute returns a dictionary contiaining the the Groups of our nwb file. The dictionary keys are the various Groups within the file which we will use to access our datasets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -404,7 +409,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140297132276200
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;lick_times&#39;: lick_times pynwb.behavior.BehavioralEvents at 0x140497788621600
  Fields:
    time_series: {
      lick_left_times &lt;class &#39;pynwb.base.TimeSeries&#39;&gt;,
@@ -415,6 +420,7 @@
 </div>
 </div>
 <p>In this file, the acquisition group contains one dataset, <code class="docutils literal notranslate"><span class="pre">lick_times</span></code>. This dataset has one <code class="docutils literal notranslate"><span class="pre">Field</span></code>, <code class="docutils literal notranslate"><span class="pre">time_series</span></code>, which contains two time series objects, <code class="docutils literal notranslate"><span class="pre">lick_left_times</span></code> and <code class="docutils literal notranslate"><span class="pre">lick_right_times</span></code>. To access the actual data arrays of these objects we must first subset our dataset of interest from the group. We can then use <code class="docutils literal notranslate"><span class="pre">data[:]</span></code> to return our actual data array.</p>
+<p><font color='red'>this is just a bunch of ones, not times – why?</font></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select our dataset of interest </span>
@@ -444,7 +450,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140297132336352
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;trials&#39;: trials pynwb.epoch.TimeIntervals at 0x140497788624624
  Fields:
    colnames: [&#39;start_time&#39; &#39;stop_time&#39; &#39;type&#39; &#39;response&#39; &#39;stim_present&#39; &#39;is_good&#39;
   &#39;cue_start_time&#39; &#39;pole_in_time&#39; &#39;pole_out_time&#39;]
@@ -583,6 +589,18 @@
   </tbody>
 </table>
 </div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">interval_trials_df</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;early lick&#39;, &#39;incorrect&#39;, &#39;no response&#39;, &#39;correct&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">description</span></code> attribute provides a short description on each column of the dataframe.</p>
 <div class="cell docutils container">
@@ -812,7 +830,7 @@ id ...</td>
 </div>
 </div>
 <div class="section" id="additional-resources">
-<h2><span class="section-number">2.3.2. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">2.2.2. </span>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
 <p>For an in depth explanation of all groups contained within an <code class="docutils literal notranslate"><span class="pre">NWBFile</span></code> object please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.file.html'> pynwb.file.NWBFile </a> section of the PyNWB documentation.</p>
 </div>
 </div>
@@ -842,8 +860,8 @@ id ...</td>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Obtaining_Datasets_with_DANDI.html" title="previous page"><span class="section-number">2.2. </span>Obtaining Datasets with DANDI</a>
-    <a class='right-next' id="next-link" href="Sample_Visualizations.html" title="next page"><span class="section-number">2.4. </span>Sample Visualizations</a>
+    <a class='left-prev' id="prev-link" href="Obtaining_Datasets_with_DANDI.html" title="previous page"><span class="section-number">2.1. </span>Obtaining Datasets with DANDI</a>
+    <a class='right-next' id="next-link" href="Sample_Visualizations.html" title="next page"><span class="section-number">2.3. </span>Sample Visualizations</a>
 
         </div>
         
