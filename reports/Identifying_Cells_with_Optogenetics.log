@@ -32,8 +32,10 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-all_sessions = cache.get_session_table()
-col = 'full_genotype'
-all_sessions[col].unique()
+# Download a Pvalb laser session
+session_id = 829720705
+session = cache.get_session_data(session_id)
+type(session)
+print('Session Downloaded.')
 -------------------
 
