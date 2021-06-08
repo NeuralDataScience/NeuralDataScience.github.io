@@ -7,7 +7,7 @@
 # 
 # **Important**: This notebook will only work with the 2.10.0 version of the h5py package. The cell below will ensure that you have this version installed. If not, you should run the `!pip install` line.
 
-# In[12]:
+# In[1]:
 
 
 # This will ensure that the correct version of the h5py package is installed
