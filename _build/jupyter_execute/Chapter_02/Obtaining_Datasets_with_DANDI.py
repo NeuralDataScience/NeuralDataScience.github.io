@@ -32,15 +32,15 @@ except ImportError as e:
 
 # The cell below will download [this dataset](https://gui.dandiarchive.org/#/dandiset/000006) from DANDI. This dataset contains 32-channel extracellular recordings from mouse cortex.
 # 
-# Downloading this dataset may take several minutes, depending on your internet connection and the size of the files.
+# <mark>**Note:** Downloading this dataset may take several minutes, depending on your internet connection.</mark>
 
 # In[2]:
 
 
-#!dandi download https://dandiarchive.org/dandiset/000006/draft
+get_ipython().system('dandi download https://dandiarchive.org/dandiset/000006/draft')
 
-get_ipython().system('dandi download https://dandiarchive.org/dandiset/000025/draft')
 
+# Once the cell above completes running, you will see a new folder 📁"00006" wherever you're running this notebook.
 
 # ## Option 2: Streaming the Dandiset
 # 

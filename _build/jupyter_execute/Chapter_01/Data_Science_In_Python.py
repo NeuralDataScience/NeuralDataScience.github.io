@@ -7,8 +7,11 @@
 # 
 # The pages in this section will introduce you to three primary **packages** that are useful for doing data science in Python: [NumPy](https://neuraldatascience.github.io/Chapter_2/NumPy.html), [Pandas](https://neuraldatascience.github.io/Chapter_2/Pandas.html), and [SciPy](https://neuraldatascience.github.io/Chapter_2/SciPy.html). We'll also introduce the concept of version control, and encourage you to think carefully how you comment, organize, and ultimately share your code.
 # 
-# **Resources for Learning Python**
+# ### Chapter Learning Objectives
+# - Identify the main packages used for data science in Python
+# - Learn and implement commonly used functions in NumPy, Pandas, and SciPy
 # 
+# ### Resources for Learning Python
 # These notebooks assume that you already have some foundational knowledge about how to use Python. If you are in the early stages of using Python, we recommend the following resources before digging in here:
 # - Online free courses like [Codeacademy](https://www.codecademy.com/catalog/language/python) and [DataQuest](http://dataquest.io) are great to get started.
 # - [The official beginner's guide](https://wiki.python.org/moin/BeginnersGuide), by the folks at Python.
