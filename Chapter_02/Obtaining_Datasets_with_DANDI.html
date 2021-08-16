@@ -102,17 +102,17 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/NumPy.html">
-     1.1. NumPy
+     1.3. NumPy
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/Pandas.html">
-     1.2. Pandas
+     1.4. Pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/SciPy.html">
-     1.3. SciPy
+     1.5. SciPy
     </a>
    </li>
   </ul>
@@ -378,12 +378,10 @@
 </div>
 </div>
 <p>The cell below will download <a class="reference external" href="https://gui.dandiarchive.org/#/dandiset/000006">this dataset</a> from DANDI. This dataset contains 32-channel extracellular recordings from mouse cortex.</p>
-<p>Downloading this dataset may take several minutes, depending on your internet connection and the size of the files.</p>
+<p><mark><strong>Note:</strong> Downloading this dataset may take several minutes, depending on your internet connection.</mark></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!dandi download https://dandiarchive.org/dandiset/000006/draft</span>
-
-<span class="o">!</span>dandi download https://dandiarchive.org/dandiset/000025/draft
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dandi download https://dandiarchive.org/dandiset/000006/draft
 </pre></div>
 </div>
 </div>
@@ -392,12 +390,13 @@
 dandiset.yaml                                           updating  
 Summary:                  0 Bytes                       1 updating
                           &lt;0.00%                                  
-2021-08-16 16:19:46,594 [    INFO] Logs saved in /Users/ashley/Library/Logs/dandi-cli/20210816231943Z-45516.log
-Error: ./000025/dandiset.yaml
+2021-08-16 16:45:42,050 [    INFO] Logs saved in /Users/ashley/Library/Logs/dandi-cli/20210816234539Z-45932.log
+Error: ./000006/dandiset.yaml
 </pre></div>
 </div>
 </div>
 </div>
+<p>Once the cell above completes running, you will see a new folder 📁”00006” wherever you’re running this notebook.</p>
 </div>
 <div class="section" id="option-2-streaming-the-dandiset">
 <h2><span class="section-number">2.1.2. </span>Option 2: Streaming the Dandiset<a class="headerlink" href="#option-2-streaming-the-dandiset" title="Permalink to this headline">¶</a></h2>
