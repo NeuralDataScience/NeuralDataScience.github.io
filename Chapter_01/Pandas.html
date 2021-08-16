@@ -327,6 +327,13 @@
   <a class="reference internal nav-link" href="#create-and-manipulate-dataframes">
    1.2.1. Create and Manipulate Dataframes
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataframe-example">
+     1.2.1.1. DataFrame example
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#indexing-dataframes">
@@ -340,7 +347,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dataframe-methods">
-   1.2.4. Dataframe Methods
+   1.2.4. DataFrame Methods
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -361,7 +368,7 @@
                 
   <div class="section" id="pandas">
 <h1><span class="section-number">1.2. </span>Pandas<a class="headerlink" href="#pandas" title="Permalink to this headline">¶</a></h1>
-<p>In this chapter we will be discussing the advatages to using the <em>Pandas</em> package to analyze large datasets. While NumPy is a useful package, it can only be used with data of the same datatype. NumPy also does not support axis lables. <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/index.html#user-guide">Pandas</a> is a package that helps us manipulate and analyze heterogenous data.</p>
+<p>In this chapter we will be discussing the advatages to using the <em>Pandas</em> package to analyze large datasets. While NumPy is a useful package, it can only be used with data of the same datatype. <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/index.html#user-guide">Pandas</a>, however, is a package that helps us manipulate and analyze heterogenous data.</p>
 <p>We strongly recommend looking at <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/10min.html">“10 minutes to pandas”</a> for a broader overview, but here we’ll introduce the main concepts needed for the activities in this textbook.</p>
 <p>Before we can use pandas, we need to import it. We can also nickname the modules when we import them. The convention is to import <code class="docutils literal notranslate"><span class="pre">pandas</span></code> as <code class="docutils literal notranslate"><span class="pre">pd</span></code>.</p>
 <div class="cell docutils container">
@@ -384,13 +391,19 @@ pd         module    &lt;module &#39;pandas&#39; from &#39;/U&lt;...&gt;ages/pan
 </div>
 <div class="section" id="create-and-manipulate-dataframes">
 <h2><span class="section-number">1.2.1. </span>Create and Manipulate Dataframes<a class="headerlink" href="#create-and-manipulate-dataframes" title="Permalink to this headline">¶</a></h2>
-<p>The two data structures of Pandas are the <code class="docutils literal notranslate"><span class="pre">series</span></code> and the <code class="docutils literal notranslate"><span class="pre">dataframe</span></code>. A <code class="docutils literal notranslate"><span class="pre">series</span></code> is a one-dimensional onject similar to a list. A <code class="docutils literal notranslate"><span class="pre">dataframe</span></code> can be thought of as a two-dimensional numpy array or a collection of <code class="docutils literal notranslate"><span class="pre">series</span></code> objects. Dataframes and Series can contain multiple different data types such as integers, strings, and floats, similar to an excel spreadsheet, unlike numpy arrays which can only contain values that are the same data type. Pandas also supports <code class="docutils literal notranslate"><span class="pre">string</span></code> lables unlike numpy arrays which only have numeric labels for their rows and columns. For a more in depth explanation, please visit the <a href = https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html> Intro to Data Structures</a> section in the Pandas User Guide.</p>
-<p>You can create a Pandas dataframe by inputting dictionaries into the Pandas funtion <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code>, by reading files, or through functions built into the Pandas package. The function <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> reads a comma-seperated file and returns it as a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code>. For more information on <code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code> please visit the <a href = "https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html" > Pandas documentation</a>.</p>
-<p>Below we will create a dataframe by reading the file <code class="docutils literal notranslate"><span class="pre">brainarea_vs_genes_exp_w_reannotations-Copy1.tsv</span></code> which contains information on gene expression accross multiple brain areas. This dataset was created by Derek Howard and Abigail Mayes for the purpose of accelerating advances in data mining of open brain transcriptome data for polygenetic brain disorders. The data comes from normalized microarray datasets of gene expression from 6 adult human brains that was released by the Allen Brain Atlas and then processed into the dataframe we will see below. For more information on this dataset please visit the <a href = "https://github.com/derekhoward/HBAsets"> HBAsets repository</a>.</p>
+<p>The two data structures of Pandas are the <code class="docutils literal notranslate"><span class="pre">Series</span></code> and the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>. A <code class="docutils literal notranslate"><span class="pre">Series</span></code> is a one-dimensional onject similar to a list. A <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> can be thought of as a two-dimensional numpy array or a collection of <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects. Series and dataframes can contain multiple different data types such as integers, strings, and floats, similar to an Excel spreadsheet. Pandas also supports <code class="docutils literal notranslate"><span class="pre">string</span></code> lables unlike numpy arrays which only have numeric labels for their rows and columns. For a more in depth explanation, please visit the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html">Introduction to Data Structures</a> section in the Pandas User Guide.</p>
+<p>You can create a Pandas dataframe by inputting dictionaries into the Pandas function <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code>, by reading files, or through functions built into the Pandas package. The function <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html"><code class="docutils literal notranslate"><span class="pre">pd.read_csv()</span></code></a> reads a comma-seperated file and returns it as a <code class="docutils literal notranslate"><span class="pre">dataframe</span></code>.</p>
+<div class="section" id="dataframe-example">
+<h3><span class="section-number">1.2.1.1. </span>DataFrame example<a class="headerlink" href="#dataframe-example" title="Permalink to this headline">¶</a></h3>
+<p>Below we will create a dataframe by reading the file <code class="docutils literal notranslate"><span class="pre">brainarea_vs_genes_exp_w_reannotations.tsv</span></code> which contains information on gene expression accross multiple brain areas.</p>
+<blockquote>
+<div><p><strong>About this dataset:</strong>
+This dataset was created by Derek Howard and Abigail Mayes for the purpose of accelerating advances in data mining of open brain transcriptome data for polygenetic brain disorders. The data comes from normalized microarray datasets of gene expression from 6 adult human brains that was released by the Allen Brain Institute and then processed into the dataframe we will see below. For more information on this dataset please visit the <a href = "https://github.com/derekhoward/HBAsets"> HBAsets repository</a>.</p>
+</div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in the list of lists as a data frame</span>
-<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;brainarea_vs_genes_exp_w_reannotations-Copy1.tsv&#39;</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;brainarea_vs_genes_exp_w_reannotations.tsv&#39;</span>
 <span class="n">gene_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
 
 <span class="c1"># &#39;.head()&#39; returns the first 5 rows in the dataframe</span>
@@ -399,58 +412,172 @@ pd         module    &lt;module &#39;pandas&#39; from &#39;/U&lt;...&gt;ages/pan
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="n">aa8ae6225639</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Read in the list of lists as a data frame</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;brainarea_vs_genes_exp_w_reannotations-Copy1.tsv&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">gene_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> 
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># &#39;.head()&#39; returns the first 5 rows in the dataframe</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">parser_f</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)</span>
-<span class="g g-Whitespace">    </span><span class="mi">683</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">684</span> 
-<span class="ne">--&gt; </span><span class="mi">685</span>         <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">686</span> 
-<span class="g g-Whitespace">    </span><span class="mi">687</span>     <span class="n">parser_f</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">455</span> 
-<span class="g g-Whitespace">    </span><span class="mi">456</span>     <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">457</span>     <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">fp_or_buf</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">458</span> 
-<span class="g g-Whitespace">    </span><span class="mi">459</span>     <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">893</span>             <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">894</span> 
-<span class="ne">--&gt; </span><span class="mi">895</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">896</span> 
-<span class="g g-Whitespace">    </span><span class="mi">897</span>     <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">_make_engine</span><span class="nt">(self, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1133</span>     <span class="k">def</span> <span class="nf">_make_engine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1134</span>         <span class="k">if</span> <span class="n">engine</span> <span class="o">==</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1135</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="n">CParserWrapper</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1136</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1137</span>             <span class="k">if</span> <span class="n">engine</span> <span class="o">==</span> <span class="s2">&quot;python&quot;</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ni">__init__</span><span class="nt">(self, src, **kwds)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1915</span>         <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;usecols&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">usecols</span>
-<span class="g g-Whitespace">   </span><span class="mi">1916</span> 
-<span class="ne">-&gt; </span><span class="mi">1917</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span> <span class="o">=</span> <span class="n">parsers</span><span class="o">.</span><span class="n">TextReader</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1918</span>         <span class="bp">self</span><span class="o">.</span><span class="n">unnamed_cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="o">.</span><span class="n">unnamed_cols</span>
-<span class="g g-Whitespace">   </span><span class="mi">1919</span> 
-
-<span class="nn">pandas/_libs/parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader.__cinit__</span><span class="nt">()</span>
-
-<span class="nn">pandas/_libs/parsers.pyx</span> in <span class="ni">pandas._libs.parsers.TextReader._setup_parser_source</span><span class="nt">()</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] File b&#39;brainarea_vs_genes_exp_w_reannotations-Copy1.tsv&#39; does not exist: b&#39;brainarea_vs_genes_exp_w_reannotations-Copy1.tsv&#39;
-</pre></div>
-</div>
-</div>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gene_symbol</th>
+      <th>CA1 field</th>
+      <th>CA2 field</th>
+      <th>CA3 field</th>
+      <th>CA4 field</th>
+      <th>Crus I, lateral hemisphere</th>
+      <th>Crus I, paravermis</th>
+      <th>Crus II, lateral hemisphere</th>
+      <th>Crus II, paravermis</th>
+      <th>Edinger-Westphal nucleus</th>
+      <th>...</th>
+      <th>temporal pole, inferior aspect</th>
+      <th>temporal pole, medial aspect</th>
+      <th>temporal pole, superior aspect</th>
+      <th>transverse gyri</th>
+      <th>trochlear nucleus</th>
+      <th>tuberomammillary nucleus</th>
+      <th>ventral tegmental area</th>
+      <th>ventromedial hypothalamic nucleus</th>
+      <th>vestibular nuclei</th>
+      <th>zona incerta</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>A1BG</td>
+      <td>0.856487</td>
+      <td>-1.773695</td>
+      <td>-0.678679</td>
+      <td>-0.986914</td>
+      <td>0.826986</td>
+      <td>0.948039</td>
+      <td>0.935427</td>
+      <td>1.120774</td>
+      <td>-1.018554</td>
+      <td>...</td>
+      <td>0.277830</td>
+      <td>0.514923</td>
+      <td>0.733368</td>
+      <td>-0.104286</td>
+      <td>-0.910245</td>
+      <td>1.039610</td>
+      <td>-0.155167</td>
+      <td>-0.444398</td>
+      <td>-0.901361</td>
+      <td>-0.236790</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>A1BG-AS1</td>
+      <td>0.257664</td>
+      <td>-1.373085</td>
+      <td>-0.619923</td>
+      <td>-0.636275</td>
+      <td>0.362799</td>
+      <td>0.353296</td>
+      <td>0.422766</td>
+      <td>0.346853</td>
+      <td>-0.812015</td>
+      <td>...</td>
+      <td>1.074116</td>
+      <td>0.821031</td>
+      <td>1.219272</td>
+      <td>0.901213</td>
+      <td>-1.522431</td>
+      <td>0.598719</td>
+      <td>-1.709745</td>
+      <td>-0.054156</td>
+      <td>-1.695843</td>
+      <td>-1.155961</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>A1CF</td>
+      <td>-0.089614</td>
+      <td>-0.546903</td>
+      <td>0.282914</td>
+      <td>-0.528926</td>
+      <td>0.507916</td>
+      <td>0.577696</td>
+      <td>0.647671</td>
+      <td>0.306824</td>
+      <td>0.089958</td>
+      <td>...</td>
+      <td>-0.030265</td>
+      <td>-0.187367</td>
+      <td>-0.428358</td>
+      <td>-0.465863</td>
+      <td>-0.136936</td>
+      <td>1.229487</td>
+      <td>-0.110680</td>
+      <td>-0.118175</td>
+      <td>-0.139776</td>
+      <td>0.123829</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>A2M</td>
+      <td>0.552415</td>
+      <td>-0.635485</td>
+      <td>-0.954995</td>
+      <td>-0.259745</td>
+      <td>-1.687391</td>
+      <td>-1.756847</td>
+      <td>-1.640242</td>
+      <td>-1.733110</td>
+      <td>-0.091695</td>
+      <td>...</td>
+      <td>-0.058505</td>
+      <td>0.207109</td>
+      <td>-0.161808</td>
+      <td>0.183630</td>
+      <td>0.948098</td>
+      <td>-0.977692</td>
+      <td>0.911896</td>
+      <td>-0.499357</td>
+      <td>1.469386</td>
+      <td>0.557998</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A2ML1</td>
+      <td>0.758031</td>
+      <td>1.549857</td>
+      <td>1.262225</td>
+      <td>1.338780</td>
+      <td>-0.289888</td>
+      <td>-0.407026</td>
+      <td>-0.358798</td>
+      <td>-0.589988</td>
+      <td>0.944684</td>
+      <td>...</td>
+      <td>-0.472908</td>
+      <td>-0.598317</td>
+      <td>-0.247797</td>
+      <td>-0.282673</td>
+      <td>1.396365</td>
+      <td>0.945043</td>
+      <td>0.158202</td>
+      <td>0.572771</td>
+      <td>0.073088</td>
+      <td>-0.886780</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 233 columns</p>
+</div></div></div>
 </div>
 <p>At the moment, our rows and columns don’t have any useful information – they’re simply a list of indices. We can reassign the row values by using the method <code class="docutils literal notranslate"><span class="pre">set_index()</span></code>. We can choose any column in our present dataframe to be the row values. Let’s assign the row lables to be the <code class="docutils literal notranslate"><span class="pre">gene_symbol</span></code> and reassign the dataframe.</p>
 <div class="cell docutils container">
@@ -679,10 +806,11 @@ pd         module    &lt;module &#39;pandas&#39; from &#39;/U&lt;...&gt;ages/pan
 </div>
 </div>
 </div>
+</div>
 <div class="section" id="indexing-dataframes">
 <h2><span class="section-number">1.2.2. </span>Indexing Dataframes<a class="headerlink" href="#indexing-dataframes" title="Permalink to this headline">¶</a></h2>
-<p>Indexing in Pandas works slightly different than in NumPy. Similar to a dictionary, we can index Dataframes by their names instead of using the specific index number like in NumPy.</p>
-<p>The syntax for indexing Dataframes is <code class="docutils literal notranslate"><span class="pre">dataframe.loc[row_label,column_label]</span></code>. To index an individual column, we use the shorthand syntax <code class="docutils literal notranslate"><span class="pre">df[column_label]</span></code>. To index an individual row, we use the syntax <code class="docutils literal notranslate"><span class="pre">df.loc[row_label]</span></code>. To index by index #, we use the syntax <code class="docutils literal notranslate"><span class="pre">df.iloc[index_number]</span></code>. Below are some examples on how to access rows, columns, and single values in our dataframe. For more information on indexing dataframes, visit the <a href = "https://pandas.pydata.org/docs/user_guide/indexing.html#indexing"> “Indexing and selecting data”</a> section in the Pandas User Guide.</p>
+<p>Indexing in Pandas works slightly different than in NumPy. Similar to a dictionary, we can index dataframes by their names.</p>
+<p>The syntax for indexing single locations in a dataframe is <code class="docutils literal notranslate"><span class="pre">dataframe.loc[row_label,column_label]</span></code>. To index an individual column, we use the shorthand syntax <code class="docutils literal notranslate"><span class="pre">dataframe.[column_label]</span></code>. To index an individual row, we use the syntax <code class="docutils literal notranslate"><span class="pre">dataframe.loc[row_label]</span></code>. To index by index #, we use the syntax <code class="docutils literal notranslate"><span class="pre">dataframe.iloc[index_number]</span></code>. Below are some examples on how to access rows, columns, and single values in our dataframe. For more information on indexing dataframes, visit the <a href = "https://pandas.pydata.org/docs/user_guide/indexing.html#indexing"> “Indexing and selecting data”</a> section in the Pandas User Guide.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select a single column</span>
@@ -717,13 +845,13 @@ Name: CA1 field, Length: 20869, dtype: float64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select a single row</span>
 <span class="n">row</span> <span class="o">=</span> <span class="s1">&#39;A1BG&#39;</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gene expression of A1BG across brain regeions:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gene expression of &#39;</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="s1">&#39; across brain regions:&#39;</span><span class="p">)</span>
 <span class="n">gene_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gene expression of A1BG across brain regeions:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gene expression of  A1BG  across brain regions:
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CA1 field                            0.856487
@@ -759,18 +887,18 @@ Name: A1BG, Length: 232, dtype: float64
 </div>
 </div>
 </div>
-<p>To select multiple different columns, you would create a <code class="docutils literal notranslate"><span class="pre">list</span></code> of all your columns of interest as so:</p>
+<p>To select multiple different columns, you can use a <code class="docutils literal notranslate"><span class="pre">list</span></code> of all your columns of interest as so:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Select multiple columns</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gene expression values in CA1, CA3, and Crus I, lateral hemisphere :&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Gene expression values in multiple regions :&#39;</span><span class="p">)</span>
 <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CA1 field&#39;</span><span class="p">,</span> <span class="s1">&#39;CA3 field&#39;</span><span class="p">,</span> <span class="s1">&#39;Crus I, lateral hemisphere&#39;</span><span class="p">]</span>
 <span class="n">gene_df</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gene expression values in CA1, CA3, and Crus I, lateral hemisphere :
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Gene expression values in multiple regions :
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -877,11 +1005,11 @@ Name: A1BG, Length: 232, dtype: float64
 </div>
 <div class="section" id="subsetting">
 <h2><span class="section-number">1.2.3. </span>Subsetting<a class="headerlink" href="#subsetting" title="Permalink to this headline">¶</a></h2>
-<p>Like numpy arrays, subet our original dataframe to only include data that meets our criteria. Our dataframe has data on multiple different brain areas with many gene expression values. Filter your dataframe by using the following syntax:</p>
+<p>Like NumPy arrays, we can subset our original dataframe to only include data that meets our criteria. Our dataframe has data on multiple different brain areas with many gene expression values. You can filter this dataframe using the following syntax:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_df</span> <span class="o">=</span> <span class="n">original_df</span><span class="p">[</span><span class="n">original_df</span><span class="p">[</span><span class="s1">&#39;Column of Interest&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Desired Value&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>In plain english, what this is saying is: save a dataframe from the original dataframe, where the original dataframe values in my Column of Interest are equal to my Desired Value. For more inofrmation on subsetting,  visit the <a href = "https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html"> “How do I selcect a subset a subset of a Dataframe”</a> section in the Pandas documentation.</p>
+<p>In plain english, what this is saying is: save a dataframe from the original dataframe, where the original dataframe values in my Column of Interest are equal to my Desired Value. For more information on subsetting,  visit the <a href = "https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html"> “How do I select a subset of a DataFrame”</a> section in the Pandas documentation.</p>
 <p>Below we will demonstrate how to execute this by taking a look at the <code class="docutils literal notranslate"><span class="pre">CA1</span> <span class="pre">field</span></code> column in <code class="docutils literal notranslate"><span class="pre">gene_df</span></code>. We will create a dataframe from <code class="docutils literal notranslate"><span class="pre">gene_df</span></code> that only contains genes that showed a certain level of gene expression.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1088,7 +1216,7 @@ Name: A1BG, Length: 232, dtype: float64
 </div>
 </div>
 <div class="section" id="dataframe-methods">
-<h2><span class="section-number">1.2.4. </span>Dataframe Methods<a class="headerlink" href="#dataframe-methods" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">1.2.4. </span>DataFrame Methods<a class="headerlink" href="#dataframe-methods" title="Permalink to this headline">¶</a></h2>
 <p>Pandas has many useful methods that you can use on your data, including <code class="docutils literal notranslate"><span class="pre">describe</span></code>, <code class="docutils literal notranslate"><span class="pre">mean</span></code>, and more. To learn more about all the different methods that can be used to manipulate and analyze dataframes, please visit the <a href = "https://pandas.pydata.org/docs/user_guide/index.html"> Pandas User Guide </a>. We will demonstrate some of these methods below.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">describe</span></code> method returns descriptive statistics of all the columns in our dataframe.</p>
 <div class="cell docutils container">
@@ -1550,7 +1678,7 @@ Length: 232, dtype: float64
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Merge/Join the two dataframes</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Join the two dataframes</span>
 <span class="n">df_1</span> <span class="o">=</span> <span class="n">temporal_pole_df</span>
 <span class="n">df_2</span> <span class="o">=</span> <span class="n">CA_field_df</span>
 
@@ -1652,10 +1780,11 @@ Length: 232, dtype: float64
 </table>
 </div></div></div>
 </div>
+<p>Those are the basics of working with Pandas dataframes! Circle back to this page or the resources linked within if you ever need a refresher. Next, we’ll talk about the power of SciPy for scientific analysis in Python.</p>
 </div>
 <div class="section" id="additional-resources">
 <h2><span class="section-number">1.2.5. </span>Additional resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline">¶</a></h2>
-<p>See the <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html">Python Data Science Handbook</a> for a more in depth exploration of Pandas, and of course, the original documentation.</p>
+<p>See the <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/03.00-introduction-to-pandas.html">Python Data Science Handbook</a> for a more in depth exploration of Pandas, and of course, the <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/index.html">Pandas documentation</a>.</p>
 </div>
 </div>
 
