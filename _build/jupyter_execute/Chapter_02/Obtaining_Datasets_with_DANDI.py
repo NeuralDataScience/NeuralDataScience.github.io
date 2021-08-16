@@ -3,72 +3,58 @@
 
 # # Obtaining Datasets with DANDI
 
-# [DANDI](https://www.dandiarchive.org/) is an open source data archive for cellular neurophysiology datasets. DANDI allows the submission and download of neural datasets to promote research collaboration and consistent and transparent data standards. DANDI also provides a solution to the difficulties that come from housing data in the many other general domains (i.e. Dropbox, Google Drive, etc.). Usefully for our purposes here, many of the datasets on DANDI are in NWB format.
+# [DANDI](https://www.dandiarchive.org/) is an open source data archive for neuroscience datasets, called **Dandisets**. DANDI allows scientists to submit and download neural datasets to promote research collaboration and consistent and transparent data standards. DANDI also [provides a solution](https://www.dandiarchive.org/handbook/01_introduction/) to the difficulties that come from housing data in the many other general domains (i.e. Dropbox, Google Drive, etc.). Usefully for our purposes here, many of the datasets on DANDI are in NWB format.
+# 
+# There are two primary ways to work with Dandisets:
+# 1. You can **download the datasets locally**, either via the [DANDI Web Application](https://gui.dandiarchive.org/#/dandiset) or using the DANDI Python client below. If you download via the website, you'll need to create an account.
+# 2. You can **stream datasets directly** from DANDI (under development).
+# 
+# Below, we demonstrate how to do both of these. For additional information on either of these methods, please refer to the [DANDI documentation](https://gui.dandiarchive.org/). 
 
-# ## Downloading DANDIsets 
+# ## Option 1: Downloading Dandisets using Python 
 
-# First, we need to ensure that you have the [`DANDI` client](https://pypi.org/project/dandi/) installed on your computer. The cell below will try to import dandi, and if that fails, it will install it. 
+# First, we need to ensure that you have the [`DANDI` client](https://pypi.org/project/dandi/) installed on your computer. The cell below will try to import DANDI. If you have an old version of DANDI, it will prompt you to install a newer version. Type "Y" if you would like to install a new version (this is recommended). If you don't have DANDI at all, it will install the most recent version.
 
-# In[7]:
+# In[1]:
 
 
 try:
     import dandi
-    if dandi.__version__ == '0.18.0':
+    if dandi.__version__>='0.26.0':
         print('DANDI installed & imported.')
     else:
-        print('older version of DANDI installed, this may cause issues')
+        response = input('Old version of DANDI installed. Would you like to install a newer version of DANDI? (Y/N)')
+        if response == 'Y':
+            get_ipython().system('pip install --upgrade dandi')
 except ImportError as e:
-    get_ipython().system('pip install dandi==0.18.0')
+    get_ipython().system('pip install dandi')
 
 
-# All available **Dandisets** can be found on the <a href = 'https://gui.dandiarchive.org/#/'> DANDI Web Application</a>. You will need to create an account with DANDI before downloading any Dandiset to your local device. The cell below will download [this dataset](https://gui.dandiarchive.org/#/dandiset/000006) from DANDI. This dataset contains 32-channel extracellular recordings from muouse cortex.
+# The cell below will download [this dataset](https://gui.dandiarchive.org/#/dandiset/000006) from DANDI. This dataset contains 32-channel extracellular recordings from mouse cortex.
 # 
 # Downloading this dataset may take several minutes, depending on your internet connection and the size of the files.
 
 # In[2]:
 
 
-get_ipython().system('dandi download https://dandiarchive.org/dandiset/000006/draft')
+#!dandi download https://dandiarchive.org/dandiset/000006/draft
+
+get_ipython().system('dandi download https://dandiarchive.org/dandiset/000025/draft')
 
 
-# ## Reading our NWB file
-
-# To access the data in our nwb file we must read the file. This is done in two steps:
+# ## Option 2: Streaming the Dandiset
 # 
-# - assign our file as an NWBHDF5IO object
-# - read our file
-# 
-# The first step is done using the NWBHDF5IO class to create our NWBHDF5IO object and map our file to HDF5 format. Once we have done this, we can use the `read()` method to return our nwb file. For more information on how to read NWB files, please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/tutorials/general/file.html'> Reading an NWB file</a> section from the NWB Basics Tutorial. For more information on the NWBHDF5IO class, please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.html#pynwb.NWBHDF5IO'> pynwb package original documentation</a>.
-# 
-# **Note**: a downloaded dandiset may contain multiple NWB files that pertain to various subjects and multiple sessions for a given experiment. Make sure you specify the exact file path to the single NWB file you wish to read. 
+# **This is under development.**
 
-# In[8]:
+# In[3]:
 
 
+# Import necessary packages
 from pynwb import NWBHDF5IO
+from nwbwidgets import nwb2widget
+import requests
 
-# Read 1 session file from 1 subject from our Dandiset 
-io = NWBHDF5IO('000006/sub-anm369962/sub-anm369962_ses-20170309.nwb', 'r')
-nwb_file = io.read()
-print(type(nwb_file))
-
-
-# If you wish to access the related publications of the experimental data that you just downloaded, you can do so by executing the `related_publications` method on your NWB file object. You can plug what prints in the single quotes below into a browswer window to check out the original publication describing this data.
-
-# In[10]:
-
-
-nwb_file.related_publications
-
-
-# Each NWB file will also have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. These Groups can be accessed using `institution`, `lab`, and `experiment_description`, attributes on our nwb_file, respectively.
-
-# In[12]:
-
-
-# Get Meta-Data from NWB file 
-print('The experiment within this NWB file was conducted at {} in the lab of {}.     The experiment is detailed as follows: {}'    .format(nwb_file.institution, nwb_file.lab, nwb_file.experiment_description))
+...
 
 
 # The following section will go over the the structure of an NWBFile and how to access data from this new file type. 

@@ -10,7 +10,7 @@
 # 
 # ## About this online textbook
 # 
-# A standardized data format like NWB also opens possibilities for more easily integrating these cutting-edge datasets into the classroom. This online textbook aims to provide interactive and self-guidedd resources for researchers, educators, and students who would like to use open neuroscience datasets for research and/or teaching. Within, you'll find tutorials in the form of interactive notebooks for how to use Python to wrangle NWB datasets. At the end of each chapter, there are problem sets so that you can test your skills at wrangling and analyzing the data.
+# A standardized data format like NWB also opens possibilities for more easily integrating these cutting-edge datasets into the classroom. This online textbook aims to provide interactive and self-guided resources for researchers, educators, and students who would like to use open neuroscience datasets for research and/or teaching. Within, you'll find tutorials in the form of interactive notebooks for how to use Python to wrangle NWB datasets. At the end of each chapter, there are problem sets so that you can test your skills at wrangling and analyzing the data.
 # 
 # ## Using this textbook
 # 
@@ -45,4 +45,4 @@
 
 # ## License
 # 
-# This work is under a [CC-BY-SA-4.0 license](CC-BY-SA-4.0 license). You are free to use and adapt these resources, but if you generate a derivative of these resources, they should be distributed with a similar license.
+# This work is distributed under a [CC-BY-SA-4.0 license](https://creativecommons.org/licenses/by-sa/4.0/). You are free to use and adapt these resources, but if you generate a derivative of these resources, they should be distributed with a similar license.

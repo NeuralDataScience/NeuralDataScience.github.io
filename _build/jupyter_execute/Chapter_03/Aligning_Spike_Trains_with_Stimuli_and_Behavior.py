@@ -35,7 +35,7 @@ print('Session data obtained.')
 # 
 # Because there are many units in a given session, we first need to select a subgroup of units to focus on. For the purposes of this notebook we will work with units that were taken from the primary visual area (`VISp`). Below, we will assign spike times of units from the `VISp` area. 
 
-# In[2]:
+# In[16]:
 
 
 # Assign the spike times in this particular session session

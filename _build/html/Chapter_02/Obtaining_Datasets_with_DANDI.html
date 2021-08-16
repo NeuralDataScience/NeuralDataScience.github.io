@@ -324,13 +324,13 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#downloading-dandisets">
-   2.1.1. Downloading DANDIsets
+  <a class="reference internal nav-link" href="#option-1-downloading-dandisets-using-python">
+   2.1.1. Option 1: Downloading Dandisets using Python
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reading-our-nwb-file">
-   2.1.2. Reading our NWB file
+  <a class="reference internal nav-link" href="#option-2-streaming-the-dandiset">
+   2.1.2. Option 2: Streaming the Dandiset
   </a>
  </li>
 </ul>
@@ -346,20 +346,28 @@
                 
   <div class="section" id="obtaining-datasets-with-dandi">
 <h1><span class="section-number">2.1. </span>Obtaining Datasets with DANDI<a class="headerlink" href="#obtaining-datasets-with-dandi" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://www.dandiarchive.org/">DANDI</a> is an open source data archive for cellular neurophysiology datasets. DANDI allows the submission and download of neural datasets to promote research collaboration and consistent and transparent data standards. DANDI also provides a solution to the difficulties that come from housing data in the many other general domains (i.e. Dropbox, Google Drive, etc.). Usefully for our purposes here, many of the datasets on DANDI are in NWB format.</p>
-<div class="section" id="downloading-dandisets">
-<h2><span class="section-number">2.1.1. </span>Downloading DANDIsets<a class="headerlink" href="#downloading-dandisets" title="Permalink to this headline">¶</a></h2>
-<p>First, we need to ensure that you have the <a class="reference external" href="https://pypi.org/project/dandi/"><code class="docutils literal notranslate"><span class="pre">DANDI</span></code> client</a> installed on your computer. The cell below will try to import dandi, and if that fails, it will install it.</p>
+<p><a class="reference external" href="https://www.dandiarchive.org/">DANDI</a> is an open source data archive for neuroscience datasets, called <strong>Dandisets</strong>. DANDI allows scientists to submit and download neural datasets to promote research collaboration and consistent and transparent data standards. DANDI also <a class="reference external" href="https://www.dandiarchive.org/handbook/01_introduction/">provides a solution</a> to the difficulties that come from housing data in the many other general domains (i.e. Dropbox, Google Drive, etc.). Usefully for our purposes here, many of the datasets on DANDI are in NWB format.</p>
+<p>There are two primary ways to work with Dandisets:</p>
+<ol class="simple">
+<li><p>You can <strong>download the datasets locally</strong>, either via the <a class="reference external" href="https://gui.dandiarchive.org/#/dandiset">DANDI Web Application</a> or using the DANDI Python client below. If you download via the website, you’ll need to create an account.</p></li>
+<li><p>You can <strong>stream datasets directly</strong> from DANDI (under development).</p></li>
+</ol>
+<p>Below, we demonstrate how to do both of these. For additional information on either of these methods, please refer to the <a class="reference external" href="https://gui.dandiarchive.org/">DANDI documentation</a>.</p>
+<div class="section" id="option-1-downloading-dandisets-using-python">
+<h2><span class="section-number">2.1.1. </span>Option 1: Downloading Dandisets using Python<a class="headerlink" href="#option-1-downloading-dandisets-using-python" title="Permalink to this headline">¶</a></h2>
+<p>First, we need to ensure that you have the <a class="reference external" href="https://pypi.org/project/dandi/"><code class="docutils literal notranslate"><span class="pre">DANDI</span></code> client</a> installed on your computer. The cell below will try to import DANDI. If you have an old version of DANDI, it will prompt you to install a newer version. Type “Y” if you would like to install a new version (this is recommended). If you don’t have DANDI at all, it will install the most recent version.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">dandi</span>
-    <span class="k">if</span> <span class="n">dandi</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="s1">&#39;0.18.0&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dandi</span><span class="o">.</span><span class="n">__version__</span><span class="o">&gt;=</span><span class="s1">&#39;0.26.0&#39;</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DANDI installed &amp; imported.&#39;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;older version of DANDI installed, this may cause issues&#39;</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Old version of DANDI installed. Would you like to install a newer version of DANDI? (Y/N)&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>
+            <span class="o">!</span>pip install --upgrade dandi
 <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-    <span class="o">!</span>pip install <span class="nv">dandi</span><span class="o">==</span><span class="m">0</span>.18.0
+    <span class="o">!</span>pip install dandi
 </pre></div>
 </div>
 </div>
@@ -369,129 +377,52 @@
 </div>
 </div>
 </div>
-<p>All available <strong>Dandisets</strong> can be found on the <a href = 'https://gui.dandiarchive.org/#/'> DANDI Web Application</a>. You will need to create an account with DANDI before downloading any Dandiset to your local device. The cell below will download <a class="reference external" href="https://gui.dandiarchive.org/#/dandiset/000006">this dataset</a> from DANDI. This dataset contains 32-channel extracellular recordings from muouse cortex.</p>
+<p>The cell below will download <a class="reference external" href="https://gui.dandiarchive.org/#/dandiset/000006">this dataset</a> from DANDI. This dataset contains 32-channel extracellular recordings from mouse cortex.</p>
 <p>Downloading this dataset may take several minutes, depending on your internet connection and the size of the files.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>dandi download https://dandiarchive.org/dandiset/000006/draft
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATH                                         SIZE       DONE             DONE% CHECKSUM STATUS          MESSAGE   
-dandiset.yaml                                                                           done            updated   
-sub-anm369962/sub-anm369962_ses-20170309.nwb 796.9 kB   796.9 kB          100%    ok    done                      
-sub-anm369962/sub-anm369962_ses-20170316.nwb 609.6 kB   609.6 kB          100%    ok    done                      
-sub-anm369962/sub-anm369962_ses-20170310.nwb 6.6 MB     6.6 MB            100%    ok    done                      
-sub-anm369962/sub-anm369962_ses-20170314.nwb 7.5 MB     7.5 MB            100%    ok    done                      
-sub-anm369962/sub-anm369962_ses-20170313.nwb 11.5 MB    11.5 MB           100%    ok    done                      
-sub-anm369962/sub-anm369962_ses-20170317.nwb 8.2 MB     8.2 MB            100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170227.nwb 6.5 MB     6.5 MB            100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170226.nwb 6.4 MB     6.4 MB            100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170228.nwb 276.6 kB   276.6 kB          100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170301.nwb 493.5 kB   493.5 kB          100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170302.nwb 281.0 kB   281.0 kB          100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170306.nwb 6.7 MB     6.7 MB            100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170309.nwb 450.9 kB   450.9 kB          100%    ok    done                      
-sub-anm369963/sub-anm369963_ses-20170310.nwb 604.8 kB   604.8 kB          100%    ok    done                      
-sub-anm369964/sub-anm369964_ses-20170321.nwb 499.9 kB   499.9 kB          100%    ok    done                      
-sub-anm369964/sub-anm369964_ses-20170320.nwb 7.7 MB     7.7 MB            100%    ok    done                      
-sub-anm369964/sub-anm369964_ses-20170322.nwb 5.0 MB     5.0 MB            100%    ok    done                      
-sub-anm369964/sub-anm369964_ses-20170323.nwb 426.4 kB   426.4 kB          100%    ok    done                      
-sub-anm372793/sub-anm372793_ses-20170504.nwb 357.8 kB   357.8 kB          100%    ok    done                      
-sub-anm372793/sub-anm372793_ses-20170508.nwb 357.4 kB   357.4 kB          100%    ok    done                      
-sub-anm372793/sub-anm372793_ses-20170512.nwb 470.8 kB   470.8 kB          100%    ok    done                      
-sub-anm372793/sub-anm372793_ses-20170513.nwb 5.5 MB     5.5 MB            100%    ok    done                      
-sub-anm372794/sub-anm372794_ses-20170621.nwb 654.2 kB   654.2 kB          100%    ok    done                      
-sub-anm372794/sub-anm372794_ses-20170622.nwb 602.8 kB   602.8 kB          100%    ok    done                      
-sub-anm372793/sub-anm372793_ses-20170514.nwb 5.5 MB     5.5 MB            100%    ok    done                      
-sub-anm372794/sub-anm372794_ses-20170624.nwb 4.8 MB     4.8 MB            100%    ok    done                      
-sub-anm372794/sub-anm372794_ses-20170625.nwb 5.7 MB     5.7 MB            100%    ok    done                      
-sub-anm372794/sub-anm372794_ses-20170626.nwb 4.9 MB     4.9 MB            100%    ok    done                      
-sub-anm372794/sub-anm372794_ses-20170627.nwb 553.4 kB   553.4 kB          100%    ok    done                      
-sub-anm372795/sub-anm372795_ses-20170715.nwb 323.2 kB   323.2 kB          100%    ok    done                      
-sub-anm372795/sub-anm372795_ses-20170714.nwb 465.5 kB   465.5 kB          100%    ok    done                      
-sub-anm372795/sub-anm372795_ses-20170716.nwb 813.2 kB   813.2 kB          100%    ok    done                      
-sub-anm372795/sub-anm372795_ses-20170718.nwb 452.3 kB   452.3 kB          100%    ok    done                      
-sub-anm372797/sub-anm372797_ses-20170617.nwb 338.9 kB   338.9 kB          100%    ok    done                      
-sub-anm372904/sub-anm372904_ses-20170615.nwb 388.2 kB   388.2 kB          100%    ok    done                      
-sub-anm372797/sub-anm372797_ses-20170615.nwb 6.0 MB     6.0 MB            100%    ok    done                      
-sub-anm372904/sub-anm372904_ses-20170617.nwb 384.9 kB   384.9 kB          100%    ok    done                      
-sub-anm372904/sub-anm372904_ses-20170616.nwb 362.6 kB   362.6 kB          100%    ok    done                      
-sub-anm372904/sub-anm372904_ses-20170618.nwb 9.4 MB     9.4 MB            100%    ok    done                      
-sub-anm372904/sub-anm372904_ses-20170619.nwb 4.1 MB     4.1 MB            100%    ok    done                      
-sub-anm372905/sub-anm372905_ses-20170715.nwb 344.0 kB   344.0 kB          100%    ok    done                      
-sub-anm372905/sub-anm372905_ses-20170716.nwb 554.0 kB   554.0 kB          100%    ok    done                      
-sub-anm372905/sub-anm372905_ses-20170717.nwb 448.4 kB   448.4 kB          100%    ok    done                      
-sub-anm372906/sub-anm372906_ses-20170608.nwb 6.9 MB     6.9 MB            100%    ok    done                      
-sub-anm372906/sub-anm372906_ses-20170610.nwb 374.8 kB   374.8 kB          100%    ok    done                      
-sub-anm372906/sub-anm372906_ses-20170611.nwb 338.7 kB   338.7 kB          100%    ok    done                      
-sub-anm372906/sub-anm372906_ses-20170612.nwb 324.3 kB   324.3 kB          100%    ok    done                      
-sub-anm372907/sub-anm372907_ses-20170608.nwb 438.9 kB   438.9 kB          100%    ok    done                      
-sub-anm372907/sub-anm372907_ses-20170610.nwb 349.7 kB   349.7 kB          100%    ok    done                      
-sub-anm372907/sub-anm372907_ses-20170613.nwb 259.0 kB   259.0 kB          100%    ok    done                      
-sub-anm372907/sub-anm372907_ses-20170612.nwb 444.5 kB   444.5 kB          100%    ok    done                      
-sub-anm372909/sub-anm372909_ses-20170520.nwb 352.9 kB   352.9 kB          100%    ok    done                      
-sub-anm372909/sub-anm372909_ses-20170522.nwb 5.7 MB     5.7 MB            100%    ok    done                      
-Summary:                                     139.6 MB   139.6 MB                        54 done         1 updated 
-                                                        100.00%                                                   
-2021-06-06 17:28:51,672 [    INFO] Logs saved in /Users/ashley/Library/Logs/dandi-cli/20210607002832Z-17309.log
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="reading-our-nwb-file">
-<h2><span class="section-number">2.1.2. </span>Reading our NWB file<a class="headerlink" href="#reading-our-nwb-file" title="Permalink to this headline">¶</a></h2>
-<p>To access the data in our nwb file we must read the file. This is done in two steps:</p>
-<ul class="simple">
-<li><p>assign our file as an NWBHDF5IO object</p></li>
-<li><p>read our file</p></li>
-</ul>
-<p>The first step is done using the NWBHDF5IO class to create our NWBHDF5IO object and map our file to HDF5 format. Once we have done this, we can use the <code class="docutils literal notranslate"><span class="pre">read()</span></code> method to return our nwb file. For more information on how to read NWB files, please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/tutorials/general/file.html'> Reading an NWB file</a> section from the NWB Basics Tutorial. For more information on the NWBHDF5IO class, please visit the <a href = 'https://pynwb.readthedocs.io/en/stable/pynwb.html#pynwb.NWBHDF5IO'> pynwb package original documentation</a>.</p>
-<p><strong>Note</strong>: a downloaded dandiset may contain multiple NWB files that pertain to various subjects and multiple sessions for a given experiment. Make sure you specify the exact file path to the single NWB file you wish to read.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBHDF5IO</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!dandi download https://dandiarchive.org/dandiset/000006/draft</span>
 
-<span class="c1"># Read 1 session file from 1 subject from our Dandiset </span>
-<span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000006/sub-anm369962/sub-anm369962_ses-20170309.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
+<span class="o">!</span>dandi download https://dandiarchive.org/dandiset/000025/draft
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pynwb.file.NWBFile&#39;&gt;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>PATH                 SIZE DONE    DONE% CHECKSUM STATUS MESSAGE   
+dandiset.yaml                                           updating  
+Summary:                  0 Bytes                       1 updating
+                          &lt;0.00%                                  
+2021-08-16 16:19:46,594 [    INFO] Logs saved in /Users/ashley/Library/Logs/dandi-cli/20210816231943Z-45516.log
+Error: ./000025/dandiset.yaml
 </pre></div>
 </div>
 </div>
 </div>
-<p>If you wish to access the related publications of the experimental data that you just downloaded, you can do so by executing the <code class="docutils literal notranslate"><span class="pre">related_publications</span></code> method on your NWB file object. You can plug what prints in the single quotes below into a browswer window to check out the original publication describing this data.</p>
+</div>
+<div class="section" id="option-2-streaming-the-dandiset">
+<h2><span class="section-number">2.1.2. </span>Option 2: Streaming the Dandiset<a class="headerlink" href="#option-2-streaming-the-dandiset" title="Permalink to this headline">¶</a></h2>
+<p><strong>This is under development.</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nwb_file</span><span class="o">.</span><span class="n">related_publications</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary packages</span>
+<span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBHDF5IO</span>
+<span class="kn">from</span> <span class="nn">nwbwidgets</span> <span class="kn">import</span> <span class="n">nwb2widget</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="o">...</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;doi:10.1038/s41586-018-0642-9&#39;,)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ashley/anaconda3/lib/python3.7/site-packages/dask/config.py:168: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  data = yaml.load(f.read()) or {}
 </pre></div>
 </div>
-</div>
-</div>
-<p>Each NWB file will also have information on where the experiment was conducted, what lab conducted the experiment, as well as a description of the experiment. These Groups can be accessed using <code class="docutils literal notranslate"><span class="pre">institution</span></code>, <code class="docutils literal notranslate"><span class="pre">lab</span></code>, and <code class="docutils literal notranslate"><span class="pre">experiment_description</span></code>, attributes on our nwb_file, respectively.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get Meta-Data from NWB file </span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The experiment within this NWB file was conducted at </span><span class="si">{}</span><span class="s1"> in the lab of </span><span class="si">{}</span><span class="s1">. </span><span class="se">\</span>
-<span class="s1">    The experiment is detailed as follows: </span><span class="si">{}</span><span class="s1">&#39;</span>\
-    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nwb_file</span><span class="o">.</span><span class="n">institution</span><span class="p">,</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">lab</span><span class="p">,</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">experiment_description</span><span class="p">))</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/ashley/anaconda3/lib/python3.7/site-packages/distributed/config.py:20: YAMLLoadWarning: calling yaml.load() without Loader=... is deprecated, as the default Loader is unsafe. Please read https://msg.pyyaml.org/load for full details.
+  defaults = yaml.load(f)
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The experiment within this NWB file was conducted at Janelia Research Campus in the lab of None.     The experiment is detailed as follows: Extracellular electrophysiology recordings performed on mouse anterior lateral motor cortex (ALM) in delay response task. Neural activity from two neuron populations, pyramidal track upper and lower, were characterized, in relation to movement execution.
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ellipsis
 </pre></div>
 </div>
 </div>

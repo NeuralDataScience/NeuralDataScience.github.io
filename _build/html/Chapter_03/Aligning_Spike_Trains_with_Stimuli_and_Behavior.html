@@ -381,7 +381,162 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Session data obtained.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:downloading a 2929.156MiB file from http://api.brain-map.org//api/v2/well_known_file_download/1026124034
+</pre></div>
+</div>
+<script type="application/vnd.jupyter.widget-view+json">
+{"version_major": 2, "version_minor": 0, "model_id": "df971d95a6e34f2cbfa6316948ac14ea"}
+</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span>             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reading data from cache&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">104</span>             <span class="k">return</span> <span class="n">read</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">105</span>     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">read</span><span class="nt">(_path)</span>
+<span class="g g-Whitespace">    </span><span class="mi">347</span>         <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">_path</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">348</span>             <span class="n">session_api</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_nwb_api_for_session</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">filter_by_validity</span><span class="p">,</span> <span class="o">**</span><span class="n">unit_filter_kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">349</span>             <span class="k">return</span> <span class="n">EcephysSession</span><span class="p">(</span><span class="n">api</span><span class="o">=</span><span class="n">session_api</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">_build_nwb_api_for_session</span><span class="nt">(self, path, session_id, filter_by_validity, **unit_filter_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">374</span>             <span class="n">filter_by_validity</span><span class="o">=</span><span class="n">filter_by_validity</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">375</span>             <span class="o">**</span><span class="n">unit_filter_kwargs</span>
+<span class="g g-Whitespace">    </span><span class="mi">376</span>         <span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session_api/ecephys_nwb_session_api.py</span> in <span class="ni">__init__</span><span class="nt">(self, path, probe_lfp_paths, additional_unit_metrics, external_channel_columns, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">65</span>                 <span class="n">warning_msg</span><span class="o">=</span><span class="p">(</span>
+<span class="ne">---&gt; </span><span class="mi">66</span>                     <span class="sa">f</span><span class="s2">&quot;It looks like the Visual Coding Neuropixels nwbfile &quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">67</span>                     <span class="sa">f</span><span class="s2">&quot;you are trying to access (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/nwb/__init__.py</span> in <span class="ni">check_nwbfile_version</span><span class="nt">(nwbfile_path, desired_minimum_version, warning_msg)</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>                           <span class="n">warning_msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">58</span>     <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">nwbfile_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">59</span>         <span class="c1"># nwb 2.x files store version as an attribute</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/h5py/_hl/files.py</span> in <span class="ni">__init__</span><span class="nt">(self, name, mode, driver, libver, userblock_size, swmr, rdcc_nslots, rdcc_nbytes, rdcc_w0, track_order, **kwds)</span>
+<span class="g g-Whitespace">    </span><span class="mi">407</span>                                <span class="n">fapl</span><span class="p">,</span> <span class="n">fcpl</span><span class="o">=</span><span class="n">make_fcpl</span><span class="p">(</span><span class="n">track_order</span><span class="o">=</span><span class="n">track_order</span><span class="p">),</span>
+<span class="ne">--&gt; </span><span class="mi">408</span>                                <span class="n">swmr</span><span class="o">=</span><span class="n">swmr</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">409</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/h5py/_hl/files.py</span> in <span class="ni">make_fid</span><span class="nt">(name, mode, userblock_size, fapl, fcpl, swmr)</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span>             <span class="n">flags</span> <span class="o">|=</span> <span class="n">h5f</span><span class="o">.</span><span class="n">ACC_SWMR_READ</span>
+<span class="ne">--&gt; </span><span class="mi">173</span>         <span class="n">fid</span> <span class="o">=</span> <span class="n">h5f</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">fapl</span><span class="o">=</span><span class="n">fapl</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">174</span>     <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r+&#39;</span><span class="p">:</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">h5py/h5f.pyx</span> in <span class="ni">h5py.h5f.open</span><span class="nt">()</span>
+
+<span class="ne">OSError</span>: Unable to open file (unable to open file: name = &#39;/Users/ashley/Documents/NeuralDataScience.github.io/Chapter_03/session_719161530/session_719161530.nwb&#39;, errno = 2, error message = &#39;No such file or directory&#39;, flags = 0, o_flags = 0)
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e2a5cfe033c4</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># Create the EcephysProjectCache object</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="s1">&#39;manifest.json&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">16</span> <span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">719161530</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Session data obtained.&#39;</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">get_session_data</span><span class="nt">(self, session_id, filter_by_validity, **unit_filter_kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">354</span>             <span class="bp">self</span><span class="o">.</span><span class="n">stream_writer</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">355</span>             <span class="n">read</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">356</span>             <span class="n">num_tries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_tries</span>
+<span class="g g-Whitespace">    </span><span class="mi">357</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">358</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">one_file_call_caching</span><span class="nt">(path, fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
+<span class="g g-Whitespace">    </span><span class="mi">185</span>         <span class="n">lazy</span><span class="o">=</span><span class="n">lazy</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">186</span>         <span class="n">num_tries</span><span class="o">=</span><span class="n">num_tries</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">187</span>         <span class="n">failure_message</span><span class="o">=</span><span class="n">failure_message</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">188</span>     <span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
+<span class="g g-Whitespace">    </span><span class="mi">135</span>             <span class="n">lazy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">136</span>             <span class="n">num_tries</span><span class="o">=</span><span class="n">num_tries</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">137</span>             <span class="n">failure_message</span><span class="o">=</span><span class="n">failure_message</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">139</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>                 <span class="n">data</span> <span class="o">=</span> <span class="n">pre_write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span>             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Writing data to cache&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">100</span>             <span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span> 
+<span class="g g-Whitespace">    </span><span class="mi">102</span>         <span class="k">if</span> <span class="n">read</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">safe_write</span><span class="nt">(data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="k">def</span> <span class="nf">safe_write</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Q</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">170</span>         <span class="n">Manifest</span><span class="o">.</span><span class="n">safe_make_parent_dirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">171</span>         <span class="n">write</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">172</span> 
+<span class="g g-Whitespace">    </span><span class="mi">173</span>     <span class="k">if</span> <span class="n">read</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/http_engine.py</span> in <span class="ni">write_bytes</span><span class="nt">(path, stream)</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="nd">@staticmethod</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="k">def</span> <span class="nf">write_bytes</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]):</span>
+<span class="ne">---&gt; </span><span class="mi">87</span>         <span class="n">write_from_stream</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> 
+<span class="g g-Whitespace">     </span><span class="mi">89</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/http_engine.py</span> in <span class="ni">write_from_stream</span><span class="nt">(path, stream)</span>
+<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">233</span><span class="s2">     with open(path, &quot;wb&quot;) as fil:</span>
+<span class="ne">--&gt; </span><span class="mi">234</span><span class="s2">         for chunk in stream:</span>
+<span class="g g-Whitespace">    </span><span class="mi">235</span><span class="s2">             fil.write(chunk)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/http_engine.py</span> in <span class="ni">stream</span><span class="nt">(self, route)</span>
+<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="s2">         progress = tqdm( unit=&quot;B&quot;, total=response_b, unit_scale=True,  desc=&quot;Downloading&quot;)</span>
+<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="s2"> </span>
+<span class="ne">---&gt; </span><span class="mi">76</span><span class="s2">         for chunk in response.iter_content(self.chunksize):</span>
+<span class="g g-Whitespace">     </span><span class="mi">77</span><span class="s2">             if chunk: # filter out keep-alive new chunks</span>
+<span class="g g-Whitespace">     </span><span class="mi">78</span><span class="s2">                 progress.update(len(chunk))</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/requests/models.py</span> in <span class="ni">generate</span><span class="nt">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">751</span><span class="s2">             if hasattr(self.raw, &#39;stream&#39;):</span>
+<span class="g g-Whitespace">    </span><span class="mi">752</span><span class="s2">                 try:</span>
+<span class="ne">--&gt; </span><span class="mi">753</span><span class="s2">                     for chunk in self.raw.stream(chunk_size, decode_content=True):</span>
+<span class="g g-Whitespace">    </span><span class="mi">754</span><span class="s2">                         yield chunk</span>
+<span class="g g-Whitespace">    </span><span class="mi">755</span><span class="s2">                 except ProtocolError as e:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/response.py</span> in <span class="ni">stream</span><span class="nt">(self, amt, decode_content)</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">575</span><span class="s2">             while not is_fp_closed(self._fp):</span>
+<span class="ne">--&gt; </span><span class="mi">576</span><span class="s2">                 data = self.read(amt=amt, decode_content=decode_content)</span>
+<span class="g g-Whitespace">    </span><span class="mi">577</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">578</span><span class="s2">                 if data:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/response.py</span> in <span class="ni">read</span><span class="nt">(self, amt, decode_content, cache_content)</span>
+<span class="g g-Whitespace">    </span><span class="mi">517</span><span class="s2">             else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span><span class="s2">                 cache_content = False</span>
+<span class="ne">--&gt; </span><span class="mi">519</span><span class="s2">                 data = self._fp.read(amt) if not fp_closed else b&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">520</span><span class="s2">                 if (</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span><span class="s2">                     amt != 0 and not data</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/http/client.py</span> in <span class="ni">read</span><span class="nt">(self, amt)</span>
+<span class="g g-Whitespace">    </span><span class="mi">445</span><span class="s2">             # Amount is given, implement using readinto</span>
+<span class="g g-Whitespace">    </span><span class="mi">446</span><span class="s2">             b = bytearray(amt)</span>
+<span class="ne">--&gt; </span><span class="mi">447</span><span class="s2">             n = self.readinto(b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">448</span><span class="s2">             return memoryview(b)[:n].tobytes()</span>
+<span class="g g-Whitespace">    </span><span class="mi">449</span><span class="s2">         else:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/http/client.py</span> in <span class="ni">readinto</span><span class="nt">(self, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span><span class="s2">         # connection, and the user is reading more bytes than will be provided</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span><span class="s2">         # (for example, reading in 1k chunks)</span>
+<span class="ne">--&gt; </span><span class="mi">491</span><span class="s2">         n = self.fp.readinto(b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span><span class="s2">         if not n and b:</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span><span class="s2">             # Ideally, we would raise IncompleteRead if the content-length</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/socket.py</span> in <span class="ni">readinto</span><span class="nt">(self, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">587</span><span class="s2">         while True:</span>
+<span class="g g-Whitespace">    </span><span class="mi">588</span><span class="s2">             try:</span>
+<span class="ne">--&gt; </span><span class="mi">589</span><span class="s2">                 return self._sock.recv_into(b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span><span class="s2">             except timeout:</span>
+<span class="g g-Whitespace">    </span><span class="mi">591</span><span class="s2">                 self._timeout_occurred = True</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -408,16 +563,18 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="n">be0e03375f3</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> 
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Assign a list of unit ids for units in VISp brain area</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Assign spike times of first 4 VISp unit entries</span>
-
-<span class="ne">NameError</span>: name &#39;good_units_df&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spikes found for unit 950934565 : 20255
+[  12.54503374   12.59396707   12.66863375 ... 9662.03616445 9662.14643112
+ 9662.32143114]
+Spikes found for unit 950934614 : 40170
+[9.35699445e-01 4.06189970e+00 4.29429972e+00 ... 9.66156133e+03
+ 9.66302430e+03 9.66332806e+03]
+Spikes found for unit 950934597 : 60719
+[6.37236656e+00 6.51769991e+00 7.45033332e+00 ... 9.66515473e+03
+ 9.66529646e+03 9.66552750e+03]
+Spikes found for unit 950934762 : 309793
+[9.52799446e-01 1.17843280e+00 1.78076618e+00 ... 9.66512993e+03
+ 9.66522573e+03 9.66547786e+03]
 </pre></div>
 </div>
 </div>
