@@ -52,7 +52,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3.4. Identifying Cells with Optogenetics" href="Identifying_Cells_with_Optogenetics.html" />
-    <link rel="prev" title="3.2. Obtaining Raw Electrophysiology Data from the AllenSDK" href="Obtaining_Raw_Electrophysiology_Data.html" />
+    <link rel="prev" title="3.2. Obtaining Electrophysiology Data from the AllenSDK" href="Obtaining_Raw_Electrophysiology_Data.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -156,12 +156,12 @@
   <ul class="current">
    <li class="toctree-l2">
     <a class="reference internal" href="Visualizing_Large_Scale_Recordings.html">
-     3.1. Sample Visualizations
+     3.1. Visualizing Large Scale Recordings
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Obtaining_Raw_Electrophysiology_Data.html">
-     3.2. Obtaining Raw Electrophysiology Data from the AllenSDK
+     3.2. Obtaining  Electrophysiology Data from the AllenSDK
     </a>
    </li>
    <li class="toctree-l2 current active">
@@ -357,7 +357,7 @@
   <div class="section" id="aligning-spike-trains-with-visual-stimuli-and-behavior">
 <h1><span class="section-number">3.3. </span>Aligning Spike Trains with Visual Stimuli and Behavior<a class="headerlink" href="#aligning-spike-trains-with-visual-stimuli-and-behavior" title="Permalink to this headline">¶</a></h1>
 <p>In the previous section, we learned how to access metadata about the Allen Institute’s Visual Coding and download a Neuropixels dataset. Here, we’ll pull in additional information about the visual stimuli and the behavior of the mouse in order to see if we can explain our neural activity in terms of either of these.</p>
-<p>In this notebook, we’ll work with the same data you worked with in Chapter 3.1. If you did not work through that notebook, the cells below will not work for you.</p>
+<p>In this notebook, we’ll work with the same data you worked with in the last chapter. If you did not work through that notebook, the cells below will not work for you.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary packages </span>
@@ -375,168 +375,13 @@
 
 <span class="c1"># Create the EcephysProjectCache object</span>
 <span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="s1">&#39;manifest.json&#39;</span><span class="p">)</span>                            
-<span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">719161530</span><span class="p">)</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">829720705</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Session data obtained.&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:root:downloading a 2929.156MiB file from http://api.brain-map.org//api/v2/well_known_file_download/1026124034
-</pre></div>
-</div>
-<script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "bf547fa80eda45a5ab57b90d343ffb70"}
-</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
-<span class="g g-Whitespace">    </span><span class="mi">103</span>             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Reading data from cache&quot;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">104</span>             <span class="k">return</span> <span class="n">read</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">105</span>     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">read</span><span class="nt">(_path)</span>
-<span class="g g-Whitespace">    </span><span class="mi">347</span>         <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">_path</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">348</span>             <span class="n">session_api</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_nwb_api_for_session</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">session_id</span><span class="p">,</span> <span class="n">filter_by_validity</span><span class="p">,</span> <span class="o">**</span><span class="n">unit_filter_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">349</span>             <span class="k">return</span> <span class="n">EcephysSession</span><span class="p">(</span><span class="n">api</span><span class="o">=</span><span class="n">session_api</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">_build_nwb_api_for_session</span><span class="nt">(self, path, session_id, filter_by_validity, **unit_filter_kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">374</span>             <span class="n">filter_by_validity</span><span class="o">=</span><span class="n">filter_by_validity</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">375</span>             <span class="o">**</span><span class="n">unit_filter_kwargs</span>
-<span class="g g-Whitespace">    </span><span class="mi">376</span>         <span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session_api/ecephys_nwb_session_api.py</span> in <span class="ni">__init__</span><span class="nt">(self, path, probe_lfp_paths, additional_unit_metrics, external_channel_columns, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span>                 <span class="n">warning_msg</span><span class="o">=</span><span class="p">(</span>
-<span class="ne">---&gt; </span><span class="mi">66</span>                     <span class="sa">f</span><span class="s2">&quot;It looks like the Visual Coding Neuropixels nwbfile &quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">67</span>                     <span class="sa">f</span><span class="s2">&quot;you are trying to access (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2">)&quot;</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/nwb/__init__.py</span> in <span class="ni">check_nwbfile_version</span><span class="nt">(nwbfile_path, desired_minimum_version, warning_msg)</span>
-<span class="g g-Whitespace">     </span><span class="mi">57</span>                           <span class="n">warning_msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">58</span>     <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">nwbfile_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">59</span>         <span class="c1"># nwb 2.x files store version as an attribute</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/h5py/_hl/files.py</span> in <span class="ni">__init__</span><span class="nt">(self, name, mode, driver, libver, userblock_size, swmr, rdcc_nslots, rdcc_nbytes, rdcc_w0, track_order, **kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">407</span>                                <span class="n">fapl</span><span class="p">,</span> <span class="n">fcpl</span><span class="o">=</span><span class="n">make_fcpl</span><span class="p">(</span><span class="n">track_order</span><span class="o">=</span><span class="n">track_order</span><span class="p">),</span>
-<span class="ne">--&gt; </span><span class="mi">408</span>                                <span class="n">swmr</span><span class="o">=</span><span class="n">swmr</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">409</span> 
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/h5py/_hl/files.py</span> in <span class="ni">make_fid</span><span class="nt">(name, mode, userblock_size, fapl, fcpl, swmr)</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span>             <span class="n">flags</span> <span class="o">|=</span> <span class="n">h5f</span><span class="o">.</span><span class="n">ACC_SWMR_READ</span>
-<span class="ne">--&gt; </span><span class="mi">173</span>         <span class="n">fid</span> <span class="o">=</span> <span class="n">h5f</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">flags</span><span class="p">,</span> <span class="n">fapl</span><span class="o">=</span><span class="n">fapl</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">174</span>     <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r+&#39;</span><span class="p">:</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
-
-<span class="nn">h5py/h5f.pyx</span> in <span class="ni">h5py.h5f.open</span><span class="nt">()</span>
-
-<span class="ne">OSError</span>: Unable to open file (truncated file: eof = 5754880, sblock-&gt;base_addr = 0, stored_eof = 3071442940)
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">e2a5cfe033c4</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1"># Create the EcephysProjectCache object</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">EcephysProjectCache</span><span class="p">(</span><span class="n">manifest</span><span class="o">=</span><span class="s1">&#39;manifest.json&#39;</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">16</span> <span class="n">session</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_session_data</span><span class="p">(</span><span class="mi">719161530</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Session data obtained.&#39;</span><span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_cache.py</span> in <span class="ni">get_session_data</span><span class="nt">(self, session_id, filter_by_validity, **unit_filter_kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">354</span>             <span class="bp">self</span><span class="o">.</span><span class="n">stream_writer</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">355</span>             <span class="n">read</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">356</span>             <span class="n">num_tries</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fetch_tries</span>
-<span class="g g-Whitespace">    </span><span class="mi">357</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">358</span> 
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">one_file_call_caching</span><span class="nt">(path, fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
-<span class="g g-Whitespace">    </span><span class="mi">185</span>         <span class="n">lazy</span><span class="o">=</span><span class="n">lazy</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">186</span>         <span class="n">num_tries</span><span class="o">=</span><span class="n">num_tries</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">187</span>         <span class="n">failure_message</span><span class="o">=</span><span class="n">failure_message</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">188</span>     <span class="p">)</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
-<span class="g g-Whitespace">    </span><span class="mi">135</span>             <span class="n">lazy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span>             <span class="n">num_tries</span><span class="o">=</span><span class="n">num_tries</span><span class="p">,</span>
-<span class="ne">--&gt; </span><span class="mi">137</span>             <span class="n">failure_message</span><span class="o">=</span><span class="n">failure_message</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">138</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">139</span> 
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
-<span class="g g-Whitespace">     </span><span class="mi">98</span>                 <span class="n">data</span> <span class="o">=</span> <span class="n">pre_write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">99</span>             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Writing data to cache&quot;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">100</span>             <span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">101</span> 
-<span class="g g-Whitespace">    </span><span class="mi">102</span>         <span class="k">if</span> <span class="n">read</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">safe_write</span><span class="nt">(data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">169</span>     <span class="k">def</span> <span class="nf">safe_write</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Q</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">170</span>         <span class="n">Manifest</span><span class="o">.</span><span class="n">safe_make_parent_dirs</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">171</span>         <span class="n">write</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">172</span> 
-<span class="g g-Whitespace">    </span><span class="mi">173</span>     <span class="k">if</span> <span class="n">read</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/http_engine.py</span> in <span class="ni">write_bytes</span><span class="nt">(path, stream)</span>
-<span class="g g-Whitespace">     </span><span class="mi">85</span>     <span class="nd">@staticmethod</span>
-<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="k">def</span> <span class="nf">write_bytes</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]):</span>
-<span class="ne">---&gt; </span><span class="mi">87</span>         <span class="n">write_from_stream</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span> 
-<span class="g g-Whitespace">     </span><span class="mi">89</span> 
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/http_engine.py</span> in <span class="ni">write_from_stream</span><span class="nt">(path, stream)</span>
-<span class="g g-Whitespace">    </span><span class="mi">232</span>     <span class="s2">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">233</span><span class="s2">     with open(path, &quot;wb&quot;) as fil:</span>
-<span class="ne">--&gt; </span><span class="mi">234</span><span class="s2">         for chunk in stream:</span>
-<span class="g g-Whitespace">    </span><span class="mi">235</span><span class="s2">             fil.write(chunk)</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_project_api/http_engine.py</span> in <span class="ni">stream</span><span class="nt">(self, route)</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span><span class="s2">         progress = tqdm( unit=&quot;B&quot;, total=response_b, unit_scale=True,  desc=&quot;Downloading&quot;)</span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span><span class="s2"> </span>
-<span class="ne">---&gt; </span><span class="mi">76</span><span class="s2">         for chunk in response.iter_content(self.chunksize):</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span><span class="s2">             if chunk: # filter out keep-alive new chunks</span>
-<span class="g g-Whitespace">     </span><span class="mi">78</span><span class="s2">                 progress.update(len(chunk))</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/requests/models.py</span> in <span class="ni">generate</span><span class="nt">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">751</span><span class="s2">             if hasattr(self.raw, &#39;stream&#39;):</span>
-<span class="g g-Whitespace">    </span><span class="mi">752</span><span class="s2">                 try:</span>
-<span class="ne">--&gt; </span><span class="mi">753</span><span class="s2">                     for chunk in self.raw.stream(chunk_size, decode_content=True):</span>
-<span class="g g-Whitespace">    </span><span class="mi">754</span><span class="s2">                         yield chunk</span>
-<span class="g g-Whitespace">    </span><span class="mi">755</span><span class="s2">                 except ProtocolError as e:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/response.py</span> in <span class="ni">stream</span><span class="nt">(self, amt, decode_content)</span>
-<span class="g g-Whitespace">    </span><span class="mi">574</span><span class="s2">         else:</span>
-<span class="g g-Whitespace">    </span><span class="mi">575</span><span class="s2">             while not is_fp_closed(self._fp):</span>
-<span class="ne">--&gt; </span><span class="mi">576</span><span class="s2">                 data = self.read(amt=amt, decode_content=decode_content)</span>
-<span class="g g-Whitespace">    </span><span class="mi">577</span><span class="s2"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">578</span><span class="s2">                 if data:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/urllib3/response.py</span> in <span class="ni">read</span><span class="nt">(self, amt, decode_content, cache_content)</span>
-<span class="g g-Whitespace">    </span><span class="mi">517</span><span class="s2">             else:</span>
-<span class="g g-Whitespace">    </span><span class="mi">518</span><span class="s2">                 cache_content = False</span>
-<span class="ne">--&gt; </span><span class="mi">519</span><span class="s2">                 data = self._fp.read(amt) if not fp_closed else b&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">520</span><span class="s2">                 if (</span>
-<span class="g g-Whitespace">    </span><span class="mi">521</span><span class="s2">                     amt != 0 and not data</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/http/client.py</span> in <span class="ni">read</span><span class="nt">(self, amt)</span>
-<span class="g g-Whitespace">    </span><span class="mi">445</span><span class="s2">             # Amount is given, implement using readinto</span>
-<span class="g g-Whitespace">    </span><span class="mi">446</span><span class="s2">             b = bytearray(amt)</span>
-<span class="ne">--&gt; </span><span class="mi">447</span><span class="s2">             n = self.readinto(b)</span>
-<span class="g g-Whitespace">    </span><span class="mi">448</span><span class="s2">             return memoryview(b)[:n].tobytes()</span>
-<span class="g g-Whitespace">    </span><span class="mi">449</span><span class="s2">         else:</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/http/client.py</span> in <span class="ni">readinto</span><span class="nt">(self, b)</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span><span class="s2">         # connection, and the user is reading more bytes than will be provided</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span><span class="s2">         # (for example, reading in 1k chunks)</span>
-<span class="ne">--&gt; </span><span class="mi">491</span><span class="s2">         n = self.fp.readinto(b)</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span><span class="s2">         if not n and b:</span>
-<span class="g g-Whitespace">    </span><span class="mi">493</span><span class="s2">             # Ideally, we would raise IncompleteRead if the content-length</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/socket.py</span> in <span class="ni">readinto</span><span class="nt">(self, b)</span>
-<span class="g g-Whitespace">    </span><span class="mi">587</span><span class="s2">         while True:</span>
-<span class="g g-Whitespace">    </span><span class="mi">588</span><span class="s2">             try:</span>
-<span class="ne">--&gt; </span><span class="mi">589</span><span class="s2">                 return self._sock.recv_into(b)</span>
-<span class="g g-Whitespace">    </span><span class="mi">590</span><span class="s2">             except timeout:</span>
-<span class="g g-Whitespace">    </span><span class="mi">591</span><span class="s2">                 self._timeout_occurred = True</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Session data obtained.
 </pre></div>
 </div>
 </div>
@@ -549,6 +394,11 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign the spike times in this particular session session</span>
 <span class="n">all_spike_times</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">spike_times</span>
+
+<span class="c1"># Create dataframe from units that fit criteria</span>
+<span class="n">units_df</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">units</span>
+<span class="n">good_snr</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;snr&#39;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">good_units_df</span> <span class="o">=</span> <span class="n">good_snr</span><span class="p">[</span><span class="n">good_snr</span><span class="p">[</span><span class="s1">&#39;isi_violations&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.1</span><span class="p">]</span>
 
 <span class="c1"># Assign a list of unit ids for units in VISp brain area</span>
 <span class="n">VISp_unit_ids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">good_units_df</span><span class="p">[</span><span class="n">good_units_df</span><span class="p">[</span><span class="s1">&#39;ecephys_structure_acronym&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;VISp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -563,81 +413,26 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spikes found for unit 950934565 : 20255
-[  12.54503374   12.59396707   12.66863375 ... 9662.03616445 9662.14643112
- 9662.32143114]
-Spikes found for unit 950934614 : 40170
-[9.35699445e-01 4.06189970e+00 4.29429972e+00 ... 9.66156133e+03
- 9.66302430e+03 9.66332806e+03]
-Spikes found for unit 950934597 : 60719
-[6.37236656e+00 6.51769991e+00 7.45033332e+00 ... 9.66515473e+03
- 9.66529646e+03 9.66552750e+03]
-Spikes found for unit 950934762 : 309793
-[9.52799446e-01 1.17843280e+00 1.78076618e+00 ... 9.66512993e+03
- 9.66522573e+03 9.66547786e+03]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spikes found for unit 951132054 : 197970
+[3.73557118e+00 3.84383786e+00 3.91770453e+00 ... 9.99872732e+03
+ 9.99887449e+03 9.99983292e+03]
+Spikes found for unit 951132066 : 36915
+[3.68890450e+00 3.71600451e+00 3.79057118e+00 ... 9.99546959e+03
+ 9.99840246e+03 1.00004767e+04]
+Spikes found for unit 951132064 : 52494
+[3.73323784e+00 3.78890452e+00 3.82097119e+00 ... 1.00002681e+04
+ 1.00003118e+04 1.00003695e+04]
+Spikes found for unit 951132062 : 16606
+[4.26533791e+00 4.27957125e+00 8.60377179e+00 ... 1.00001881e+04
+ 1.00002813e+04 1.00003998e+04]
 </pre></div>
 </div>
 </div>
 </div>
-<p>With these spike times, we can create a raster plot for our unit of interst. Below we will plot  the first 50 seconds of the session.</p>
-<p><font color="red">In a previous chapter, we used plt.eventplot(). Should we be consistent?</font></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-
-<span class="c1"># Plot a raster plot for units of interest</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">])),</span> <span class="s1">&#39;|&#39;</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">ticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">VISp_unit_ids</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Units&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_6_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_6_0.png" />
-</div>
-</div>
-<p>A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too many spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin using the same function similar to the one we encountered in <a class="reference external" href="https://neuraldatascience.github.io/Chapter_02/Sample_Visualizations.html">Chapter 2.3</a>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_firing_rates</span><span class="p">(</span><span class="n">spike_times</span><span class="p">,</span> <span class="n">start_time</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span> <span class="n">end_time</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-
-    <span class="c1"># Create Subplot</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">),</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span>
-    
-    <span class="c1"># Create PSTH on each sublot</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)):</span>
-
-        <span class="c1"># Assign total number of bins </span>
-        <span class="n">numbins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()))</span>
-        <span class="n">binned_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">numbins</span><span class="p">))</span>
-
-        <span class="c1"># Assign the frequency of spikes over time</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numbins</span><span class="p">):</span>
-            <span class="n">binned_spikes</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">][(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">j</span><span class="p">)</span><span class="o">&amp;</span><span class="p">(</span><span class="n">spike_times</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)])</span>
-        
-        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">binned_spikes</span><span class="p">)</span>
-        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (s)&#39;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Firing (Hz)&#39;</span><span class="p">)</span>
-        
-        <span class="k">if</span> <span class="p">(</span><span class="n">start_time</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">end_time</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
-    
-    <span class="k">return</span> 
-
-<span class="n">plot_firing_rates</span><span class="p">(</span><span class="n">VISp_spike_times</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_8_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_8_0.png" />
-</div>
-</div>
+<p>With these spike times, we can create a raster plot for our neurons.</p>
+<blockquote>
+<div><p><strong>Challenge</strong>: Using the code we introduced previously, create raster and PSTH plots for these data.</p>
+</div></blockquote>
 </div>
 <div class="section" id="stimulus-presentations">
 <h2><span class="section-number">3.3.2. </span>Stimulus Presentations<a class="headerlink" href="#stimulus-presentations" title="Permalink to this headline">¶</a></h2>
@@ -651,15 +446,95 @@ Spikes found for unit 950934762 : 309793
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;spontaneous&#39;,
- &#39;gabors&#39;,
- &#39;invalid_presentation&#39;,
- &#39;flashes&#39;,
- &#39;drifting_gratings&#39;,
- &#39;natural_movie_three&#39;,
- &#39;natural_movie_one&#39;,
- &#39;static_gratings&#39;,
- &#39;natural_scenes&#39;]
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">cd41ac8bffaf</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Stimuli presented in session</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">all_stims</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">stimulus_names</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">all_stims</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property_mixin.py</span> in <span class="ni">__getattribute__</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> 
+<span class="g g-Whitespace">     </span><span class="mi">12</span>         <span class="n">lazy_class</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s1">&#39;LazyProperty&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">13</span>         <span class="n">curr_attr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">,</span> <span class="n">lazy_class</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>             <span class="k">return</span> <span class="n">curr_attr</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session.py</span> in <span class="ni">stimulus_names</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">163</span>     <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">164</span>     <span class="k">def</span> <span class="nf">stimulus_names</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">165</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stimulus_presentations</span><span class="p">[</span><span class="s1">&#39;stimulus_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">166</span> 
+<span class="g g-Whitespace">    </span><span class="mi">167</span>     <span class="nd">@property</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property_mixin.py</span> in <span class="ni">__getattribute__</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> 
+<span class="g g-Whitespace">     </span><span class="mi">12</span>         <span class="n">lazy_class</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="s1">&#39;LazyProperty&#39;</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">13</span>         <span class="n">curr_attr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">,</span> <span class="n">lazy_class</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>             <span class="k">return</span> <span class="n">curr_attr</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session.py</span> in <span class="ni">stimulus_presentations</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">241</span>     <span class="nd">@property</span>
+<span class="g g-Whitespace">    </span><span class="mi">242</span>     <span class="k">def</span> <span class="nf">stimulus_presentations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">243</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="n">_remove_detailed_stimulus_parameters</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stimulus_presentations</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">244</span> 
+<span class="g g-Whitespace">    </span><span class="mi">245</span>     <span class="nd">@property</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property_mixin.py</span> in <span class="ni">__getattribute__</span><span class="nt">(self, name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">13</span>         <span class="n">curr_attr</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">,</span> <span class="n">lazy_class</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">15</span>             <span class="k">return</span> <span class="n">curr_attr</span><span class="o">.</span><span class="fm">__get__</span><span class="p">(</span><span class="n">curr_attr</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>         <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>             <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">LazyPropertyMixin</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property.py</span> in <span class="ni">__get__</span><span class="nt">(self, obj, objtype)</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> 
+<span class="g g-Whitespace">     </span><span class="mi">19</span>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">20</span>             <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> 
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/core/lazy_property/lazy_property.py</span> in <span class="ni">calculate</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span> 
+<span class="g g-Whitespace">     </span><span class="mi">29</span>     <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">30</span>         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_method</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">31</span>         <span class="k">for</span> <span class="n">wrapper</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrappers</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span>             <span class="n">result</span> <span class="o">=</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/ecephys/ecephys_session_api/ecephys_nwb_session_api.py</span> in <span class="ni">get_stimulus_presentations</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span> 
+<span class="g g-Whitespace">     </span><span class="mi">86</span>     <span class="k">def</span> <span class="nf">get_stimulus_presentations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">87</span>         <span class="n">table</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">EcephysNwbSessionApi</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_stimulus_presentations</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">88</span> 
+<span class="g g-Whitespace">     </span><span class="mi">89</span>         <span class="k">if</span> <span class="s2">&quot;color&quot;</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/brain_observatory/nwb/nwb_api.py</span> in <span class="ni">get_stimulus_presentations</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">79</span>                 <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">interval</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">80</span>                     <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">columns_to_ignore</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">81</span>                         <span class="n">presentations</span><span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span>                 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">presentations</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;N/A&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">})</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span>                 <span class="n">presentation_dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/h5py/_hl/dataset.py</span> in <span class="ni">__iter__</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">472</span>             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Can&#39;t iterate over a scalar dataset&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">473</span>         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+<span class="ne">--&gt; </span><span class="mi">474</span>             <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">475</span> 
+<span class="g g-Whitespace">    </span><span class="mi">476</span>     <span class="nd">@with_phil</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/h5py/_hl/dataset.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span>         <span class="n">mspace</span> <span class="o">=</span> <span class="n">h5s</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">mshape</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span>         <span class="n">fspace</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">id</span>
+<span class="ne">--&gt; </span><span class="mi">573</span>         <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mspace</span><span class="p">,</span> <span class="n">fspace</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">mtype</span><span class="p">,</span> <span class="n">dxpl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dxpl</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span> 
+<span class="g g-Whitespace">    </span><span class="mi">575</span>         <span class="c1"># Patch up the output for NumPy</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
@@ -961,7 +836,7 @@ Spikes found for unit 950934762 : 309793
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_18_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_18_0.png" />
+<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_15_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_15_0.png" />
 </div>
 </div>
 <p>Alternatively, you could use the <code class="docutils literal notranslate"><span class="pre">get_stimulus_table()</span></code> method to return a subset of stimulus presentation by <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. The returned dataframe will only contain parameters that relate to the given <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. Below we will investigate how our neuronal units responded to a <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimulus presentations.</p>
@@ -1112,7 +987,7 @@ Spikes found for unit 950934762 : 309793
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_24_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_24_0.png" />
+<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_21_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_21_0.png" />
 </div>
 </div>
 <p>You are not limited to only plotting the times where a certain image was presented, nor are you limited to only plotting <code class="docutils literal notranslate"><span class="pre">natural_scenes</span></code> stimuli. You can create a similar graph with <code class="docutils literal notranslate"><span class="pre">gabors</span></code>, <code class="docutils literal notranslate"><span class="pre">flashes</span></code>, or any other availabe <code class="docutils literal notranslate"><span class="pre">stimulus_name</span></code>. For example, you can plot all the times when a <code class="docutils literal notranslate"><span class="pre">gabors</span></code> stimulus was presented at a certain spatial frequncy, temporal frequency, or orientaion. You can use <code class="docutils literal notranslate"><span class="pre">get_stimulus_parameter_values</span></code> to return a dictionary of all parameters used in a session.</p>
@@ -1141,7 +1016,7 @@ Spikes found for unit 950934762 : 309793
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_29_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_29_0.png" />
+<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_26_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_26_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1152,7 +1027,7 @@ Spikes found for unit 950934762 : 309793
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_30_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_30_0.png" />
+<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_27_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_27_0.png" />
 </div>
 </div>
 </div>
@@ -1172,7 +1047,7 @@ Spikes found for unit 950934762 : 309793
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_33_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_33_0.png" />
+<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_30_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_30_0.png" />
 </div>
 </div>
 <p>With the running speed, we can ask if there is a correlation between the firing rates of our units and the velocity of our mouse. Similar to how we plotted above, we can plot the running speed of the session over the firing rates and see if increases in running speed align with increases in neural activity.</p>
@@ -1200,7 +1075,7 @@ Spikes found for unit 950934762 : 309793
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_35_0.png" />
+<img alt="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_32_0.png" src="../_images/Aligning_Spike_Trains_with_Stimuli_and_Behavior_32_0.png" />
 </div>
 </div>
 <p>Even by eye, you can see that the firing rate of the fourth neuron we plotted (and maybe a couple others) seem to be correlated with the mouse’s running speed.</p>
@@ -1232,7 +1107,7 @@ Spikes found for unit 950934762 : 309793
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Obtaining_Raw_Electrophysiology_Data.html" title="previous page"><span class="section-number">3.2. </span>Obtaining Raw Electrophysiology Data from the AllenSDK</a>
+    <a class='left-prev' id="prev-link" href="Obtaining_Raw_Electrophysiology_Data.html" title="previous page"><span class="section-number">3.2. </span>Obtaining  Electrophysiology Data from the AllenSDK</a>
     <a class='right-next' id="next-link" href="Identifying_Cells_with_Optogenetics.html" title="next page"><span class="section-number">3.4. </span>Identifying Cells with Optogenetics</a>
 
         </div>

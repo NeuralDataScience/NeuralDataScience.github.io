@@ -19,7 +19,7 @@
 # Using the rocket icon in the top right corner, you can launch any of these notebooks in either Google Colab or Binder.
 
 # ## Support
-# <img src="The_Kavli_Foundation_Logo_Blue_Red.png"
+# <img src="https://github.com/NeuralDataScience/NeuralDataScience.github.io/blob/master/The_Kavli_Foundation_Logo_Blue_Red.png?raw=true"
 #      alt="Kavli Logo"
 #      style="float: left; margin-right: 10px;"
 #      width="500"/>

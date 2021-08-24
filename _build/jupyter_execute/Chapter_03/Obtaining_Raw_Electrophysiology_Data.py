@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-#  # Obtaining Raw Electrophysiology Data from the AllenSDK
+# # Obtaining  Electrophysiology Data from the AllenSDK
 #  
+# The [Visual Coding - Neuropixels dataset from the Allen Institute of Brain Sciences](https://portal.brain-map.org/explore/circuits/visual-coding-neuropixels) records spiking activity in the visual system of the mouse brain. At the time of writing, this dataset contains a total of 58 experiment sessions from Neuropixels probes in the cortex, hippocampus, and thalamus. There are three different trangenic mouse lines used in the experiments alongside the wild-type mice, which mark three different inhibitory cell types. The stimuli presented in this dataset range from natural scenes to drifting gratings. 
+# 
+# In this chapter you will learn how to download and sort through the Neuropixels dataset. Once you learn the basics, you will learn how to perform possible analyses to explain the neural activity within, as well as how to use optogenetics to identify different cell types within the data. 
+# 
 # This section will teach you how to interact with the Allen Institute Neuropixels dataset, specifically how to download experimental sessions, return processed data, and subset your data to contain only brain regions you are interested in. 
 # 
 # First things first, let's make sure you have the AllenSDK installed. See the [Allen Institute website](https://alleninstitute.github.io/AllenSDK/install.html) for information on installing it, otherwise, the cell below will do it for you.

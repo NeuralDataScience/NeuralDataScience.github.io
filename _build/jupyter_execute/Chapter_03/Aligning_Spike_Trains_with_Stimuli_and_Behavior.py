@@ -5,7 +5,7 @@
 # 
 # In the previous section, we learned how to access metadata about the Allen Institute's Visual Coding and download a Neuropixels dataset. Here, we'll pull in additional information about the visual stimuli and the behavior of the mouse in order to see if we can explain our neural activity in terms of either of these. 
 # 
-# In this notebook, we'll work with the same data you worked with in Chapter 3.1. If you did not work through that notebook, the cells below will not work for you.
+# In this notebook, we'll work with the same data you worked with in the last chapter. If you did not work through that notebook, the cells below will not work for you.
 
 # In[1]:
 
@@ -25,7 +25,7 @@ from spykes.plot.popvis import PopVis
 
 # Create the EcephysProjectCache object
 cache = EcephysProjectCache(manifest='manifest.json')                            
-session = cache.get_session_data(719161530)
+session = cache.get_session_data(829720705)
 print('Session data obtained.')
 
 
@@ -35,11 +35,16 @@ print('Session data obtained.')
 # 
 # Because there are many units in a given session, we first need to select a subgroup of units to focus on. For the purposes of this notebook we will work with units that were taken from the primary visual area (`VISp`). Below, we will assign spike times of units from the `VISp` area. 
 
-# In[16]:
+# In[2]:
 
 
 # Assign the spike times in this particular session session
 all_spike_times = session.spike_times
+
+# Create dataframe from units that fit criteria
+units_df = session.units
+good_snr = units_df[units_df['snr']>2]
+good_units_df = good_snr[good_snr['isi_violations']<0.1]
 
 # Assign a list of unit ids for units in VISp brain area
 VISp_unit_ids = list(good_units_df[good_units_df['ecephys_structure_acronym'] == 'VISp'].index)
@@ -52,65 +57,15 @@ for i in range(4):
     print(all_spike_times[VISp_unit_ids[i]])
 
 
-# With these spike times, we can create a raster plot for our unit of interst. Below we will plot  the first 50 seconds of the session. 
+# With these spike times, we can create a raster plot for our neurons. 
 # 
-# <font color="red">In a previous chapter, we used plt.eventplot(). Should we be consistent?</font>
-
-# In[19]:
-
-
-plt.figure(figsize=(15,4))
-
-# Plot a raster plot for units of interest
-for i in range(4):
-    plt.plot(VISp_spike_times[i], np.repeat(i,len(VISp_spike_times[i])), '|')
-
-plt.xlim(0,50)
-plt.yticks(ticks = [0,1,2,3], labels = VISp_unit_ids[:5])
-plt.xlabel('Time (s)')
-plt.ylabel('Units')
-plt.show()
-
-
-# A raster plot maybe difficult to see the overall firing activity of a unit becasue there are too many spikes. Instead of looking at each individual spike across time, we can bin our spikes into 1 second bins and plot the spike frequency of each bin using the same function similar to the one we encountered in [Chapter 2.3](https://neuraldatascience.github.io/Chapter_02/Sample_Visualizations.html).
-
-# In[21]:
-
-
-def plot_firing_rates(spike_times, start_time = None , end_time = None):
-
-    # Create Subplot
-    fig, ax = plt.subplots(len(spike_times), figsize = (10, 15))
-    
-    # Create PSTH on each sublot
-    for i in range(len(spike_times)):
-
-        # Assign total number of bins 
-        numbins = int(np.ceil(spike_times[i].max()))
-        binned_spikes = np.empty((numbins))
-
-        # Assign the frequency of spikes over time
-        for j in range(numbins):
-            binned_spikes[j] = len(spike_times[i][(spike_times[i]>j)&(spike_times[i]<j+1)])
-        
-        ax[i].plot(binned_spikes)
-        ax[i].set_xlabel('Time (s)')
-        ax[i].set_ylabel('Firing (Hz)')
-        
-        if (start_time != None) and (end_time != None):
-            ax[i].set_xlim(start_time, end_time)
-    
-    return 
-
-plot_firing_rates(VISp_spike_times, 0, 50)
-plt.show()
-
+# >**Challenge**: Using the code we introduced previously, create raster and PSTH plots for these data.
 
 # ## Stimulus Presentations
 
 # The spike data can be sorted according to the type of stimulus that was presented to the mouse. You can access the different stimuli that were presented in the session by using the attribute `stimulus_names`. 
 
-# In[22]:
+# In[3]:
 
 
 # Stimuli presented in session
