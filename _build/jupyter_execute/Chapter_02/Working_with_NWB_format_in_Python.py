@@ -54,7 +54,7 @@ print('File found and read.')
 print(type(nwb_file))
 
 
-# ## File Hierarchy: Groups, Datasets, and Attributes¶
+# ## File Hierarchy: Groups, Datasets, and Attributes
 # 
 # One of the first steps when working with a new dataset is to figure out what is in the dataset, and where. Each NWB file is composed of various Groups, Datasets, and Attributes. The data and corresponding **metadata** are encapsulated within these Groups. The `fields` attribute returns a dictionary containing the the Groups of our NWB file. The dictionary keys are the various Groups within the file which we will use to access our datasets.
 
@@ -169,7 +169,7 @@ electrodes_df = electrodes.to_dataframe()
 electrodes_df.head()
 
 
-# Now that we have an idea of what this data contains, we can finally take a look at some of the data! We'll do that in the next section. 💃
+# Now that we have an idea of what this file contains, we can finally take a look at some of the data! We'll do that in the next section. 💃
 # 
 # 
 # ## Additional Resources 

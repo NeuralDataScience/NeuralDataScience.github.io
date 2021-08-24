@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2.4. Chapter 2 Problem Set &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>2.3. Chapter 2 Problem Set &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -52,7 +52,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. Large Scale Electrophysiology" href="../Chapter_03/Large_Scale_Electrophysiology.html" />
-    <link rel="prev" title="2.3. Sample Visualizations" href="Sample_Visualizations.html" />
+    <link rel="prev" title="2.2. Working with NWB in Python" href="Working_with_NWB_format_in_Python.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -102,17 +102,17 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/NumPy.html">
-     1.1. NumPy
+     1.3. NumPy
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/Pandas.html">
-     1.2. Pandas
+     1.4. Pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/SciPy.html">
-     1.3. SciPy
+     1.5. SciPy
     </a>
    </li>
   </ul>
@@ -137,14 +137,9 @@
      2.2. Working with NWB in Python
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Sample_Visualizations.html">
-     2.3. Sample Visualizations
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     2.4. Chapter 2 Problem Set
+     2.3. Chapter 2 Problem Set
     </a>
    </li>
   </ul>
@@ -160,23 +155,28 @@
   </label>
   <ul>
    <li class="toctree-l2">
+    <a class="reference internal" href="../Chapter_03/Visualizing_Large_Scale_Recordings.html">
+     3.1. Sample Visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_03/Obtaining_Raw_Electrophysiology_Data.html">
-     3.1. Obtaining Raw Electrophysiology Data
+     3.2. Obtaining Raw Electrophysiology Data from the AllenSDK
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_03/Aligning_Spike_Trains_with_Stimuli_and_Behavior.html">
-     3.2. Aligning Spike Trains with Visual Stimuli and Behavior
+     3.3. Aligning Spike Trains with Visual Stimuli and Behavior
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_03/Identifying_Cells_with_Optogenetics.html">
-     3.3. Identifying Cells with Optogenetics
+     3.4. Identifying Cells with Optogenetics
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_03/Chapter_3_ProblemSet.html">
-     3.4. Chapter 3 Problem Set
+     3.5. Chapter 3 Problem Set
     </a>
    </li>
   </ul>
@@ -327,11 +327,10 @@
               <div>
                 
   <div class="section" id="chapter-2-problem-set">
-<h1><span class="section-number">2.4. </span>Chapter 2 Problem Set<a class="headerlink" href="#chapter-2-problem-set" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">2.3. </span>Chapter 2 Problem Set<a class="headerlink" href="#chapter-2-problem-set" title="Permalink to this headline">¶</a></h1>
 <ol class="simple">
 <li><p>In <a class="reference external" href="https://neuraldatascience.github.io/Chapter_02/Obtaining_Datasets_with_DANDI.html">Chapter 2.1</a>, we demonstrated how to download a particular DANDIset. Modify this code to download another dataset, and dig in to see what’s there.</p></li>
-<li><p>In <a class="reference external" href="https://neuraldatascience.github.io/Chapter_02/Working_with_NWB_format_in_Python.html">2.3</a>, we created two functions. One of these functions plots binned firing rates over time. Modify this function to accept a NumPy array that is neurons x spike times, and to plot an average firing rate over time. Bonus: add a shaded standard deviation around your average firing rate.</p></li>
-<li><p>In <a class="reference external" href="https://neuraldatascience.github.io/Chapter_02/Sample_Visualizations.html">2.2</a>, we looked at the Economo &amp; Svoboda (2018) extracellular data and produced a table of trial times. In 2.2, we showed how to plot a PSTH for single neurons. Use the <code class="docutils literal notranslate"><span class="pre">interval_trial</span></code> table we created in 2.2 to find trials where the mouse either had a “correct” or “incorrect” response. Take an average of firing rates across all neurons in the incorrect and correct, and plot. Is there a difference?</p></li>
+<li><p>In <a class="reference external" href="https://neuraldatascience.github.io/Chapter_02/Working_with_NWB_format_in_Python.html">Chapter 2.2</a> we demonstrated how to create a dataframe with all of the units (possible neurons) that were recorded. How would you filter this dataframe for only “good” units?</p></li>
 </ol>
 </div>
 
@@ -360,7 +359,7 @@
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Sample_Visualizations.html" title="previous page"><span class="section-number">2.3. </span>Sample Visualizations</a>
+    <a class='left-prev' id="prev-link" href="Working_with_NWB_format_in_Python.html" title="previous page"><span class="section-number">2.2. </span>Working with NWB in Python</a>
     <a class='right-next' id="next-link" href="../Chapter_03/Large_Scale_Electrophysiology.html" title="next page"><span class="section-number">3. </span>Large Scale Electrophysiology</a>
 
         </div>

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-#  # Obtaining Raw Electrophysiology Data
-
-# This section will teach you how to interact with the Neuropixels dataset, specifically how to download experimental sessions, return procesed data, and subset your data to contain only brain regions you are interested in. 
+#  # Obtaining Raw Electrophysiology Data from the AllenSDK
+#  
+# This section will teach you how to interact with the Allen Institute Neuropixels dataset, specifically how to download experimental sessions, return processed data, and subset your data to contain only brain regions you are interested in. 
 # 
 # First things first, let's make sure you have the AllenSDK installed. See the [Allen Institute website](https://alleninstitute.github.io/AllenSDK/install.html) for information on installing it, otherwise, the cell below will do it for you.
 
