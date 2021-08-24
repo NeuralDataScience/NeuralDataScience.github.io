@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3.3. Identifying Cells with Optogenetics &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>3.4. Identifying Cells with Optogenetics &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3.4. Chapter 3 Problem Set" href="Chapter_3_ProblemSet.html" />
-    <link rel="prev" title="3.2. Aligning Spike Trains with Visual Stimuli and Behavior" href="Aligning_Spike_Trains_with_Stimuli_and_Behavior.html" />
+    <link rel="next" title="3.5. Chapter 3 Problem Set" href="Chapter_3_ProblemSet.html" />
+    <link rel="prev" title="3.3. Aligning Spike Trains with Visual Stimuli and Behavior" href="Aligning_Spike_Trains_with_Stimuli_and_Behavior.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -102,17 +102,17 @@
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/NumPy.html">
-     1.1. NumPy
+     1.3. NumPy
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/Pandas.html">
-     1.2. Pandas
+     1.4. Pandas
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_01/SciPy.html">
-     1.3. SciPy
+     1.5. SciPy
     </a>
    </li>
   </ul>
@@ -138,13 +138,8 @@
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter_02/Sample_Visualizations.html">
-     2.3. Sample Visualizations
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_02/Chapter_2_ProblemSet.html">
-     2.4. Chapter 2 Problem Set
+     2.3. Chapter 2 Problem Set
     </a>
    </li>
   </ul>
@@ -160,23 +155,28 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
+    <a class="reference internal" href="Visualizing_Large_Scale_Recordings.html">
+     3.1. Sample Visualizations
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="Obtaining_Raw_Electrophysiology_Data.html">
-     3.1. Obtaining Raw Electrophysiology Data
+     3.2. Obtaining Raw Electrophysiology Data from the AllenSDK
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Aligning_Spike_Trains_with_Stimuli_and_Behavior.html">
-     3.2. Aligning Spike Trains with Visual Stimuli and Behavior
+     3.3. Aligning Spike Trains with Visual Stimuli and Behavior
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     3.3. Identifying Cells with Optogenetics
+     3.4. Identifying Cells with Optogenetics
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Chapter_3_ProblemSet.html">
-     3.4. Chapter 3 Problem Set
+     3.5. Chapter 3 Problem Set
     </a>
    </li>
   </ul>
@@ -325,17 +325,17 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#accessing-optogenetic-data">
-   3.3.1. Accessing Optogenetic Data
+   3.4.1. Accessing Optogenetic Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#aligning-spikes-to-pulses">
-   3.3.2. Aligning Spikes to Pulses
+   3.4.2. Aligning Spikes to Pulses
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#identifying-fast-paced-waveforms">
-   3.3.3. Identifying Fast-Paced Waveforms
+   3.4.3. Identifying Fast-Paced Waveforms
   </a>
  </li>
 </ul>
@@ -350,7 +350,7 @@
               <div>
                 
   <div class="section" id="identifying-cells-with-optogenetics">
-<h1><span class="section-number">3.3. </span>Identifying Cells with Optogenetics<a class="headerlink" href="#identifying-cells-with-optogenetics" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">3.4. </span>Identifying Cells with Optogenetics<a class="headerlink" href="#identifying-cells-with-optogenetics" title="Permalink to this headline">¶</a></h1>
 <p>In this section, you will learn how to access the optogenetic data within the AllenSDK’s Neuropixels dataset. In these experiments, light-gated ion channels were expressed in mice in a Cre-dependent manner. These ion channels can depolarize Cre+ cells when specific wavelengths of light are shined on the brain.</p>
 <p>Although it can be hard to identify cell types with extracellular electrophysiology, the integration of optogenetics into these experiments is one way to help identify subsets of cells. Only units with our cre-line of interest will respond to the light allowing for subgroups of neuronal untis to be identified and analyzed across differing genotypes. This technique is called <strong>optotagging</strong>.</p>
 <p><strong>Note</strong>: the presence of light artifacts can create the appearance of false positives, and false negatives (cells that are Cre+ but do not respond to light) are nearly impossible to avoid. We will go over how to deal with these cases later in the notebook.</p>
@@ -436,7 +436,7 @@
 <p>At the time we created this notebook, there were three transgenic mouse lines available: Sst-IRES-Cre, Pvalb-IRES-Cre, and Vip-IRES-Cre. Each of these Cre-lines mark specific subsets of inhibitory neurons in the brain. You can find a brief description as well as two-photon images of these transgenic lines on the<a href = 'https://observatory.brain-map.org/visualcoding/transgenic'> Allen Brain Atlas website</a>.</p>
 <p>You might also notice that these lines are crossed with a mouse line called “Ai32” – that’s a mouse line that expresses a channelrhodopsin optogenetic channel (ChR2) in a cre-dependent manner. It also expresses yellow florescent protein (EYFP) so that researchers can see the cells expressing ChR2.</p>
 <div class="section" id="accessing-optogenetic-data">
-<h2><span class="section-number">3.3.1. </span>Accessing Optogenetic Data<a class="headerlink" href="#accessing-optogenetic-data" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.4.1. </span>Accessing Optogenetic Data<a class="headerlink" href="#accessing-optogenetic-data" title="Permalink to this headline">¶</a></h2>
 <p>Before we begin downloading data, it is important to mention that there were two different means of light stimulation used in these experiments. The light used to evoke the units’ optogenetic response was switched from an LED light to a laser a little more than halfway through data collection to evoke a stronger response from the units.</p>
 <p>To ensure we can see clear optogenetic responses from our units, we will be working with a session that used a laser to evoke these responses. In the cell below, we will filter our dataframe down to Pvalb-IRES-Cre mice and laser sessions only, and then download a session from a Pvalb-Cre session because they fire at high rates and are the most common in the cortex.</p>
 <div class="cell docutils container">
@@ -568,7 +568,7 @@
 </pre></div>
 </div>
 <script type="application/vnd.jupyter.widget-view+json">
-{"version_major": 2, "version_minor": 0, "model_id": "c677010d191e4e5ea3ec01efac6c87dd"}
+{"version_major": 2, "version_minor": 0, "model_id": "33179a485e684dd19ed18bdcb3e0bd6c"}
 </script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
 <span class="nn">~/anaconda3/lib/python3.7/site-packages/allensdk/api/warehouse_cache/caching_utilities.py</span> in <span class="ni">call_caching</span><span class="nt">(fetch, write, read, pre_write, cleanup, lazy, num_tries, failure_message)</span>
@@ -612,7 +612,7 @@
 
 <span class="nn">h5py/h5f.pyx</span> in <span class="ni">h5py.h5f.open</span><span class="nt">()</span>
 
-<span class="ne">OSError</span>: Unable to open file (unable to open file: name = &#39;/Users/ashley/Documents/NeuralDataScience.github.io/Chapter_03/session_829720705/session_829720705.nwb&#39;, errno = 2, error message = &#39;No such file or directory&#39;, flags = 0, o_flags = 0)
+<span class="ne">OSError</span>: Unable to open file (truncated file: eof = 17991680, sblock-&gt;base_addr = 0, stored_eof = 1679648916)
 
 <span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
 
@@ -826,7 +826,7 @@
 </div>
 </div>
 <div class="section" id="aligning-spikes-to-pulses">
-<h2><span class="section-number">3.3.2. </span>Aligning Spikes to Pulses<a class="headerlink" href="#aligning-spikes-to-pulses" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.4.2. </span>Aligning Spikes to Pulses<a class="headerlink" href="#aligning-spikes-to-pulses" title="Permalink to this headline">¶</a></h2>
 <p>Unlike the stimulus presentations that we covered in the previous section, there is no built in function for aligning spikes to light pulses in the Allen SDK. Below, we have copied a function from the <a href = 'https://github.com/jsiegle/AllenSDK/blob/opto-tutorial/doc_template/examples_root/examples/nb/ecephys_optotagging.ipynb'> Allen SDK Optotagging Analysis tutorial</a> that does this for you.</p>
 <p>The function below needs <code class="docutils literal notranslate"><span class="pre">bin</span> <span class="pre">edges</span></code>, <code class="docutils literal notranslate"><span class="pre">optogenetic</span> <span class="pre">trials</span></code>, and <code class="docutils literal notranslate"><span class="pre">units</span></code> in order to return the spike counts. For this reason, you must first specify your desired bins, optogenetic stimuli, and units of interest. We will be focusing units found in the <code class="docutils literal notranslate"><span class="pre">VISp</span></code> brain area. The Allen Institute has discovered that “10 ms pulses are the most useful stimulus for finding true light-evoked activity” so will subselect data with that stimulus.</p>
 <div class="cell docutils container">
@@ -1367,7 +1367,7 @@ dl.xr-attrs {
 <p>Each point represent a neural unit. The black line represents a 1:1 ratio in the evoked firing rate to the baseline firing rate of that unit. Any unit below that black line had a larger response at baseline than it did to the light pulse. The red line represents a 2:1 ratio in the evoked firing rate to the baseline firing rate of that unit. We can subselect units whose evoked firing rate is 2x larger than baseline to define the cre+ units.</p>
 </div>
 <div class="section" id="identifying-fast-paced-waveforms">
-<h2><span class="section-number">3.3.3. </span>Identifying Fast-Paced Waveforms<a class="headerlink" href="#identifying-fast-paced-waveforms" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">3.4.3. </span>Identifying Fast-Paced Waveforms<a class="headerlink" href="#identifying-fast-paced-waveforms" title="Permalink to this headline">¶</a></h2>
 <p>Defining what units are cre+ from those that are cre- is the first step in comparing optogenetic responses. Below we will create two lists, one with IDs of units who had an evoked firing rate 2x greater than baseline, and one with IDs of units whose evoked response was smaller than 2x the baseline.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1468,8 +1468,8 @@ dl.xr-attrs {
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Aligning_Spike_Trains_with_Stimuli_and_Behavior.html" title="previous page"><span class="section-number">3.2. </span>Aligning Spike Trains with Visual Stimuli and Behavior</a>
-    <a class='right-next' id="next-link" href="Chapter_3_ProblemSet.html" title="next page"><span class="section-number">3.4. </span>Chapter 3 Problem Set</a>
+    <a class='left-prev' id="prev-link" href="Aligning_Spike_Trains_with_Stimuli_and_Behavior.html" title="previous page"><span class="section-number">3.3. </span>Aligning Spike Trains with Visual Stimuli and Behavior</a>
+    <a class='right-next' id="next-link" href="Chapter_3_ProblemSet.html" title="next page"><span class="section-number">3.5. </span>Chapter 3 Problem Set</a>
 
         </div>
         
