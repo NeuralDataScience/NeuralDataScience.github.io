@@ -32,8 +32,8 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-['# Import necessary packages ', 'import numpy as np', 'import matplotlib.pyplot as plt', 'import warnings', "warnings.filterwarnings('ignore')"]
-...
-['', '# Create the EcephysProjectCache object', "cache = EcephysProjectCache(manifest='manifest.json')                            ", 'session = cache.get_session_data(719161530)', "print('Session data obtained.')"]
+# Stimuli presented in session
+all_stims = session.stimulus_names
+all_stims
 -------------------
 
