@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Sample Visualizations
-
+# # Visualizing Large Scale Recordings
 # Now that we are familiar with the structure of an NWB file as well as the groups encapsulated within it, we are ready to work with the data. In this chapter you will learn to search the NWB file for its available data and plot visualizations such as raster plots.
 # 
 # Below, we'll import some now familiar packages and once again work with the dataset we obtained in [Chapter 2.1](https://neuraldatascience.github.io/Chapter_02/Obtaining_Datasets_with_DANDI.html).
@@ -16,31 +15,30 @@ import numpy as np
 from matplotlib import pyplot as plt
 from pynwb import NWBHDF5IO
 
-# read the file 
-io = NWBHDF5IO('000006/sub-anm369962/sub-anm369962_ses-20170310.nwb', 'r')
+# read the file from the chapter 02 folder
+io = NWBHDF5IO('../Chapter_02/000006/sub-anm369962/sub-anm369962_ses-20170310.nwb', 'r')
 nwb_file = io.read()
 print(type(nwb_file))
 
 
-# The first group that we will look at is `units` because it contains information about spikes times in the data. This time, we will subset our dataframe to only contain neurons with `fair` spike sorting quality. This means that the researchers are more confident that these are indeed isolated neurons.  
+# The first group that we will look at is `units` because it contains information about spikes times in the data. This time, we will subset our dataframe to only contain neurons with `Fair` spike sorting quality. This means that the researchers are more confident that these are indeed isolated neurons.  
 
-# In[3]:
+# In[2]:
 
 
 # Get the units data frame
 units_df = nwb_file.units.to_dataframe()
  
 # Select only "Fair" units
-desired_value = 'Fair'
-fair_units_df = units_df[units_df['quality']==desired_value]
+fair_units_df = units_df[units_df['quality']=='Fair']
 
 # Print the subsetted dataframe
 fair_units_df.head()
 
 
-# The `spike_times` column contains the times at which the recorded neuron fired an actiion potential. Each neuron has a list of spike times for their `spike_times` column. 
+# The `spike_times` column contains the times at which the recorded neuron fired an action potential. Each neuron has a list of spike times for their `spike_times` column. 
 
-# In[4]:
+# In[3]:
 
 
 # Return the first 10 spike times for your neuron of choice
@@ -58,7 +56,7 @@ print(units_df['spike_times'][unit_id][:10])
 # - `start_time`: start time for desired time interval 
 # - `end_time`: end time for desired time interval
 
-# In[33]:
+# In[4]:
 
 
 # Function for creating raster plots for Units group in NWB file 
@@ -91,7 +89,7 @@ plot_raster(units_df, neuron_start = 2, neuron_end = 11, start_time = 330, end_t
 plt.show()
 
 
-# The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings!
+# The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings! To summarize these spikes over time, we can compute a **firing rate**.
 
 # ## Binning Firing Rates 
 
@@ -103,7 +101,7 @@ plt.show()
 # 
 # The function plots the overall firing rate for each array of spike times in the list it is given, in 1 second time bins.
 
-# In[39]:
+# In[5]:
 
 
 def plot_firing_rates(spike_times, start_time = None, end_time = None):
@@ -128,7 +126,7 @@ def plot_firing_rates(spike_times, start_time = None, end_time = None):
 
 # Let's use the function we just created to plot our data. Below, we will store all of the spike times from the same unit as above as `single_unit` and plot the firing rates over time.
 
-# In[34]:
+# In[6]:
 
 
 # Plot our data
@@ -141,7 +139,7 @@ plt.show()
 # 
 # The units in our data were recorded from various cortical depths, therefore we can compare the firing units from differing cortical depths to test for differing firing rates. Let's first take a look at the distribution of depth from our units.
 
-# In[35]:
+# In[7]:
 
 
 # Plot distribution of neuron depth 
@@ -154,7 +152,7 @@ plt.show()
 
 # We will compare the units that were recorded from 1165 um and 715 um cortical depths.
 
-# In[42]:
+# In[8]:
 
 
 # Assign dataframes for different depths 

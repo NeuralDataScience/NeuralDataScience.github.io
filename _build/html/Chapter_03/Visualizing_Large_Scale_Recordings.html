@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3.1. Sample Visualizations &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>3.1. Visualizing Large Scale Recordings &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -156,7 +156,7 @@
   <ul class="current">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     3.1. Sample Visualizations
+     3.1. Visualizing Large Scale Recordings
     </a>
    </li>
    <li class="toctree-l2">
@@ -349,8 +349,8 @@
         
               <div>
                 
-  <div class="section" id="sample-visualizations">
-<h1><span class="section-number">3.1. </span>Sample Visualizations<a class="headerlink" href="#sample-visualizations" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="visualizing-large-scale-recordings">
+<h1><span class="section-number">3.1. </span>Visualizing Large Scale Recordings<a class="headerlink" href="#visualizing-large-scale-recordings" title="Permalink to this headline">¶</a></h1>
 <p>Now that we are familiar with the structure of an NWB file as well as the groups encapsulated within it, we are ready to work with the data. In this chapter you will learn to search the NWB file for its available data and plot visualizations such as raster plots.</p>
 <p>Below, we’ll import some now familiar packages and once again work with the dataset we obtained in <a class="reference external" href="https://neuraldatascience.github.io/Chapter_02/Obtaining_Datasets_with_DANDI.html">Chapter 2.1</a>.</p>
 <div class="cell docutils container">
@@ -361,65 +361,27 @@
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">from</span> <span class="nn">pynwb</span> <span class="kn">import</span> <span class="n">NWBHDF5IO</span>
 
-<span class="c1"># read the file </span>
-<span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000006/sub-anm369962/sub-anm369962_ses-20170310.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1"># read the file from the chapter 02 folder</span>
+<span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;../Chapter_02/000006/sub-anm369962/sub-anm369962_ses-20170310.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">UnsupportedOperation</span><span class="g g-Whitespace">                      </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mf">0e2</span><span class="n">f97dfc04f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> 
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># read the file</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">io</span> <span class="o">=</span> <span class="n">NWBHDF5IO</span><span class="p">(</span><span class="s1">&#39;000006/sub-anm369962/sub-anm369962_ses-20170310.nwb&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">nwb_file</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">nwb_file</span><span class="p">))</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">func_call</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">578</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">579</span>                 <span class="n">pargs</span> <span class="o">=</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">580</span>                 <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">pargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">581</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">582</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/pynwb/__init__.py</span> in <span class="ni">__init__</span><span class="nt">(self, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">244</span>             <span class="k">elif</span> <span class="n">manager</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">245</span>                 <span class="n">manager</span> <span class="o">=</span> <span class="n">get_manager</span><span class="p">()</span>
-<span class="ne">--&gt; </span><span class="mi">246</span>         <span class="nb">super</span><span class="p">(</span><span class="n">NWBHDF5IO</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="n">manager</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file_obj</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="n">comm</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="n">driver</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">247</span> 
-<span class="g g-Whitespace">    </span><span class="mi">248</span>     <span class="nd">@docval</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;src_io&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="n">HDMFIO</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;the HDMFIO object for reading the data to export&#39;</span><span class="p">},</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/hdmf/utils.py</span> in <span class="ni">func_call</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">578</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">579</span>                 <span class="n">pargs</span> <span class="o">=</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">580</span>                 <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">**</span><span class="n">pargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">581</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">582</span>             <span class="k">def</span> <span class="nf">func_call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-<span class="nn">~/anaconda3/lib/python3.7/site-packages/hdmf/backends/hdf5/h5tools.py</span> in <span class="ni">__init__</span><span class="nt">(self, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">60</span>         <span class="k">if</span> <span class="n">file_obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r&#39;</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;r+&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">driver</span> <span class="o">!=</span> <span class="s1">&#39;ros3&#39;</span><span class="p">:</span>
-<span class="nn">     61             msg = &quot;Unable to open file %s</span> in <span class="ni">&#39;%s&#39; mode. File does not exist.&quot; % </span><span class="nt">(path, mode)</span>
-<span class="ne">---&gt; </span><span class="mi">62</span>             <span class="k">raise</span> <span class="n">UnsupportedOperation</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">63</span> 
-<span class="g g-Whitespace">     </span><span class="mi">64</span>         <span class="k">if</span> <span class="n">file_obj</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;w-&#39;</span> <span class="ow">or</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">):</span>
-
-<span class="ne">UnsupportedOperation</span>: Unable to open file 000006/sub-anm369962/sub-anm369962_ses-20170310.nwb in &#39;r&#39; mode. File does not exist.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pynwb.file.NWBFile&#39;&gt;
 </pre></div>
 </div>
 </div>
 </div>
-<p>The first group that we will look at is <code class="docutils literal notranslate"><span class="pre">units</span></code> because it contains information about spikes times in the data. This time, we will subset our dataframe to only contain neurons with <code class="docutils literal notranslate"><span class="pre">fair</span></code> spike sorting quality. This means that the researchers are more confident that these are indeed isolated neurons.</p>
+<p>The first group that we will look at is <code class="docutils literal notranslate"><span class="pre">units</span></code> because it contains information about spikes times in the data. This time, we will subset our dataframe to only contain neurons with <code class="docutils literal notranslate"><span class="pre">Fair</span></code> spike sorting quality. This means that the researchers are more confident that these are indeed isolated neurons.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the units data frame</span>
 <span class="n">units_df</span> <span class="o">=</span> <span class="n">nwb_file</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
  
 <span class="c1"># Select only &quot;Fair&quot; units</span>
-<span class="n">desired_value</span> <span class="o">=</span> <span class="s1">&#39;Fair&#39;</span>
-<span class="n">fair_units_df</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">desired_value</span><span class="p">]</span>
+<span class="n">fair_units_df</span> <span class="o">=</span> <span class="n">units_df</span><span class="p">[</span><span class="n">units_df</span><span class="p">[</span><span class="s1">&#39;quality&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;Fair&#39;</span><span class="p">]</span>
 
 <span class="c1"># Print the subsetted dataframe</span>
 <span class="n">fair_units_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -510,7 +472,7 @@ id         ...</td>
 </table>
 </div></div></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> column contains the times at which the recorded neuron fired an actiion potential. Each neuron has a list of spike times for their <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> column.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> column contains the times at which the recorded neuron fired an action potential. Each neuron has a list of spike times for their <code class="docutils literal notranslate"><span class="pre">spike_times</span></code> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return the first 10 spike times for your neuron of choice</span>
@@ -569,10 +531,10 @@ id         ...</td>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Visualizing_Large_Scale_Recordings_8_0.png" src="../_images/Visualizing_Large_Scale_Recordings_8_0.png" />
+<img alt="../_images/Visualizing_Large_Scale_Recordings_7_0.png" src="../_images/Visualizing_Large_Scale_Recordings_7_0.png" />
 </div>
 </div>
-<p>The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings!</p>
+<p>The plot above is only contains neural spikes from a 3 second time interval. While there are many spikes to consider in this one graph, each neuron has much more than 3 seconds worth of spike recordings! To summarize these spikes over time, we can compute a <strong>firing rate</strong>.</p>
 <div class="section" id="binning-firing-rates">
 <h2><span class="section-number">3.1.1. </span>Binning Firing Rates<a class="headerlink" href="#binning-firing-rates" title="Permalink to this headline">¶</a></h2>
 <p>Raster plots are great for seeing individual neural spikes, but difficult to see the overall firing rates of the units. To get a better sense of the overall firing rates of our units, we can bin our spikes into time bins of 1 second. The function below, <code class="docutils literal notranslate"><span class="pre">plot_firing_rates()</span></code> take the following arguments:</p>
@@ -617,7 +579,7 @@ id         ...</td>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Visualizing_Large_Scale_Recordings_14_0.png" src="../_images/Visualizing_Large_Scale_Recordings_14_0.png" />
+<img alt="../_images/Visualizing_Large_Scale_Recordings_13_0.png" src="../_images/Visualizing_Large_Scale_Recordings_13_0.png" />
 </div>
 </div>
 </div>
@@ -636,7 +598,7 @@ id         ...</td>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Visualizing_Large_Scale_Recordings_16_0.png" src="../_images/Visualizing_Large_Scale_Recordings_16_0.png" />
+<img alt="../_images/Visualizing_Large_Scale_Recordings_15_0.png" src="../_images/Visualizing_Large_Scale_Recordings_15_0.png" />
 </div>
 </div>
 <p>We will compare the units that were recorded from 1165 um and 715 um cortical depths.</p>
@@ -659,7 +621,7 @@ id         ...</td>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Visualizing_Large_Scale_Recordings_18_0.png" src="../_images/Visualizing_Large_Scale_Recordings_18_0.png" />
+<img alt="../_images/Visualizing_Large_Scale_Recordings_17_0.png" src="../_images/Visualizing_Large_Scale_Recordings_17_0.png" />
 </div>
 </div>
 <p>It looks like the neuron that’s more superficial has a higher firing rate! But we’d certainly need more data to make a conclusive argument about that.</p>

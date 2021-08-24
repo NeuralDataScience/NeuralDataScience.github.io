@@ -19,18 +19,19 @@
 # Using the rocket icon in the top right corner, you can launch any of these notebooks in either Google Colab or Binder.
 
 # ## Support
-# <img src="https://upload.wikimedia.org/wikipedia/en/5/55/Logo_Kavli_Foundation.png"
+# <img src="The_Kavli_Foundation_Logo_Blue_Red.png"
 #      alt="Kavli Logo"
-#      style="float: left; margin-right: 10px;" />
-# <br /><br />
+#      style="float: left; margin-right: 10px;"
+#      width="500"/>
+# <br clear="left"/>
 # 
 # This work is supported by a [Kavli Foundation Seed Grant](https://www.nwb.org/projects/) meant to increase the access to Neurodata Without Borders datasets.
 # 
+# <br clear="left"/>
 # <img src="https://www.braininitiative.org/wp-content/uploads/2017/02/nwb.png"
 #      alt="Kavli Logo"
 #      style="float: left; margin-right: 10px;" />
-# <br /><br />
-# <br /><br />
+# <br clear="left"/>
 # 
 # Many thanks to the NWB team for their feedback and input.
 
