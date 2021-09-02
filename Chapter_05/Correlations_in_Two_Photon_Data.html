@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5.3. Correlations in Two Photon Data &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>5.4. Correlations in Two Photon Data &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,7 +51,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="5.2. Analyzing Two Photon Data" href="Analyzing_Two_Photon_Data.html" />
+    <link rel="prev" title="5.3. Analyzing Two Photon Data" href="Analyzing_Two_Photon_Data.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -213,18 +213,23 @@
   </label>
   <ul class="current">
    <li class="toctree-l2">
+    <a class="reference internal" href="Excitatory_Inhibitory_Decisions.html">
+     5.1. Decision Making in Excitatory &amp; Inhibitory Cells
+    </a>
+   </li>
+   <li class="toctree-l2">
     <a class="reference internal" href="Retrieving_Brain_Observatory_Data.html">
-     5.1. Retrieving Calcium Imaging Data
+     5.2. Retrieving Calcium Imaging Data from the AllenSDK
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Analyzing_Two_Photon_Data.html">
-     5.2. Analyzing Two Photon Data
+     5.3. Analyzing Two Photon Data
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     5.3. Correlations in Two Photon Data
+     5.4. Correlations in Two Photon Data
     </a>
    </li>
   </ul>
@@ -324,12 +329,12 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#accessing-signal-correlation">
-   5.3.1. Accessing Signal Correlation
+   5.4.1. Accessing Signal Correlation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#plotting">
-   5.3.2. Plotting
+   5.4.2. Plotting
   </a>
  </li>
 </ul>
@@ -344,7 +349,7 @@
               <div>
                 
   <div class="section" id="correlations-in-two-photon-data">
-<h1><span class="section-number">5.3. </span>Correlations in Two Photon Data<a class="headerlink" href="#correlations-in-two-photon-data" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">5.4. </span>Correlations in Two Photon Data<a class="headerlink" href="#correlations-in-two-photon-data" title="Permalink to this headline">¶</a></h1>
 <p>In this notebook, we’ll explore correlations in single cell two-photon imaging data. In neuroscience, correlation is taken into acount between activity of different brain areas and between activity of individual neurons. It is widley believed that neurons that wire together, fire together, therfore spike correlations may reveal functional relations between neurons and explain how neurons encode information. Before we begin, we will ensure that the Allen SDK is intalled, as well as the other necessary toolkits.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -396,7 +401,7 @@
 </div>
 </div>
 <div class="section" id="accessing-signal-correlation">
-<h2><span class="section-number">5.3.1. </span>Accessing Signal Correlation<a class="headerlink" href="#accessing-signal-correlation" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.1. </span>Accessing Signal Correlation<a class="headerlink" href="#accessing-signal-correlation" title="Permalink to this headline">¶</a></h2>
 <p>We will be using the Two Photon Imaging Data from the Allen SDK that we have used in the previous sections. Like before, we will start by assigning an experiment container and stimulus that we will use to download our desired experiments using <code class="docutils literal notranslate"><span class="pre">get_ophys_experiments()</span></code> to return an experiment id.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">get_ophys_experiment_analysis()</span></code> method returns a data accessor object that we will use to create our signal correlation object. This object will contain many precomputed metrics of the neuron, one being the signal correlation between neurons. The signal correlations can be accessed through the <code class="docutils literal notranslate"><span class="pre">signal_correltation</span></code> attriubute of our data accessor object.</p>
 <div class="cell docutils container">
@@ -468,7 +473,7 @@
 <p>By looking at the shape of our signal correlation object, we can see that there are 122 cells in our data. When we print out the signal correlation object, we can see that it is multi-dimentional because each cell’s signal correlation is computed across every other cell in our data.</p>
 </div>
 <div class="section" id="plotting">
-<h2><span class="section-number">5.3.2. </span>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.4.2. </span>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
 <p>We can now plot a heatmap of the signal correltations between neurons. The heatmap will plot our 122 neurons against each other to determine functional connectivity. The idea behind this is that if brain areas are active together, they may be coming together to accomplish the same task in the brain, forming neuronal networks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -635,7 +640,7 @@ pearson&#39;s r: -0.023194    pearson&#39;s p: 0.046302
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Analyzing_Two_Photon_Data.html" title="previous page"><span class="section-number">5.2. </span>Analyzing Two Photon Data</a>
+    <a class='left-prev' id="prev-link" href="Analyzing_Two_Photon_Data.html" title="previous page"><span class="section-number">5.3. </span>Analyzing Two Photon Data</a>
 
         </div>
         
