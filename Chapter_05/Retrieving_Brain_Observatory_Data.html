@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5.2. Retrieving Calcium Imaging Data from the AllenSDK &#8212; Teaching &amp; Learning with NWB Datasets</title>
+    <title>5.1. Retrieving Calcium Imaging Data &#8212; Teaching &amp; Learning with NWB Datasets</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -51,8 +51,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5.3. Analyzing Two Photon Data" href="Analyzing_Two_Photon_Data.html" />
-    <link rel="prev" title="5.1. Decision Making in Excitatory &amp; Inhibitory Cells" href="Excitatory_Inhibitory_Decisions.html" />
+    <link rel="next" title="5.2. Analyzing Two Photon Data" href="Analyzing_Two_Photon_Data.html" />
+    <link rel="prev" title="5. Two Photon Imaging" href="Two_Photon_Imaging.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -213,24 +213,19 @@
    </i>
   </label>
   <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="Excitatory_Inhibitory_Decisions.html">
-     5.1. Decision Making in Excitatory &amp; Inhibitory Cells
-    </a>
-   </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     5.2. Retrieving Calcium Imaging Data from the AllenSDK
+     5.1. Retrieving Calcium Imaging Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Analyzing_Two_Photon_Data.html">
-     5.3. Analyzing Two Photon Data
+     5.2. Analyzing Two Photon Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="Correlations_in_Two_Photon_Data.html">
-     5.4. Correlations in Two Photon Data
+     5.3. Correlations in Two Photon Data
     </a>
    </li>
   </ul>
@@ -330,17 +325,17 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#setup">
-   5.2.1. Setup
+   5.1.1. Setup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
-   5.2.2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.
+   5.1.2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#extract-an-experiment-session">
-   5.2.3. Extract an experiment session
+   5.1.3. Extract an experiment session
   </a>
  </li>
 </ul>
@@ -354,13 +349,11 @@
         
               <div>
                 
-  <div class="section" id="retrieving-calcium-imaging-data-from-the-allensdk">
-<h1><span class="section-number">5.2. </span>Retrieving Calcium Imaging Data from the AllenSDK<a class="headerlink" href="#retrieving-calcium-imaging-data-from-the-allensdk" title="Permalink to this headline">¶</a></h1>
-<p>This section will serve as an introduction to retrieving two-photon fluorescence imaging data from the Allen Brain Observatory. By the end of this section you will know how to obtain a two-photon imaging dataset for a particular cell type in a specific visual area.</p>
-<p><strong>Additional Resources</strong>
-The Allen Brain Observatory contains two-photon fluorescence imaging data grouped together by mouse Cre line, brain structure, and imaging depth. For an overview on the data, please visit the <a href = 'https://alleninstitute.github.io/AllenSDK/brain_observatory.html'> Allen SDK Brain Observatory</a> web page.</p>
+  <div class="section" id="retrieving-calcium-imaging-data">
+<h1><span class="section-number">5.1. </span>Retrieving Calcium Imaging Data<a class="headerlink" href="#retrieving-calcium-imaging-data" title="Permalink to this headline">¶</a></h1>
+<p>This section will serve as an introdution to retrieving two-photon fluorescence imaging data from the Allen Brain Observatory. By the end of this section you will know how to obtain a two-photon imaging dataset for a particular cell type in a specific visual area.</p>
 <div class="section" id="setup">
-<h2><span class="section-number">5.2.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.1.1. </span>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>We need a variety of standard Python packages in addition to two different <code class="docutils literal notranslate"><span class="pre">allensdk</span></code> toolboxes. If you have not yet installed the <code class="docutils literal notranslate"><span class="pre">allensdk</span></code>, run the cell below. Otherwise, you can skip to the cell that imports our toolboxes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -406,7 +399,7 @@ The Allen Brain Observatory contains two-photon fluorescence imaging data groupe
 </div>
 </div>
 <div class="section" id="get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
-<h2><span class="section-number">5.2.2. </span>Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.1.2. </span>Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Permalink to this headline">¶</a></h2>
 <p>Below, we’ll create an instance of the <a class="reference external" href="https://alleninstitute.github.io/AllenSDK/allensdk.core.brain_observatory_cache.html"><code class="docutils literal notranslate"><span class="pre">BrainObservatoryCache</span></code></a>. This object will allow us to retrieve and analyze the Allen Brain Observatory data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -440,7 +433,7 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </div>
 </div>
 <div class="section" id="extract-an-experiment-session">
-<h2><span class="section-number">5.2.3. </span>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">5.1.3. </span>Extract an experiment session<a class="headerlink" href="#extract-an-experiment-session" title="Permalink to this headline">¶</a></h2>
 <p>With access to the cre lines and brain regions from the dataset, we can construct a dataframe of experiement containers from our desired cre lines and brain regions. Each experiment container has a group of experiments that share the same targeted brain area, cre line, and depth. However, the stimuli conditions may differ across experiments for a given contianer.</p>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to return a list of dictionaries with data on the available experiment contianers. The method takes in the arguments <code class="docutils literal notranslate"><span class="pre">cre_lines</span></code> and <code class="docutils literal notranslate"><span class="pre">targeted_structures</span></code> which both require lists as inputs.</p>
 <p><em>Note</em>: Not every cre line and brain region combination will have data. If no data is availabe for a certain combindation, an empty dataframe will be created. You can use the <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute on your new datafram to check if it is empty.</p>
@@ -684,8 +677,8 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="Excitatory_Inhibitory_Decisions.html" title="previous page"><span class="section-number">5.1. </span>Decision Making in Excitatory &amp; Inhibitory Cells</a>
-    <a class='right-next' id="next-link" href="Analyzing_Two_Photon_Data.html" title="next page"><span class="section-number">5.3. </span>Analyzing Two Photon Data</a>
+    <a class='left-prev' id="prev-link" href="Two_Photon_Imaging.html" title="previous page"><span class="section-number">5. </span>Two Photon Imaging</a>
+    <a class='right-next' id="next-link" href="Analyzing_Two_Photon_Data.html" title="next page"><span class="section-number">5.2. </span>Analyzing Two Photon Data</a>
 
         </div>
         

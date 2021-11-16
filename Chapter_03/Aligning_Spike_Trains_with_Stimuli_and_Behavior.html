@@ -214,23 +214,18 @@
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Chapter_05/Excitatory_Inhibitory_Decisions.html">
-     5.1. Decision Making in Excitatory &amp; Inhibitory Cells
-    </a>
-   </li>
-   <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_05/Retrieving_Brain_Observatory_Data.html">
-     5.2. Retrieving Calcium Imaging Data from the AllenSDK
+     5.1. Retrieving Calcium Imaging Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_05/Analyzing_Two_Photon_Data.html">
-     5.3. Analyzing Two Photon Data
+     5.2. Analyzing Two Photon Data
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="../Chapter_05/Correlations_in_Two_Photon_Data.html">
-     5.4. Correlations in Two Photon Data
+     5.3. Correlations in Two Photon Data
     </a>
    </li>
   </ul>
@@ -527,6 +522,17 @@ Spikes found for unit 951132062 : 16606
 <span class="ne">--&gt; </span><span class="mi">474</span>             <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="g g-Whitespace">    </span><span class="mi">475</span> 
 <span class="g g-Whitespace">    </span><span class="mi">476</span>     <span class="nd">@with_phil</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">h5py/_objects.pyx</span> in <span class="ni">h5py._objects.with_phil.wrapper</span><span class="nt">()</span>
+
+<span class="nn">~/anaconda3/lib/python3.7/site-packages/h5py/_hl/dataset.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span>         <span class="n">mspace</span> <span class="o">=</span> <span class="n">h5s</span><span class="o">.</span><span class="n">create_simple</span><span class="p">(</span><span class="n">mshape</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">572</span>         <span class="n">fspace</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">id</span>
+<span class="ne">--&gt; </span><span class="mi">573</span>         <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mspace</span><span class="p">,</span> <span class="n">fspace</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">mtype</span><span class="p">,</span> <span class="n">dxpl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dxpl</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">574</span> 
+<span class="g g-Whitespace">    </span><span class="mi">575</span>         <span class="c1"># Patch up the output for NumPy</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
