@@ -1,5 +1,5 @@
 format: jb-article
-root: landing_page
+root: index
 options:
   numbered: true
 sections:
