@@ -422,6 +422,24 @@ document.write(`
 <p>First, we’ll import the necessary toolboxes to run this code. The first chunk of “import” lines will bring in some standard toolboxes that we need. For example, “numpy” is a toolbox that has functions to work with large arrays. The second chunk of import lines brings in some toolboxes that the Allen Brain Observatory has already packaged, to help users analyze its data.</p>
 <div class="alert alert-success"><b>Task</b>: In addition to the modules already imported below, import <code>numpy</code>, <code>pandas</code>, and <code>matplotlib.pyplot</code> as their conventional names.</div><div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install allensdk if it isn&#39;t already there</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">allensdk</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allensdk is already installed.&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allensdk not found, installing now...&quot;</span><span class="p">)</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>allensdk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk is already installed.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allen specific toolboxes</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">allensdk.brain_observatory.stimulus_info</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stim_info</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.brain_observatory_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrainObservatoryCache</span>
@@ -433,15 +451,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Allen specific toolboxes</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">allensdk.brain_observatory.stimulus_info</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stim_info</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.brain_observatory_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrainObservatoryCache</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;allensdk&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/brain_observatory_nwb_data_set.py:43: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools&lt;81.
+  from pkg_resources import parse_version
 </pre></div>
 </div>
 </div>
@@ -452,6 +463,74 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We will create an instance of the Brain Observatory Cache as an object, &quot;boc.&quot;</span>
 <span class="n">boc</span> <span class="o">=</span> <span class="n">BrainObservatoryCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;/datasets/allen-brain-observatory/visual-coding-2p/manifest.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">OSError</span><span class="g g-Whitespace">                                   </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># We will create an instance of the Brain Observatory Cache as an object, &quot;boc.&quot;</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">boc</span> <span class="o">=</span> <span class="n">BrainObservatoryCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;/datasets/allen-brain-observatory/visual-coding-2p/manifest.json&#39;</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/brain_observatory_cache.py:128,</span> in <span class="ni">BrainObservatoryCache.__init__</span><span class="nt">(self, cache, manifest_file, base_uri, api)</span>
+<span class="g g-Whitespace">    </span><span class="mi">125</span> <span class="k">if</span> <span class="n">manifest_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">126</span>     <span class="n">manifest_file</span> <span class="o">=</span> <span class="n">get_default_manifest_file</span><span class="p">(</span><span class="s2">&quot;brain_observatory&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">128</span> <span class="nb">super</span><span class="p">(</span><span class="n">BrainObservatoryCache</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">129</span>     <span class="n">manifest</span><span class="o">=</span><span class="n">manifest_file</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="n">cache</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">MANIFEST_VERSION</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span> <span class="k">if</span> <span class="n">api</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">133</span>     <span class="bp">self</span><span class="o">.</span><span class="n">api</span> <span class="o">=</span> <span class="n">BrainObservatoryApi</span><span class="p">(</span><span class="n">base_uri</span><span class="o">=</span><span class="n">base_uri</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:105,</span> in <span class="ni">Cache.__init__</span><span class="nt">(self, manifest, cache, version, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span> <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;MANIFEST_VERSION&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span>     <span class="n">version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">MANIFEST_VERSION</span>
+<span class="ne">--&gt; </span><span class="mi">105</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_manifest</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:147,</span> in <span class="ni">Cache.load_manifest</span><span class="nt">(self, file_name, version)</span>
+<span class="g g-Whitespace">    </span><span class="mi">145</span>     <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">146</span>     <span class="k">if</span> <span class="n">dirname</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">147</span>         <span class="n">Manifest</span><span class="o">.</span><span class="n">safe_mkdir</span><span class="p">(</span><span class="n">dirname</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span>     <span class="bp">self</span><span class="o">.</span><span class="n">build_manifest</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">151</span> <span class="k">try</span><span class="p">:</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/config/manifest.py:340,</span> in <span class="ni">Manifest.safe_mkdir</span><span class="nt">(cls, directory)</span>
+<span class="g g-Whitespace">    </span><span class="mi">337</span>         <span class="n">leftmost</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sub_path</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">339</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">340</span>     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span> <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span>     <span class="k">if</span> <span class="p">((</span><span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s2">&quot;darwin&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">EISDIR</span><span class="p">)</span> <span class="ow">and</span> \
+<span class="g g-Whitespace">    </span><span class="mi">343</span>         <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">filename</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span><span class="p">)):</span>
+<span class="g g-Whitespace">    </span><span class="mi">344</span>         <span class="c1"># undocumented behavior of mkdir on OSX where for / it raises</span>
+<span class="g g-Whitespace">    </span><span class="mi">345</span>         <span class="c1"># EISDIR and not EEXIST</span>
+<span class="g g-Whitespace">    </span><span class="mi">346</span>         <span class="c1"># https://bugs.python.org/issue24231 (old but still holds true)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/os.py:215,</span> in <span class="ni">makedirs</span><span class="nt">(name, mode, exist_ok)</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="k">if</span> <span class="n">head</span> <span class="ow">and</span> <span class="n">tail</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">215</span>         <span class="n">makedirs</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="n">exist_ok</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">216</span>     <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span>         <span class="c1"># Defeats race condition when another thread created the path</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>         <span class="k">pass</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/os.py:215,</span> in <span class="ni">makedirs</span><span class="nt">(name, mode, exist_ok)</span>
+<span class="g g-Whitespace">    </span><span class="mi">213</span> <span class="k">if</span> <span class="n">head</span> <span class="ow">and</span> <span class="n">tail</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">215</span>         <span class="n">makedirs</span><span class="p">(</span><span class="n">head</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="n">exist_ok</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">216</span>     <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span>         <span class="c1"># Defeats race condition when another thread created the path</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span>         <span class="k">pass</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/os.py:225,</span> in <span class="ni">makedirs</span><span class="nt">(name, mode, exist_ok)</span>
+<span class="g g-Whitespace">    </span><span class="mi">223</span>         <span class="k">return</span>
+<span class="g g-Whitespace">    </span><span class="mi">224</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">225</span>     <span class="n">mkdir</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">226</span> <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">227</span>     <span class="c1"># Cannot rely on checking for EEXIST, since the operating system</span>
+<span class="g g-Whitespace">    </span><span class="mi">228</span>     <span class="c1"># could give priority to other errors like EACCES or EROFS</span>
+<span class="g g-Whitespace">    </span><span class="mi">229</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">exist_ok</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+
+<span class="ne">OSError</span>: [Errno 30] Read-only file system: &#39;/datasets&#39;
 </pre></div>
 </div>
 </div>
@@ -974,16 +1053,16 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "jupyterbook_env"
+            mode: "jb_py311"
         },
         kernelOptions: {
-            name: "jupyterbook_env",
+            name: "jb_py311",
             path: "./Chapter09"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'jupyterbook_env'</script>
+    <script>kernelName = 'jb_py311'</script>
 
                 </article>
               
