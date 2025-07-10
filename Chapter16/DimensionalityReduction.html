@@ -60,7 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter16/DimensionalityReduction';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Brain Observatory: What are those cells doing?" href="../Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory.html" />
+    <link rel="prev" title="Brain Observatory: What are those cells doing?" href="../Chapter09/2pImaging.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -195,7 +195,8 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter09/SingleCellEphys.html">Defining cell types by their electrophysiology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter09/2pImaging.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">APPROACHES TO WORKING WITH BIG DATA</span></p>
 <ul class="current nav bd-sidenav">
@@ -450,18 +451,174 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Import our necessary toolboxes</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;numpy&#39;
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>type_num</th>
+      <th>transmission</th>
+      <th>latMean</th>
+      <th>latStd</th>
+      <th>volMean</th>
+      <th>volStd</th>
+      <th>depthMean</th>
+      <th>depthStd</th>
+      <th>maxrateMean</th>
+      <th>maxrateStd</th>
+      <th>spontMean</th>
+      <th>spontStd</th>
+      <th>widthMean</th>
+      <th>widthStd</th>
+      <th>axonMean</th>
+      <th>axonStd</th>
+      <th>dendriteMean</th>
+      <th>dendriteStd</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>excitatory</td>
+      <td>14</td>
+      <td>0.5</td>
+      <td>150</td>
+      <td>30</td>
+      <td>500</td>
+      <td>20</td>
+      <td>0.90</td>
+      <td>0.1</td>
+      <td>0.02</td>
+      <td>0.01</td>
+      <td>1.0</td>
+      <td>0.050</td>
+      <td>160</td>
+      <td>20</td>
+      <td>180</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>excitatory</td>
+      <td>15</td>
+      <td>0.5</td>
+      <td>120</td>
+      <td>30</td>
+      <td>300</td>
+      <td>20</td>
+      <td>0.80</td>
+      <td>0.1</td>
+      <td>0.07</td>
+      <td>0.01</td>
+      <td>1.0</td>
+      <td>0.040</td>
+      <td>150</td>
+      <td>20</td>
+      <td>150</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>inhibitory</td>
+      <td>15</td>
+      <td>1.0</td>
+      <td>120</td>
+      <td>30</td>
+      <td>300</td>
+      <td>20</td>
+      <td>0.95</td>
+      <td>0.1</td>
+      <td>0.20</td>
+      <td>0.10</td>
+      <td>0.2</td>
+      <td>0.001</td>
+      <td>150</td>
+      <td>10</td>
+      <td>150</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>inhibitory</td>
+      <td>17</td>
+      <td>4.0</td>
+      <td>110</td>
+      <td>30</td>
+      <td>300</td>
+      <td>20</td>
+      <td>0.30</td>
+      <td>0.1</td>
+      <td>0.02</td>
+      <td>0.01</td>
+      <td>0.3</td>
+      <td>0.005</td>
+      <td>150</td>
+      <td>10</td>
+      <td>150</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>excitatory</td>
+      <td>22</td>
+      <td>5.0</td>
+      <td>180</td>
+      <td>20</td>
+      <td>800</td>
+      <td>100</td>
+      <td>0.35</td>
+      <td>0.2</td>
+      <td>0.35</td>
+      <td>0.10</td>
+      <td>0.5</td>
+      <td>0.100</td>
+      <td>1000</td>
+      <td>500</td>
+      <td>200</td>
+      <td>60</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>inhibitory</td>
+      <td>13</td>
+      <td>0.5</td>
+      <td>100</td>
+      <td>30</td>
+      <td>500</td>
+      <td>20</td>
+      <td>0.95</td>
+      <td>0.1</td>
+      <td>0.20</td>
+      <td>0.10</td>
+      <td>0.2</td>
+      <td>0.001</td>
+      <td>150</td>
+      <td>10</td>
+      <td>150</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>Now, we’ll create hundred neurons that are randomly selected from these six different cell types.</p>
 <div class="cell docutils container">
@@ -493,6 +650,208 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(100, 9)
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
+/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_51213/3536420254.py:17: FutureWarning: The frame.append method is deprecated and will be removed from pandas in a future version. Use pandas.concat instead.
+  dataset = dataset.append(pd.DataFrame
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -527,62 +886,62 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>15.232010</td>
-      <td>113.255853</td>
-      <td>299.808284</td>
-      <td>0.882077</td>
-      <td>0.272622</td>
-      <td>0.198983</td>
-      <td>141.868908</td>
-      <td>133.461595</td>
+      <td>13.440617</td>
+      <td>184.240908</td>
+      <td>513.005576</td>
+      <td>1.134147</td>
+      <td>0.090655</td>
+      <td>0.199149</td>
+      <td>160.245661</td>
+      <td>137.111363</td>
       <td>inhibitory</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>11.275057</td>
-      <td>105.231552</td>
-      <td>298.547427</td>
-      <td>0.379106</td>
-      <td>0.022283</td>
-      <td>0.298038</td>
-      <td>155.846848</td>
-      <td>171.377303</td>
-      <td>inhibitory</td>
+      <td>14.579648</td>
+      <td>234.986573</td>
+      <td>492.104525</td>
+      <td>0.768691</td>
+      <td>0.019626</td>
+      <td>0.908769</td>
+      <td>159.767475</td>
+      <td>176.845747</td>
+      <td>excitatory</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>14.696313</td>
-      <td>108.123692</td>
-      <td>310.407912</td>
-      <td>1.001500</td>
-      <td>0.334263</td>
-      <td>0.199106</td>
-      <td>161.315852</td>
-      <td>137.636029</td>
+      <td>14.142623</td>
+      <td>119.446456</td>
+      <td>314.921571</td>
+      <td>0.323604</td>
+      <td>0.010391</td>
+      <td>0.295204</td>
+      <td>146.028759</td>
+      <td>105.122952</td>
       <td>inhibitory</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>25.047027</td>
-      <td>155.567002</td>
-      <td>309.697521</td>
-      <td>0.347535</td>
-      <td>0.012836</td>
-      <td>0.296320</td>
-      <td>148.584848</td>
-      <td>165.880021</td>
-      <td>inhibitory</td>
+      <td>13.877377</td>
+      <td>146.536731</td>
+      <td>478.587753</td>
+      <td>0.707733</td>
+      <td>0.024253</td>
+      <td>0.944040</td>
+      <td>136.012396</td>
+      <td>189.118959</td>
+      <td>excitatory</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>13.189341</td>
-      <td>103.265886</td>
-      <td>474.088843</td>
-      <td>0.977470</td>
-      <td>0.092420</td>
-      <td>0.198617</td>
-      <td>164.502471</td>
-      <td>149.620023</td>
+      <td>12.878268</td>
+      <td>86.094686</td>
+      <td>510.247119</td>
+      <td>0.996554</td>
+      <td>0.172069</td>
+      <td>0.200593</td>
+      <td>157.292472</td>
+      <td>158.369993</td>
       <td>inhibitory</td>
     </tr>
   </tbody>
@@ -602,7 +961,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/e6ba99b28932d9ac4f05c91e1e4ff431be833c77812e07edc324ad087cd587c4.png" src="../_images/e6ba99b28932d9ac4f05c91e1e4ff431be833c77812e07edc324ad087cd587c4.png" />
+<img alt="../_images/f88f5afef8721879f83c634b4ec572d681e2fc18b6e745c1062d4f7261b010a2.png" src="../_images/f88f5afef8721879f83c634b4ec572d681e2fc18b6e745c1062d4f7261b010a2.png" />
 </div>
 </div>
 <p>Clearly, there’s a lot going on here. We’ll want to use dimensionality reduction to try to understand if we can reduce the understanding of this dataset into a couple of different factors.</p>
@@ -648,58 +1007,58 @@ document.write(`
   <tbody>
     <tr>
       <th>0</th>
-      <td>-0.295321</td>
-      <td>-0.300568</td>
-      <td>-0.799964</td>
-      <td>0.659804</td>
-      <td>0.750687</td>
-      <td>-0.851639</td>
-      <td>-0.432114</td>
-      <td>-0.775085</td>
+      <td>-0.631512</td>
+      <td>1.312195</td>
+      <td>0.059126</td>
+      <td>1.330299</td>
+      <td>-0.557594</td>
+      <td>-0.838343</td>
+      <td>-0.451702</td>
+      <td>-0.545119</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>-1.182055</td>
-      <td>-0.483894</td>
-      <td>-0.806592</td>
-      <td>-1.073217</td>
-      <td>-0.893245</td>
-      <td>-0.559050</td>
-      <td>-0.396519</td>
-      <td>0.048377</td>
+      <td>-0.399128</td>
+      <td>2.472673</td>
+      <td>-0.047583</td>
+      <td>0.063958</td>
+      <td>-1.032404</td>
+      <td>1.341523</td>
+      <td>-0.452733</td>
+      <td>0.489969</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>-0.415368</td>
-      <td>-0.417819</td>
-      <td>-0.744243</td>
-      <td>1.071281</td>
-      <td>1.155470</td>
-      <td>-0.851276</td>
-      <td>-0.382592</td>
-      <td>-0.684424</td>
+      <td>-0.488289</td>
+      <td>-0.169558</td>
+      <td>-0.952179</td>
+      <td>-1.478311</td>
+      <td>-1.094141</td>
+      <td>-0.543274</td>
+      <td>-0.482363</td>
+      <td>-1.378422</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>1.904176</td>
-      <td>0.666090</td>
-      <td>-0.747977</td>
-      <td>-1.181997</td>
-      <td>-0.955284</td>
-      <td>-0.564124</td>
-      <td>-0.415012</td>
-      <td>-0.071014</td>
+      <td>-0.542405</td>
+      <td>0.449956</td>
+      <td>-0.116592</td>
+      <td>-0.147268</td>
+      <td>-1.001477</td>
+      <td>1.449871</td>
+      <td>-0.503965</td>
+      <td>0.809688</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>-0.753074</td>
-      <td>-0.528802</td>
-      <td>0.116202</td>
-      <td>0.988485</td>
-      <td>-0.432665</td>
-      <td>-0.852720</td>
-      <td>-0.374477</td>
-      <td>-0.424153</td>
+      <td>-0.746242</td>
+      <td>-0.932264</td>
+      <td>0.045043</td>
+      <td>0.853525</td>
+      <td>-0.013365</td>
+      <td>-0.833909</td>
+      <td>-0.458071</td>
+      <td>0.008672</td>
     </tr>
   </tbody>
 </table>
@@ -724,7 +1083,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/88ff57e3091e249c530a003fea3b47ea065e1793810d6499d04ccb7c98992335.png" src="../_images/88ff57e3091e249c530a003fea3b47ea065e1793810d6499d04ccb7c98992335.png" />
+<img alt="../_images/f795042437c9d9acd8b2742cb0f9dada684266b10cdc843de8ac472c54797988.png" src="../_images/f795042437c9d9acd8b2742cb0f9dada684266b10cdc843de8ac472c54797988.png" />
 </div>
 </div>
 </section>
@@ -745,7 +1104,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c4889560fff8ef6293356ed7badda015d173dac161885c1d41f9e91fc73b6e6c.png" src="../_images/c4889560fff8ef6293356ed7badda015d173dac161885c1d41f9e91fc73b6e6c.png" />
+<img alt="../_images/dee148632373dacd4449c833b2f8ab04ea8830880e81c62fa37cae3edb3dfc24.png" src="../_images/dee148632373dacd4449c833b2f8ab04ea8830880e81c62fa37cae3edb3dfc24.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -757,7 +1116,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.999999999999997
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8.000000000000004
 </pre></div>
 </div>
 </div>
@@ -775,6 +1134,19 @@ document.write(`
 
 <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span> <span class="c1"># Create a PCA model with 3 components</span>
 <span class="n">x_data_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Import the PCA package</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">()</span> <span class="c1"># Create a PCA model with 3 components</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">x_data_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;sklearn&#39;
 </pre></div>
 </div>
 </div>
@@ -1605,7 +1977,7 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory.html"
+       href="../Chapter09/2pImaging.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">

@@ -1,0 +1,1172 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Brain Observatory: What are those cells doing? &#8212; Neuroscience in the Age of Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter09/2pImaging';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Dimensionality Reduction &amp; Clustering" href="../Chapter16/DimensionalityReduction.html" />
+    <link rel="prev" title="Defining cell types by their electrophysiology" href="SingleCellEphys.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/brainz.jpeg" class="logo__image only-light" alt="Neuroscience in the Age of Data Science - Home"/>
+    <script>document.write(`<img src="../_static/brainz.jpeg" class="logo__image only-dark" alt="Neuroscience in the Age of Data Science - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Neuroscience in the Age of Data Science
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">DATA SCIENCE IN PYTHON</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter03/Data_Science_In_Python.html">Data Science in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/NumPy.html">NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/Pandas.html">Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/SciPy.html">SciPy</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FINDING &amp; EXPLORING NEURAL DATA</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter04/FindingData.html">Finding Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter05/DataExploration_BrainSize.html">Exploring the Data</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="SingleCellEphys.html">Defining cell types by their electrophysiology</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Brain Observatory: <em>What are those cells doing?</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">APPROACHES TO WORKING WITH BIG DATA</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter16/DimensionalityReduction.html">Dimensionality Reduction &amp; Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter09/2pImaging.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter09/2pImaging.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Brain Observatory: What are those cells doing?</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-sandbox-will-help-you-analyze-a-dataset-from-the-allen-institute-s-brain-observatory">This sandbox will help you analyze a dataset from the Allen Institute’s Brain Observatory.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#by-the-end-of-this-lesson-you-will-be-able-to">By the end of this lesson, you will be able to:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-importing-toolboxes">Step 1. Importing toolboxes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">Step 2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-extract-an-experiment-session">Step 3. Extract an experiment session.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-download-inspect-the-natural-scenes-imaging-session">Step 4. Download &amp; inspect the natural scenes imaging session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-look-at-the-calcium-transients-of-your-cells">Step 5. Look at the calcium transients of your cells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-look-at-the-response-of-your-cells-to-natural-scenes">Step 6. Look at the response of your cells to natural scenes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-examine-the-direction-selectivity-of-your-cell">Step 7. Examine the direction selectivity of your cell</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="brain-observatory-what-are-those-cells-doing">
+<h1>Brain Observatory: <em>What are those cells doing?</em><a class="headerlink" href="#brain-observatory-what-are-those-cells-doing" title="Link to this heading">#</a></h1>
+<section id="this-sandbox-will-help-you-analyze-a-dataset-from-the-allen-institute-s-brain-observatory">
+<h2>This sandbox will help you analyze a dataset from the Allen Institute’s Brain Observatory.<a class="headerlink" href="#this-sandbox-will-help-you-analyze-a-dataset-from-the-allen-institute-s-brain-observatory" title="Link to this heading">#</a></h2>
+<p>These datasets contain calcium imaging data for various different cell types in the visual cortex of the mouse. It’s likely that these cell types have different roles in the visual system – your mission is to figure out what these roles are. You will choose a visual area, a cell type, and look at their responses to natural stimuli.</p>
+</section>
+<section id="by-the-end-of-this-lesson-you-will-be-able-to">
+<h2>By the end of this lesson, you will be able to:<a class="headerlink" href="#by-the-end-of-this-lesson-you-will-be-able-to" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Examine a 2-photon imaging dataset for a particular cell type, in a specific visual area.</p></li>
+<li><p>Use imshow to visualize two-dimensional images in Python.</p></li>
+<li><p>Create plots of raw calcium imaging data.</p></li>
+</ol>
+<p>Additional information on this dataset, and how it was collected, can be found <a href="http://help.brain-map.org/display/observatory/Data+-+Visual+Coding">here</a> as well as in the <a href="http://alleninstitute.github.io/AllenSDK/brain_observatory.html">SDK documentation</a>.</p>
+</section>
+<section id="step-1-importing-toolboxes">
+<h2>Step 1. Importing toolboxes<a class="headerlink" href="#step-1-importing-toolboxes" title="Link to this heading">#</a></h2>
+<p>First, we’ll import the necessary toolboxes to run this code. The first chunk of “import” lines will bring in some standard toolboxes that we need. For example, “numpy” is a toolbox that has functions to work with large arrays. The second chunk of import lines brings in some toolboxes that the Allen Brain Observatory has already packaged, to help users analyze its data.</p>
+<div class="alert alert-success"><b>Task</b>: In addition to the modules already imported below, import <code>numpy</code>, <code>pandas</code>, and <code>matplotlib.pyplot</code> as their conventional names.</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install allensdk if it isn&#39;t already there</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">allensdk</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allensdk is already installed.&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;allensdk not found, installing now...&quot;</span><span class="p">)</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>allensdk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk is already installed.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Allen specific toolboxes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">allensdk.brain_observatory.stimulus_info</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stim_info</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.brain_observatory_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">BrainObservatoryCache</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/brain_observatory_nwb_data_set.py:43: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools&lt;81.
+  from pkg_resources import parse_version
+</pre></div>
+</div>
+</div>
+</div>
+<p>Similar to how we created an instance of the CellTypesCache, here we’ll create an instance of the “BrainObservatoryCache.” The datahub already has a manifest file available in the directory you see below. This directory also has all of the data we need.</p>
+<p><font color='red'><strong>Note</strong>: You need to run this notebook in the Docker container that includes allen-brain-observatory (often denoted by ‘w/ allen’). Otherwise you will get a permissions error when you attempt to run the cell below.</font></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We will create an instance of the Brain Observatory Cache as an object, &quot;boc.&quot;</span>
+<span class="n">boc</span> <span class="o">=</span> <span class="n">BrainObservatoryCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;manifest.json&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
+<h2>Step 2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Link to this heading">#</a></h2>
+<p>Next, we’ll ask that “boc” structure to tell us what all of the possible Cre lines and brain areas are that we can analyze. You’ll need to use these exact names when you’re trying to pull a specific one from the dataset.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll save the list of cre lines as a variable, &#39;cre-lines&#39;.</span>
+<span class="n">cre_lines</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_all_cre_lines</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;all cre lines: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cre_lines</span><span class="p">))</span>
+
+<span class="c1"># We&#39;ll save the list of possible structures as a variable, &#39;brain_areas&#39;.</span>
+<span class="n">brain_areas</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_all_targeted_structures</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;all brain regions: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">brain_areas</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>all cre lines: [&#39;Cux2-CreERT2&#39;, &#39;Emx1-IRES-Cre&#39;, &#39;Fezf2-CreER&#39;, &#39;Nr5a1-Cre&#39;, &#39;Ntsr1-Cre_GN220&#39;, &#39;Pvalb-IRES-Cre&#39;, &#39;Rbp4-Cre_KL100&#39;, &#39;Rorb-IRES2-Cre&#39;, &#39;Scnn1a-Tg3-Cre&#39;, &#39;Slc17a7-IRES2-Cre&#39;, &#39;Sst-IRES-Cre&#39;, &#39;Tlx3-Cre_PL56&#39;, &#39;Vip-IRES-Cre&#39;]
+all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&#39;, &#39;VISpm&#39;, &#39;VISrl&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div style="background: #DFF0D8; border-radius: 3px; padding: 10px;">
+<p><b>Task:</b>  Choose a visual area and Cre line from the lists above to examine in the rest of the notebook. Refer back to our lecture slides or the <a href="http://observatory.brain-map.org/visualcoding">Brain Observatory landing page</a> to learn more about these different visual areas. Primary cortex (VISp) is surrounded by several other brain regions, which have unknown functions.
+<p>You can find more info about the Cre-lines here <a href="http://observatory.brain-map.org/visualcoding/transgenic">here</a>.</p>
+<ol class="arabic simple">
+<li><p>Create a new block of <strong>Markdown</strong> text below this one which briefly describes your visual area and Cre line. Remember that markdown is the other type of block that Jupyter supports. You can change your block to Markdown using the dropdown in the menu above. Check out <a href="https://www.markdownguide.org/cheat-sheet/">this cheatsheet</a> for a few handy elements of Markdown syntax.</p></li>
+<li><p>Assign your visual area and cre line to <code>visual_area</code> and <code>cre_line</code>, respectively.</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visual_area</span> <span class="o">=</span> <span class="s1">&#39;VISp&#39;</span>
+<span class="n">cre_line</span> <span class="o">=</span> <span class="s1">&#39;Rorb-IRES2-Cre&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3-extract-an-experiment-session">
+<h2>Step 3. Extract an experiment session.<a class="headerlink" href="#step-3-extract-an-experiment-session" title="Link to this heading">#</a></h2>
+<div class="alert alert-success"><b>Task</b>: Create a dataframe of experiments.</div>
+<ol class="arabic simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">get_experiment_containers()</span></code> method of our <code class="docutils literal notranslate"><span class="pre">boc</span></code> object to get a list of experiments that are available. This method takes the arguments <code class="docutils literal notranslate"><span class="pre">targeted_structures=</span> </code> as well as <code class="docutils literal notranslate"><span class="pre">cre_lines=</span> </code>, which both require a list. Assign the outcome of this method to <code class="docutils literal notranslate"><span class="pre">experiments</span></code>.</p></li>
+<li><p>Create a dataframe out of <code class="docutils literal notranslate"><span class="pre">exps</span></code> and assign it to <code class="docutils literal notranslate"><span class="pre">exps_df</span></code>.</p></li>
+<li><p>There isn’t an experiment for every combination of Cre lines and visual areas above. Add an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement that will print a statement for you if the dataframe you created is empty (Hint: use <code class="docutils literal notranslate"><span class="pre">empty</span></code> attribute).</p></li>
+<li><p>Show the head of your dataframe.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">exps</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_experiment_containers</span><span class="p">(</span><span class="n">targeted_structures</span><span class="o">=</span><span class="p">[</span><span class="n">visual_area</span><span class="p">],</span><span class="n">cre_lines</span> <span class="o">=</span><span class="p">[</span><span class="n">cre_line</span><span class="p">])</span>
+<span class="n">exps_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">exps</span><span class="p">)</span>
+<span class="n">exps_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>imaging_depth</th>
+      <th>targeted_structure</th>
+      <th>cre_line</th>
+      <th>reporter_line</th>
+      <th>donor_name</th>
+      <th>specimen_name</th>
+      <th>tags</th>
+      <th>failed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>511510675</td>
+      <td>275</td>
+      <td>VISp</td>
+      <td>Rorb-IRES2-Cre</td>
+      <td>Ai93(TITL-GCaMP6f)</td>
+      <td>228786</td>
+      <td>Rorb-IRES2-Cre;Camk2a-tTA;Ai93-228786</td>
+      <td>[]</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>586351979</td>
+      <td>275</td>
+      <td>VISp</td>
+      <td>Rorb-IRES2-Cre</td>
+      <td>Ai93(TITL-GCaMP6f)</td>
+      <td>304756</td>
+      <td>Rorb-IRES2-Cre;Camk2a-tTA;Ai93-304756</td>
+      <td>[]</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>590168381</td>
+      <td>275</td>
+      <td>VISp</td>
+      <td>Rorb-IRES2-Cre</td>
+      <td>Ai93(TITL-GCaMP6f)</td>
+      <td>305467</td>
+      <td>Rorb-IRES2-Cre;Camk2a-tTA;Ai93-305467</td>
+      <td>[]</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>511510989</td>
+      <td>275</td>
+      <td>VISp</td>
+      <td>Rorb-IRES2-Cre</td>
+      <td>Ai93(TITL-GCaMP6f)</td>
+      <td>222431</td>
+      <td>Rorb-IRES2-Cre;Camk2a-tTA;Ai93-222431</td>
+      <td>[]</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>512124562</td>
+      <td>275</td>
+      <td>VISp</td>
+      <td>Rorb-IRES2-Cre</td>
+      <td>Ai93(TITL-GCaMP6f)</td>
+      <td>234831</td>
+      <td>Rorb-IRES2-Cre;Camk2a-tTA;Ai93-234831</td>
+      <td>[]</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Once you’ve successfully found a combination that works, you should have the head of your dataframe above. Let’s look into one of these experiment containers, most of which have three different sessions for different types of visual stimuli.</p>
+<div class="alert alert-success"><b>Task:</b>
+<ol class="arabic simple">
+<li><p>Pick an experiment from the table above. Copy the id in the “id” column and assign it to <code>experiment_container_id</code>.</p></li>
+<li><p>Use the <code>get_ophys_experiments()</code> method on our <code>boc</code> object, providing it with the arguments <code>experiment_container_ids= </code> and <code>stimuli=[‘natural_scenes’]</code>. This will restrict our search to experiments with our ID and where natural stimuli were shown. Assign this to <code>expt_cont</code>.</p></li>
+<li><p>Look at the <code>expt_cont</code> object. What kind of object is this?</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">experiment_container_id</span> <span class="o">=</span> <span class="mi">512124562</span>
+
+<span class="n">expt_cont</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiments</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_container_id</span><span class="p">],</span><span class="n">stimuli</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">])</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">expt_cont</span><span class="p">)</span>
+<span class="n">expt_cont</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[{&#39;id&#39;: 512124564,
+  &#39;imaging_depth&#39;: 275,
+  &#39;targeted_structure&#39;: &#39;VISp&#39;,
+  &#39;cre_line&#39;: &#39;Rorb-IRES2-Cre&#39;,
+  &#39;reporter_line&#39;: &#39;Ai93(TITL-GCaMP6f)&#39;,
+  &#39;acquisition_age_days&#39;: 80,
+  &#39;experiment_container_id&#39;: 512124562,
+  &#39;session_type&#39;: &#39;three_session_B&#39;,
+  &#39;donor_name&#39;: &#39;234831&#39;,
+  &#39;specimen_name&#39;: &#39;Rorb-IRES2-Cre;Camk2a-tTA;Ai93-234831&#39;,
+  &#39;fail_eye_tracking&#39;: False}]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, let’s get the id for this experiment and extract the data using the <code class="docutils literal notranslate"><span class="pre">get_ophys_experiment_data</span></code> method.</p>
+<div class="alert alert-success"><b>Task</b>:   
+<ol class="arabic simple">
+<li><p>Programmatically, assign the ‘id’ of your <code>expt_cont</code> object to <code>session_id</code>.</p></li>
+<li><p>Use the <code>get_ophys_experiment_data()</code> method, simply giving it your session_id as an argument, and assign the output of this to <code>data</code>.</p></li>
+<li><p>What kind of object is data?</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">session_id</span> <span class="o">=</span> <span class="n">expt_cont</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_ophys_experiment_data</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;allensdk.core.brain_observatory_nwb_data_set.BrainObservatoryNwbDataSet at 0x1093bfd10&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-4-download-inspect-the-natural-scenes-imaging-session">
+<h2>Step 4. Download &amp; inspect the natural scenes imaging session<a class="headerlink" href="#step-4-download-inspect-the-natural-scenes-imaging-session" title="Link to this heading">#</a></h2>
+<p>First, we’ll look at the session where the mouse viewed natural scenes.</p>
+<p>Let’s take a quick look at the data you just acquired. We’ll take a maximum projection of the data, so that we can actually see the cells. If we just looked at one snapshot of the raw imaging data, the cells would look dim. A “maximum projection image” shows us the maximum brightness for each pixel, across the entire experiment.</p>
+<p>Below, we are using the <code class="docutils literal notranslate"><span class="pre">get_max_projection()</span></code> method on our data, and then using the <code class="docutils literal notranslate"><span class="pre">imshow()</span></code> method in order to see our projection.</p>
+<p><strong>Note</strong>: The weird text for the ylabel is called “TeX” markup, in order to get the greek symbol <em>mu</em> (<span class="math notranslate nohighlight">\(\mu\)</span>). See documentation <a href="https://matplotlib.org/tutorials/text/mathtext.html">here</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the maximum projection (a numpy array) of our data</span>
+<span class="n">max_projection</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_max_projection</span><span class="p">()</span>
+
+<span class="c1"># Create a new figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Use imshow to visualize our numpy array</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">max_projection</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add labels for microns; weird syntax below is to get the micro sign</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mu$m&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mu$m&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/1739ad63246f855700470861fcba3b6ea44f7ad901bdd63a168d7aeeb7f889da.png" src="../_images/1739ad63246f855700470861fcba3b6ea44f7ad901bdd63a168d7aeeb7f889da.png" />
+</div>
+</div>
+</section>
+<section id="step-5-look-at-the-calcium-transients-of-your-cells">
+<h2>Step 5. Look at the calcium transients of your cells<a class="headerlink" href="#step-5-look-at-the-calcium-transients-of-your-cells" title="Link to this heading">#</a></h2>
+<p>Now we’ll plot the data of each of our cells (from the field of view above) across time. Each line shows the change in fluorescence over baseline (<span class="math notranslate nohighlight">\(\Delta\)</span>)F/F) of the individual cells. When there are sharp increases, that’s when the cells are responding.</p>
+<div class="alert alert-success"><b>Task</b>:
+<ol class="arabic simple">
+<li><p>Create a for loop that will plot, in succession, the responses of the <b>first ten cells</b> of your dataset, contained in dff. Use ‘ts’ (the timestamps of the data) for the x axis.</p></li>
+<li><p>Add informative labels to your plot. What is the x axis? What’s the y axis?</p></li>
+<li><p>Use <code>plt.xlim()</code> to zoom in on an interesting part of the data.</p></li>
+<li><p>Inspect the data here – how fast are these changes in fluorescence happening?</p></li>
+<li><p><strong>Challenge</strong>: How could you write this loop so that your traces wouldn’t be overlapping?</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the `get_dff_traces()` method to return both timestamps (ts, in seconds) as well as the deltaF/F (dff) </span>
+<span class="n">ts</span><span class="p">,</span> <span class="n">dff</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_dff_traces</span><span class="p">()</span>
+
+<span class="c1"># Set up a figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="c1"># Your plotting script below</span>
+<span class="k">for</span> <span class="n">neuron</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span><span class="n">dff</span><span class="p">[</span><span class="n">neuron</span><span class="p">]</span><span class="o">+</span><span class="n">offset</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span><span class="mi">100</span><span class="p">])</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">offset</span> <span class="o">+</span> <span class="mi">5</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/561a6912cac36c569c4de3956770b02d91acc6de3645426584d1ae283d4f2706.png" src="../_images/561a6912cac36c569c4de3956770b02d91acc6de3645426584d1ae283d4f2706.png" />
+</div>
+</div>
+</section>
+<section id="step-6-look-at-the-response-of-your-cells-to-natural-scenes">
+<h2>Step 6. Look at the response of your cells to natural scenes<a class="headerlink" href="#step-6-look-at-the-response-of-your-cells-to-natural-scenes" title="Link to this heading">#</a></h2>
+<p>Hmm, there are some responses above, but it’s tough to see what’s going on with just the raw traces. Let’s instead see how these cells actually responded to different types of images. To do so, we’ll need to use the <code class="docutils literal notranslate"><span class="pre">get_cell_specimens()</span></code> method on our <code class="docutils literal notranslate"><span class="pre">boc</span></code>, giving it the name of the experiment container ID to look for. The dataframe that this creates will have a lot more information about what the cells in our experiment prefer.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the cell specimens information for this session</span>
+<span class="n">cell_specimens</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_cell_specimens</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_container_id</span><span class="p">])</span>
+<span class="n">cell_specimens_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cell_specimens</span><span class="p">)</span>
+<span class="n">cell_specimens_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Get the cell specimens information for this session</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">cell_specimens</span> <span class="o">=</span> <span class="n">boc</span><span class="o">.</span><span class="n">get_cell_specimens</span><span class="p">(</span><span class="n">experiment_container_ids</span><span class="o">=</span><span class="p">[</span><span class="n">experiment_container_id</span><span class="p">])</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">cell_specimens_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cell_specimens</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">cell_specimens_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/brain_observatory_cache.py:489,</span> in <span class="ni">BrainObservatoryCache.get_cell_specimens</span><span class="nt">(self, file_name, ids, experiment_container_ids, include_failed, simple, filters)</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Return cell specimens that have certain properies.</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="sd"> Parameters</span>
+<span class="sd">   (...)    484 list of dictionaries</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="n">file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CELL_SPECIMENS_KEY</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">489</span> <span class="n">cell_specimens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get_cell_metrics</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="n">path</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;lazy&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">492</span>     <span class="n">pre</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="o">**</span><span class="n">Cache</span><span class="o">.</span><span class="n">cache_json</span><span class="p">(),</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span> <span class="n">cell_specimens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">filter_cell_specimens</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>     <span class="n">cell_specimens</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>     <span class="n">ids</span><span class="o">=</span><span class="n">ids</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">501</span>     <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="c1"># drop the thumbnail columns</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:661,</span> in <span class="ni">cacheable.&lt;locals&gt;.decor.&lt;locals&gt;.w</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">658</span> <span class="k">if</span> <span class="n">decor</span><span class="o">.</span><span class="n">post</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s1">&#39;post in kwargs&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">decor</span><span class="o">.</span><span class="n">post</span>
+<span class="ne">--&gt; </span><span class="mi">661</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Cache</span><span class="o">.</span><span class="n">cacher</span><span class="p">(</span><span class="n">func</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span>                       <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">663</span>                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">664</span> <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:384,</span> in <span class="ni">Cache.cacher</span><span class="nt">(fn, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">382</span> <span class="k">if</span> <span class="n">writer</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">383</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">384</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">pre</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span>     <span class="n">writer</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span> <span class="k">else</span><span class="p">:</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/brain_observatory_cache.py:492,</span> in <span class="ni">BrainObservatoryCache.get_cell_specimens.&lt;locals&gt;.&lt;lambda&gt;</span><span class="nt">(x)</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Return cell specimens that have certain properies.</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="sd"> Parameters</span>
+<span class="sd">   (...)    484 list of dictionaries</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="n">file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CELL_SPECIMENS_KEY</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span> <span class="n">cell_specimens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get_cell_metrics</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="n">path</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;lazy&quot;</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">492</span>     <span class="n">pre</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="o">**</span><span class="n">Cache</span><span class="o">.</span><span class="n">cache_json</span><span class="p">(),</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span> <span class="n">cell_specimens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">filter_cell_specimens</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>     <span class="n">cell_specimens</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>     <span class="n">ids</span><span class="o">=</span><span class="n">ids</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">501</span>     <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="c1"># drop the thumbnail columns</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/brain_observatory_cache.py:492,</span> in <span class="ni">&lt;listcomp&gt;</span><span class="nt">(.0)</span>
+<span class="g g-Whitespace">    </span><span class="mi">439</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Return cell specimens that have certain properies.</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="sd"> Parameters</span>
+<span class="sd">   (...)    484 list of dictionaries</span>
+<span class="g g-Whitespace">    </span><span class="mi">485</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="n">file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">CELL_SPECIMENS_KEY</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">489</span> <span class="n">cell_specimens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">get_cell_metrics</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="n">path</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;lazy&quot;</span><span class="p">,</span>
+<span class="ne">--&gt; </span><span class="mi">492</span>     <span class="n">pre</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">y</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span>
+<span class="g g-Whitespace">    </span><span class="mi">493</span>     <span class="o">**</span><span class="n">Cache</span><span class="o">.</span><span class="n">cache_json</span><span class="p">(),</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">496</span> <span class="n">cell_specimens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">filter_cell_specimens</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>     <span class="n">cell_specimens</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>     <span class="n">ids</span><span class="o">=</span><span class="n">ids</span><span class="p">,</span>
+   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">501</span>     <span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">502</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="c1"># drop the thumbnail columns</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/rma_pager.py:58,</span> in <span class="ni">RmaPager.pager</span><span class="nt">(fn, *args, **kwargs)</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="k">while</span> <span class="n">result_count</span> <span class="o">==</span> <span class="n">num_rows</span><span class="p">:</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;start_row&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">start_row</span>
+<span class="ne">---&gt; </span><span class="mi">58</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="n">start_row</span> <span class="o">=</span> <span class="n">start_row</span> <span class="o">+</span> <span class="n">num_rows</span>
+<span class="g g-Whitespace">     </span><span class="mi">61</span>     <span class="n">result_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/brain_observatory_api.py:359,</span> in <span class="ni">BrainObservatoryApi.get_cell_metrics</span><span class="nt">(self, cell_specimen_ids, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">345</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Get cell metrics by id</span>
+<span class="g g-Whitespace">    </span><span class="mi">346</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">347</span><span class="sd"> Parameters</span>
+<span class="sd">   (...)    354 dict : cell metric metadata</span>
+<span class="g g-Whitespace">    </span><span class="mi">355</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">357</span> <span class="n">order</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;order&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;&#39;cell_specimen_id&#39;&quot;</span><span class="p">])</span>
+<span class="ne">--&gt; </span><span class="mi">359</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_query</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">360</span>     <span class="s2">&quot;brain_observatory_queries&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">361</span>     <span class="s2">&quot;cell_metric&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">362</span>     <span class="n">cell_specimen_ids</span><span class="o">=</span><span class="n">cell_specimen_ids</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">363</span>     <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">364</span>     <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">365</span>     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">368</span> <span class="k">return</span> <span class="n">data</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/rma_template.py:132,</span> in <span class="ni">RmaTemplate.template_query</span><span class="nt">(self, template_name, entry_name, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">128</span>     <span class="n">query_args</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">template</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">130</span> <span class="n">query_args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">132</span> <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_query</span><span class="p">(</span><span class="o">**</span><span class="n">query_args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">return</span> <span class="n">data</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/rma_api.py:257,</span> in <span class="ni">RmaApi.model_query</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span> <span class="k">def</span><span class="w"> </span><span class="nf">model_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span><span class="w">     </span><span class="sd">&#39;&#39;&#39;Construct and execute a model stage of an RMA query string.</span>
+<span class="g g-Whitespace">    </span><span class="mi">219</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span><span class="sd">     Parameters</span>
+<span class="sd">   (...)    255     response, including the normalized query.</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span><span class="sd">     &#39;&#39;&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">257</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_msg_query</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span>         <span class="bp">self</span><span class="o">.</span><span class="n">build_query_url</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="bp">self</span><span class="o">.</span><span class="n">model_stage</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)))</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:164,</span> in <span class="ni">Api.json_msg_query</span><span class="nt">(self, url, dataframe)</span>
+<span class="g g-Whitespace">    </span><span class="mi">147</span> <span class="k">def</span><span class="w"> </span><span class="nf">json_msg_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span><span class="w">     </span><span class="sd">&#39;&#39;&#39; Common case where the url is fully constructed</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span><span class="sd">         and the response data is stored in the &#39;msg&#39; field.</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span><span class="sd"> </span>
+<span class="sd">   (...)    161         returned data; type depends on dataframe option</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="sd">     &#39;&#39;&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">164</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_query</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>                          <span class="bp">self</span><span class="o">.</span><span class="n">read_data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span>     <span class="k">if</span> <span class="n">dataframe</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;dataframe argument is deprecated&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:204,</span> in <span class="ni">Api.do_query</span><span class="nt">(self, url_builder_fn, json_traversal_fn, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span> <span class="n">api_url</span> <span class="o">=</span> <span class="n">url_builder_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span> <span class="n">post</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">204</span> <span class="n">json_parsed_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve_parsed_json_over_http</span><span class="p">(</span><span class="n">api_url</span><span class="p">,</span> <span class="n">post</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="k">return</span> <span class="n">json_traversal_fn</span><span class="p">(</span><span class="n">json_parsed_data</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:369,</span> in <span class="ni">Api.retrieve_parsed_json_over_http</span><span class="nt">(self, url, post)</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Downloading URL: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">368</span> <span class="k">if</span> <span class="n">post</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">369</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">json_utilities</span><span class="o">.</span><span class="n">read_url_get</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span>         <span class="n">requests</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span>                              <span class="s1">&#39;;/?:@&amp;=+$,&#39;</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">372</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">373</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">json_utilities</span><span class="o">.</span><span class="n">read_url_post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/json_utilities.py:115,</span> in <span class="ni">read_url_get</span><span class="nt">(url)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span> <span class="k">def</span><span class="w"> </span><span class="nf">read_url_get</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Transform a JSON contained in a file into an equivalent</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span><span class="sd">     nested python dict.</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span><span class="sd"> </span>
+<span class="sd">   (...)    113     the output will be of the corresponding type.</span>
+<span class="g g-Whitespace">    </span><span class="mi">114</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">115</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span>     <span class="n">json_string</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">118</span>     <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/urllib/request.py:216,</span> in <span class="ni">urlopen</span><span class="nt">(url, data, timeout, cafile, capath, cadefault, context)</span>
+<span class="g g-Whitespace">    </span><span class="mi">214</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">215</span>     <span class="n">opener</span> <span class="o">=</span> <span class="n">_opener</span>
+<span class="ne">--&gt; </span><span class="mi">216</span> <span class="k">return</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/urllib/request.py:519,</span> in <span class="ni">OpenerDirector.open</span><span class="nt">(self, fullurl, data, timeout)</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>     <span class="n">req</span> <span class="o">=</span> <span class="n">meth</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span> <span class="n">sys</span><span class="o">.</span><span class="n">audit</span><span class="p">(</span><span class="s1">&#39;urllib.Request&#39;</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">full_url</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">req</span><span class="o">.</span><span class="n">get_method</span><span class="p">())</span>
+<span class="ne">--&gt; </span><span class="mi">519</span> <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_open</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span> <span class="c1"># post-process response</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span> <span class="n">meth_name</span> <span class="o">=</span> <span class="n">protocol</span><span class="o">+</span><span class="s2">&quot;_response&quot;</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/urllib/request.py:536,</span> in <span class="ni">OpenerDirector._open</span><span class="nt">(self, req, data)</span>
+<span class="g g-Whitespace">    </span><span class="mi">533</span>     <span class="k">return</span> <span class="n">result</span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span> <span class="n">protocol</span> <span class="o">=</span> <span class="n">req</span><span class="o">.</span><span class="n">type</span>
+<span class="ne">--&gt; </span><span class="mi">536</span> <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_chain</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handle_open</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">protocol</span> <span class="o">+</span>
+<span class="g g-Whitespace">    </span><span class="mi">537</span>                           <span class="s1">&#39;_open&#39;</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">538</span> <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">539</span>     <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/urllib/request.py:496,</span> in <span class="ni">OpenerDirector._call_chain</span><span class="nt">(self, chain, kind, meth_name, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">494</span> <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">handlers</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">495</span>     <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">meth_name</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">496</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">497</span>     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">498</span>         <span class="k">return</span> <span class="n">result</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/urllib/request.py:1377,</span> in <span class="ni">HTTPHandler.http_open</span><span class="nt">(self, req)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1376</span> <span class="k">def</span><span class="w"> </span><span class="nf">http_open</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">req</span><span class="p">):</span>
+<span class="ne">-&gt; </span><span class="mi">1377</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_open</span><span class="p">(</span><span class="n">http</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">,</span> <span class="n">req</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/urllib/request.py:1352,</span> in <span class="ni">AbstractHTTPHandler.do_open</span><span class="nt">(self, http_class, req, **http_conn_args)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1350</span>     <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span> <span class="c1"># timeout error</span>
+<span class="g g-Whitespace">   </span><span class="mi">1351</span>         <span class="k">raise</span> <span class="n">URLError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">1352</span>     <span class="n">r</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1353</span> <span class="k">except</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1354</span>     <span class="n">h</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/http/client.py:1395,</span> in <span class="ni">HTTPConnection.getresponse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1393</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1394</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">1395</span>         <span class="n">response</span><span class="o">.</span><span class="n">begin</span><span class="p">()</span>
+<span class="g g-Whitespace">   </span><span class="mi">1396</span>     <span class="k">except</span> <span class="ne">ConnectionError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">1397</span>         <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/http/client.py:325,</span> in <span class="ni">HTTPResponse.begin</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span> <span class="c1"># read until we get a non-100 response</span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">325</span>     <span class="n">version</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">reason</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_status</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span>     <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="n">CONTINUE</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span>         <span class="k">break</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/http/client.py:286,</span> in <span class="ni">HTTPResponse._read_status</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">285</span> <span class="k">def</span><span class="w"> </span><span class="nf">_read_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">286</span>     <span class="n">line</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="n">_MAXLINE</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;iso-8859-1&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">287</span>     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">_MAXLINE</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">288</span>         <span class="k">raise</span> <span class="n">LineTooLong</span><span class="p">(</span><span class="s2">&quot;status line&quot;</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/socket.py:718,</span> in <span class="ni">SocketIO.readinto</span><span class="nt">(self, b)</span>
+<span class="g g-Whitespace">    </span><span class="mi">716</span> <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">717</span>     <span class="k">try</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">718</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sock</span><span class="o">.</span><span class="n">recv_into</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">719</span>     <span class="k">except</span> <span class="n">timeout</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">720</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_occurred</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s create a histogram of preferred images in our dataset.</p>
+<div class="alert alert-success"><b>Task</b>:
+<ol class="arabic simple">
+<li><p>Create a subset of this dataframe called ‘sig_cells’ where the column ‘p_ns’ is less than 0.05. In other words, we only want cells that <em>significantly</em> preferred a specific image.</p></li>
+<li><p>The preferred image ID is in the ‘pref_image_ns’ column of this dataframe. Assign this to ‘pref_images’.</p></li>
+<li><p>Create a histogram of preferred images with 118 bins (there are 118 different images). There are multiple ways to do this!</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sig_cells</span> <span class="o">=</span> <span class="n">cell_specimens_df</span><span class="p">[</span><span class="n">cell_specimens_df</span><span class="p">[</span><span class="s1">&#39;p_ns&#39;</span><span class="p">]</span><span class="o">&lt;</span><span class="mf">0.05</span><span class="p">]</span>
+<span class="n">pref_images</span> <span class="o">=</span> <span class="n">sig_cells</span><span class="p">[</span><span class="s1">&#39;pref_image_ns&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">pref_images</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;number of cells&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/c3bfeda0466c67e5d82c1249c39c9eef9cb5ddaafdfc36af724bf2632803f4a0.png" src="../_images/c3bfeda0466c67e5d82c1249c39c9eef9cb5ddaafdfc36af724bf2632803f4a0.png" />
+</div>
+</div>
+<p>Wait, but what is that image? In order to actually see what this stimulus is, first, we’ll organize the stimulus table. This tells us which stimulus was played on each trial. This data set has 118 different scenes, and each scene is presented 50 times. Images of the scenes can be found <a class="reference external" href="http://observatory.brain-map.org/visualcoding/stimulus/natural_scenes">here</a>.</p>
+<div class="alert alert-success"><b>Task</b>:
+<ol class="arabic simple">
+<li><p>Assign your top image to <code>image_id</code>. You can do this programmatically, or simply hard code it.</p></li>
+<li><p>The ‘natural_scene_template’ that we create below is a numpy array, where the first dimension is the image id, and the second and third are the values of the image. You want to plot <code>natural_scene_template[image_id,:,:]</code> Use the <code>imshow()</code> method to show the image, just as we did with our maximum projection above.</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">natural_scene_table</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_table</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
+<span class="n">natural_scene_template</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_stimulus_template</span><span class="p">(</span><span class="s1">&#39;natural_scenes&#39;</span><span class="p">)</span>
+<span class="n">sceneIDs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">natural_scene_table</span><span class="o">.</span><span class="n">frame</span><span class="p">)</span>
+
+
+<span class="c1"># Choose your image id</span>
+<span class="n">image_id</span> <span class="o">=</span> <span class="mi">111</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">natural_scene_template</span><span class="p">[</span><span class="n">image_id</span><span class="p">,:,:])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot this natural scene</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/6cc5dd6649db70e080a92aab0b3554fdc9205e73337fc992af4b62af0e501ccf.png" src="../_images/6cc5dd6649db70e080a92aab0b3554fdc9205e73337fc992af4b62af0e501ccf.png" />
+</div>
+</div>
+</section>
+<section id="step-7-examine-the-direction-selectivity-of-your-cell">
+<h2>Step 7. Examine the direction selectivity of your cell<a class="headerlink" href="#step-7-examine-the-direction-selectivity-of-your-cell" title="Link to this heading">#</a></h2>
+<p>Sometimes, the function of a cell is not particularly clear from natural stimuli. Those stimuli have a lot of information in them, and it might be hard to tell what a cell is actually responding to. Instead, we can use simple drifting gratings to look at one straightforward property of a cell: <b>does it respond to specific directions of movement?</b></br></p>
+<p>We can use the columns that look at the direction selectivity index (DSI) in order to determine whether our cells are direction selective (typically considered having a DSI &gt; 0.5). Take another look at the cell_specimens_df we created above. How would you analyze the data here to see if your cells were direction selective? How would you go back and compare these data to that of other cell types?</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "jb_py311"
+        },
+        kernelOptions: {
+            name: "jb_py311",
+            path: "./Chapter09"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'jb_py311'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="SingleCellEphys.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Defining cell types by their electrophysiology</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Chapter16/DimensionalityReduction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Dimensionality Reduction &amp; Clustering</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-sandbox-will-help-you-analyze-a-dataset-from-the-allen-institute-s-brain-observatory">This sandbox will help you analyze a dataset from the Allen Institute’s Brain Observatory.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#by-the-end-of-this-lesson-you-will-be-able-to">By the end of this lesson, you will be able to:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-importing-toolboxes">Step 1. Importing toolboxes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">Step 2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-extract-an-experiment-session">Step 3. Extract an experiment session.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-download-inspect-the-natural-scenes-imaging-session">Step 4. Download &amp; inspect the natural scenes imaging session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-look-at-the-calcium-transients-of-your-cells">Step 5. Look at the calcium transients of your cells</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-look-at-the-response-of-your-cells-to-natural-scenes">Step 6. Look at the response of your cells to natural scenes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-examine-the-direction-selectivity-of-your-cell">Step 7. Examine the direction selectivity of your cell</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ashley Juavinett & Bradley Voytek
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
