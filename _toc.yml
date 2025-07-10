@@ -6,8 +6,8 @@ parts:
     - caption: DATA SCIENCE IN PYTHON
       numbered: 0
       chapters:
-      - file: Chapter_03/Data_Science_In_Python
+      - file: Chapter03/Data_Science_In_Python
         sections:
-        - file: Chapter_03/NumPy
-        - file: Chapter_03/Pandas
-        - file: Chapter_03/SciPy
+        - file: Chapter03/NumPy
+        - file: Chapter03/Pandas
+        - file: Chapter03/SciPy

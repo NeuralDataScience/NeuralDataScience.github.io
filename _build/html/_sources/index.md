@@ -1,1 +1,1 @@
-# forthcoming website for a book that's something like brainz + data science
+(In progress) site for the upcoming book, tentatively titled _The Data Science Future of Neuroscience_, by Ashley Juavinett ([web](https://ashleyjuavinett.com/), [GitHub](https://github.com/ajuavinett)) and Bradley Voytek ([web](https://voyteklab.com/), [GitHub](https://github.com/voytek)), from Princeton Univerity Press.
