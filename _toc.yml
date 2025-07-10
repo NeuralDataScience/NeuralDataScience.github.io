@@ -16,7 +16,6 @@ parts:
       chapters:
       - file: Chapter04/FindingData
         sections:
-        - file: Chapter04/FindingData
         - file: Chapter05/DataExploration_BrainSize
     - caption: KINDS OF NEURAL DATA
       numbered: 0
