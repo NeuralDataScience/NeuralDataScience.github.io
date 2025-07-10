@@ -3,29 +3,10 @@ root: index
 options:
   numbered: true
 sections:
-- file: Chapter_01/Data_Science_In_Python
+- file: Chapter_03/Data_Science_In_Python
   sections:
-  - file: Chapter_01/NumPy
-  - file: Chapter_01/Pandas
-  - file: Chapter_01/SciPy
-- file: Chapter_02/Obtaining_and_Working_with_NWB_Datasets
-  sections:
-  - file: Chapter_02/Obtaining_Datasets_with_DANDI
-  - file: Chapter_02/Working_with_NWB_format_in_Python
-  - file: Chapter_02/Chapter_2_ProblemSet
-- file: Chapter_03/Large_Scale_Electrophysiology
-  sections:
-  - file:  Chapter_03/Visualizing_Large_Scale_Recordings
-  - file:  Chapter_03/Obtaining_Raw_Electrophysiology_Data
-  - file: Chapter_03/Aligning_Spike_Trains_with_Stimuli_and_Behavior
-  - file: Chapter_03/Identifying_Cells_with_Optogenetics
-  - file: Chapter_03/Chapter_3_ProblemSet
-- file: Chapter_04/Single-Cell_Electrophysiology
-  sections:
-  - file: Chapter_04/Obtaining_Data_For_Single_Cells
-  - file: Chapter_04/Analyzing_Computed_Features
-- file: Chapter_05/Two_Photon_Imaging
-  sections:
-  - file: Chapter_05/Retrieving_Brain_Observatory_Data
-  - file: Chapter_05/Analyzing_Two_Photon_Data
-  - file: Chapter_05/Correlations_in_Two_Photon_Data
+  - file: Chapter_03/NumPy
+  - file: Chapter_03/Pandas
+  - file: Chapter_03/SciPy
+- file: Chapter_04/FindingData
+- file: Chapter_05/DataExploration_BrainSize
