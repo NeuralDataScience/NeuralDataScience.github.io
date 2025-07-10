@@ -177,23 +177,24 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../index.html">
-                    <no title>
+                    Neuroscience in the Age of Data Science
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">DATA SCIENCE IN PYTHON</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Chapter03/NumPy.html">NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter03/Pandas.html">Pandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter03/SciPy.html">SciPy</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter03/Data_Science_In_Python.html">Data Science in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/NumPy.html">NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/Pandas.html">Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/SciPy.html">SciPy</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">FINDING &amp; EXPLORING NEURAL DATA</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter04/FindingData.html">Finding Data</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter05/DataExploration_BrainSize.html">Exploring the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter04/FindingData.html">Finding Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter05/DataExploration_BrainSize.html">Exploring the Data</a></li>
 
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
 <ul class="current nav bd-sidenav">
@@ -383,7 +384,6 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-sandbox-will-help-you-analyze-a-dataset-from-the-allen-institute-s-brain-observatory">This sandbox will help you analyze a dataset from the Allen Institute’s Brain Observatory.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#by-the-end-of-this-lesson-you-will-be-able-to">By the end of this lesson, you will be able to:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-importing-toolboxes">Step 1. Importing toolboxes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">Step 2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-extract-an-experiment-session">Step 3. Extract an experiment session.</a></li>
@@ -416,19 +416,6 @@ document.write(`
 <li><p>Create plots of raw calcium imaging data.</p></li>
 </ol>
 <p>Additional information on this dataset, and how it was collected, can be found <a href="http://help.brain-map.org/display/observatory/Data+-+Visual+Coding">here</a> as well as in the <a href="http://alleninstitute.github.io/AllenSDK/brain_observatory.html">SDK documentation</a>.</p>
-</section>
-<section id="table-of-contents">
-<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><a class="reference internal" href="#one"><span class="xref myst">Step One: Importing toolboxes</span></a></p></li>
-<li><p><a class="reference internal" href="#two"><span class="xref myst">Step Two: Choose a transgenic line</span></a></p></li>
-<li><p><a class="reference internal" href="#three"><span class="xref myst">Step Three: Extract an experiment session</span></a></p></li>
-<li><p><a class="reference internal" href="#four"><span class="xref myst">Step Four: Download &amp; inspect the natural scenes imaging session</span></a></p></li>
-<li><p><a class="reference internal" href="#five"><span class="xref myst">Step Five: Look at the calcium transients of your cells</span></a></p></li>
-<li><p><a class="reference internal" href="#six"><span class="xref myst">Step Six: Look at the response of your cells to natural scene</span></a></p></li>
-<li><p><a class="reference internal" href="#seven"><span class="xref myst">Step Seven: Examine the direction selectivity of your cell</span></a></p></li>
-</ol>
-<p><a id="one"></a></p>
 </section>
 <section id="step-1-importing-toolboxes">
 <h2>Step 1. Importing toolboxes<a class="headerlink" href="#step-1-importing-toolboxes" title="Link to this heading">#</a></h2>
@@ -469,7 +456,6 @@ document.write(`
 </div>
 </div>
 </div>
-<p><a id="two"></a></p>
 </section>
 <section id="step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">
 <h2>Step 2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.<a class="headerlink" href="#step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with" title="Link to this heading">#</a></h2>
@@ -508,7 +494,6 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </div>
 </div>
 </div>
-<p><a id="three"></a></p>
 </section>
 <section id="step-3-extract-an-experiment-session">
 <h2>Step 3. Extract an experiment session.<a class="headerlink" href="#step-3-extract-an-experiment-session" title="Link to this heading">#</a></h2>
@@ -676,7 +661,6 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 </div>
 </div>
 </div>
-<p><a id="four"></a></p>
 </section>
 <section id="step-4-download-inspect-the-natural-scenes-imaging-session">
 <h2>Step 4. Download &amp; inspect the natural scenes imaging session<a class="headerlink" href="#step-4-download-inspect-the-natural-scenes-imaging-session" title="Link to this heading">#</a></h2>
@@ -706,7 +690,6 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 <img alt="../_images/b4b41b65e7ce3d82a85dce349ffe175112125aa2f69e39816022c24b13bbc449.png" src="../_images/b4b41b65e7ce3d82a85dce349ffe175112125aa2f69e39816022c24b13bbc449.png" />
 </div>
 </div>
-<p><a id="five"></a></p>
 </section>
 <section id="step-5-look-at-the-calcium-transients-of-your-cells">
 <h2>Step 5. Look at the calcium transients of your cells<a class="headerlink" href="#step-5-look-at-the-calcium-transients-of-your-cells" title="Link to this heading">#</a></h2>
@@ -742,7 +725,6 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 <img alt="../_images/622983fa572a9c8fa4d5fd720785b5b1e113a6d9304fed6689316c8c882a6741.png" src="../_images/622983fa572a9c8fa4d5fd720785b5b1e113a6d9304fed6689316c8c882a6741.png" />
 </div>
 </div>
-<p><a id="six"></a></p>
 </section>
 <section id="step-6-look-at-the-response-of-your-cells-to-natural-scenes">
 <h2>Step 6. Look at the response of your cells to natural scenes<a class="headerlink" href="#step-6-look-at-the-response-of-your-cells-to-natural-scenes" title="Link to this heading">#</a></h2>
@@ -975,7 +957,6 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
 <img alt="../_images/6cc5dd6649db70e080a92aab0b3554fdc9205e73337fc992af4b62af0e501ccf.png" src="../_images/6cc5dd6649db70e080a92aab0b3554fdc9205e73337fc992af4b62af0e501ccf.png" />
 </div>
 </div>
-<p><a id="seven"></a></p>
 </section>
 <section id="step-7-examine-the-direction-selectivity-of-your-cell">
 <h2>Step 7. Examine the direction selectivity of your cell<a class="headerlink" href="#step-7-examine-the-direction-selectivity-of-your-cell" title="Link to this heading">#</a></h2>
@@ -993,16 +974,16 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "jupyterbook_env"
         },
         kernelOptions: {
-            name: "python3",
+            name: "jupyterbook_env",
             path: "./Chapter09"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'jupyterbook_env'</script>
 
                 </article>
               
@@ -1050,7 +1031,6 @@ all brain regions: [&#39;VISal&#39;, &#39;VISam&#39;, &#39;VISl&#39;, &#39;VISp&
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#this-sandbox-will-help-you-analyze-a-dataset-from-the-allen-institute-s-brain-observatory">This sandbox will help you analyze a dataset from the Allen Institute’s Brain Observatory.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#by-the-end-of-this-lesson-you-will-be-able-to">By the end of this lesson, you will be able to:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#table-of-contents">Table of Contents</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-importing-toolboxes">Step 1. Importing toolboxes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-get-a-list-of-all-possible-transgenic-mouse-lines-and-brain-areas-and-choose-which-to-work-with">Step 2. Get a list of all possible transgenic mouse lines and brain areas, and choose which to work with.</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-extract-an-experiment-session">Step 3. Extract an experiment session.</a></li>
