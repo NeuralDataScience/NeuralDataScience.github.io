@@ -196,7 +196,8 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter09/SingleCellEphys.html">Defining cell types by their electrophysiology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter09/2pImaging.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">APPROACHES TO WORKING WITH BIG DATA</span></p>
 <ul class="nav bd-sidenav">
@@ -416,93 +417,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk not found, installing now...
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: allensdk in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (2.16.2)
-Requirement already satisfied: psycopg2-binary in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (2.9.10)
-Requirement already satisfied: hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.* in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (4.1.0)
-Requirement already satisfied: h5py in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.14.0)
-Requirement already satisfied: matplotlib in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.10.3)
-Requirement already satisfied: numpy&lt;1.24 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.23.5)
-Requirement already satisfied: pandas==1.5.3 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.5.3)
-Requirement already satisfied: jinja2 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.1.6)
-Requirement already satisfied: scipy&lt;1.11 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.10.1)
-Requirement already satisfied: six in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.17.0)
-Requirement already satisfied: pynrrd in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.1.3)
-Requirement already satisfied: future in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.0.0)
-Requirement already satisfied: requests in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (2.32.4)
-Requirement already satisfied: requests-toolbelt in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.0.0)
-Requirement already satisfied: simplejson in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.20.1)
-Requirement already satisfied: scikit-image in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (0.24.0)
-Requirement already satisfied: scikit-build in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (0.18.1)
-Requirement already satisfied: statsmodels in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (0.14.5)
-Requirement already satisfied: simpleitk in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (2.5.2)
-Requirement already satisfied: argschema in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.0.4)
-Requirement already satisfied: glymur in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (0.14.3)
-Requirement already satisfied: xarray&lt;2023.2.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (2023.1.0)
-Requirement already satisfied: pynwb in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (2.8.3)
-Requirement already satisfied: tables in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.10.2)
-Requirement already satisfied: seaborn in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (0.13.2)
-Requirement already satisfied: aiohttp in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.12.14)
-Requirement already satisfied: nest-asyncio in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.6.0)
-Requirement already satisfied: tqdm in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (4.67.1)
-Requirement already satisfied: ndx-events in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (0.2.1)
-Requirement already satisfied: boto3 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (1.39.4)
-Requirement already satisfied: semver in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (3.0.4)
-Requirement already satisfied: cachetools in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (6.1.0)
-Requirement already satisfied: sqlalchemy in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (2.0.41)
-Requirement already satisfied: python-dateutil in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from allensdk) (2.9.0.post0)
-Requirement already satisfied: pytz&gt;=2020.1 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from pandas==1.5.3-&gt;allensdk) (2025.2)
-Requirement already satisfied: packaging&gt;=21.3 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from xarray&lt;2023.2.0-&gt;allensdk) (25.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: jsonschema&gt;=3.2.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (4.24.0)
-Requirement already satisfied: ruamel-yaml&gt;=0.16 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (0.18.14)
-Requirement already satisfied: attrs&gt;=22.2.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from jsonschema&gt;=3.2.0-&gt;hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (25.3.0)
-Requirement already satisfied: jsonschema-specifications&gt;=2023.03.6 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from jsonschema&gt;=3.2.0-&gt;hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (2025.4.1)
-Requirement already satisfied: referencing&gt;=0.28.4 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from jsonschema&gt;=3.2.0-&gt;hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (0.36.2)
-Requirement already satisfied: rpds-py&gt;=0.7.1 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from jsonschema&gt;=3.2.0-&gt;hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (0.26.0)
-Requirement already satisfied: typing-extensions&gt;=4.4.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from referencing&gt;=0.28.4-&gt;jsonschema&gt;=3.2.0-&gt;hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (4.14.1)
-Requirement already satisfied: ruamel.yaml.clib&gt;=0.2.7 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from ruamel-yaml&gt;=0.16-&gt;hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.*-&gt;allensdk) (0.2.12)
-Requirement already satisfied: aiohappyeyeballs&gt;=2.5.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from aiohttp-&gt;allensdk) (2.6.1)
-Requirement already satisfied: aiosignal&gt;=1.4.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from aiohttp-&gt;allensdk) (1.4.0)
-Requirement already satisfied: frozenlist&gt;=1.1.1 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from aiohttp-&gt;allensdk) (1.7.0)
-Requirement already satisfied: multidict&lt;7.0,&gt;=4.5 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from aiohttp-&gt;allensdk) (6.6.3)
-Requirement already satisfied: propcache&gt;=0.2.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from aiohttp-&gt;allensdk) (0.3.2)
-Requirement already satisfied: yarl&lt;2.0,&gt;=1.17.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from aiohttp-&gt;allensdk) (1.20.1)
-Requirement already satisfied: idna&gt;=2.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from yarl&lt;2.0,&gt;=1.17.0-&gt;aiohttp-&gt;allensdk) (3.10)
-Requirement already satisfied: marshmallow&lt;4.0,&gt;=3.0.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from argschema-&gt;allensdk) (3.26.1)
-Requirement already satisfied: pyyaml in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from argschema-&gt;allensdk) (6.0.2)
-Requirement already satisfied: botocore&lt;1.40.0,&gt;=1.39.4 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from boto3-&gt;allensdk) (1.39.4)
-Requirement already satisfied: jmespath&lt;2.0.0,&gt;=0.7.1 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from boto3-&gt;allensdk) (1.0.1)
-Requirement already satisfied: s3transfer&lt;0.14.0,&gt;=0.13.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from boto3-&gt;allensdk) (0.13.0)
-Requirement already satisfied: urllib3!=2.2.0,&lt;3,&gt;=1.25.4 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from botocore&lt;1.40.0,&gt;=1.39.4-&gt;boto3-&gt;allensdk) (2.5.0)
-Requirement already satisfied: lxml in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from glymur-&gt;allensdk) (6.0.0)
-Requirement already satisfied: pillow in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from glymur-&gt;allensdk) (11.3.0)
-Requirement already satisfied: MarkupSafe&gt;=2.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from jinja2-&gt;allensdk) (3.0.2)
-Requirement already satisfied: contourpy&gt;=1.0.1 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from matplotlib-&gt;allensdk) (1.3.2)
-Requirement already satisfied: cycler&gt;=0.10 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from matplotlib-&gt;allensdk) (0.12.1)
-Requirement already satisfied: fonttools&gt;=4.22.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from matplotlib-&gt;allensdk) (4.58.5)
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from matplotlib-&gt;allensdk) (1.4.8)
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from matplotlib-&gt;allensdk) (3.2.3)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from requests-&gt;allensdk) (3.4.2)
-Requirement already satisfied: certifi&gt;=2017.4.17 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from requests-&gt;allensdk) (2025.7.9)
-Requirement already satisfied: distro in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from scikit-build-&gt;allensdk) (1.9.0)
-Requirement already satisfied: setuptools&gt;=42.0.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from scikit-build-&gt;allensdk) (80.9.0)
-Requirement already satisfied: wheel&gt;=0.32.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from scikit-build-&gt;allensdk) (0.45.1)
-Requirement already satisfied: networkx&gt;=2.8 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from scikit-image-&gt;allensdk) (3.5)
-Requirement already satisfied: imageio&gt;=2.33 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from scikit-image-&gt;allensdk) (2.37.0)
-Requirement already satisfied: tifffile&gt;=2022.8.12 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from scikit-image-&gt;allensdk) (2025.6.11)
-Requirement already satisfied: lazy-loader&gt;=0.4 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from scikit-image-&gt;allensdk) (0.4)
-Requirement already satisfied: patsy&gt;=0.5.6 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from statsmodels-&gt;allensdk) (1.0.1)
-Requirement already satisfied: numexpr&gt;=2.6.2 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from tables-&gt;allensdk) (2.11.0)
-Requirement already satisfied: py-cpuinfo in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from tables-&gt;allensdk) (9.0.0)
-Requirement already satisfied: blosc2&gt;=2.3.0 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from tables-&gt;allensdk) (2.7.1)
-Requirement already satisfied: ndindex&gt;=1.4 in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from blosc2&gt;=2.3.0-&gt;tables-&gt;allensdk) (1.10.0)
-Requirement already satisfied: msgpack in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from blosc2&gt;=2.3.0-&gt;tables-&gt;allensdk) (1.1.1)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk is already installed.
 </pre></div>
 </div>
 </div>
@@ -526,19 +441,172 @@ Requirement already satisfied: msgpack in /opt/miniconda3/envs/jb_py311/lib/pyth
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Import pandas and the &quot;Cell Types Cache&quot; from the AllenSDK core package</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.cell_types_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CellTypesCache</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Initialize the cache as &#39;ctc&#39; (cell types cache)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;allensdk&#39;
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adaptation</th>
+      <th>avg_isi</th>
+      <th>electrode_0_pa</th>
+      <th>f_i_curve_slope</th>
+      <th>fast_trough_t_long_square</th>
+      <th>fast_trough_t_ramp</th>
+      <th>fast_trough_t_short_square</th>
+      <th>fast_trough_v_long_square</th>
+      <th>fast_trough_v_ramp</th>
+      <th>fast_trough_v_short_square</th>
+      <th>...</th>
+      <th>trough_t_ramp</th>
+      <th>trough_t_short_square</th>
+      <th>trough_v_long_square</th>
+      <th>trough_v_ramp</th>
+      <th>trough_v_short_square</th>
+      <th>upstroke_downstroke_ratio_long_square</th>
+      <th>upstroke_downstroke_ratio_ramp</th>
+      <th>upstroke_downstroke_ratio_short_square</th>
+      <th>vm_for_sag</th>
+      <th>vrest</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>134.700000</td>
+      <td>22.697498</td>
+      <td>8.335459e-02</td>
+      <td>1.187680</td>
+      <td>13.295200</td>
+      <td>1.025916</td>
+      <td>-56.375004</td>
+      <td>-57.385420</td>
+      <td>-57.431251</td>
+      <td>...</td>
+      <td>13.295680</td>
+      <td>1.134780</td>
+      <td>-56.593754</td>
+      <td>-57.739586</td>
+      <td>-74.143753</td>
+      <td>3.029695</td>
+      <td>3.061646</td>
+      <td>2.969821</td>
+      <td>-80.468750</td>
+      <td>-73.553391</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-24.887498</td>
+      <td>-3.913630e-19</td>
+      <td>1.099840</td>
+      <td>20.650105</td>
+      <td>1.025460</td>
+      <td>-54.000000</td>
+      <td>-54.828129</td>
+      <td>-54.656254</td>
+      <td>...</td>
+      <td>20.650735</td>
+      <td>1.160940</td>
+      <td>-55.406254</td>
+      <td>-55.242191</td>
+      <td>-73.500000</td>
+      <td>2.441895</td>
+      <td>2.245653</td>
+      <td>2.231575</td>
+      <td>-84.406258</td>
+      <td>-73.056595</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.009770</td>
+      <td>39.044800</td>
+      <td>-46.765002</td>
+      <td>5.267857e-01</td>
+      <td>1.157840</td>
+      <td>2.551310</td>
+      <td>1.025387</td>
+      <td>-59.500000</td>
+      <td>-58.234378</td>
+      <td>-59.940975</td>
+      <td>...</td>
+      <td>2.551960</td>
+      <td>1.089851</td>
+      <td>-60.062500</td>
+      <td>-58.570314</td>
+      <td>-61.371531</td>
+      <td>2.023762</td>
+      <td>2.162878</td>
+      <td>2.006406</td>
+      <td>-93.375008</td>
+      <td>-60.277321</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>-0.007898</td>
+      <td>117.816429</td>
+      <td>5.996250</td>
+      <td>1.542553e-01</td>
+      <td>1.989165</td>
+      <td>9.572025</td>
+      <td>1.028733</td>
+      <td>-47.531250</td>
+      <td>-50.359375</td>
+      <td>-65.500000</td>
+      <td>...</td>
+      <td>9.576308</td>
+      <td>1.423229</td>
+      <td>-49.406254</td>
+      <td>-52.718752</td>
+      <td>-75.273443</td>
+      <td>3.105931</td>
+      <td>3.491663</td>
+      <td>1.733896</td>
+      <td>-87.656250</td>
+      <td>-75.205559</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.022842</td>
+      <td>68.321429</td>
+      <td>14.910000</td>
+      <td>1.714041e-01</td>
+      <td>1.081980</td>
+      <td>2.462880</td>
+      <td>1.025620</td>
+      <td>-48.437504</td>
+      <td>-46.520837</td>
+      <td>-51.406253</td>
+      <td>...</td>
+      <td>2.490433</td>
+      <td>1.479690</td>
+      <td>-53.000004</td>
+      <td>-54.645837</td>
+      <td>-64.250003</td>
+      <td>3.285760</td>
+      <td>3.363504</td>
+      <td>4.234701</td>
+      <td>-81.625008</td>
+      <td>-63.474991</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 56 columns</p>
+</div></div></div>
 </div>
 <p>For now, this just shows you how easy it is to access some open neuroscience data! We’ll come back to this particular dataset in a later chapter to play with it.</p>
 </section>
@@ -566,29 +634,29 @@ Requirement already satisfied: msgpack in /opt/miniconda3/envs/jb_py311/lib/pyth
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;header&#39;: {&#39;type&#39;: &#39;esearch&#39;, &#39;version&#39;: &#39;0.3&#39;},
- &#39;esearchresult&#39;: {&#39;count&#39;: &#39;41129&#39;,
+ &#39;esearchresult&#39;: {&#39;count&#39;: &#39;41435&#39;,
   &#39;retmax&#39;: &#39;20&#39;,
   &#39;retstart&#39;: &#39;0&#39;,
-  &#39;idlist&#39;: [&#39;40590186&#39;,
-   &#39;40590026&#39;,
-   &#39;40589994&#39;,
-   &#39;40589818&#39;,
-   &#39;40588827&#39;,
-   &#39;40588700&#39;,
-   &#39;40588695&#39;,
-   &#39;40588487&#39;,
-   &#39;40588361&#39;,
-   &#39;40588165&#39;,
-   &#39;40587931&#39;,
-   &#39;40587919&#39;,
-   &#39;40586488&#39;,
-   &#39;40586430&#39;,
-   &#39;40586263&#39;,
-   &#39;40585969&#39;,
-   &#39;40585851&#39;,
-   &#39;40585236&#39;,
-   &#39;40584826&#39;,
-   &#39;40583914&#39;],
+  &#39;idlist&#39;: [&#39;40638012&#39;,
+   &#39;40637963&#39;,
+   &#39;40637874&#39;,
+   &#39;40637784&#39;,
+   &#39;40637279&#39;,
+   &#39;40637106&#39;,
+   &#39;40637004&#39;,
+   &#39;40636562&#39;,
+   &#39;40636402&#39;,
+   &#39;40636395&#39;,
+   &#39;40636273&#39;,
+   &#39;40635463&#39;,
+   &#39;40635169&#39;,
+   &#39;40634927&#39;,
+   &#39;40634639&#39;,
+   &#39;40634584&#39;,
+   &#39;40634488&#39;,
+   &#39;40634469&#39;,
+   &#39;40634463&#39;,
+   &#39;40634428&#39;],
   &#39;translationset&#39;: [{&#39;from&#39;: &#39;neural&#39;,
     &#39;to&#39;: &#39;&quot;neural&quot;[All Fields] OR &quot;neuralization&quot;[All Fields] OR &quot;neuralize&quot;[All Fields] OR &quot;neuralized&quot;[All Fields] OR &quot;neuralizes&quot;[All Fields] OR &quot;neuralizing&quot;[All Fields] OR &quot;neurally&quot;[All Fields]&#39;},
    {&#39;from&#39;: &#39;data science&#39;,
@@ -612,7 +680,7 @@ Requirement already satisfied: msgpack in /opt/miniconda3/envs/jb_py311/lib/pyth
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Is California On Fire?&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;Yes&lt;/h1&gt;\nupdated: Tue Jul  1 12:39:15 2025 PDT\n&lt;/body&gt;\n&lt;/html&gt;\n&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Is California On Fire?&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;Yes&lt;/h1&gt;\nupdated: Thu Jul 10 10:53:04 2025 PDT\n&lt;/body&gt;\n&lt;/html&gt;\n&#39;
 </pre></div>
 </div>
 </div>
@@ -652,12 +720,26 @@ Requirement already satisfied: msgpack in /opt/miniconda3/envs/jb_py311/lib/pyth
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting Biopython
-  Downloading biopython-1.85-cp312-cp312-macosx_11_0_arm64.whl.metadata (13 kB)
-Requirement already satisfied: numpy in /opt/miniconda3/lib/python3.12/site-packages (from Biopython) (2.2.3)
-Downloading biopython-1.85-cp312-cp312-macosx_11_0_arm64.whl (2.8 MB)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.8/2.8 MB</span> <span class=" -Color -Color-Red">15.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-Installing collected packages: Biopython
-Successfully installed Biopython-1.85
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading biopython-1.85-cp311-cp311-macosx_11_0_arm64.whl.metadata (13 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from Biopython) (1.23.5)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading biopython-1.85-cp311-cp311-macosx_11_0_arm64.whl (2.8 MB)
+?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/2.8 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.8/2.8 MB</span> <span class=" -Color -Color-Red">30.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+?25h
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: Biopython
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed Biopython-1.85
 </pre></div>
 </div>
 </div>
@@ -699,16 +781,16 @@ Successfully installed Biopython-1.85
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "jupyterbook_env"
+            mode: "jb_py311"
         },
         kernelOptions: {
-            name: "jupyterbook_env",
+            name: "jb_py311",
             path: "./Chapter04"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'jupyterbook_env'</script>
+    <script>kernelName = 'jb_py311'</script>
 
                 </article>
               

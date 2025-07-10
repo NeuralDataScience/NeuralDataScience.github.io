@@ -1,0 +1,1128 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Defining cell types by their electrophysiology &#8212; Neuroscience in the Age of Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter09/SingleCellEphys';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Brain Observatory: What are those cells doing?" href="2pImaging.html" />
+    <link rel="prev" title="Exploring the Data" href="../Chapter05/DataExploration_BrainSize.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/brainz.jpeg" class="logo__image only-light" alt="Neuroscience in the Age of Data Science - Home"/>
+    <script>document.write(`<img src="../_static/brainz.jpeg" class="logo__image only-dark" alt="Neuroscience in the Age of Data Science - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Neuroscience in the Age of Data Science
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">DATA SCIENCE IN PYTHON</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter03/Data_Science_In_Python.html">Data Science in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/NumPy.html">NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/Pandas.html">Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/SciPy.html">SciPy</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FINDING &amp; EXPLORING NEURAL DATA</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter04/FindingData.html">Finding Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter05/DataExploration_BrainSize.html">Exploring the Data</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Defining cell types by their electrophysiology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2pImaging.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">APPROACHES TO WORKING WITH BIG DATA</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter16/DimensionalityReduction.html">Dimensionality Reduction &amp; Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter09/SingleCellEphys.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter09/SingleCellEphys.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Defining cell types by their electrophysiology</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart">The brain has thousands of different types of cells. How do we even begin to tease them apart?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-diving-into-this-notebook">Before diving into this notebook:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-steps">Tutorial Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-set-up-our-coding-environment">Step 1. Set up our coding environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-allensdk">Install the AllenSDK</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-common-packages">Import common packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-the-celltypesmodule-from-the-allensdk">Import the CellTypesModule from the allensdk</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-import-cell-types-data">Step 2. Import Cell Types data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-plot-a-raw-sweep-of-data">Step 3. Plot a raw sweep of data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-plot-the-morphology-of-the-cell">Step 4. Plot the morphology of the cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-analyze-pre-computed-features">Step 5. Analyze pre-computed features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-compare-waveforms">Step 6. Compare waveforms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-compare-cell-types">Step 7. Compare cell types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-notes-credits">Technical notes &amp; credits</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="defining-cell-types-by-their-electrophysiology">
+<h1>Defining cell types by their electrophysiology<a class="headerlink" href="#defining-cell-types-by-their-electrophysiology" title="Link to this heading">#</a></h1>
+<section id="the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart">
+<h2>The brain has thousands of different types of cells. How do we even begin to tease them apart?<a class="headerlink" href="#the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart" title="Link to this heading">#</a></h2>
+<p>We can define neurons by their <b>gene expression patterns</b>, <b>electrophysiology features</b>, and <b>structure</b>. Here, we’ll use those three features to compare and contrast cell types in the brain.</p>
+<p>This notebook will help us investigate specific features in the electrophysiology dataset from the Allen Brain Atlas. Along the way, you’ll encounter some concepts about coding in Python.</p>
+</section>
+<section id="before-diving-into-this-notebook">
+<h2>Before diving into this notebook:<a class="headerlink" href="#before-diving-into-this-notebook" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Complete <a class="reference external" href="https://sites.google.com/ucsd.edu/neuroedu/cell-types/web-instructions?authuser=0">the web-based activity</a>, which asks you to look at this data on the Allen Institute website.</p></li>
+<li><p>Work through <a class="reference external" href="https://github.com/ajuavinett/CellTypesLesson/blob/master/Introduction%20to%20Jupyter%20Notebooks.ipynb">this Introduction to Jupyter Notebooks tutorial</a> which will introduce you to Python and the Jupyter Notebook environment.</p></li>
+</ul>
+<hr></section>
+<section id="tutorial-steps">
+<h2>Tutorial Steps<a class="headerlink" href="#tutorial-steps" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#setup"><span class="xref myst">Set up our coding environment</span></a></p></li>
+</ol>
+<p><strong>Data from a single cell</strong>. <em>Steps 2-4 are an optional demonstration of the same cell from the <a class="reference external" href="https://sites.google.com/ucsd.edu/neuroedu/cell-types?authuser=0">web-based activity</a>. These steps can be skipped.</em></p>
+<ol class="arabic simple" start="2">
+<li><p><a class="reference internal" href="#import"><span class="xref myst">Import data for a single cell</span></a></p></li>
+<li><p><a class="reference internal" href="#plotsweep"><span class="xref myst">Plot a raw sweep of data</span></a></p></li>
+<li><p><a class="reference internal" href="#morphology"><span class="xref myst">Plot the morphology of the cell</span></a></p></li>
+</ol>
+<p><strong>Data from many cells</strong>. <em>Steps 5-7 will help you look at pre-computed features for all of the cells in the database.</em></p>
+<ol class="arabic simple" start="5">
+<li><p><a class="reference internal" href="#metrics"><span class="xref myst">Analyze computed features</span></a></p></li>
+<li><p><a class="reference internal" href="#waveforms"><span class="xref myst">Compare action potential waveforms</span></a></p></li>
+<li><p><a class="reference internal" href="#compare"><span class="xref myst">Compare cell types</span></a></p></li>
+</ol>
+<hr><p><a id="setup"></a></p>
+</section>
+<section id="step-1-set-up-our-coding-environment">
+<h2>Step 1. Set up our coding environment<a class="headerlink" href="#step-1-set-up-our-coding-environment" title="Link to this heading">#</a></h2>
+<p>Whenever we start an analysis in Python, we need to be sure to import the necessary code packages. If you’re running this notebook on Colab or Binder, the cells below will install packages into your coding environment – we are <em>not</em> installing anything on your computer.</p>
+<section id="install-the-allensdk">
+<h3>Install the AllenSDK<a class="headerlink" href="#install-the-allensdk" title="Link to this heading">#</a></h3>
+<p>The Allen Institute has compiled a set of code and tools called a <strong>Software Development Kit</strong> (SDK). These tools will help us import and analyze the cell types data. See <a class="reference internal" href="#technical"><span class="xref myst">Technical Notes</span></a> at the end of this notebook for more information about working with the AllenSDK.</p>
+<blockquote>
+<div><p><b>Task</b>: Run the cell below, which will install the allensdk into your coding environment.</p>
+</div></blockquote>
+<p><strong>Technical notes about installing the allensdk</strong></p>
+<ul class="simple">
+<li><p>If you’re running this in Colab, you’ll also be prompted to <strong>Restart Runtime</strong> after this is completed. Click the <strong>Restart Runtime</strong> button (nothing will happen), and then you’re ready to proceed.</p></li>
+<li><p>If you receive an error or are running this notebook on your local computer, there are additional instructions on how to install the SDK locally <a href="http://alleninstitute.github.io/AllenSDK/install.html">here</a>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will ensure that the AllenSDK is installed.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">allensdk</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;allensdk imported&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>allensdk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>allensdk imported
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><b>Task</b>: We also need to make sure that our coding environment has <a class="reference external" href="https://numpy.org/">NumPy</a>, <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>, and <a class="reference external" href="https://matplotlib.org/">Matplotlib</a> already installed. Run the cell below – any packages that are missing will be installed for you.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This will ensure that NumPy, Pandas, and Matplotlib are installed.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;numpy already installed&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>numpy
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;pandas already installed&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pandas<span class="w">  </span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;matplotlib already installed&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>matplotlib
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>numpy already installed
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pandas already installed
+matplotlib already installed
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-common-packages">
+<h3>Import common packages<a class="headerlink" href="#import-common-packages" title="Link to this heading">#</a></h3>
+<p>Below, we’ll <code class="docutils literal notranslate"><span class="pre">import</span></code> a common selection of packages that will help us analyze and plot our data. We’ll also configure the plotting in our notebook.</p>
+<blockquote>
+<div><p><b>Task</b>: Just like you did in the <a class="reference external" href="https://github.com/ajuavinett/CellTypesLesson/blob/master/Introduction%20to%20Jupyter%20Notebooks.ipynb">introductory notebook</a>, import the numpy module nicknamed as <code>np</code>. Add a <code>print</code> message at the end that says “Packages imported!” so that you know the code ran.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import our plotting package from matplotlib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Specify that all plots will happen inline &amp; in high resolution</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline  
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+
+<span class="c1"># Import pandas for working with databases</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Import numpy below</span>
+
+
+<span class="c1"># Add your print() statement below</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="import-the-celltypesmodule-from-the-allensdk">
+<h3>Import the CellTypesModule from the allensdk<a class="headerlink" href="#import-the-celltypesmodule-from-the-allensdk" title="Link to this heading">#</a></h3>
+<p>With the allensdk installed, we can <code class="docutils literal notranslate"><span class="pre">import</span></code> the <strong>CellTypesCache module</strong>.</p>
+<p>The CellTypesCache that we’re importing provides tools to allow us to get information from the cell types database. We’re giving it a <strong>manifest</strong> filename as well. CellTypesCache will create this manifest file, which contains metadata about the cache. If you want, you can look in the cell_types folder in your code directory and take a look at the file.</p>
+<blockquote>
+<div><p><b>Task</b>: Run the cell below. If you’d like a slightly faster way of working with the raw data files required by this notebook, you can also <strong>uncomment</strong> (remove the <code class="docutils literal notranslate"><span class="pre">#</span></code>) from the <code class="docutils literal notranslate"><span class="pre">!git</span></code> and <code class="docutils literal notranslate"><span class="pre">%cd</span></code> lines below to clone the data from Github.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import the &quot;Cell Types Cache&quot; from the AllenSDK core package</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.cell_types_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CellTypesCache</span>
+
+<span class="c1">#If you&#39;re short on time, clone the repository to get the raw data</span>
+<span class="c1">#!git clone https://github.com/ajuavinett/CellTypesLesson.git</span>
+<span class="c1">#%cd CellTypesLesson</span>
+
+<span class="c1">#Initialize the cache as &#39;ctc&#39; (cell types cache)</span>
+<span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CellTypesCache imported.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CellTypesCache imported.
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="import"></a></p>
+</section>
+</section>
+<section id="step-2-import-cell-types-data">
+<h2>Step 2. Import Cell Types data<a class="headerlink" href="#step-2-import-cell-types-data" title="Link to this heading">#</a></h2>
+<p><strong>Note</strong>:  <em>Steps 2-4 are an optional demonstration of the same cell from the <a class="reference external" href="https://sites.google.com/ucsd.edu/neuroedu/cell-types?authuser=0">web-based activity</a>. These steps can be skipped if you’d like to dive into analyzing populations of cells below.</em></p>
+<p>Now that we have the module that we need, let’s import a raw sweep of the data. The cell below will grab the data for the same experiment you just looked at on the website. This data is in the form of a <a class="reference external" href="https://www.nwb.org/"><strong>Neuroscience Without Borders</strong> (NWB)</a> file.</p>
+<blockquote>
+<div><p><b>Task</b>: Find the cell specimen ID for the first cell you looked at on the Allen Institute website (hint: it’s in the URL), and assign this to <code>cell_id</code> below by replacing the <code>…</code>. Run the cell.</p>
+</div></blockquote>
+<p>This might take a minute or two. You should wait until the circle in the upper right is <i>not</i> filled (Jupyter Notebook) or you have a green checkmark (Colab) to continue.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enter your cell_id below</span>
+<span class="n">cell_id</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="c1"># Get the electrophysiology (ephys) data for that cell</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_data</span><span class="p">(</span><span class="n">cell_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data retrieved&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">cell_id</span> <span class="o">=</span> <span class="o">...</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Get the electrophysiology (ephys) data for that cell</span>
+<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_data</span><span class="p">(</span><span class="n">cell_id</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data retrieved&#39;</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/cell_types_cache.py:299,</span> in <span class="ni">CellTypesCache.get_ephys_data</span><span class="nt">(self, specimen_id, file_name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">276</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_ephys_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">277</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span><span class="sd">     Download electrophysiology traces for a single cell in the database.</span>
+<span class="g g-Whitespace">    </span><span class="mi">279</span><span class="sd"> </span>
+<span class="sd">   (...)    296         and response traces out of an NWB file.</span>
+<span class="g g-Whitespace">    </span><span class="mi">297</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">299</span>     <span class="n">file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">300</span>         <span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EPHYS_DATA_KEY</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">302</span>     <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">save_ephys_data</span><span class="p">(</span><span class="n">specimen_id</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;lazy&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span>     <span class="k">return</span> <span class="n">NwbDataSet</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:125,</span> in <span class="ni">Cache.get_cache_path</span><span class="nt">(self, file_name, manifest_key, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">123</span>         <span class="k">return</span> <span class="n">file_name</span>
+<span class="g g-Whitespace">    </span><span class="mi">124</span>     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">manifest</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">125</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">manifest</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="n">manifest_key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">127</span> <span class="k">return</span> <span class="kc">None</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/config/manifest.py:263,</span> in <span class="ni">Manifest.get_path</span><span class="nt">(self, path_key, *args)</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span> <span class="n">path_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_info</span><span class="p">[</span><span class="n">path_key</span><span class="p">][</span><span class="s1">&#39;spec&#39;</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">263</span>     <span class="n">path</span> <span class="o">=</span> <span class="n">path_spec</span> <span class="o">%</span> <span class="n">args</span>
+<span class="g g-Whitespace">    </span><span class="mi">264</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="n">path</span> <span class="o">=</span> <span class="n">path_spec</span>
+
+<span class="ne">TypeError</span>: %d format: a real number is required, not ellipsis
+</pre></div>
+</div>
+</div>
+</div>
+<p>Thankfully, our NWB file has some built-in <strong>methods</strong> to enable us to pull out a recording sweep. We can access methods of objects like our <code class="docutils literal notranslate"><span class="pre">data</span></code> object by adding a period, and then the method. That’s what we’re doing below, with <code class="docutils literal notranslate"><span class="pre">data.get_sweep()</span></code>.</p>
+<blockquote>
+<div><p><b>Task:</b> Choose your favorite sweep below. (<u>Hint</u>: go back to the website to see what the sweep numbers are.)</p>
+</div></blockquote>
+<p><i>Note</i>: You may get an <code class="docutils literal notranslate"><span class="pre">H5pyDeprecationWarning</span></code>, but don’t worry about it. This is out of our control. :)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign your favorite sweep number to a variable &quot;sweep_number&quot; below.</span>
+<span class="n">sweep_number</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">sweep_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_sweep</span><span class="p">(</span><span class="n">sweep_number</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sweep obtained&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="plotsweep"></a></p>
+</section>
+<section id="step-3-plot-a-raw-sweep-of-data">
+<h2>Step 3. Plot a raw sweep of data<a class="headerlink" href="#step-3-plot-a-raw-sweep-of-data" title="Link to this heading">#</a></h2>
+<p>Now that you’ve pulled down some data, chosen a cell, and chosen a sweep number, let’s plot that data.</p>
+<blockquote>
+<div><p><b>Task:</b> Run the cell below to get the stimulus and recorded response information from the dataset.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the stimulus trace (in amps) and convert to pA</span>
+<span class="n">stim_current</span> <span class="o">=</span> <span class="n">sweep_data</span><span class="p">[</span><span class="s1">&#39;stimulus&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e12</span>
+
+<span class="c1"># Get the voltage trace (in volts) and convert to mV</span>
+<span class="n">response_voltage</span> <span class="o">=</span> <span class="n">sweep_data</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e3</span>
+
+<span class="c1"># Get the sampling rate and can create a time axis for our data</span>
+<span class="n">sampling_rate</span> <span class="o">=</span> <span class="n">sweep_data</span><span class="p">[</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">]</span> <span class="c1"># in Hz</span>
+<span class="n">timestamps</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">response_voltage</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">sampling_rate</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><b>Task</b>: In the cell below, use the <code>plt.plot(x,y)</code> to plot our voltage trace.</p>
+<ul class="simple">
+<li><p>You will need to give it two arguments, which are variables we created above: <code>timestamps</code> (x axis) and <code>response_voltage</code>(y).</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li><p>Without changing the limits on the x-axis, you won’t be able to see individual action potentials.</p></li>
+<li><p>Modify the x-axis using <code>plt.xlim([min,max])</code> to specify the limits (replace <code>min</code> and <code>max</code> with numbers that make sense for this x-axis.</p></li>
+<li><p>If you’d like to plot the current that was injected into the cell, you can plot <code>stim_current</code> instead of <code>response_voltage.</code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the raw recording here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="morphology"></a></p>
+</section>
+<section id="step-4-plot-the-morphology-of-the-cell">
+<h2>Step 4. Plot the morphology of the cell<a class="headerlink" href="#step-4-plot-the-morphology-of-the-cell" title="Link to this heading">#</a></h2>
+<p>The Cell Types Database also contains <strong>3D reconstructions</strong> of neuronal morphologies. Here, we’ll plot the reconstruction of our cell’s morphology.</p>
+<p><em>Note</em>: It will take several minutes to run the cell below, possibly longer over a slow internet connection. Running this cell is optional and can be skipped if necessary.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary toolbox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.swc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Marker</span>
+
+<span class="c1"># Download and open morphology and marker files</span>
+<span class="n">morphology</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_reconstruction</span><span class="p">(</span><span class="n">cell_id</span><span class="p">)</span> 
+<span class="n">markers</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_reconstruction_markers</span><span class="p">(</span><span class="n">cell_id</span><span class="p">)</span> 
+
+<span class="c1"># Set up our plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+
+<span class="c1"># Make a line drawing of x-y and y-z views</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">morphology</span><span class="o">.</span><span class="n">compartment_list</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">morphology</span><span class="o">.</span><span class="n">children_of</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">n</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">n</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">n</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="c1"># cut dendrite markers</span>
+<span class="n">dm</span> <span class="o">=</span> <span class="p">[</span> <span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">markers</span> <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">Marker</span><span class="o">.</span><span class="n">CUT_DENDRITE</span> <span class="p">]</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">dm</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">dm</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3333ff&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">dm</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">dm</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3333ff&#39;</span><span class="p">)</span>
+
+<span class="c1"># no reconstruction markers</span>
+<span class="n">nm</span> <span class="o">=</span> <span class="p">[</span> <span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">markers</span> <span class="k">if</span> <span class="n">m</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">Marker</span><span class="o">.</span><span class="n">NO_RECONSTRUCTION</span> <span class="p">]</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#333333&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#333333&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><a id="metrics"></a></p>
+</section>
+<section id="step-5-analyze-pre-computed-features">
+<h2>Step 5. Analyze pre-computed features<a class="headerlink" href="#step-5-analyze-pre-computed-features" title="Link to this heading">#</a></h2>
+<p>The Cell Types Database contains a set of features that have already been computed, which could serve as good starting points for analysis. We can query the database to get these features. Below, we’ll use the Pandas package that we imported above to create a <strong><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/dsintro.html#dataframe">dataframe</a></strong> of our data.</p>
+<blockquote>
+<div><p><b>Task</b>: Run the cell below. It’ll take ~10 seconds. It will print a list of all of the feature available, as well as produce a dataframe, which looks something like an Excel spreadsheet. You can scroll to the right to see many of the different features available in this dataset.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download all electrophysiology features for all cells</span>
+<span class="n">ephys_features</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_features</span><span class="p">()</span>
+<span class="n">dataframe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ephys_features</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;specimen_id&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ephys features available for </span><span class="si">%d</span><span class="s1"> cells:&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataframe</span><span class="p">))</span>
+<span class="n">dataframe</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># Just show the first 5 rows (the head) of our dataframe </span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As you can see in the dataframe above, there are many <strong>pre-computed features</strong> available in this dataset. <a class="reference external" href="https://docs.google.com/document/d/1YGLwkMTebwrXd_1E817LFbztMjSTCWh83Mlp3_3ZMEo/edit?usp=sharing">Here’s a glossary</a>, in case you’re curious.</p>
+<p><img alt="" src="https://github.com/ajuavinett/CellTypesLesson/blob/master/docs/ap_features.png?raw=true" />
+Image from the <a href="http://help.brain-map.org/download/attachments/8323525/CellTypes_Ephys_Overview.pdf">Allen Institute Cell Types Database Technical Whitepaper.</a>
+<br><br></p>
+<p>Let’s first look at the speed of the trough, and the ratio between the upstroke and downstroke of the action potential:</p>
+<ul class="simple">
+<li><p><strong>Action potential fast trough</strong> (<code>fast_trough_v_long_square</code>): Minimum value of the membrane potential in the interval lasting 5 ms after the peak.</p></li>
+<li><p><strong>Upstroke/downstroke ratio</strong> (<code>upstroke_downstroke_ratio_long_square</code>)</b>: The ratio between the absolute values of the action potential peak upstroke and the action potential peak downstroke.</div></p></li>
+</ul>
+<p>Above, we created a pandas dataframe of all of these features. Here, we’ll assign the columns we’re interested to two different <strong>variables</strong>, so that they will contain all of the datapoints we’re interested in. We can access different columns of the dataframe by using the syntax <code class="docutils literal notranslate"><span class="pre">dataframe['column_of_interest']</span></code>. The columns of interest here are <code class="docutils literal notranslate"><span class="pre">fast_trough_v_long_square</span></code> and <code class="docutils literal notranslate"><span class="pre">upstroke_downstroke_ratio_long_square</span></code>].</p>
+<blockquote>
+<div><p><b>Task:</b> Edit and run the cell below to store these columns into our two new variables.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fast_trough</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">upstroke_downstroke</span> <span class="o">=</span> <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><b>Task:</b> Create a scatterplot that plots the fast trough (x axis) versus the upstroke-downstroke ratio (y axis). Label your axes accordingly using <code class="docutils literal notranslate"><span class="pre">plt.xlabel()</span></code> and <code class="docutils literal notranslate"><span class="pre">plt.ylabel()</span></code>.</p>
+</div></blockquote>
+<p>If you need help, see the <a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.scatter.html"><code class="docutils literal notranslate"><span class="pre">plt.scatter()</span></code> documentation</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Your scatterplot here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It looks like there may be roughly two clusters in the data above. Maybe they relate to whether the cells are presumably excitatory (spiny) cells or inhibitory (aspiny) cells. Let’s query the API and split up the two sets to see.</p>
+<blockquote>
+<div><p><b>Task:</b> The cell below will dig up the dendrite type of these cells and add that to our dataframe. Then, it’ll create our same scatterplot, where each dot is colored by dendrite type. All you need to do is run the cell!</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get information about our cells&#39; dendrites</span>
+<span class="n">cells</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_cells</span><span class="p">()</span>
+<span class="n">full_dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))</span>
+
+<span class="c1"># Create a dataframe for spiny cells, and a dataframe for aspiny cells</span>
+<span class="n">spiny_df</span> <span class="o">=</span> <span class="n">full_dataframe</span><span class="p">[</span><span class="n">full_dataframe</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;spiny&#39;</span><span class="p">]</span>
+<span class="n">aspiny_df</span> <span class="o">=</span> <span class="n">full_dataframe</span><span class="p">[</span><span class="n">full_dataframe</span><span class="p">[</span><span class="s1">&#39;dendrite_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;aspiny&#39;</span><span class="p">]</span>
+
+<span class="c1"># Create our plot! Calling scatter twice like this will draw both of these on the same plot.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">spiny_df</span><span class="p">[</span><span class="s1">&#39;fast_trough_v_long_square&#39;</span><span class="p">],</span><span class="n">spiny_df</span><span class="p">[</span><span class="s1">&#39;upstroke_downstroke_ratio_long_square&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">aspiny_df</span><span class="p">[</span><span class="s1">&#39;fast_trough_v_long_square&#39;</span><span class="p">],</span><span class="n">aspiny_df</span><span class="p">[</span><span class="s1">&#39;upstroke_downstroke_ratio_long_square&#39;</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;upstroke-downstroke ratio&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;fast trough depth (mV)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Spiny&#39;</span><span class="p">,</span><span class="s1">&#39;Aspiny&#39;</span><span class="p">])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Looks like these two clusters do partially relate to the dendritic type. Cells with spiny dendrites (which are typically excitatory cells) have a big ratio of upstroke:downstroke, and a more shallow trough (less negative). Cells with aspiny dendrites (typically inhibitory cells) are a little bit more varied. But </i>only</i> aspiny cells have a low upstroke:downstroke ratio and a deeper trough (more negative).</p>
+<p><a id="waveforms"></a></p>
+</section>
+<section id="step-6-compare-waveforms">
+<h2>Step 6. Compare waveforms<a class="headerlink" href="#step-6-compare-waveforms" title="Link to this heading">#</a></h2>
+<p>Let’s take a closer look at the action potentials of these cells to see what these features actually mean for the action potential waveform by choosing one of the cells with the highest upstroke:downstroke ratio. Our first line of code, where it says <code class="docutils literal notranslate"><span class="pre">dataframe.sort_values()</span></code> is the code that will arrange our dataframe by the <strong>upstroke_downstroke_ratio_long_square</strong> column.</p>
+<p>This first time around, we’ll organize it so that the highest ratio is at the top (<code class="docutils literal notranslate"><span class="pre">ascending=False</span></code>). This is an example of a <strong>boolean</strong> in Python. You can change this to say <code class="docutils literal notranslate"><span class="pre">ascending=True</span></code> if you want to sort with <em>lowest</em> ratio at the top.</p>
+<blockquote>
+<div><p><b>Task</b>: Run the cell below.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sort the dataframe and reassign</span>
+<span class="n">sorted_dataframe</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;upstroke_downstroke_ratio_long_square&#39;</span><span class="p">,</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Assign one of the top cells in our dataframe (default = 2) and the ratio to different variables</span>
+<span class="n">specimen_id</span> <span class="o">=</span> <span class="n">sorted_dataframe</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">ratio</span> <span class="o">=</span> <span class="n">sorted_dataframe</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s1">&#39;upstroke_downstroke_ratio_long_square&#39;</span><span class="p">]</span>
+
+<span class="c1"># Print our results so that we can see them</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Specimen ID: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">specimen_id</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; with upstroke-downstroke ratio: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ratio</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can take a closer look at the action potential for that cell by grabbing a raw sweep of recording from it, just like we did above.</p>
+<blockquote>
+<div><p><b>Task:</b> Run the cell below. This may take a minute or so. <em>Note</em>: You may receive a “H5pyDeprecationWarning,” but you can ignore this!</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the data for our specimen</span>
+<span class="n">upstroke_data</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_data</span><span class="p">(</span><span class="n">specimen_id</span><span class="p">)</span>
+
+<span class="c1"># Get one sweep for our specimen (I&#39;ve already handselected a gorgeous one for you, 45)</span>
+<span class="n">upstroke_sweep</span> <span class="o">=</span> <span class="n">upstroke_data</span><span class="o">.</span><span class="n">get_sweep</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span> 
+
+<span class="c1"># Get the current &amp; voltage traces</span>
+<span class="n">current</span> <span class="o">=</span> <span class="n">upstroke_sweep</span><span class="p">[</span><span class="s1">&#39;stimulus&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e12</span> <span class="c1"># in A, converted to pA</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="n">upstroke_sweep</span><span class="p">[</span><span class="s1">&#39;response&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e3</span> <span class="c1"># converted to mV!</span>
+
+<span class="c1"># Get the time stamps for our voltage trace</span>
+<span class="n">timestamps</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">voltage</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">upstroke_sweep</span><span class="p">[</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">]))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sweep obtained&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><b>Task:</b> Plot the sweep we obtained above. <i>Hint</i>: You’ll want to use <code class="docutils literal notranslate"><span class="pre">plt.plot(x,y)</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is the <code class="docutils literal notranslate"><span class="pre">timestamps</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> is the <code class="docutils literal notranslate"><span class="pre">voltage</span></code>. Be sure to give your plot accurate labels as well.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the new sweep here</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><b>Task</b> Generate a similar plot for a cell with a <b>low</b> upstroke ratio. Similiar to above, zoom in on the x axis so that you can actually see the shape of the action potential waveform.</p>
+</div></blockquote>
+<blockquote>
+<div><p><b>Hint</b>: You only need to change <i>one</i> value in all of the code in this step in order to make this change. How did we arrange our dataframe at first?</p>
+</div></blockquote>
+<p>As you’ll hopefully see, even that one feature, upstroke:downstroke ratio, means the shape of the action potential is dramatically different. The other feature we looked at above, size of the trough, is highly correlated with upstroke:downstroke. You can see that by comparing the two cells here. Cells with high upstroke:downstroke tend to have less negative troughs (undershoots) after the action potential.</p>
+<p><a id="compare"></a></p>
+</section>
+<section id="step-7-compare-cell-types">
+<h2>Step 7. Compare cell types<a class="headerlink" href="#step-7-compare-cell-types" title="Link to this heading">#</a></h2>
+<p>Let’s get out of the action potential weeds a bit. What if we want to know a big picture thing, such as are <em>human cells different than mouse cells?</em> Or <em>how are excitatory cells different from inhibitory cells?</em>  To ask these questions, we can pull out the data for two different cell types, defined by their species, dendrite type, or transgenic line.</p>
+<p><strong>About Transgenic Cre Lines.</strong> The Allen Institute for Brain Science uses transgenic mouse lines that have Cre-expressing cells to mark specific types of cells in the brain. This technology is called the <strong>Cre-Lox system</strong>, and is a common way in neuroscience (and some other fields) to target cells based on their expression of specific genetic promotors. For more information about Cre/Lox technology, see <a class="reference external" href="https://old.abmgood.com/marketing/knowledge_base/Cre-Lox_Recombination.php">this website</a>. Information about the different Cre lines that are available can be found in <a class="reference external" href="https://docs.google.com/document/d/1ZMMZgc7cS5BHhoWNqzjw95BdxOuj5wrYl9I7PV2HeUI/edit?usp=sharing">this glossary</a> or on the <a class="reference external" href="http://connectivity.brain-map.org/transgenic">Allen Institute’s website</a>.</p>
+<p><strong>For this final step, it’s up to you to choose which cell types to compare.</strong> You’ll also decide which pre-computed feature to compare between these cell types.</p>
+<ul class="simple">
+<li><p>If you’d like to compare cells from different <strong>species</strong>, the column name is <code class="docutils literal notranslate"><span class="pre">species</span></code>.</p></li>
+<li><p>If you’d like to compare <strong>spiny vs. aspiny cells</strong>, the column name is <code class="docutils literal notranslate"><span class="pre">dendrite_type</span></code>.</p></li>
+<li><p>If you’d like to compare two <strong>transgenic lines</strong> (mouse cells only), the column name is <code class="docutils literal notranslate"><span class="pre">transgenic_line</span></code>. What if we want to know whether different genetically-identified cells have different intrinsic physiology?</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Task</strong>: Assign <code class="docutils literal notranslate"><span class="pre">column_name</span></code> below to the name of your column to see the unique values in that column. Make sure your column is a <strong>string</strong>, in other words, it should be in single  quotes.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define your column name below</span>
+<span class="n">column_name</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">full_dataframe</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Using the possible values in your column, create two separate dataframes by <strong>subsetting</strong> the dataframe below. Assign <code class="docutils literal notranslate"><span class="pre">celltype_1</span></code> and <code class="docutils literal notranslate"><span class="pre">celltype_2</span></code> to the names of your cell types, for example ‘spiny’ and ‘aspiny’. Make sure your cell type names are in quotes (they should be strings) and <em>exactly</em> match what is found in the dataframe.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define your cell type variables below</span>
+<span class="n">celltype_1</span> <span class="o">=</span> <span class="o">...</span>
+<span class="n">celltype_2</span> <span class="o">=</span> <span class="o">...</span>
+
+<span class="n">celltype_1_df</span> <span class="o">=</span> <span class="n">full_dataframe</span><span class="p">[</span><span class="n">full_dataframe</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">celltype_1</span><span class="p">]</span>
+<span class="n">celltype_2_df</span> <span class="o">=</span> <span class="n">full_dataframe</span><span class="p">[</span><span class="n">full_dataframe</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span> <span class="o">==</span> <span class="n">celltype_2</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type 1 # Cells: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">celltype_1_df</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Type 2 # Cells: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">celltype_2_df</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s start by plotting a distribution of the recorded resting membrane potential (<code class="docutils literal notranslate"><span class="pre">vrest</span></code>) for one cell type versuss the other cell type.</p>
+<blockquote>
+<div><p><strong>Task</strong>: Run the cell below to plot a histogram to compare one pre-computedd feature of your choice between your two cell types.</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Note that the distribution is normalized by the total count (<code class="docutils literal notranslate"><span class="pre">density=True</span></code>), since there may be very different numbers of cells for your two cell types. You can set <code class="docutils literal notranslate"><span class="pre">density</span></code> to false to plot the raw numbers of cells.</p></li>
+<li><p>You can also specify the number of bins with <code class="docutils literal notranslate"><span class="pre">bins=</span> <span class="pre">&lt;</span> <span class="pre">#bins</span> <span class="pre">&gt;</span> </code>.</p></li>
+<li><p>Look through the <a class="reference external" href="https://matplotlib.org/3.3.1/api/_as_gen/matplotlib.pyplot.hist.html"><code class="docutils literal notranslate"><span class="pre">plt.hist()</span></code> documentation</a> for more information.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="c1"># Change your feature below.</span>
+<span class="n">feature</span> <span class="o">=</span> <span class="s1">&#39;vrest&#39;</span>
+
+<span class="c1"># Plot the histogram, with density = True </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">([</span><span class="n">celltype_1_df</span><span class="p">[</span><span class="n">feature</span><span class="p">],</span><span class="n">celltype_2_df</span><span class="p">[</span><span class="n">feature</span><span class="p">]],</span><span class="n">density</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Change the x label below:</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&lt; feature name &gt;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized Number of Cells&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Cell Type 1&#39;</span><span class="p">,</span><span class="s1">&#39;Cell Type 2&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><b>Task</b>: Choose a different feature to compare between your cell types, and rerun the plot above. Use the documentation below to get the exact name of the feature (in parentheses), and change the x label axis so that we know what you’re plotting.  Right click to save your image when you’re done.</p>
+</div></blockquote>
+<p>Here are a few additional pre-computed features you might consider comparing (you can find a complete glossary <a class="reference external" href="https://docs.google.com/document/d/1YGLwkMTebwrXd_1E817LFbztMjSTCWh83Mlp3_3ZMEo/edit?usp=sharing">here</a>):</p>
+<ul class="simple">
+<li><p><b>Tau (<code>tau</code>)</b>: time constant of the membrane in milliseconds</p></li>
+<li><p><b>Adapation ratio (<code>adaptation</code>)</b>: The rate at which firing speeds up or slows down during a stimulus<br></p></li>
+<li><p><b>Average ISI (<code>avg_isi</code>)</b>: The mean value of all interspike intervals in a sweep<br></p></li>
+<li><p><strong>Slope of f/I curve</strong> (<code>f_i_curve_slope</code>)</b>: slope of the curve between firing rate (f) and current injected<br></p></li>
+<li><p><strong>Input Resistance</strong> (<code>input_resistance_mohm</code>)</b>: The input resistance of the cell, in megaohms.<br></p></li>
+<li><p><strong>Voltage of after-hyperpolarization</strong> (<code>trough_v_short_square</code>)</b>: minimum value of the membrane potential during the after-hyperpolarization</p></li>
+</ul>
+<blockquote>
+<div><p><b>Task</b>: It’s more common to plot summary statistics like a mean or median, so let’s compare our two cell types with a boxplot. To do so, we can use <code class="docutils literal notranslate"><span class="pre">plt.boxplot()</span></code> (<a class="reference external" href="https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.pyplot.boxplot.html">Documentation here</a>). The code below is already set up for you – just run it and edit your labels as necessary. Right click to save the plot when you’re done.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Boxplot creation lines below</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">([</span><span class="n">celltype_1_df</span><span class="p">[</span><span class="n">feature</span><span class="p">],</span><span class="n">celltype_2_df</span><span class="p">[</span><span class="n">feature</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;&lt; your label here &gt; &#39;</span><span class="p">)</span> <span class="c1"># y-axis label</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Cell Type 1&#39;</span><span class="p">,</span><span class="s1">&#39;Cell Type 2&#39;</span><span class="p">])</span>
+
+<span class="c1"># Plot title -- be sure to update!</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;&lt; your title here &gt; &#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>That’s it for today – great work!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Nice work!&#39;</span><span class="p">)</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;img src=&quot;https://media.giphy.com/media/xUOwGhOrYP0jP6iAy4/giphy.gif&quot;&gt;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="technical-notes-credits">
+<h2>Technical notes &amp; credits<a class="headerlink" href="#technical-notes-credits" title="Link to this heading">#</a></h2>
+<p>This notebook demonstrates most of the features of the AllenSDK that help manipulate data in the Cell Types Database.  The main entry point will be through the <code class="docutils literal notranslate"><span class="pre">CellTypesCache</span></code> class. <code class="docutils literal notranslate"><span class="pre">CellTypesCache</span></code> is responsible for downloading Cell Types Database data to a standard directory structure on your hard drive.  If you use this class, you will not have to keep track of where your data lives, other than a root directory.</p>
+<p>Much more information can be found in the <a href="http://help.brain-map.org/download/attachments/8323525/CellTypes_Ephys_Overview.pdf">Allen Brain Atlas whitepaper</a> as well as in their <a href="http://alleninstitute.github.io/AllenSDK/cell_types.html">GitHub documentation</a>.</p>
+<p>This file modified from <a href='https://alleninstitute.github.io/AllenSDK/_static/examples/nb/cell_types.html'>this</a> notebook.</p>
+<p>In case you’re curious, <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.plot.html ">here’s documentation</a> for plotting pandas series (which we do quite a bit above). You can always Google questions you have!)</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Chapter09"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Chapter05/DataExploration_BrainSize.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Exploring the Data</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="2pImaging.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Brain Observatory: <em>What are those cells doing?</em></p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart">The brain has thousands of different types of cells. How do we even begin to tease them apart?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-diving-into-this-notebook">Before diving into this notebook:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-steps">Tutorial Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-set-up-our-coding-environment">Step 1. Set up our coding environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-allensdk">Install the AllenSDK</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-common-packages">Import common packages</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-the-celltypesmodule-from-the-allensdk">Import the CellTypesModule from the allensdk</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-import-cell-types-data">Step 2. Import Cell Types data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-plot-a-raw-sweep-of-data">Step 3. Plot a raw sweep of data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-plot-the-morphology-of-the-cell">Step 4. Plot the morphology of the cell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-analyze-pre-computed-features">Step 5. Analyze pre-computed features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-compare-waveforms">Step 6. Compare waveforms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-7-compare-cell-types">Step 7. Compare cell types</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-notes-credits">Technical notes &amp; credits</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ashley Juavinett & Bradley Voytek
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

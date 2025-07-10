@@ -19,7 +19,8 @@ parts:
     - caption: KINDS OF NEURAL DATA
       numbered: 0
       chapters:
-      - file: Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory
+      - file: Chapter09/SingleCellEphys
+      - file: Chapter09/2pImaging
     - caption: APPROACHES TO WORKING WITH BIG DATA
       numbered: 0
       chapters:
