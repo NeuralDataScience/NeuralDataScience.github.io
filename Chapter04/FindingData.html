@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Finding Data &#8212; Neuroscience in the Age of Data Science</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter04/FindingData';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Exploring the Data" href="../Chapter05/DataExploration_BrainSize.html" />
+    <link rel="prev" title="SciPy" href="../Chapter03/SciPy.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/brainz.jpeg" class="logo__image only-light" alt="Neuroscience in the Age of Data Science - Home"/>
+    <script>document.write(`<img src="../_static/brainz.jpeg" class="logo__image only-dark" alt="Neuroscience in the Age of Data Science - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    <no title>
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">DATA SCIENCE IN PYTHON</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter03/NumPy.html">NumPy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter03/Pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter03/SciPy.html">SciPy</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">FINDING &amp; EXPLORING NEURAL DATA</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Finding Data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter05/DataExploration_BrainSize.html">Exploring the Data</a></li>
+
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">APPROACHES TO WORKING WITH BIG DATA</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Chapter16/DimensionalityReduction.html">Dimensionality Reduction &amp; Clustering</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter04/FindingData.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/Chapter04/FindingData.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Finding Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sdk-code-exercise">SDK Code Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-code-exercise">API Code Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webscraping-code-exercise">Webscraping Code Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pubmed-utilities-exercise">PubMed Utilities Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-challenge">Code Challenge</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="finding-data">
+<h1>Finding Data<a class="headerlink" href="#finding-data" title="Link to this heading">#</a></h1>
+<section id="sdk-code-exercise">
+<h2>SDK Code Exercise<a class="headerlink" href="#sdk-code-exercise" title="Link to this heading">#</a></h2>
+<p><strong>Software development kits (SDKs)</strong> provide a set of tools, libraries, documentation, code samples, and more that allow developers to create software applications. SDKs often include APIs, which we’ll dig into a little bit below. In research and technology development, SDKs are often provided by organizations or companies that are hosting data, as a way of providing  examples and tools to work with the data.</p>
+<p>One great example of an SDK in neuroscience is the <a class="reference external" href="https://allensdk.readthedocs.io">Allen Institute SDK</a>. This SDK provides researchers up-to-date access to data and code that is hot off the presses from the Allen Institute, based in Seattle, Washington.</p>
+<p>For example, here’s how you can — in just a few lines of code — start working with electrophysiology data from the Allen:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the allensdk to your environment (note you may need to restart session after this cell)</span>
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>allensdk
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting allensdk
+  Using cached allensdk-2.16.2-py3-none-any.whl.metadata (1.9 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting psycopg2-binary (from allensdk)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading psycopg2_binary-2.9.10-cp313-cp313-macosx_14_0_arm64.whl.metadata (4.9 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.* (from allensdk)
+  Using cached hdmf-4.1.0-py3-none-any.whl.metadata (10 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting h5py (from allensdk)
+  Downloading h5py-3.14.0-cp313-cp313-macosx_11_0_arm64.whl.metadata (2.7 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting matplotlib (from allensdk)
+  Downloading matplotlib-3.10.3-cp313-cp313-macosx_11_0_arm64.whl.metadata (11 kB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting numpy&lt;1.24 (from allensdk)
+  Using cached numpy-1.23.5.tar.gz (10.7 MB)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Installing build dependencies ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> \
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> |
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h  Getting requirements to build wheel ... ?25l- error
+  <span class=" -Color -Color-Bold -Color-Bold-Red">error</span>: <span class=" -Color -Color-Bold">subprocess-exited-with-error</span>
+  
+  <span class=" -Color -Color-Red">×</span> <span class=" -Color -Color-Green">Getting requirements to build wheel</span> did not run successfully.
+  <span class=" -Color -Color-Red">│</span> exit code: <span class=" -Color -Color-Bold -Color-Bold-Cyan">1</span>
+  <span class=" -Color -Color-Red">╰─&gt;</span> <span class=" -Color -Color-Red">[32 lines of output]</span>
+  <span class=" -Color -Color-Red">   </span> Traceback (most recent call last):
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/opt/miniconda3/envs/jb/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py&quot;</span>, line <span class=" -Color -Color-Magenta">389</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
+  <span class=" -Color -Color-Red">   </span>     <span class=" -Color -Color-Red">main</span><span class=" -Color -Color-Bold -Color-Bold-Red">()</span>
+  <span class=" -Color -Color-Red">   </span>     <span class=" -Color -Color-Red">~~~~</span><span class=" -Color -Color-Bold -Color-Bold-Red">^^</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/opt/miniconda3/envs/jb/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py&quot;</span>, line <span class=" -Color -Color-Magenta">373</span>, in <span class=" -Color -Color-Magenta">main</span>
+  <span class=" -Color -Color-Red">   </span>     json_out[&quot;return_val&quot;] = <span class=" -Color -Color-Red">hook</span><span class=" -Color -Color-Bold -Color-Bold-Red">(**hook_input[&quot;kwargs&quot;])</span>
+  <span class=" -Color -Color-Red">   </span>                              <span class=" -Color -Color-Red">~~~~</span><span class=" -Color -Color-Bold -Color-Bold-Red">^^^^^^^^^^^^^^^^^^^^^^^^</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/opt/miniconda3/envs/jb/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py&quot;</span>, line <span class=" -Color -Color-Magenta">137</span>, in <span class=" -Color -Color-Magenta">get_requires_for_build_wheel</span>
+  <span class=" -Color -Color-Red">   </span>     backend = _build_backend()
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/opt/miniconda3/envs/jb/lib/python3.13/site-packages/pip/_vendor/pyproject_hooks/_in_process/_in_process.py&quot;</span>, line <span class=" -Color -Color-Magenta">70</span>, in <span class=" -Color -Color-Magenta">_build_backend</span>
+  <span class=" -Color -Color-Red">   </span>     obj = import_module(mod_path)
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/opt/miniconda3/envs/jb/lib/python3.13/importlib/__init__.py&quot;</span>, line <span class=" -Color -Color-Magenta">88</span>, in <span class=" -Color -Color-Magenta">import_module</span>
+  <span class=" -Color -Color-Red">   </span>     return <span class=" -Color -Color-Red">_bootstrap._gcd_import</span><span class=" -Color -Color-Bold -Color-Bold-Red">(name[level:], package, level)</span>
+  <span class=" -Color -Color-Red">   </span>            <span class=" -Color -Color-Red">~~~~~~~~~~~~~~~~~~~~~~</span><span class=" -Color -Color-Bold -Color-Bold-Red">^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1387</span>, in <span class=" -Color -Color-Magenta">_gcd_import</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1360</span>, in <span class=" -Color -Color-Magenta">_find_and_load</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1310</span>, in <span class=" -Color -Color-Magenta">_find_and_load_unlocked</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">488</span>, in <span class=" -Color -Color-Magenta">_call_with_frames_removed</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1387</span>, in <span class=" -Color -Color-Magenta">_gcd_import</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1360</span>, in <span class=" -Color -Color-Magenta">_find_and_load</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1331</span>, in <span class=" -Color -Color-Magenta">_find_and_load_unlocked</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">935</span>, in <span class=" -Color -Color-Magenta">_load_unlocked</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap_external&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1026</span>, in <span class=" -Color -Color-Magenta">exec_module</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">488</span>, in <span class=" -Color -Color-Magenta">_call_with_frames_removed</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-vc3f6zoj/overlay/lib/python3.13/site-packages/setuptools/__init__.py&quot;</span>, line <span class=" -Color -Color-Magenta">16</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
+  <span class=" -Color -Color-Red">   </span>     import setuptools.version
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-vc3f6zoj/overlay/lib/python3.13/site-packages/setuptools/version.py&quot;</span>, line <span class=" -Color -Color-Magenta">1</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
+  <span class=" -Color -Color-Red">   </span>     import pkg_resources
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-vc3f6zoj/overlay/lib/python3.13/site-packages/pkg_resources/__init__.py&quot;</span>, line <span class=" -Color -Color-Magenta">2172</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
+  <span class=" -Color -Color-Red">   </span>     register_finder(<span class=" -Color -Color-Bold -Color-Bold-Red">pkgutil.ImpImporter</span>, find_on_path)
+  <span class=" -Color -Color-Red">   </span>                     <span class=" -Color -Color-Bold -Color-Bold-Red">^^^^^^^^^^^^^^^^^^^</span>
+  <span class=" -Color -Color-Red">   </span> <span class=" -Color -Color-Bold -Color-Bold-Magenta">AttributeError</span>: <span class=" -Color -Color-Magenta">module &#39;pkgutil&#39; has no attribute &#39;ImpImporter&#39;. Did you mean: &#39;zipimporter&#39;?</span>
+  <span class=" -Color -Color-Red">   </span> <span class=" -Color -Color-Red">[end of output]</span>
+  
+  <span class=" -Color -Color-Bold -Color-Bold-Magenta">note</span>: This error originates from a subprocess, and is likely not a problem with pip.
+<span class=" -Color -Color-Bold -Color-Bold-Red">error</span>: <span class=" -Color -Color-Bold">subprocess-exited-with-error</span>
+
+<span class=" -Color -Color-Red">×</span> <span class=" -Color -Color-Green">Getting requirements to build wheel</span> did not run successfully.
+<span class=" -Color -Color-Red">│</span> exit code: <span class=" -Color -Color-Bold -Color-Bold-Cyan">1</span>
+<span class=" -Color -Color-Red">╰─&gt;</span> See above for output.
+
+<span class=" -Color -Color-Bold -Color-Bold-Magenta">note</span>: This error originates from a subprocess, and is likely not a problem with pip.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import pandas and the &quot;Cell Types Cache&quot; from the AllenSDK core package</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.cell_types_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CellTypesCache</span>
+
+<span class="c1"># Initialize the cache as &#39;ctc&#39; (cell types cache)</span>
+<span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
+
+<span class="c1"># Download all electrophysiology features for all cells</span>
+<span class="n">ephys_features</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_features</span><span class="p">()</span>
+
+<span class="c1"># Make it a dataframe &amp; show the first 5 rows</span>
+<span class="n">ef_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ephys_features</span><span class="p">)</span>
+<span class="n">ef_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Import pandas and the &quot;Cell Types Cache&quot; from the AllenSDK core package</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.cell_types_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CellTypesCache</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Initialize the cache as &#39;ctc&#39; (cell types cache)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;pandas&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>For now, this just shows you how easy it is to access some open neuroscience data! We’ll come back to this particular dataset in a later chapter to play with it.</p>
+</section>
+<section id="api-code-exercise">
+<h2>API Code Exercise<a class="headerlink" href="#api-code-exercise" title="Link to this heading">#</a></h2>
+<p><strong>Application programmer interfaces</strong>, or APIs, allow programmatic access to many databases and tools. Many large organizations such as the National Institutes of Health will help upkeep APIs that enable researchers to conduct research using publicly available datasets.</p>
+<p>(It’s not worth worrying too much about the difference between APIs and SDKs — we’d generally encourage you to think about it as: SDKs contain much more than just APIs. An API provides the building blocks for software workflow, while an SDK is a pre-packaged collection of code and data that researchers can use to work with data easily and efficiently.)</p>
+<p>For example, a very popular bioinformatics tool called BLAST has an API that researchers can use to interact with -ohmics datasets, rather than downloading the BLAST database on their computer. BLAST is a tool to find similarities behind sequences of DNA. Likewise, a tool called ENTREZ allows researchers to programmatically search many National Center for Biotechnology Information (NCBI) databases.</p>
+<p>There isn’t one standard way of interacting with an API — each one works slightly differently. However, almost always you’ll need the help of a library called requests. This library allows you to retrieve information from a URL.</p>
+<p>In the code exercise below, we’ll use requests to search the Entrez database for the term “neural data science.” Within, we are using the URL and parameters (params) as informed by the documentation for the API.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi&quot;</span>
+<span class="n">term</span> <span class="o">=</span> <span class="s2">&quot;neural data science&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;pubmed&quot;</span><span class="p">,</span> <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="n">term</span><span class="p">,</span><span class="s2">&quot;retmode&quot;</span><span class="p">:</span> <span class="s2">&quot;json&quot;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="c1"># Show results of search</span>
+<span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;header&#39;: {&#39;type&#39;: &#39;esearch&#39;, &#39;version&#39;: &#39;0.3&#39;},
+ &#39;esearchresult&#39;: {&#39;count&#39;: &#39;41129&#39;,
+  &#39;retmax&#39;: &#39;20&#39;,
+  &#39;retstart&#39;: &#39;0&#39;,
+  &#39;idlist&#39;: [&#39;40590186&#39;,
+   &#39;40590026&#39;,
+   &#39;40589994&#39;,
+   &#39;40589818&#39;,
+   &#39;40588827&#39;,
+   &#39;40588700&#39;,
+   &#39;40588695&#39;,
+   &#39;40588487&#39;,
+   &#39;40588361&#39;,
+   &#39;40588165&#39;,
+   &#39;40587931&#39;,
+   &#39;40587919&#39;,
+   &#39;40586488&#39;,
+   &#39;40586430&#39;,
+   &#39;40586263&#39;,
+   &#39;40585969&#39;,
+   &#39;40585851&#39;,
+   &#39;40585236&#39;,
+   &#39;40584826&#39;,
+   &#39;40583914&#39;],
+  &#39;translationset&#39;: [{&#39;from&#39;: &#39;neural&#39;,
+    &#39;to&#39;: &#39;&quot;neural&quot;[All Fields] OR &quot;neuralization&quot;[All Fields] OR &quot;neuralize&quot;[All Fields] OR &quot;neuralized&quot;[All Fields] OR &quot;neuralizes&quot;[All Fields] OR &quot;neuralizing&quot;[All Fields] OR &quot;neurally&quot;[All Fields]&#39;},
+   {&#39;from&#39;: &#39;data science&#39;,
+    &#39;to&#39;: &#39;&quot;data science&quot;[MeSH Terms] OR (&quot;data&quot;[All Fields] AND &quot;science&quot;[All Fields]) OR &quot;data science&quot;[All Fields]&#39;}],
+  &#39;querytranslation&#39;: &#39;(&quot;neural&quot;[All Fields] OR &quot;neuralization&quot;[All Fields] OR &quot;neuralize&quot;[All Fields] OR &quot;neuralized&quot;[All Fields] OR &quot;neuralizes&quot;[All Fields] OR &quot;neuralizing&quot;[All Fields] OR &quot;neurally&quot;[All Fields]) AND (&quot;data science&quot;[MeSH Terms] OR (&quot;data&quot;[All Fields] AND &quot;science&quot;[All Fields]) OR &quot;data science&quot;[All Fields])&#39;}}
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the output above, you can see the results of our search. When we published the book, there were about 41,000 papers. Can you see how many there are now? (Hint: look for <code class="docutils literal notranslate"><span class="pre">count</span></code>.)</p>
+</section>
+<section id="webscraping-code-exercise">
+<h2>Webscraping Code Exercise<a class="headerlink" href="#webscraping-code-exercise" title="Link to this heading">#</a></h2>
+<p>We can use the requests module to scrape data from any website, actually. For example, if you want to scrape the very informative “<a class="reference external" href="http://iscaliforniaonfire.com">iscaliforniaonfire.com</a>” and show the results of this, you can write the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://iscaliforniaonfire.com/&#39;</span><span class="p">)</span>
+<span class="n">page</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Is California On Fire?&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;Yes&lt;/h1&gt;\nupdated: Tue Jul  1 12:39:15 2025 PDT\n&lt;/body&gt;\n&lt;/html&gt;\n&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The output here is in html format, which we’d then need to parse if we wanted to scrape it for some purpose. We can import yet another package, poetically named BeautifulSoup, to organize this html output, search through it for a particular HTML tag, and cleanly print the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import beautiful soup package</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="c1"># Create the soup</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find the HTML tag of interest and show results</span>
+<span class="n">h1_content</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span>
+<span class="n">h1_content</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;Yes&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This website is very simple (and alarming, speaking as two people that live in California), so it’s quite simple to get to the point: yes, California is almost always on fire. Most websites aren’t so easy to scrape cleanly, and getting the exact information you need can be a bit tricky.</p>
+</section>
+<section id="pubmed-utilities-exercise">
+<h2>PubMed Utilities Exercise<a class="headerlink" href="#pubmed-utilities-exercise" title="Link to this heading">#</a></h2>
+<p>As a neural data scientist, you likely won’t do a ton of web scraping, but these HTML (or XML, or JSON) parsing skills can come in handy in many different types of informatics. For example, if you’d like to work with the PubMed utilities mentioned above to pull abstracts of scientific articles around a particular search term, PubMed will return the results to you in XML by default. So, you need to know how to parse these results in order to do fun informatics work with them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install package that contains Entrez (you may need to restart session after doing so)</span>
+<span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>Biopython
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting Biopython
+  Downloading biopython-1.85-cp312-cp312-macosx_11_0_arm64.whl.metadata (13 kB)
+Requirement already satisfied: numpy in /opt/miniconda3/lib/python3.12/site-packages (from Biopython) (2.2.3)
+Downloading biopython-1.85-cp312-cp312-macosx_11_0_arm64.whl (2.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.8/2.8 MB</span> <span class=" -Color -Color-Red">15.7 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
+Installing collected packages: Biopython
+Successfully installed Biopython-1.85
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import entrez</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">Bio</span><span class="w"> </span><span class="kn">import</span> <span class="n">Entrez</span> 
+
+<span class="c1"># Specify email address (required by NCBI E-utilities)</span>
+<span class="n">Entrez</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="s1">&#39;myemail@email.com&#39;</span>
+
+<span class="c1"># Fetch a particular paper</span>
+<span class="n">fetch_handle</span> <span class="o">=</span> <span class="n">Entrez</span><span class="o">.</span><span class="n">efetch</span><span class="p">(</span><span class="n">db</span><span class="o">=</span><span class="s1">&#39;pubmed&#39;</span><span class="p">,</span><span class="nb">id</span><span class="o">=</span><span class="s1">&#39;36729258&#39;</span><span class="p">,</span><span class="n">retmax</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">rettype</span><span class="o">=</span><span class="s1">&#39;abstract&#39;</span><span class="p">)</span>
+
+<span class="n">fetch_handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;&lt;?xml version=&quot;1.0&quot; ?&gt;\n&lt;!DOCTYPE PubmedArticleSet PUBLIC &quot;-//NLM//DTD PubMedArticle, 1st January 2025//EN&quot; &quot;https://dtd.nlm.nih.gov/ncbi/pubmed/out/pubmed_250101.dtd&quot;&gt;\n&lt;PubmedArticleSet&gt;\n&lt;PubmedArticle&gt;&lt;MedlineCitation Status=&quot;MEDLINE&quot; Owner=&quot;NLM&quot; IndexingMethod=&quot;Automated&quot;&gt;&lt;PMID Version=&quot;1&quot;&gt;36729258&lt;/PMID&gt;&lt;DateCompleted&gt;&lt;Year&gt;2023&lt;/Year&gt;&lt;Month&gt;06&lt;/Month&gt;&lt;Day&gt;26&lt;/Day&gt;&lt;/DateCompleted&gt;&lt;DateRevised&gt;&lt;Year&gt;2024&lt;/Year&gt;&lt;Month&gt;06&lt;/Month&gt;&lt;Day&gt;03&lt;/Day&gt;&lt;/DateRevised&gt;&lt;Article PubModel=&quot;Print-Electronic&quot;&gt;&lt;Journal&gt;&lt;ISSN IssnType=&quot;Electronic&quot;&gt;1618-727X&lt;/ISSN&gt;&lt;JournalIssue CitedMedium=&quot;Internet&quot;&gt;&lt;Volume&gt;36&lt;/Volume&gt;&lt;Issue&gt;3&lt;/Issue&gt;&lt;PubDate&gt;&lt;Year&gt;2023&lt;/Year&gt;&lt;Month&gt;Jun&lt;/Month&gt;&lt;/PubDate&gt;&lt;/JournalIssue&gt;&lt;Title&gt;Journal of digital imaging&lt;/Title&gt;&lt;ISOAbbreviation&gt;J Digit Imaging&lt;/ISOAbbreviation&gt;&lt;/Journal&gt;&lt;ArticleTitle&gt;Ultrasound Prostate Segmentation Using Adaptive Selection Principal Curve and Smooth Mathematical Model.&lt;/ArticleTitle&gt;&lt;Pagination&gt;&lt;StartPage&gt;947&lt;/StartPage&gt;&lt;EndPage&gt;963&lt;/EndPage&gt;&lt;MedlinePgn&gt;947-963&lt;/MedlinePgn&gt;&lt;/Pagination&gt;&lt;ELocationID EIdType=&quot;doi&quot; ValidYN=&quot;Y&quot;&gt;10.1007/s10278-023-00783-3&lt;/ELocationID&gt;&lt;Abstract&gt;&lt;AbstractText&gt;Accurate prostate segmentation in ultrasound images is crucial for the clinical diagnosis of prostate cancer and for performing image-guided prostate surgery. However, it is challenging to accurately segment the prostate in ultrasound images due to their low signal-to-noise ratio, the low contrast between the prostate and neighboring tissues, and the diffuse or invisible boundaries of the prostate. In this paper, we develop a novel hybrid method for segmentation of the prostate in ultrasound images that generates accurate contours of the prostate from a range of datasets. Our method involves three key steps: (1) application of a principal curve-based method to obtain a data sequence comprising data coordinates and their corresponding projection index; (2) use of the projection index as training input for a fractional-order-based neural network that increases the accuracy of results; and (3) generation of a smooth mathematical map (expressed via the parameters of the neural network) that affords a smooth prostate boundary, which represents the output of the neural network (i.e., optimized vertices) and matches the ground truth contour. Experimental evaluation of our method and several other state-of-the-art segmentation methods on datasets of prostate ultrasound images generated at multiple institutions demonstrated that our method exhibited the best capability. Furthermore, our method is robust as it can be applied to segment prostate ultrasound images obtained at multiple institutions based on various evaluation metrics.&lt;/AbstractText&gt;&lt;CopyrightInformation&gt;&amp;#xa9; 2023. The Author(s) under exclusive licence to Society for Imaging Informatics in Medicine.&lt;/CopyrightInformation&gt;&lt;/Abstract&gt;&lt;AuthorList CompleteYN=&quot;Y&quot;&gt;&lt;Author ValidYN=&quot;Y&quot; EqualContrib=&quot;Y&quot;&gt;&lt;LastName&gt;Peng&lt;/LastName&gt;&lt;ForeName&gt;Tao&lt;/ForeName&gt;&lt;Initials&gt;T&lt;/Initials&gt;&lt;Identifier Source=&quot;ORCID&quot;&gt;0000-0003-0848-7901&lt;/Identifier&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;School of Future Science and Engineering, Soochow University, Suzhou, China. sdpengtao401@gmail.com.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;Department of Health Technology and Informatics, The Hong Kong Polytechnic University, Hong Kong, China. sdpengtao401@gmail.com.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;Department of Radiation Oncology, UT Southwestern Medical Center, Dallas, TX, USA. sdpengtao401@gmail.com.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;/Author&gt;&lt;Author ValidYN=&quot;Y&quot; EqualContrib=&quot;Y&quot;&gt;&lt;LastName&gt;Wu&lt;/LastName&gt;&lt;ForeName&gt;Yiyun&lt;/ForeName&gt;&lt;Initials&gt;Y&lt;/Initials&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;Department of Ultrasound, Jiangsu Province Hospital of Chinese Medicine, Nanjing, Jiangsu, China.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;/Author&gt;&lt;Author ValidYN=&quot;Y&quot; EqualContrib=&quot;Y&quot;&gt;&lt;LastName&gt;Zhao&lt;/LastName&gt;&lt;ForeName&gt;Jing&lt;/ForeName&gt;&lt;Initials&gt;J&lt;/Initials&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;Department of Ultrasound, Tsinghua University Affiliated Beijing Tsinghua Changgung Hospital, Beijing, China.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;/Author&gt;&lt;Author ValidYN=&quot;Y&quot; EqualContrib=&quot;Y&quot;&gt;&lt;LastName&gt;Wang&lt;/LastName&gt;&lt;ForeName&gt;Caishan&lt;/ForeName&gt;&lt;Initials&gt;C&lt;/Initials&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;Department of Ultrasound, the Second Affiliated Hospital of Soochow University, Suzhou, Jiangsu, China.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;/Author&gt;&lt;Author ValidYN=&quot;Y&quot; EqualContrib=&quot;Y&quot;&gt;&lt;LastName&gt;Wang&lt;/LastName&gt;&lt;ForeName&gt;Jin&lt;/ForeName&gt;&lt;Initials&gt;J&lt;/Initials&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;School of Future Science and Engineering, Soochow University, Suzhou, China.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;/Author&gt;&lt;Author ValidYN=&quot;Y&quot; EqualContrib=&quot;Y&quot;&gt;&lt;LastName&gt;Cai&lt;/LastName&gt;&lt;ForeName&gt;Jing&lt;/ForeName&gt;&lt;Initials&gt;J&lt;/Initials&gt;&lt;AffiliationInfo&gt;&lt;Affiliation&gt;Department of Health Technology and Informatics, The Hong Kong Polytechnic University, Hong Kong, China.&lt;/Affiliation&gt;&lt;/AffiliationInfo&gt;&lt;/Author&gt;&lt;/AuthorList&gt;&lt;Language&gt;eng&lt;/Language&gt;&lt;PublicationTypeList&gt;&lt;PublicationType UI=&quot;D016428&quot;&gt;Journal Article&lt;/PublicationType&gt;&lt;/PublicationTypeList&gt;&lt;ArticleDate DateType=&quot;Electronic&quot;&gt;&lt;Year&gt;2023&lt;/Year&gt;&lt;Month&gt;02&lt;/Month&gt;&lt;Day&gt;02&lt;/Day&gt;&lt;/ArticleDate&gt;&lt;/Article&gt;&lt;MedlineJournalInfo&gt;&lt;Country&gt;United States&lt;/Country&gt;&lt;MedlineTA&gt;J Digit Imaging&lt;/MedlineTA&gt;&lt;NlmUniqueID&gt;9100529&lt;/NlmUniqueID&gt;&lt;ISSNLinking&gt;0897-1889&lt;/ISSNLinking&gt;&lt;/MedlineJournalInfo&gt;&lt;CitationSubset&gt;IM&lt;/CitationSubset&gt;&lt;MeshHeadingList&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D008297&quot; MajorTopicYN=&quot;N&quot;&gt;Male&lt;/DescriptorName&gt;&lt;/MeshHeading&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D006801&quot; MajorTopicYN=&quot;N&quot;&gt;Humans&lt;/DescriptorName&gt;&lt;/MeshHeading&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D011467&quot; MajorTopicYN=&quot;Y&quot;&gt;Prostate&lt;/DescriptorName&gt;&lt;QualifierName UI=&quot;Q000000981&quot; MajorTopicYN=&quot;N&quot;&gt;diagnostic imaging&lt;/QualifierName&gt;&lt;/MeshHeading&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D016571&quot; MajorTopicYN=&quot;N&quot;&gt;Neural Networks, Computer&lt;/DescriptorName&gt;&lt;/MeshHeading&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D011471&quot; MajorTopicYN=&quot;Y&quot;&gt;Prostatic Neoplasms&lt;/DescriptorName&gt;&lt;QualifierName UI=&quot;Q000000981&quot; MajorTopicYN=&quot;N&quot;&gt;diagnostic imaging&lt;/QualifierName&gt;&lt;/MeshHeading&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D014463&quot; MajorTopicYN=&quot;N&quot;&gt;Ultrasonography&lt;/DescriptorName&gt;&lt;/MeshHeading&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D008962&quot; MajorTopicYN=&quot;N&quot;&gt;Models, Theoretical&lt;/DescriptorName&gt;&lt;/MeshHeading&gt;&lt;MeshHeading&gt;&lt;DescriptorName UI=&quot;D007091&quot; MajorTopicYN=&quot;N&quot;&gt;Image Processing, Computer-Assisted&lt;/DescriptorName&gt;&lt;QualifierName UI=&quot;Q000379&quot; MajorTopicYN=&quot;N&quot;&gt;methods&lt;/QualifierName&gt;&lt;/MeshHeading&gt;&lt;/MeshHeadingList&gt;&lt;KeywordList Owner=&quot;NOTNLM&quot;&gt;&lt;Keyword MajorTopicYN=&quot;N&quot;&gt;Fractional-order-based neural network&lt;/Keyword&gt;&lt;Keyword MajorTopicYN=&quot;N&quot;&gt;Mean shift clustering&lt;/Keyword&gt;&lt;Keyword MajorTopicYN=&quot;N&quot;&gt;Principal curve&lt;/Keyword&gt;&lt;Keyword MajorTopicYN=&quot;N&quot;&gt;Smooth mathematical model&lt;/Keyword&gt;&lt;Keyword MajorTopicYN=&quot;N&quot;&gt;Ultrasound prostate segmentation&lt;/Keyword&gt;&lt;/KeywordList&gt;&lt;CoiStatement&gt;The authors declare no competing interests.&lt;/CoiStatement&gt;&lt;/MedlineCitation&gt;&lt;PubmedData&gt;&lt;History&gt;&lt;PubMedPubDate PubStatus=&quot;received&quot;&gt;&lt;Year&gt;2022&lt;/Year&gt;&lt;Month&gt;2&lt;/Month&gt;&lt;Day&gt;16&lt;/Day&gt;&lt;/PubMedPubDate&gt;&lt;PubMedPubDate PubStatus=&quot;accepted&quot;&gt;&lt;Year&gt;2023&lt;/Year&gt;&lt;Month&gt;1&lt;/Month&gt;&lt;Day&gt;18&lt;/Day&gt;&lt;/PubMedPubDate&gt;&lt;PubMedPubDate PubStatus=&quot;revised&quot;&gt;&lt;Year&gt;2022&lt;/Year&gt;&lt;Month&gt;12&lt;/Month&gt;&lt;Day&gt;15&lt;/Day&gt;&lt;/PubMedPubDate&gt;&lt;PubMedPubDate PubStatus=&quot;medline&quot;&gt;&lt;Year&gt;2023&lt;/Year&gt;&lt;Month&gt;6&lt;/Month&gt;&lt;Day&gt;26&lt;/Day&gt;&lt;Hour&gt;6&lt;/Hour&gt;&lt;Minute&gt;42&lt;/Minute&gt;&lt;/PubMedPubDate&gt;&lt;PubMedPubDate PubStatus=&quot;pubmed&quot;&gt;&lt;Year&gt;2023&lt;/Year&gt;&lt;Month&gt;2&lt;/Month&gt;&lt;Day&gt;3&lt;/Day&gt;&lt;Hour&gt;6&lt;/Hour&gt;&lt;Minute&gt;0&lt;/Minute&gt;&lt;/PubMedPubDate&gt;&lt;PubMedPubDate PubStatus=&quot;entrez&quot;&gt;&lt;Year&gt;2023&lt;/Year&gt;&lt;Month&gt;2&lt;/Month&gt;&lt;Day&gt;2&lt;/Day&gt;&lt;Hour&gt;11&lt;/Hour&gt;&lt;Minute&gt;20&lt;/Minute&gt;&lt;/PubMedPubDate&gt;&lt;PubMedPubDate PubStatus=&quot;pmc-release&quot;&gt;&lt;Year&gt;2024&lt;/Year&gt;&lt;Month&gt;6&lt;/Month&gt;&lt;Day&gt;1&lt;/Day&gt;&lt;/PubMedPubDate&gt;&lt;/History&gt;&lt;PublicationStatus&gt;ppublish&lt;/PublicationStatus&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;36729258&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC10287615&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1007/s10278-023-00783-3&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pii&quot;&gt;10.1007/s10278-023-00783-3&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;ReferenceList&gt;&lt;Reference&gt;&lt;Citation&gt;Karimi D, Zeng Q, Mathur P, Avinash A, Mahdavi S, Spadinger I, Abolmaesumi P, Salcudean SE. Accurate and robust deep learning-based segmentation of the prostate clinical target volume in ultrasound images. Med. Image Anal. 2019;57:186&amp;#x2013;196. doi: 10.1016/j.media.2019.07.005.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.media.2019.07.005&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;31325722&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Kollmeier MA. Combined brachytherapy and ultra-hypofractionated radiotherapy for intermediate-risk prostate cancer: Comparison of toxicity outcomes using a high-dose-rate (HDR) versus low-dose-rate (LDR) brachytherapy boost. Brachytherapy. 2022;21:599&amp;#x2013;604. doi: 10.1016/j.brachy.2022.04.006.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.brachy.2022.04.006&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC10372465&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;35725549&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Nouranian S, Ramezani M, Spadinger I, Morris WJ, Salcudean SE, Abolmaesumi P. Learning-Based Multi-Label Segmentation of Transrectal Ultrasound Images for Prostate Brachytherapy. IEEE Trans. Med. Imaging. 2016;35:921&amp;#x2013;932. doi: 10.1109/TMI.2015.2502540.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TMI.2015.2502540&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;26599701&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Xu X, Sanford T, Turkbey B, Xu S, Wood BJ, Yan P. Shadow-consistent Semi-supervised Learning for Prostate Ultrasound Segmentation. IEEE Trans. Med. Imaging. 2022;41:1331&amp;#x2013;1345. doi: 10.1109/TMI.2021.3139999.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TMI.2021.3139999&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC9709821&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;34971530&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Rundo L, Han C, Nagano Y, Zhang J, Hataya R, Militello C, Tangherloni A, Nobile MS, Ferretti C, Besozzi D, Gilardi MC, Vitabile S, Mauri G, Nakayama H, Cazzaniga P. USE-Net: Incorporating Squeeze-and-Excitation blocks into U-Net for prostate zonal segmentation of multi-institutional MRI datasets. Neurocomputing. 2019;365:31&amp;#x2013;43. doi: 10.1016/j.neucom.2019.07.006.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.neucom.2019.07.006&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Yang X, Zhan S, Xie D, Zhao H, Kurihara T. Hierarchical prostate MRI segmentation via level set clustering with shape prior. Neurocomputing. 2017;257:154&amp;#x2013;163. doi: 10.1016/j.neucom.2016.12.071.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.neucom.2016.12.071&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Salimi A, Pourmina MA, Moin M-S. Fully automatic prostate segmentation in MR images using a new hybrid active contour-based approach. Signal Image Video Process. 2018;12:1629&amp;#x2013;1637. doi: 10.1007/s11760-018-1320-y.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1007/s11760-018-1320-y&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Orlando N, Gyacskov I, Gillies DJ, Guo F, Romagnoli C, D&amp;#x2019;Souza D, Cool DW, Hoover DA, Fenster A. Effect of dataset size, image quality, and image type on deep learning-based automatic prostate segmentation in 3D ultrasound. Phys. Med. Biol. 2022;67:074002. doi: 10.1088/1361-6560/ac5a93.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1088/1361-6560/ac5a93&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;35240585&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;T. Peng, C. Tang, J. Wang, Prostate segmentation of ultrasound images based on interpretable-guided mathematical Model, in: Int. Conf. Multimed. Model. MMM, Springer, 2022: pp. 166&amp;#x2013;177.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;T. Peng, C. Tang, Y. Wu, J. Cai, Semi-automatic prostate segmentation from ultrasound images using machine learning and principal curve based on interpretable mathematical model expression, Front. Oncol. 12 (2022).&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC9209717&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;35747834&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Shah SMS, Batool S, Khan I, Ashraf MU, Abbas SH, Hussain SA. Feature extraction through parallel Probabilistic Principal Component Analysis for heart disease diagnosis. Phys. Stat. Mech. Its Appl. 2017;482:796&amp;#x2013;807. doi: 10.1016/j.physa.2017.04.113.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.physa.2017.04.113&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Zhang J, Cui W, Guo X, Wang B, Wang Z. Classification of digital pathological images of non-Hodgkin&amp;#x2019;s lymphoma subtypes based on the fusion of transfer learning and principal component analysis. Med. Phys. 2020;47:4241&amp;#x2013;4253. doi: 10.1002/mp.14357.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1002/mp.14357&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;32593219&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Hastie T, Stuetzle W. Principal Curves. J. Am. Stat. Assoc. 1989;84:502&amp;#x2013;516. doi: 10.1080/01621459.1989.10478797.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1080/01621459.1989.10478797&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Kegl B, Linder T, Zeger K. Learning and design of principal curves. IEEE Trans. Pattern Anal. Mach. Intell. 2000;22:281&amp;#x2013;297. doi: 10.1109/34.841759.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/34.841759&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Correa Moraes EC, Ferreira DD, A principal curve-based method for data clustering, in, Int. Jt. Conf. Neural Netw. IJCNN, IEEE, Vancouver, BC. 2016;2016:3966&amp;#x2013;3971.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Verbeek JJ, Vlassis N, Krose B. A k-segments algorithm for finding principal curves. Pattern Recognit. Lett. 2002;23:1009&amp;#x2013;1017. doi: 10.1016/S0167-8655(02)00032-6.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/S0167-8655(02)00032-6&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Peng T, Wang Y, Xu TC, Shi L, Jiang J, Zhu S. Detection of Lung Contour with Closed Principal Curve and Machine Learning. J. Digit. Imaging. 2018;31:520&amp;#x2013;533. doi: 10.1007/s10278-018-0058-y.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1007/s10278-018-0058-y&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC6113140&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;29450843&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Peng T, Wang Y, Xu TC, Chen X. Segmentation of Lung in Chest Radiographs Using Hull and Closed Polygonal Line Method. IEEE Access. 2019;7:137794&amp;#x2013;137810. doi: 10.1109/ACCESS.2019.2941511.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/ACCESS.2019.2941511&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;T. Peng, C. Tang, Y. Wu, J. Cai, H-SegMed: A hybrid method for prostate segmentation in TRUS images via improved closed principal curve and improved enhanced machine learning, Int. J. Comput. Vis. 92 (2022).&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Biau G, Fischer A. Parameter selection for principal curves. IEEE Trans. Inf. Theory. 2012;58:1924&amp;#x2013;1939. doi: 10.1109/TIT.2011.2173157.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TIT.2011.2173157&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Guo Y, &amp;#x15e;eng&amp;#xfc;r A, Akbulut Y, Shipley A. An effective color image segmentation approach using neutrosophic adaptive mean shift clustering. Measurement. 2018;119:28&amp;#x2013;40. doi: 10.1016/j.measurement.2018.01.025.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.measurement.2018.01.025&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Chen MR, Chen BP, Zeng G-Q, Lu KD, Chu P. An adaptive fractional-order BP neural network based on extremal optimization for handwritten digits recognition. Neurocomputing. 2020;391:260&amp;#x2013;272. doi: 10.1016/j.neucom.2018.10.090.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.neucom.2018.10.090&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Moraes ECC, Ferreira DD, Vitor GB, Barbosa BHG. Data clustering based on principal curves. Adv. Data Anal. Classif. 2020;14:77&amp;#x2013;96. doi: 10.1007/s11634-019-00363-w.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1007/s11634-019-00363-w&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;R. Wu, B. Wang, A. Xu, Functional data clustering using principal curve methods, Commun. Stat. - Theory Methods. (2021) 1&amp;#x2013;20.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Anand S, Mittal S, Tuzel O, Meer P. Semi-Supervised Kernel Mean Shift Clustering. IEEE Trans. Pattern Anal. Mach. Intell. 2014;36:1201&amp;#x2013;1215. doi: 10.1109/TPAMI.2013.190.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TPAMI.2013.190&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;26353281&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;K&amp;#xe9;gl B, Krzyzak A. Piecewise Linear Skeletonization Using Principal Curves. IEEE Trans. Pattern Anal. Mach. Intell. 2002;24:59&amp;#x2013;74. doi: 10.1109/34.982884.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/34.982884&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Cheng Y. Mean shift, mode seeking, and clustering. IEEE Trans. Pattern Anal. Mach. Intell. 1995;17:790&amp;#x2013;799. doi: 10.1109/34.400568.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/34.400568&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;D. Comaniciu, V. Ramesh, P. Meer, The variable bandwidth mean shift and data-driven scale selection, in: Proc. Eighth IEEE Int. Conf. Comput. Vis. ICCV 2001, IEEE Comput. Soc, Vancouver, BC, Canada, 2001: pp. 438&amp;#x2013;445.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Guo Y, &amp;#x15e;eng&amp;#xfc;r A. A novel image segmentation algorithm based on neutrosophic similarity clustering. Appl. Soft Comput. 2014;25:391&amp;#x2013;398. doi: 10.1016/j.asoc.2014.08.066.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.asoc.2014.08.066&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Leema N, Nehemiah HK, Kannan A. Neural network classifier optimization using Differential Evolution with Global Information and Back Propagation algorithm for clinical datasets. Appl. Soft Comput. 2016;49:834&amp;#x2013;844. doi: 10.1016/j.asoc.2016.08.001.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.asoc.2016.08.001&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Xiao M, Zheng WX, Jiang G, Cao J. Undamped Oscillations Generated by Hopf Bifurcations in Fractional-Order Recurrent Neural Networks With Caputo Derivative. IEEE Trans. Neural Netw. Learn. Syst. 2015;26:3201&amp;#x2013;3214. doi: 10.1109/TNNLS.2015.2425734.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TNNLS.2015.2425734&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;25993707&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;L. Rice, E. Wong, J.Z. Kolter, Overfitting in adversarially robust deep learning, in: 2020: pp. 8093&amp;#x2013;8104.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;B.L. Kalman, S.C. Kwasny, Why tanh: choosing a sigmoidal function, in: Proc. Int. Jt. Conf. Neural Netw., IEEE, Baltimore, MD, USA, 1992: pp. 578&amp;#x2013;581.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;R. Hecht-Nielsen, Theory of the Backpropagation Neural Network, Neural Netw. Percept. (1992) 65&amp;#x2013;93.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Qian N. On the momentum term in gradient descent learning algorithms. Neural Netw. 1999;12:145&amp;#x2013;151. doi: 10.1016/S0893-6080(98)00116-6.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/S0893-6080(98)00116-6&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;12662723&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Peng T, Zhao J, Gu Y, Wang C, Wu Y, Cheng X, Cai J. H-ProMed: ultrasound image segmentation based on the evolutionary neural network and an improved principal curve. Pattern Recognit. 2022;131:108890. doi: 10.1016/j.patcog.2022.108890.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.patcog.2022.108890&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Wang J, Wen Y, Gou Y, Ye Z, Chen H. Fractional-order gradient descent learning of BP neural networks with Caputo derivative. Neural Netw. 2017;89:19&amp;#x2013;30. doi: 10.1016/j.neunet.2017.02.007.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.neunet.2017.02.007&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;28278430&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Bao C, Pu Y, Zhang Y. Fractional-Order Deep Backpropagation Neural Network. Comput. Intell. Neurosci. 2018;2018:1&amp;#x2013;10.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC6051328&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;30065757&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Peng T, Gu Y, Ye Z, Cheng X, Wang J. A-LugSeg: Automatic and explainability-guided multi-site lung detection in chest X-ray images. Expert Syst. Appl. 2022;198:116873. doi: 10.1016/j.eswa.2022.116873.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1016/j.eswa.2022.116873&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;T. Peng, T.C. Xu, Y. Wang, F. Li, Deep belief network and closed polygonal line for lung segmentation in chest radiographs, Comput. J. (2020).&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Thapa N, Chaudhari M, McManus S, Roy K, Newman RH, Saigo H, Kc DB. DeepSuccinylSite: a deep learning based approach for protein succinylation site prediction. BMC Bioinformatics. 2020;21:63. doi: 10.1186/s12859-020-3342-z.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1186/s12859-020-3342-z&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC7178942&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;32321437&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Peng T, Wang C, Zhang Y, Wang J. H-SegNet: hybrid segmentation network for lung segmentation in chest radiographs using mask region-based convolutional neural network and adaptive closed polyline searching method. Phys. Med. Biol. 2022;67:075006. doi: 10.1088/1361-6560/ac5d74.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1088/1361-6560/ac5d74&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;35287125&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Cashman D, Perer A, Chang R, Strobelt H. Ablate, Variate, and Contemplate: Visual Analytics for Discovering Neural Architectures. IEEE Trans. Vis. Comput. Graph. 2019;26:863&amp;#x2013;873. doi: 10.1109/TVCG.2019.2934261.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TVCG.2019.2934261&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;31502978&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Zhou Z, Siddiquee MMR, Tajbakhsh N, Liang J. UNet++: Redesigning Skip Connections to Exploit Multiscale Features in Image Segmentation. IEEE Trans. Med. Imaging. 2020;39:1856&amp;#x2013;1867. doi: 10.1109/TMI.2019.2959609.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TMI.2019.2959609&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC7357299&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;31841402&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Zhao R, Qian B, Zhang X, Li Y, Wei R, Liu Y, Pan Y, Loss Rethinking Dice, for Medical Image Segmentation, in, IEEE Int. Conf. Data Min. ICDM, IEEE, Sorrento, Italy. 2020;2020:851&amp;#x2013;860.&lt;/Citation&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Lei Y, Tian S, He X, Wang T, Wang B, Patel P, Jani AB, Mao H, Curran WJ, Liu T, Yang X. Ultrasound prostate segmentation based on multidirectional deeply supervised V-Net. Med. Phys. 2019;46:3194&amp;#x2013;3206. doi: 10.1002/mp.13577.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1002/mp.13577&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pmc&quot;&gt;PMC6625925&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;31074513&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Wang Y, Dou H, Hu X, Zhu L, Yang X, Xu M, Qin J, Heng P-A, Wang T, Ni D. Deep Attentive Features for Prostate Segmentation in 3D Transrectal Ultrasound. IEEE Trans. Med. Imaging. 2019;38:2768&amp;#x2013;2778. doi: 10.1109/TMI.2019.2913184.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1109/TMI.2019.2913184&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;31021793&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;Reference&gt;&lt;Citation&gt;Girum KB, Lalande A, Hussain R, Cr&amp;#xe9;hange G. A deep learning method for real-time intraoperative US image segmentation in prostate brachytherapy. Int. J. Comput. Assist. Radiol. Surg. 2020;15:1467&amp;#x2013;1476. doi: 10.1007/s11548-020-02231-x.&lt;/Citation&gt;&lt;ArticleIdList&gt;&lt;ArticleId IdType=&quot;doi&quot;&gt;10.1007/s11548-020-02231-x&lt;/ArticleId&gt;&lt;ArticleId IdType=&quot;pubmed&quot;&gt;32691302&lt;/ArticleId&gt;&lt;/ArticleIdList&gt;&lt;/Reference&gt;&lt;/ReferenceList&gt;&lt;/PubmedData&gt;&lt;/PubmedArticle&gt;&lt;/PubmedArticleSet&gt;&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="code-challenge">
+<h2>Code Challenge<a class="headerlink" href="#code-challenge" title="Link to this heading">#</a></h2>
+<p>In the cell above, we hardcoded an id argument to the <code class="docutils literal notranslate"><span class="pre">Entrez.efetch</span></code> function. Can you figure out how to instead use one of the ids in the list we generated in the API exercise above?</p>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Chapter04"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Chapter03/SciPy.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">SciPy</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Chapter05/DataExploration_BrainSize.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Exploring the Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sdk-code-exercise">SDK Code Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-code-exercise">API Code Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webscraping-code-exercise">Webscraping Code Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pubmed-utilities-exercise">PubMed Utilities Exercise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-challenge">Code Challenge</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Ashley Juavinett & Bradley Voytek
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
