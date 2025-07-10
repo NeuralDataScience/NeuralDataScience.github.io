@@ -1,7 +1,7 @@
-format: jb-article
+format: jb-book
 root: index
 options:
-  numbered: true
+  numbered: false
 sections:
 - file: Chapter_03/Data_Science_In_Python.md
   sections:
