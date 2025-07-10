@@ -21,8 +21,6 @@ parts:
       numbered: 0
       chapters:
       - file: Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory
-        sections:
-        - file: Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory
     - caption: APPROACHES TO WORKING WITH BIG DATA
       numbered: 0
       chapters:
