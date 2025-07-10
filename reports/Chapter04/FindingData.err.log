@@ -54,11 +54,12 @@ ef_df.head()
 
 [31m---------------------------------------------------------------------------[39m
 [31mModuleNotFoundError[39m                       Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 2[39m
+[36mCell[39m[36m [39m[32mIn[2][39m[32m, line 3[39m
 [32m      1[39m [38;5;66;03m# Import pandas and the "Cell Types Cache" from the AllenSDK core package[39;00m
-[32m----> [39m[32m2[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mpandas[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mpd[39;00m
-[32m      3[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mallensdk[39;00m[34;01m.[39;00m[34;01mcore[39;00m[34;01m.[39;00m[34;01mcell_types_cache[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m CellTypesCache
+[32m      2[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mpandas[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mpd[39;00m
+[32m----> [39m[32m3[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mallensdk[39;00m[34;01m.[39;00m[34;01mcore[39;00m[34;01m.[39;00m[34;01mcell_types_cache[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m CellTypesCache
 [32m      5[39m [38;5;66;03m# Initialize the cache as 'ctc' (cell types cache)[39;00m
+[32m      6[39m ctc = CellTypesCache(manifest_file=[33m'[39m[33mcell_types/manifest.json[39m[33m'[39m)
 
-[31mModuleNotFoundError[39m: No module named 'pandas'
+[31mModuleNotFoundError[39m: No module named 'allensdk'
 

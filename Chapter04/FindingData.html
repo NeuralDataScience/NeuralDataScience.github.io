@@ -175,23 +175,24 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../index.html">
-                    <no title>
+                    Neuroscience in the Age of Data Science
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">DATA SCIENCE IN PYTHON</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../Chapter03/NumPy.html">NumPy</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter03/Pandas.html">Pandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Chapter03/SciPy.html">SciPy</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Chapter03/Data_Science_In_Python.html">Data Science in Python</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/NumPy.html">NumPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/Pandas.html">Pandas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Chapter03/SciPy.html">SciPy</a></li>
+</ul>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">FINDING &amp; EXPLORING NEURAL DATA</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Finding Data</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Chapter05/DataExploration_BrainSize.html">Exploring the Data</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Finding Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter05/DataExploration_BrainSize.html">Exploring the Data</a></li>
 
-</ul>
-</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
 <ul class="nav bd-sidenav">
@@ -412,24 +413,20 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting allensdk
   Using cached allensdk-2.16.2-py3-none-any.whl.metadata (1.9 kB)
+Collecting psycopg2-binary (from allensdk)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting psycopg2-binary (from allensdk)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading psycopg2_binary-2.9.10-cp313-cp313-macosx_14_0_arm64.whl.metadata (4.9 kB)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.* (from allensdk)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Using cached psycopg2_binary-2.9.10-cp313-cp313-macosx_14_0_arm64.whl.metadata (4.9 kB)
+Collecting hdmf!=3.5.*,!=3.6.*,!=3.7.*,!=3.8.* (from allensdk)
   Using cached hdmf-4.1.0-py3-none-any.whl.metadata (10 kB)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting h5py (from allensdk)
-  Downloading h5py-3.14.0-cp313-cp313-macosx_11_0_arm64.whl.metadata (2.7 kB)
+  Using cached h5py-3.14.0-cp313-cp313-macosx_11_0_arm64.whl.metadata (2.7 kB)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting matplotlib (from allensdk)
-  Downloading matplotlib-3.10.3-cp313-cp313-macosx_11_0_arm64.whl.metadata (11 kB)
+  Using cached matplotlib-3.10.3-cp313-cp313-macosx_11_0_arm64.whl.metadata (11 kB)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting numpy&lt;1.24 (from allensdk)
@@ -448,7 +445,10 @@ document.write(`
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> done
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h  Getting requirements to build wheel ... ?25l- error
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>?25h  Getting requirements to build wheel ... ?25l-
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> error
   <span class=" -Color -Color-Bold -Color-Bold-Red">error</span>: <span class=" -Color -Color-Bold">subprocess-exited-with-error</span>
   
   <span class=" -Color -Color-Red">×</span> <span class=" -Color -Color-Green">Getting requirements to build wheel</span> did not run successfully.
@@ -478,11 +478,11 @@ document.write(`
   <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">935</span>, in <span class=" -Color -Color-Magenta">_load_unlocked</span>
   <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap_external&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">1026</span>, in <span class=" -Color -Color-Magenta">exec_module</span>
   <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class=" -Color -Color-Magenta">488</span>, in <span class=" -Color -Color-Magenta">_call_with_frames_removed</span>
-  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-vc3f6zoj/overlay/lib/python3.13/site-packages/setuptools/__init__.py&quot;</span>, line <span class=" -Color -Color-Magenta">16</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-_j7x_484/overlay/lib/python3.13/site-packages/setuptools/__init__.py&quot;</span>, line <span class=" -Color -Color-Magenta">16</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
   <span class=" -Color -Color-Red">   </span>     import setuptools.version
-  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-vc3f6zoj/overlay/lib/python3.13/site-packages/setuptools/version.py&quot;</span>, line <span class=" -Color -Color-Magenta">1</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-_j7x_484/overlay/lib/python3.13/site-packages/setuptools/version.py&quot;</span>, line <span class=" -Color -Color-Magenta">1</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
   <span class=" -Color -Color-Red">   </span>     import pkg_resources
-  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-vc3f6zoj/overlay/lib/python3.13/site-packages/pkg_resources/__init__.py&quot;</span>, line <span class=" -Color -Color-Magenta">2172</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
+  <span class=" -Color -Color-Red">   </span>   File <span class=" -Color -Color-Magenta">&quot;/private/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/pip-build-env-_j7x_484/overlay/lib/python3.13/site-packages/pkg_resources/__init__.py&quot;</span>, line <span class=" -Color -Color-Magenta">2172</span>, in <span class=" -Color -Color-Magenta">&lt;module&gt;</span>
   <span class=" -Color -Color-Red">   </span>     register_finder(<span class=" -Color -Color-Bold -Color-Bold-Red">pkgutil.ImpImporter</span>, find_on_path)
   <span class=" -Color -Color-Red">   </span>                     <span class=" -Color -Color-Bold -Color-Bold-Red">^^^^^^^^^^^^^^^^^^^</span>
   <span class=" -Color -Color-Red">   </span> <span class=" -Color -Color-Bold -Color-Bold-Magenta">AttributeError</span>: <span class=" -Color -Color-Magenta">module &#39;pkgutil&#39; has no attribute &#39;ImpImporter&#39;. Did you mean: &#39;zipimporter&#39;?</span>
@@ -524,13 +524,14 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Import pandas and the &quot;Cell Types Cache&quot; from the AllenSDK core package</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.cell_types_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CellTypesCache</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">allensdk.core.cell_types_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">CellTypesCache</span>
 <span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Initialize the cache as &#39;ctc&#39; (cell types cache)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="n">ctc</span> <span class="o">=</span> <span class="n">CellTypesCache</span><span class="p">(</span><span class="n">manifest_file</span><span class="o">=</span><span class="s1">&#39;cell_types/manifest.json&#39;</span><span class="p">)</span>
 
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;pandas&#39;
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;allensdk&#39;
 </pre></div>
 </div>
 </div>
@@ -683,8 +684,6 @@ Successfully installed Biopython-1.85
 <h2>Code Challenge<a class="headerlink" href="#code-challenge" title="Link to this heading">#</a></h2>
 <p>In the cell above, we hardcoded an id argument to the <code class="docutils literal notranslate"><span class="pre">Entrez.efetch</span></code> function. Can you figure out how to instead use one of the ids in the list we generated in the API exercise above?</p>
 </section>
-<div class="toctree-wrapper compound">
-</div>
 </section>
 
     <script type="text/x-thebe-config">
