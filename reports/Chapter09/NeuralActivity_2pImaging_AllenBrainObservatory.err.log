@@ -19,79 +19,21 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^^^^
   File "/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
-    await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
-    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
-nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
-------------------
-# We will create an instance of the Brain Observatory Cache as an object, "boc."
-boc = BrainObservatoryCache(manifest_file='/datasets/allen-brain-observatory/visual-coding-2p/manifest.json')
-------------------
-
-
-[31m---------------------------------------------------------------------------[39m
-[31mOSError[39m                                   Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[3][39m[32m, line 2[39m
-[32m      1[39m [38;5;66;03m# We will create an instance of the Brain Observatory Cache as an object, "boc."[39;00m
-[32m----> [39m[32m2[39m boc = [43mBrainObservatoryCache[49m[43m([49m[43mmanifest_file[49m[43m=[49m[33;43m'[39;49m[33;43m/datasets/allen-brain-observatory/visual-coding-2p/manifest.json[39;49m[33;43m'[39;49m[43m)[49m
-
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/brain_observatory_cache.py:128[39m, in [36mBrainObservatoryCache.__init__[39m[34m(self, cache, manifest_file, base_uri, api)[39m
-[32m    125[39m [38;5;28;01mif[39;00m manifest_file [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
-[32m    126[39m     manifest_file = get_default_manifest_file([33m"[39m[33mbrain_observatory[39m[33m"[39m)
-[32m--> [39m[32m128[39m [38;5;28;43msuper[39;49m[43m([49m[43mBrainObservatoryCache[49m[43m,[49m[43m [49m[38;5;28;43mself[39;49m[43m)[49m[43m.[49m[34;43m__init__[39;49m[43m([49m
-[32m    129[39m [43m    [49m[43mmanifest[49m[43m=[49m[43mmanifest_file[49m[43m,[49m[43m [49m[43mcache[49m[43m=[49m[43mcache[49m[43m,[49m[43m [49m[43mversion[49m[43m=[49m[38;5;28;43mself[39;49m[43m.[49m[43mMANIFEST_VERSION[49m
-[32m    130[39m [43m[49m[43m)[49m
-[32m    132[39m [38;5;28;01mif[39;00m api [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
-[32m    133[39m     [38;5;28mself[39m.api = BrainObservatoryApi(base_uri=base_uri)
-
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:105[39m, in [36mCache.__init__[39m[34m(self, manifest, cache, version, **kwargs)[39m
-[32m    103[39m [38;5;28;01mif[39;00m version [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m [38;5;28mhasattr[39m([38;5;28mself[39m, [33m'[39m[33mMANIFEST_VERSION[39m[33m'[39m):
-[32m    104[39m     version = [38;5;28mself[39m.MANIFEST_VERSION
-[32m--> [39m[32m105[39m [38;5;28;43mself[39;49m[43m.[49m[43mload_manifest[49m[43m([49m[43mmanifest[49m[43m,[49m[43m [49m[43mversion[49m[43m)[49m
-
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:147[39m, in [36mCache.load_manifest[39m[34m(self, file_name, version)[39m
-[32m    145[39m     dirname = os.path.dirname(file_name)
-[32m    146[39m     [38;5;28;01mif[39;00m dirname:
-[32m--> [39m[32m147[39m         [43mManifest[49m[43m.[49m[43msafe_mkdir[49m[43m([49m[43mdirname[49m[43m)[49m
-[32m    149[39m     [38;5;28mself[39m.build_manifest(file_name)
-[32m    151[39m [38;5;28;01mtry[39;00m:
-
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/config/manifest.py:340[39m, in [36mManifest.safe_mkdir[39m[34m(cls, directory)[39m
-[32m    337[39m         leftmost = [38;5;28mstr[39m(sub_path)
-[32m    339[39m [38;5;28;01mtry[39;00m:
-[32m--> [39m[32m340[39m     [43mos[49m[43m.[49m[43mmakedirs[49m[43m([49m[43mdirectory[49m[43m)[49m
-[32m    341[39m [38;5;28;01mexcept[39;00m [38;5;167;01mOSError[39;00m [38;5;28;01mas[39;00m e:
-[32m    342[39m     [38;5;28;01mif[39;00m ((sys.platform == [33m"[39m[33mdarwin[39m[33m"[39m) [38;5;129;01mand[39;00m (e.errno == errno.EISDIR) [38;5;129;01mand[39;00m \
-[32m    343[39m         (e.filename == [33m"[39m[33m/[39m[33m"[39m)):
-[32m    344[39m         [38;5;66;03m# undocumented behavior of mkdir on OSX where for / it raises[39;00m
-[32m    345[39m         [38;5;66;03m# EISDIR and not EEXIST[39;00m
-[32m    346[39m         [38;5;66;03m# https://bugs.python.org/issue24231 (old but still holds true)[39;00m
-
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/os.py:215[39m, in [36mmakedirs[39m[34m(name, mode, exist_ok)[39m
-[32m    213[39m [38;5;28;01mif[39;00m head [38;5;129;01mand[39;00m tail [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m path.exists(head):
-[32m    214[39m     [38;5;28;01mtry[39;00m:
-[32m--> [39m[32m215[39m         [43mmakedirs[49m[43m([49m[43mhead[49m[43m,[49m[43m [49m[43mexist_ok[49m[43m=[49m[43mexist_ok[49m[43m)[49m
-[32m    216[39m     [38;5;28;01mexcept[39;00m [38;5;167;01mFileExistsError[39;00m:
-[32m    217[39m         [38;5;66;03m# Defeats race condition when another thread created the path[39;00m
-[32m    218[39m         [38;5;28;01mpass[39;00m
-
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/os.py:215[39m, in [36mmakedirs[39m[34m(name, mode, exist_ok)[39m
-[32m    213[39m [38;5;28;01mif[39;00m head [38;5;129;01mand[39;00m tail [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m path.exists(head):
-[32m    214[39m     [38;5;28;01mtry[39;00m:
-[32m--> [39m[32m215[39m         [43mmakedirs[49m[43m([49m[43mhead[49m[43m,[49m[43m [49m[43mexist_ok[49m[43m=[49m[43mexist_ok[49m[43m)[49m
-[32m    216[39m     [38;5;28;01mexcept[39;00m [38;5;167;01mFileExistsError[39;00m:
-[32m    217[39m         [38;5;66;03m# Defeats race condition when another thread created the path[39;00m
-[32m    218[39m         [38;5;28;01mpass[39;00m
-
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/os.py:225[39m, in [36mmakedirs[39m[34m(name, mode, exist_ok)[39m
-[32m    223[39m         [38;5;28;01mreturn[39;00m
-[32m    224[39m [38;5;28;01mtry[39;00m:
-[32m--> [39m[32m225[39m     [43mmkdir[49m[43m([49m[43mname[49m[43m,[49m[43m [49m[43mmode[49m[43m)[49m
-[32m    226[39m [38;5;28;01mexcept[39;00m [38;5;167;01mOSError[39;00m:
-[32m    227[39m     [38;5;66;03m# Cannot rely on checking for EEXIST, since the operating system[39;00m
-[32m    228[39m     [38;5;66;03m# could give priority to other errors like EACCES or EROFS[39;00m
-[32m    229[39m     [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m exist_ok [38;5;129;01mor[39;00m [38;5;129;01mnot[39;00m path.isdir(name):
-
-[31mOSError[39m: [Errno 30] Read-only file system: '/datasets'
+  File "/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/nbclient/client.py", line 1005, in async_execute_cell
+    exec_reply = await self.task_poll_for_reply
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/nbclient/client.py", line 806, in _async_poll_for_reply
+    error_on_timeout_execute_reply = await self._async_handle_timeout(timeout, cell)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/nbclient/client.py", line 856, in _async_handle_timeout
+    raise CellTimeoutError.error_from_timeout_and_cell(
+nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
+The message was: Cell execution timed out.
+Here is a preview of the cell contents:
+-------------------
+# Get the cell specimens information for this session
+cell_specimens = boc.get_cell_specimens(experiment_container_ids=[experiment_container_id])
+cell_specimens_df = pd.DataFrame(cell_specimens)
+cell_specimens_df.head()
+-------------------
 
