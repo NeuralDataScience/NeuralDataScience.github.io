@@ -19,8 +19,12 @@ parts:
         - file: Chapter04/FindingData
         - file: Chapter05/DataExploration_BrainSize
     - caption: KINDS OF NEURAL DATA
+      numbered: 0
+      chapters:
       - file: Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory
         sections:
         - file: Chapter09/NeuralActivity_2pImaging_AllenBrainObservatory
     - caption: APPROACHES TO WORKING WITH BIG DATA
+      numbered: 0
+      chapters:
       - file: Chapter16/DimensionalityReduction
