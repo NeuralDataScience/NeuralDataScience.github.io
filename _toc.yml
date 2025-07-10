@@ -3,7 +3,7 @@ root: index
 options:
   numbered: true
 sections:
-- file: Chapter_03/Data_Science_In_Python
+- file: Chapter_03/Data_Science_In_Python.md
   sections:
   - file: Chapter_03/NumPy
   - file: Chapter_03/Pandas
