@@ -499,8 +499,8 @@ matplotlib already installed
 --------------------------------
 allensdk     module    &lt;module &#39;allensdk&#39; from &#39;&lt;...&gt;es/allensdk/__init__.py&#39;&gt;
 matplotlib   module    &lt;module &#39;matplotlib&#39; from&lt;...&gt;/matplotlib/__init__.py&#39;&gt;
-np           module    Shape: &lt;function shape at 0x104a084a0&gt;
-numpy        module    Shape: &lt;function shape at 0x104a084a0&gt;
+np           module    Shape: &lt;function shape at 0x10439da80&gt;
+numpy        module    Shape: &lt;function shape at 0x10439da80&gt;
 pandas       module    &lt;module &#39;pandas&#39; from &#39;/o&lt;...&gt;ages/pandas/__init__.py&#39;&gt;
 pd           module    &lt;module &#39;pandas&#39; from &#39;/o&lt;...&gt;ages/pandas/__init__.py&#39;&gt;
 plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/pyplot.py&#39;&gt;
@@ -557,122 +557,10 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">JSONDecodeError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">cell_id</span> <span class="o">=</span> <span class="mi">474626527</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Get the electrophysiology (ephys) data for that cell</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_data</span><span class="p">(</span><span class="n">cell_id</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data retrieved&#39;</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/cell_types_cache.py:302,</span> in <span class="ni">CellTypesCache.get_ephys_data</span><span class="nt">(self, specimen_id, file_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span><span class="sd"> Download electrophysiology traces for a single cell in the database.</span>
-<span class="g g-Whitespace">    </span><span class="mi">279</span><span class="sd"> </span>
-<span class="sd">   (...)    296     and response traces out of an NWB file.</span>
-<span class="g g-Whitespace">    </span><span class="mi">297</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">299</span> <span class="n">file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">300</span>     <span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EPHYS_DATA_KEY</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">302</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">save_ephys_data</span><span class="p">(</span><span class="n">specimen_id</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;lazy&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span> <span class="k">return</span> <span class="n">NwbDataSet</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:661,</span> in <span class="ni">cacheable.&lt;locals&gt;.decor.&lt;locals&gt;.w</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">658</span> <span class="k">if</span> <span class="n">decor</span><span class="o">.</span><span class="n">post</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s1">&#39;post in kwargs&#39;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">659</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">decor</span><span class="o">.</span><span class="n">post</span>
-<span class="ne">--&gt; </span><span class="mi">661</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Cache</span><span class="o">.</span><span class="n">cacher</span><span class="p">(</span><span class="n">func</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">662</span>                       <span class="o">*</span><span class="n">args</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">663</span>                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">664</span> <span class="k">return</span> <span class="n">result</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:387,</span> in <span class="ni">Cache.cacher</span><span class="nt">(fn, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">385</span>         <span class="n">writer</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">386</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">387</span>         <span class="n">data</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">389</span> <span class="k">if</span> <span class="n">reader</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">390</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/cell_types_api.py:325,</span> in <span class="ni">CellTypesApi.save_ephys_data</span><span class="nt">(self, specimen_id, file_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">321</span> <span class="n">criteria</span> <span class="o">=</span> <span class="s1">&#39;[id$eq</span><span class="si">%d</span><span class="s1">],ephys_result(well_known_files(well_known_file_type[name$eq</span><span class="si">%s</span><span class="s1">]))&#39;</span> <span class="o">%</span> <span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">322</span>     <span class="n">specimen_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">NWB_FILE_TYPE</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">323</span> <span class="n">includes</span> <span class="o">=</span> <span class="s1">&#39;ephys_result(well_known_files(well_known_file_type))&#39;</span>
-<span class="ne">--&gt; </span><span class="mi">325</span> <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_query</span><span class="p">(</span><span class="s1">&#39;Specimen&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">326</span>                            <span class="n">criteria</span><span class="o">=</span><span class="n">criteria</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">327</span>                            <span class="n">include</span><span class="o">=</span><span class="n">includes</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">328</span>                            <span class="n">num_rows</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">330</span> <span class="k">try</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">331</span>     <span class="n">file_url</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ephys_result&#39;</span><span class="p">][</span>
-<span class="g g-Whitespace">    </span><span class="mi">332</span>         <span class="s1">&#39;well_known_files&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;download_link&#39;</span><span class="p">]</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/rma_api.py:257,</span> in <span class="ni">RmaApi.model_query</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">217</span> <span class="k">def</span><span class="w"> </span><span class="nf">model_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">218</span><span class="w">     </span><span class="sd">&#39;&#39;&#39;Construct and execute a model stage of an RMA query string.</span>
-<span class="g g-Whitespace">    </span><span class="mi">219</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">220</span><span class="sd">     Parameters</span>
-<span class="sd">   (...)    255     response, including the normalized query.</span>
-<span class="g g-Whitespace">    </span><span class="mi">256</span><span class="sd">     &#39;&#39;&#39;</span>
-<span class="ne">--&gt; </span><span class="mi">257</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_msg_query</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">258</span>         <span class="bp">self</span><span class="o">.</span><span class="n">build_query_url</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="bp">self</span><span class="o">.</span><span class="n">model_stage</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)))</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:164,</span> in <span class="ni">Api.json_msg_query</span><span class="nt">(self, url, dataframe)</span>
-<span class="g g-Whitespace">    </span><span class="mi">147</span> <span class="k">def</span><span class="w"> </span><span class="nf">json_msg_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span><span class="w">     </span><span class="sd">&#39;&#39;&#39; Common case where the url is fully constructed</span>
-<span class="g g-Whitespace">    </span><span class="mi">149</span><span class="sd">         and the response data is stored in the &#39;msg&#39; field.</span>
-<span class="g g-Whitespace">    </span><span class="mi">150</span><span class="sd"> </span>
-<span class="sd">   (...)    161         returned data; type depends on dataframe option</span>
-<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="sd">     &#39;&#39;&#39;</span>
-<span class="ne">--&gt; </span><span class="mi">164</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_query</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">165</span>                          <span class="bp">self</span><span class="o">.</span><span class="n">read_data</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">167</span>     <span class="k">if</span> <span class="n">dataframe</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;dataframe argument is deprecated&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:204,</span> in <span class="ni">Api.do_query</span><span class="nt">(self, url_builder_fn, json_traversal_fn, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">200</span> <span class="n">api_url</span> <span class="o">=</span> <span class="n">url_builder_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">202</span> <span class="n">post</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">204</span> <span class="n">json_parsed_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve_parsed_json_over_http</span><span class="p">(</span><span class="n">api_url</span><span class="p">,</span> <span class="n">post</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="k">return</span> <span class="n">json_traversal_fn</span><span class="p">(</span><span class="n">json_parsed_data</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:369,</span> in <span class="ni">Api.retrieve_parsed_json_over_http</span><span class="nt">(self, url, post)</span>
-<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Downloading URL: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">368</span> <span class="k">if</span> <span class="n">post</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">369</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">json_utilities</span><span class="o">.</span><span class="n">read_url_get</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">370</span>         <span class="n">requests</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">url</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">371</span>                              <span class="s1">&#39;;/?:@&amp;=+$,&#39;</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">372</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">373</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">json_utilities</span><span class="o">.</span><span class="n">read_url_post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/json_utilities.py:118,</span> in <span class="ni">read_url_get</span><span class="nt">(url)</span>
-<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="n">response</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="n">json_string</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">118</span> <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/__init__.py:514,</span> in <span class="ni">loads</span><span class="nt">(s, encoding, cls, object_hook, parse_float, parse_int, parse_constant, object_pairs_hook, use_decimal, allow_nan, **kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">462</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Deserialize ``s`` (a ``str`` or ``unicode`` instance containing a JSON</span>
-<span class="g g-Whitespace">    </span><span class="mi">463</span><span class="sd"> document) to a Python object.</span>
-<span class="g g-Whitespace">    </span><span class="mi">464</span><span class="sd"> </span>
-<span class="sd">   (...)    508 </span>
-<span class="g g-Whitespace">    </span><span class="mi">509</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">510</span> <span class="k">if</span> <span class="p">(</span><span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">object_hook</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
-<span class="g g-Whitespace">    </span><span class="mi">511</span>         <span class="n">parse_int</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">parse_float</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
-<span class="g g-Whitespace">    </span><span class="mi">512</span>         <span class="n">parse_constant</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">object_pairs_hook</span> <span class="ow">is</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">513</span>         <span class="ow">and</span> <span class="ow">not</span> <span class="n">use_decimal</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_nan</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kw</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">514</span>     <span class="k">return</span> <span class="n">_default_decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">515</span> <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">516</span>     <span class="bp">cls</span> <span class="o">=</span> <span class="n">JSONDecoder</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/decoder.py:386,</span> in <span class="ni">JSONDecoder.decode</span><span class="nt">(self, s, _w, _PY3)</span>
-<span class="g g-Whitespace">    </span><span class="mi">384</span> <span class="k">if</span> <span class="n">_PY3</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">385</span>     <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">386</span> <span class="n">obj</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">387</span> <span class="n">end</span> <span class="o">=</span> <span class="n">_w</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">388</span> <span class="k">if</span> <span class="n">end</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/decoder.py:416,</span> in <span class="ni">JSONDecoder.raw_decode</span><span class="nt">(self, s, idx, _w, _PY3)</span>
-<span class="g g-Whitespace">    </span><span class="mi">414</span>     <span class="k">elif</span> <span class="n">ord0</span> <span class="o">==</span> <span class="mh">0xef</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\xef\xbb\xbf</span><span class="s1">&#39;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">415</span>         <span class="n">idx</span> <span class="o">+=</span> <span class="mi">3</span>
-<span class="ne">--&gt; </span><span class="mi">416</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_once</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="n">_w</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span><span class="o">.</span><span class="n">end</span><span class="p">())</span>
-
-<span class="ne">JSONDecodeError</span>: Expecting value: line 1 column 1 (char 0)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:31:42,285 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/491198297
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data retrieved
 </pre></div>
 </div>
 </div>
@@ -685,6 +573,11 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 
 <span class="n">sweep_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_sweep</span><span class="p">(</span><span class="n">sweep_number</span><span class="p">)</span> 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sweep obtained&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sweep obtained
 </pre></div>
 </div>
 </div>
@@ -770,6 +663,15 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:31:58,579 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/491120375
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:31:59,236 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/501275935
+</pre></div>
+</div>
+<img alt="../_images/e3e539d3e4ec5c128bbce872a27edddab6d33686c0347d66a2342cae23ff6452.png" src="../_images/e3e539d3e4ec5c128bbce872a27edddab6d33686c0347d66a2342cae23ff6452.png" />
+</div>
 </div>
 </section>
 <section id="step-5-analyze-pre-computed-features">
@@ -789,6 +691,200 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ephys features available for 2333 cells:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>adaptation</th>
+      <th>avg_isi</th>
+      <th>electrode_0_pa</th>
+      <th>f_i_curve_slope</th>
+      <th>fast_trough_t_long_square</th>
+      <th>fast_trough_t_ramp</th>
+      <th>fast_trough_t_short_square</th>
+      <th>fast_trough_v_long_square</th>
+      <th>fast_trough_v_ramp</th>
+      <th>fast_trough_v_short_square</th>
+      <th>...</th>
+      <th>trough_t_ramp</th>
+      <th>trough_t_short_square</th>
+      <th>trough_v_long_square</th>
+      <th>trough_v_ramp</th>
+      <th>trough_v_short_square</th>
+      <th>upstroke_downstroke_ratio_long_square</th>
+      <th>upstroke_downstroke_ratio_ramp</th>
+      <th>upstroke_downstroke_ratio_short_square</th>
+      <th>vm_for_sag</th>
+      <th>vrest</th>
+    </tr>
+    <tr>
+      <th>specimen_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>529878215</th>
+      <td>NaN</td>
+      <td>134.700000</td>
+      <td>22.697498</td>
+      <td>8.335459e-02</td>
+      <td>1.187680</td>
+      <td>13.295200</td>
+      <td>1.025916</td>
+      <td>-56.375004</td>
+      <td>-57.385420</td>
+      <td>-57.431251</td>
+      <td>...</td>
+      <td>13.295680</td>
+      <td>1.134780</td>
+      <td>-56.593754</td>
+      <td>-57.739586</td>
+      <td>-74.143753</td>
+      <td>3.029695</td>
+      <td>3.061646</td>
+      <td>2.969821</td>
+      <td>-80.468750</td>
+      <td>-73.553391</td>
+    </tr>
+    <tr>
+      <th>548459652</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>-24.887498</td>
+      <td>-3.913630e-19</td>
+      <td>1.099840</td>
+      <td>20.650105</td>
+      <td>1.025460</td>
+      <td>-54.000000</td>
+      <td>-54.828129</td>
+      <td>-54.656254</td>
+      <td>...</td>
+      <td>20.650735</td>
+      <td>1.160940</td>
+      <td>-55.406254</td>
+      <td>-55.242191</td>
+      <td>-73.500000</td>
+      <td>2.441895</td>
+      <td>2.245653</td>
+      <td>2.231575</td>
+      <td>-84.406258</td>
+      <td>-73.056595</td>
+    </tr>
+    <tr>
+      <th>579978640</th>
+      <td>0.009770</td>
+      <td>39.044800</td>
+      <td>-46.765002</td>
+      <td>5.267857e-01</td>
+      <td>1.157840</td>
+      <td>2.551310</td>
+      <td>1.025387</td>
+      <td>-59.500000</td>
+      <td>-58.234378</td>
+      <td>-59.940975</td>
+      <td>...</td>
+      <td>2.551960</td>
+      <td>1.089851</td>
+      <td>-60.062500</td>
+      <td>-58.570314</td>
+      <td>-61.371531</td>
+      <td>2.023762</td>
+      <td>2.162878</td>
+      <td>2.006406</td>
+      <td>-93.375008</td>
+      <td>-60.277321</td>
+    </tr>
+    <tr>
+      <th>439024551</th>
+      <td>-0.007898</td>
+      <td>117.816429</td>
+      <td>5.996250</td>
+      <td>1.542553e-01</td>
+      <td>1.989165</td>
+      <td>9.572025</td>
+      <td>1.028733</td>
+      <td>-47.531250</td>
+      <td>-50.359375</td>
+      <td>-65.500000</td>
+      <td>...</td>
+      <td>9.576308</td>
+      <td>1.423229</td>
+      <td>-49.406254</td>
+      <td>-52.718752</td>
+      <td>-75.273443</td>
+      <td>3.105931</td>
+      <td>3.491663</td>
+      <td>1.733896</td>
+      <td>-87.656250</td>
+      <td>-75.205559</td>
+    </tr>
+    <tr>
+      <th>515188639</th>
+      <td>0.022842</td>
+      <td>68.321429</td>
+      <td>14.910000</td>
+      <td>1.714041e-01</td>
+      <td>1.081980</td>
+      <td>2.462880</td>
+      <td>1.025620</td>
+      <td>-48.437504</td>
+      <td>-46.520837</td>
+      <td>-51.406253</td>
+      <td>...</td>
+      <td>2.490433</td>
+      <td>1.479690</td>
+      <td>-53.000004</td>
+      <td>-54.645837</td>
+      <td>-64.250003</td>
+      <td>3.285760</td>
+      <td>3.363504</td>
+      <td>4.234701</td>
+      <td>-81.625008</td>
+      <td>-63.474991</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 55 columns</p>
+</div></div></div>
 </div>
 <p>As you can see in the dataframe above, there are many <strong>pre-computed features</strong> available in this dataset. <a class="reference external" href="https://docs.google.com/document/d/1YGLwkMTebwrXd_1E817LFbztMjSTCWh83Mlp3_3ZMEo/edit?usp=sharing">Here’s a glossary</a>, in case you’re curious.</p>
 <p><img alt="" src="https://github.com/ajuavinett/CellTypesLesson/blob/master/docs/ap_features.png?raw=true" /></p>
@@ -848,6 +944,9 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/ef06a002caa1e5e301fb51909b81b345c3d032b67b7ff287951ffcf2d66a84cf.png" src="../_images/ef06a002caa1e5e301fb51909b81b345c3d032b67b7ff287951ffcf2d66a84cf.png" />
+</div>
 </div>
 <p>Looks like these two clusters do partially relate to the dendritic type. Cells with spiny dendrites (which are typically excitatory cells) have a big ratio of upstroke:downstroke, and a more shallow trough (less negative). Cells with aspiny dendrites (typically inhibitory cells) are a little bit more varied. But </i>only</i> aspiny cells have a low upstroke:downstroke ratio and a deeper trough (more negative).</p>
 </section>
@@ -872,6 +971,11 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Specimen ID: 510106222 with upstroke-downstroke ratio: 6.09655607293524
+</pre></div>
+</div>
+</div>
 </div>
 <p>Now we can take a closer look at the action potential for that cell by grabbing a raw sweep of recording from it, just like we did above.</p>
 <blockquote>
@@ -893,6 +997,14 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 <span class="n">timestamps</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">voltage</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">upstroke_sweep</span><span class="p">[</span><span class="s1">&#39;sampling_rate&#39;</span><span class="p">]))</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sweep obtained&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:32:11,169 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/567445815
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sweep obtained
 </pre></div>
 </div>
 </div>
@@ -935,6 +1047,53 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 <span class="n">column_name</span> <span class="o">=</span> <span class="o">...</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">full_dataframe</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/core/indexes/base.py:3802,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3801</span> <span class="k">try</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3802</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3803</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/_libs/index.pyx:138,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/_libs/index.pyx:165,</span> in <span class="ni">pandas._libs.index.IndexEngine.get_loc</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:5745,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="nn">File pandas/_libs/hashtable_class_helper.pxi:5753,</span> in <span class="ni">pandas._libs.hashtable.PyObjectHashTable.get_item</span><span class="nt">()</span>
+
+<span class="ne">KeyError</span>: Ellipsis
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># Define your column name below</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">column_name</span> <span class="o">=</span> <span class="o">...</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="n">full_dataframe</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/core/frame.py:3807,</span> in <span class="ni">DataFrame.__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3805</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">nlevels</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3806</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getitem_multilevel</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="ne">-&gt; </span><span class="mi">3807</span> <span class="n">indexer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3808</span> <span class="k">if</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">indexer</span><span class="p">):</span>
+<span class="g g-Whitespace">   </span><span class="mi">3809</span>     <span class="n">indexer</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexer</span><span class="p">]</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/core/indexes/base.py:3804,</span> in <span class="ni">Index.get_loc</span><span class="nt">(self, key, method, tolerance)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3802</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">casted_key</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3803</span> <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">3804</span>     <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">err</span>
+<span class="g g-Whitespace">   </span><span class="mi">3805</span> <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3806</span>     <span class="c1"># If we have a listlike key, _check_indexing_error will raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3807</span>     <span class="c1">#  InvalidIndexError. Otherwise we fall through and re-raise</span>
+<span class="g g-Whitespace">   </span><span class="mi">3808</span>     <span class="c1">#  the TypeError.</span>
+<span class="g g-Whitespace">   </span><span class="mi">3809</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_check_indexing_error</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="ne">KeyError</span>: Ellipsis
 </pre></div>
 </div>
 </div>
@@ -1045,16 +1204,16 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "jb_py311"
         },
         kernelOptions: {
-            name: "python3",
+            name: "jb_py311",
             path: "./Chapter09"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'jb_py311'</script>
 
                 </article>
               

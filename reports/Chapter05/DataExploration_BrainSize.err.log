@@ -38,13 +38,80 @@ data.head()
 
 
 [31m---------------------------------------------------------------------------[39m
-[31mModuleNotFoundError[39m                       Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 3[39m
-[32m      1[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mpandas[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mpd[39;00m
-[32m      2[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mnumpy[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mnp[39;00m
-[32m----> [39m[32m3[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mmatplotlib[39;00m[34;01m.[39;00m[34;01mpyplot[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mplt[39;00m
+[31mFileNotFoundError[39m                         Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 8[39m
 [32m      4[39m get_ipython().run_line_magic([33m'[39m[33mconfig[39m[33m'[39m, [33m"[39m[33mInlineBackend.figure_format = [39m[33m'[39m[33mretina[39m[33m'[39m[33m"[39m)
 [32m      6[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mseaborn[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01msns[39;00m
+[32m----> [39m[32m8[39m data = [43mpd[49m[43m.[49m[43mread_csv[49m[43m([49m[33;43m'[39;49m[33;43mData/species_brainmass_neurons.csv[39;49m[33;43m'[39;49m[43m)[49m
+[32m      9[39m data.head()
 
-[31mModuleNotFoundError[39m: No module named 'matplotlib'
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/util/_decorators.py:211[39m, in [36mdeprecate_kwarg.<locals>._deprecate_kwarg.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m    209[39m     [38;5;28;01melse[39;00m:
+[32m    210[39m         kwargs[new_arg_name] = new_arg_value
+[32m--> [39m[32m211[39m [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/util/_decorators.py:331[39m, in [36mdeprecate_nonkeyword_arguments.<locals>.decorate.<locals>.wrapper[39m[34m(*args, **kwargs)[39m
+[32m    325[39m [38;5;28;01mif[39;00m [38;5;28mlen[39m(args) > num_allow_args:
+[32m    326[39m     warnings.warn(
+[32m    327[39m         msg.format(arguments=_format_argument_list(allow_args)),
+[32m    328[39m         [38;5;167;01mFutureWarning[39;00m,
+[32m    329[39m         stacklevel=find_stack_level(),
+[32m    330[39m     )
+[32m--> [39m[32m331[39m [38;5;28;01mreturn[39;00m [43mfunc[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:950[39m, in [36mread_csv[39m[34m(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)[39m
+[32m    935[39m kwds_defaults = _refine_defaults_read(
+[32m    936[39m     dialect,
+[32m    937[39m     delimiter,
+[32m   (...)[39m[32m    946[39m     defaults={[33m"[39m[33mdelimiter[39m[33m"[39m: [33m"[39m[33m,[39m[33m"[39m},
+[32m    947[39m )
+[32m    948[39m kwds.update(kwds_defaults)
+[32m--> [39m[32m950[39m [38;5;28;01mreturn[39;00m [43m_read[49m[43m([49m[43mfilepath_or_buffer[49m[43m,[49m[43m [49m[43mkwds[49m[43m)[49m
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:605[39m, in [36m_read[39m[34m(filepath_or_buffer, kwds)[39m
+[32m    602[39m _validate_names(kwds.get([33m"[39m[33mnames[39m[33m"[39m, [38;5;28;01mNone[39;00m))
+[32m    604[39m [38;5;66;03m# Create the parser.[39;00m
+[32m--> [39m[32m605[39m parser = [43mTextFileReader[49m[43m([49m[43mfilepath_or_buffer[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwds[49m[43m)[49m
+[32m    607[39m [38;5;28;01mif[39;00m chunksize [38;5;129;01mor[39;00m iterator:
+[32m    608[39m     [38;5;28;01mreturn[39;00m parser
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1442[39m, in [36mTextFileReader.__init__[39m[34m(self, f, engine, **kwds)[39m
+[32m   1439[39m     [38;5;28mself[39m.options[[33m"[39m[33mhas_index_names[39m[33m"[39m] = kwds[[33m"[39m[33mhas_index_names[39m[33m"[39m]
+[32m   1441[39m [38;5;28mself[39m.handles: IOHandles | [38;5;28;01mNone[39;00m = [38;5;28;01mNone[39;00m
+[32m-> [39m[32m1442[39m [38;5;28mself[39m._engine = [38;5;28;43mself[39;49m[43m.[49m[43m_make_engine[49m[43m([49m[43mf[49m[43m,[49m[43m [49m[38;5;28;43mself[39;49m[43m.[49m[43mengine[49m[43m)[49m
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1735[39m, in [36mTextFileReader._make_engine[39m[34m(self, f, engine)[39m
+[32m   1733[39m     [38;5;28;01mif[39;00m [33m"[39m[33mb[39m[33m"[39m [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m mode:
+[32m   1734[39m         mode += [33m"[39m[33mb[39m[33m"[39m
+[32m-> [39m[32m1735[39m [38;5;28mself[39m.handles = [43mget_handle[49m[43m([49m
+[32m   1736[39m [43m    [49m[43mf[49m[43m,[49m
+[32m   1737[39m [43m    [49m[43mmode[49m[43m,[49m
+[32m   1738[39m [43m    [49m[43mencoding[49m[43m=[49m[38;5;28;43mself[39;49m[43m.[49m[43moptions[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mencoding[39;49m[33;43m"[39;49m[43m,[49m[43m [49m[38;5;28;43;01mNone[39;49;00m[43m)[49m[43m,[49m
+[32m   1739[39m [43m    [49m[43mcompression[49m[43m=[49m[38;5;28;43mself[39;49m[43m.[49m[43moptions[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mcompression[39;49m[33;43m"[39;49m[43m,[49m[43m [49m[38;5;28;43;01mNone[39;49;00m[43m)[49m[43m,[49m
+[32m   1740[39m [43m    [49m[43mmemory_map[49m[43m=[49m[38;5;28;43mself[39;49m[43m.[49m[43moptions[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mmemory_map[39;49m[33;43m"[39;49m[43m,[49m[43m [49m[38;5;28;43;01mFalse[39;49;00m[43m)[49m[43m,[49m
+[32m   1741[39m [43m    [49m[43mis_text[49m[43m=[49m[43mis_text[49m[43m,[49m
+[32m   1742[39m [43m    [49m[43merrors[49m[43m=[49m[38;5;28;43mself[39;49m[43m.[49m[43moptions[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mencoding_errors[39;49m[33;43m"[39;49m[43m,[49m[43m [49m[33;43m"[39;49m[33;43mstrict[39;49m[33;43m"[39;49m[43m)[49m[43m,[49m
+[32m   1743[39m [43m    [49m[43mstorage_options[49m[43m=[49m[38;5;28;43mself[39;49m[43m.[49m[43moptions[49m[43m.[49m[43mget[49m[43m([49m[33;43m"[39;49m[33;43mstorage_options[39;49m[33;43m"[39;49m[43m,[49m[43m [49m[38;5;28;43;01mNone[39;49;00m[43m)[49m[43m,[49m
+[32m   1744[39m [43m[49m[43m)[49m
+[32m   1745[39m [38;5;28;01massert[39;00m [38;5;28mself[39m.handles [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m
+[32m   1746[39m f = [38;5;28mself[39m.handles.handle
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/common.py:856[39m, in [36mget_handle[39m[34m(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)[39m
+[32m    851[39m [38;5;28;01melif[39;00m [38;5;28misinstance[39m(handle, [38;5;28mstr[39m):
+[32m    852[39m     [38;5;66;03m# Check whether the filename is to be opened in binary mode.[39;00m
+[32m    853[39m     [38;5;66;03m# Binary mode does not support 'encoding' and 'newline'.[39;00m
+[32m    854[39m     [38;5;28;01mif[39;00m ioargs.encoding [38;5;129;01mand[39;00m [33m"[39m[33mb[39m[33m"[39m [38;5;129;01mnot[39;00m [38;5;129;01min[39;00m ioargs.mode:
+[32m    855[39m         [38;5;66;03m# Encoding[39;00m
+[32m--> [39m[32m856[39m         handle = [38;5;28;43mopen[39;49m[43m([49m
+[32m    857[39m [43m            [49m[43mhandle[49m[43m,[49m
+[32m    858[39m [43m            [49m[43mioargs[49m[43m.[49m[43mmode[49m[43m,[49m
+[32m    859[39m [43m            [49m[43mencoding[49m[43m=[49m[43mioargs[49m[43m.[49m[43mencoding[49m[43m,[49m
+[32m    860[39m [43m            [49m[43merrors[49m[43m=[49m[43merrors[49m[43m,[49m
+[32m    861[39m [43m            [49m[43mnewline[49m[43m=[49m[33;43m"[39;49m[33;43m"[39;49m[43m,[49m
+[32m    862[39m [43m        [49m[43m)[49m
+[32m    863[39m     [38;5;28;01melse[39;00m:
+[32m    864[39m         [38;5;66;03m# Binary mode[39;00m
+[32m    865[39m         handle = [38;5;28mopen[39m(handle, ioargs.mode)
+
+[31mFileNotFoundError[39m: [Errno 2] No such file or directory: 'Data/species_brainmass_neurons.csv'
 
