@@ -25,8 +25,8 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Enter your cell_id below
-cell_id = ...
+# Get the data for one cell (
+cell_id = 474626527
 
 # Get the electrophysiology (ephys) data for that cell
 data = ctc.get_ephys_data(cell_id)
@@ -35,37 +35,119 @@ print('Data retrieved')
 
 
 [31m---------------------------------------------------------------------------[39m
-[31mTypeError[39m                                 Traceback (most recent call last)
+[31mJSONDecodeError[39m                           Traceback (most recent call last)
 [36mCell[39m[36m [39m[32mIn[5][39m[32m, line 5[39m
-[32m      2[39m cell_id = ...
+[32m      2[39m cell_id = [32m474626527[39m
 [32m      4[39m [38;5;66;03m# Get the electrophysiology (ephys) data for that cell[39;00m
 [32m----> [39m[32m5[39m data = [43mctc[49m[43m.[49m[43mget_ephys_data[49m[43m([49m[43mcell_id[49m[43m)[49m
 [32m      6[39m [38;5;28mprint[39m([33m'[39m[33mData retrieved[39m[33m'[39m)
 
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/cell_types_cache.py:299[39m, in [36mCellTypesCache.get_ephys_data[39m[34m(self, specimen_id, file_name)[39m
-[32m    276[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mget_ephys_data[39m([38;5;28mself[39m, specimen_id, file_name=[38;5;28;01mNone[39;00m):
-[32m    277[39m [38;5;250m    [39m[33;03m"""[39;00m
-[32m    278[39m [33;03m    Download electrophysiology traces for a single cell in the database.[39;00m
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/cell_types_cache.py:302[39m, in [36mCellTypesCache.get_ephys_data[39m[34m(self, specimen_id, file_name)[39m
+[32m    277[39m [38;5;250m[39m[33;03m"""[39;00m
+[32m    278[39m [33;03mDownload electrophysiology traces for a single cell in the database.[39;00m
 [32m    279[39m 
-[32m   (...)[39m[32m    296[39m [33;03m        and response traces out of an NWB file.[39;00m
-[32m    297[39m [33;03m    """[39;00m
-[32m--> [39m[32m299[39m     file_name = [38;5;28;43mself[39;49m[43m.[49m[43mget_cache_path[49m[43m([49m
-[32m    300[39m [43m        [49m[43mfile_name[49m[43m,[49m[43m [49m[38;5;28;43mself[39;49m[43m.[49m[43mEPHYS_DATA_KEY[49m[43m,[49m[43m [49m[43mspecimen_id[49m[43m)[49m
-[32m    302[39m     [38;5;28mself[39m.api.save_ephys_data(specimen_id, file_name, strategy=[33m'[39m[33mlazy[39m[33m'[39m)
-[32m    304[39m     [38;5;28;01mreturn[39;00m NwbDataSet(file_name)
+[32m   (...)[39m[32m    296[39m [33;03m    and response traces out of an NWB file.[39;00m
+[32m    297[39m [33;03m"""[39;00m
+[32m    299[39m file_name = [38;5;28mself[39m.get_cache_path(
+[32m    300[39m     file_name, [38;5;28mself[39m.EPHYS_DATA_KEY, specimen_id)
+[32m--> [39m[32m302[39m [38;5;28;43mself[39;49m[43m.[49m[43mapi[49m[43m.[49m[43msave_ephys_data[49m[43m([49m[43mspecimen_id[49m[43m,[49m[43m [49m[43mfile_name[49m[43m,[49m[43m [49m[43mstrategy[49m[43m=[49m[33;43m'[39;49m[33;43mlazy[39;49m[33;43m'[39;49m[43m)[49m
+[32m    304[39m [38;5;28;01mreturn[39;00m NwbDataSet(file_name)
 
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:125[39m, in [36mCache.get_cache_path[39m[34m(self, file_name, manifest_key, *args)[39m
-[32m    123[39m         [38;5;28;01mreturn[39;00m file_name
-[32m    124[39m     [38;5;28;01melif[39;00m [38;5;28mself[39m.manifest:
-[32m--> [39m[32m125[39m         [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[43m.[49m[43mmanifest[49m[43m.[49m[43mget_path[49m[43m([49m[43mmanifest_key[49m[43m,[49m[43m [49m[43m*[49m[43margs[49m[43m)[49m
-[32m    127[39m [38;5;28;01mreturn[39;00m [38;5;28;01mNone[39;00m
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:661[39m, in [36mcacheable.<locals>.decor.<locals>.w[39m[34m(*args, **kwargs)[39m
+[32m    658[39m [38;5;28;01mif[39;00m decor.post [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m [33m'[39m[33mpost in kwargs[39m[33m'[39m:
+[32m    659[39m     kwargs[[33m'[39m[33mpost[39m[33m'[39m] = decor.post
+[32m--> [39m[32m661[39m result = [43mCache[49m[43m.[49m[43mcacher[49m[43m([49m[43mfunc[49m[43m,[49m
+[32m    662[39m [43m                      [49m[43m*[49m[43margs[49m[43m,[49m
+[32m    663[39m [43m                      [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m    664[39m [38;5;28;01mreturn[39;00m result
 
-[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/config/manifest.py:263[39m, in [36mManifest.get_path[39m[34m(self, path_key, *args)[39m
-[32m    260[39m path_spec = [38;5;28mself[39m.path_info[path_key][[33m'[39m[33mspec[39m[33m'[39m]
-[32m    262[39m [38;5;28;01mif[39;00m args [38;5;129;01mis[39;00m [38;5;129;01mnot[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m [38;5;28mlen[39m(args) != [32m0[39m:
-[32m--> [39m[32m263[39m     path = [43mpath_spec[49m[43m [49m[43m%[49m[43m [49m[43margs[49m
-[32m    264[39m [38;5;28;01melse[39;00m:
-[32m    265[39m     path = path_spec
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:387[39m, in [36mCache.cacher[39m[34m(fn, *args, **kwargs)[39m
+[32m    385[39m         writer(path, data)
+[32m    386[39m     [38;5;28;01melse[39;00m:
+[32m--> [39m[32m387[39m         data = [43mfn[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+[32m    389[39m [38;5;28;01mif[39;00m reader:
+[32m    390[39m     data = reader(path)
 
-[31mTypeError[39m: %d format: a real number is required, not ellipsis
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/cell_types_api.py:325[39m, in [36mCellTypesApi.save_ephys_data[39m[34m(self, specimen_id, file_name)[39m
+[32m    321[39m criteria = [33m'[39m[33m[id$eq[39m[38;5;132;01m%d[39;00m[33m],ephys_result(well_known_files(well_known_file_type[name$eq[39m[38;5;132;01m%s[39;00m[33m]))[39m[33m'[39m % (
+[32m    322[39m     specimen_id, [38;5;28mself[39m.NWB_FILE_TYPE)
+[32m    323[39m includes = [33m'[39m[33mephys_result(well_known_files(well_known_file_type))[39m[33m'[39m
+[32m--> [39m[32m325[39m results = [38;5;28;43mself[39;49m[43m.[49m[43mmodel_query[49m[43m([49m[33;43m'[39;49m[33;43mSpecimen[39;49m[33;43m'[39;49m[43m,[49m
+[32m    326[39m [43m                           [49m[43mcriteria[49m[43m=[49m[43mcriteria[49m[43m,[49m
+[32m    327[39m [43m                           [49m[43minclude[49m[43m=[49m[43mincludes[49m[43m,[49m
+[32m    328[39m [43m                           [49m[43mnum_rows[49m[43m=[49m[33;43m'[39;49m[33;43mall[39;49m[33;43m'[39;49m[43m)[49m
+[32m    330[39m [38;5;28;01mtry[39;00m:
+[32m    331[39m     file_url = results[[32m0[39m][[33m'[39m[33mephys_result[39m[33m'[39m][
+[32m    332[39m         [33m'[39m[33mwell_known_files[39m[33m'[39m][[32m0[39m][[33m'[39m[33mdownload_link[39m[33m'[39m]
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/rma_api.py:257[39m, in [36mRmaApi.model_query[39m[34m(self, *args, **kwargs)[39m
+[32m    217[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mmodel_query[39m([38;5;28mself[39m, *args, **kwargs):
+[32m    218[39m [38;5;250m    [39m[33;03m'''Construct and execute a model stage of an RMA query string.[39;00m
+[32m    219[39m 
+[32m    220[39m [33;03m    Parameters[39;00m
+[32m   (...)[39m[32m    255[39m [33;03m    response, including the normalized query.[39;00m
+[32m    256[39m [33;03m    '''[39;00m
+[32m--> [39m[32m257[39m     [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[43m.[49m[43mjson_msg_query[49m[43m([49m
+[32m    258[39m [43m        [49m[38;5;28;43mself[39;49m[43m.[49m[43mbuild_query_url[49m[43m([49m
+[32m    259[39m [43m            [49m[38;5;28;43mself[39;49m[43m.[49m[43mmodel_stage[49m[43m([49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m[43m)[49m[43m)[49m
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:164[39m, in [36mApi.json_msg_query[39m[34m(self, url, dataframe)[39m
+[32m    147[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mjson_msg_query[39m([38;5;28mself[39m, url, dataframe=[38;5;28;01mFalse[39;00m):
+[32m    148[39m [38;5;250m    [39m[33;03m''' Common case where the url is fully constructed[39;00m
+[32m    149[39m [33;03m        and the response data is stored in the 'msg' field.[39;00m
+[32m    150[39m 
+[32m   (...)[39m[32m    161[39m [33;03m        returned data; type depends on dataframe option[39;00m
+[32m    162[39m [33;03m    '''[39;00m
+[32m--> [39m[32m164[39m     data = [38;5;28;43mself[39;49m[43m.[49m[43mdo_query[49m[43m([49m[38;5;28;43;01mlambda[39;49;00m[43m [49m[43m*[49m[43ma[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mk[49m[43m:[49m[43m [49m[43murl[49m[43m,[49m
+[32m    165[39m [43m                         [49m[38;5;28;43mself[39;49m[43m.[49m[43mread_data[49m[43m)[49m
+[32m    167[39m     [38;5;28;01mif[39;00m dataframe [38;5;129;01mis[39;00m [38;5;28;01mTrue[39;00m:
+[32m    168[39m         warnings.warn([33m"[39m[33mdataframe argument is deprecated[39m[33m"[39m, [38;5;167;01mDeprecationWarning[39;00m)
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:204[39m, in [36mApi.do_query[39m[34m(self, url_builder_fn, json_traversal_fn, *args, **kwargs)[39m
+[32m    200[39m api_url = url_builder_fn(*args, **kwargs)
+[32m    202[39m post = kwargs.get([33m'[39m[33mpost[39m[33m'[39m, [38;5;28;01mFalse[39;00m)
+[32m--> [39m[32m204[39m json_parsed_data = [38;5;28;43mself[39;49m[43m.[49m[43mretrieve_parsed_json_over_http[49m[43m([49m[43mapi_url[49m[43m,[49m[43m [49m[43mpost[49m[43m)[49m
+[32m    206[39m [38;5;28;01mreturn[39;00m json_traversal_fn(json_parsed_data)
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:369[39m, in [36mApi.retrieve_parsed_json_over_http[39m[34m(self, url, post)[39m
+[32m    366[39m [38;5;28mself[39m._log.info([33m"[39m[33mDownloading URL: [39m[38;5;132;01m%s[39;00m[33m"[39m, url)
+[32m    368[39m [38;5;28;01mif[39;00m post [38;5;129;01mis[39;00m [38;5;28;01mFalse[39;00m:
+[32m--> [39m[32m369[39m     data = [43mjson_utilities[49m[43m.[49m[43mread_url_get[49m[43m([49m
+[32m    370[39m [43m        [49m[43mrequests[49m[43m.[49m[43mutils[49m[43m.[49m[43mquote[49m[43m([49m[43murl[49m[43m,[49m
+[32m    371[39m [43m                             [49m[33;43m'[39;49m[33;43m;/?:@&=+$,[39;49m[33;43m'[39;49m[43m)[49m[43m)[49m
+[32m    372[39m [38;5;28;01melse[39;00m:
+[32m    373[39m     data = json_utilities.read_url_post(url)
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/json_utilities.py:118[39m, in [36mread_url_get[39m[34m(url)[39m
+[32m    115[39m response = urllib_request.urlopen(url)
+[32m    116[39m json_string = response.read().decode([33m"[39m[33mutf-8[39m[33m"[39m)
+[32m--> [39m[32m118[39m [38;5;28;01mreturn[39;00m [43mjson[49m[43m.[49m[43mloads[49m[43m([49m[43mjson_string[49m[43m)[49m
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/__init__.py:514[39m, in [36mloads[39m[34m(s, encoding, cls, object_hook, parse_float, parse_int, parse_constant, object_pairs_hook, use_decimal, allow_nan, **kw)[39m
+[32m    462[39m [38;5;250m[39m[33;03m"""Deserialize ``s`` (a ``str`` or ``unicode`` instance containing a JSON[39;00m
+[32m    463[39m [33;03mdocument) to a Python object.[39;00m
+[32m    464[39m 
+[32m   (...)[39m[32m    508[39m 
+[32m    509[39m [33;03m"""[39;00m
+[32m    510[39m [38;5;28;01mif[39;00m ([38;5;28mcls[39m [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m encoding [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m object_hook [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m
+[32m    511[39m         parse_int [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m parse_float [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m
+[32m    512[39m         parse_constant [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m [38;5;129;01mand[39;00m object_pairs_hook [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m
+[32m    513[39m         [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m use_decimal [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m allow_nan [38;5;129;01mand[39;00m [38;5;129;01mnot[39;00m kw):
+[32m--> [39m[32m514[39m     [38;5;28;01mreturn[39;00m [43m_default_decoder[49m[43m.[49m[43mdecode[49m[43m([49m[43ms[49m[43m)[49m
+[32m    515[39m [38;5;28;01mif[39;00m [38;5;28mcls[39m [38;5;129;01mis[39;00m [38;5;28;01mNone[39;00m:
+[32m    516[39m     [38;5;28mcls[39m = JSONDecoder
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/decoder.py:386[39m, in [36mJSONDecoder.decode[39m[34m(self, s, _w, _PY3)[39m
+[32m    384[39m [38;5;28;01mif[39;00m _PY3 [38;5;129;01mand[39;00m [38;5;28misinstance[39m(s, [38;5;28mbytes[39m):
+[32m    385[39m     s = [38;5;28mstr[39m(s, [38;5;28mself[39m.encoding)
+[32m--> [39m[32m386[39m obj, end = [38;5;28;43mself[39;49m[43m.[49m[43mraw_decode[49m[43m([49m[43ms[49m[43m)[49m
+[32m    387[39m end = _w(s, end).end()
+[32m    388[39m [38;5;28;01mif[39;00m end != [38;5;28mlen[39m(s):
+
+[36mFile [39m[32m/opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/decoder.py:416[39m, in [36mJSONDecoder.raw_decode[39m[34m(self, s, idx, _w, _PY3)[39m
+[32m    414[39m     [38;5;28;01melif[39;00m ord0 == [32m0xef[39m [38;5;129;01mand[39;00m s[idx:idx + [32m3[39m] == [33m'[39m[38;5;130;01m\xef[39;00m[38;5;130;01m\xbb[39;00m[38;5;130;01m\xbf[39;00m[33m'[39m:
+[32m    415[39m         idx += [32m3[39m
+[32m--> [39m[32m416[39m [38;5;28;01mreturn[39;00m [38;5;28;43mself[39;49m[43m.[49m[43mscan_once[49m[43m([49m[43ms[49m[43m,[49m[43m [49m[43midx[49m[43m=[49m[43m_w[49m[43m([49m[43ms[49m[43m,[49m[43m [49m[43midx[49m[43m)[49m[43m.[49m[43mend[49m[43m([49m[43m)[49m[43m)[49m
+
+[31mJSONDecodeError[39m: Expecting value: line 1 column 1 (char 0)
 

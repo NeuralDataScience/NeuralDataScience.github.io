@@ -382,8 +382,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart">The brain has thousands of different types of cells. How do we even begin to tease them apart?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-diving-into-this-notebook">Before diving into this notebook:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-steps">Tutorial Steps</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-set-up-our-coding-environment">Step 1. Set up our coding environment</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-allensdk">Install the AllenSDK</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-common-packages">Import common packages</a></li>
@@ -414,31 +412,6 @@ document.write(`
 <h2>The brain has thousands of different types of cells. How do we even begin to tease them apart?<a class="headerlink" href="#the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart" title="Link to this heading">#</a></h2>
 <p>We can define neurons by their <b>gene expression patterns</b>, <b>electrophysiology features</b>, and <b>structure</b>. Here, we’ll use those three features to compare and contrast cell types in the brain.</p>
 <p>This notebook will help us investigate specific features in the electrophysiology dataset from the Allen Brain Atlas. Along the way, you’ll encounter some concepts about coding in Python.</p>
-</section>
-<section id="before-diving-into-this-notebook">
-<h2>Before diving into this notebook:<a class="headerlink" href="#before-diving-into-this-notebook" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Complete <a class="reference external" href="https://sites.google.com/ucsd.edu/neuroedu/cell-types/web-instructions?authuser=0">the web-based activity</a>, which asks you to look at this data on the Allen Institute website.</p></li>
-<li><p>Work through <a class="reference external" href="https://github.com/ajuavinett/CellTypesLesson/blob/master/Introduction%20to%20Jupyter%20Notebooks.ipynb">this Introduction to Jupyter Notebooks tutorial</a> which will introduce you to Python and the Jupyter Notebook environment.</p></li>
-</ul>
-<hr></section>
-<section id="tutorial-steps">
-<h2>Tutorial Steps<a class="headerlink" href="#tutorial-steps" title="Link to this heading">#</a></h2>
-<ol class="arabic simple">
-<li><p><a class="reference internal" href="#setup"><span class="xref myst">Set up our coding environment</span></a></p></li>
-</ol>
-<p><strong>Data from a single cell</strong>. <em>Steps 2-4 are an optional demonstration of the same cell from the <a class="reference external" href="https://sites.google.com/ucsd.edu/neuroedu/cell-types?authuser=0">web-based activity</a>. These steps can be skipped.</em></p>
-<ol class="arabic simple" start="2">
-<li><p><a class="reference internal" href="#import"><span class="xref myst">Import data for a single cell</span></a></p></li>
-<li><p><a class="reference internal" href="#plotsweep"><span class="xref myst">Plot a raw sweep of data</span></a></p></li>
-<li><p><a class="reference internal" href="#morphology"><span class="xref myst">Plot the morphology of the cell</span></a></p></li>
-</ol>
-<p><strong>Data from many cells</strong>. <em>Steps 5-7 will help you look at pre-computed features for all of the cells in the database.</em></p>
-<ol class="arabic simple" start="5">
-<li><p><a class="reference internal" href="#metrics"><span class="xref myst">Analyze computed features</span></a></p></li>
-<li><p><a class="reference internal" href="#waveforms"><span class="xref myst">Compare action potential waveforms</span></a></p></li>
-<li><p><a class="reference internal" href="#compare"><span class="xref myst">Compare cell types</span></a></p></li>
-</ol>
 <hr><p><a id="setup"></a></p>
 </section>
 <section id="step-1-set-up-our-coding-environment">
@@ -509,26 +482,28 @@ matplotlib already installed
 </section>
 <section id="import-common-packages">
 <h3>Import common packages<a class="headerlink" href="#import-common-packages" title="Link to this heading">#</a></h3>
-<p>Below, we’ll <code class="docutils literal notranslate"><span class="pre">import</span></code> a common selection of packages that will help us analyze and plot our data. We’ll also configure the plotting in our notebook.</p>
-<blockquote>
-<div><p><b>Task</b>: Just like you did in the <a class="reference external" href="https://github.com/ajuavinett/CellTypesLesson/blob/master/Introduction%20to%20Jupyter%20Notebooks.ipynb">introductory notebook</a>, import the numpy module nicknamed as <code>np</code>. Add a <code>print</code> message at the end that says “Packages imported!” so that you know the code ran.</p>
-</div></blockquote>
+<p>Below, we’ll <code class="docutils literal notranslate"><span class="pre">import</span></code> a common selection of packages that will help us analyze and plot our data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import our plotting package from matplotlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-
-<span class="c1"># Specify that all plots will happen inline &amp; in high resolution</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline  
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
-
-<span class="c1"># Import pandas for working with databases</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="c1"># Import numpy below</span>
-
-
-<span class="c1"># Add your print() statement below</span>
+<span class="o">%</span><span class="k">whos</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variable     Type      Data/Info
+--------------------------------
+allensdk     module    &lt;module &#39;allensdk&#39; from &#39;&lt;...&gt;es/allensdk/__init__.py&#39;&gt;
+matplotlib   module    &lt;module &#39;matplotlib&#39; from&lt;...&gt;/matplotlib/__init__.py&#39;&gt;
+np           module    Shape: &lt;function shape at 0x104a084a0&gt;
+numpy        module    Shape: &lt;function shape at 0x104a084a0&gt;
+pandas       module    &lt;module &#39;pandas&#39; from &#39;/o&lt;...&gt;ages/pandas/__init__.py&#39;&gt;
+pd           module    &lt;module &#39;pandas&#39; from &#39;/o&lt;...&gt;ages/pandas/__init__.py&#39;&gt;
+plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/pyplot.py&#39;&gt;
 </pre></div>
 </div>
 </div>
@@ -563,21 +538,17 @@ matplotlib already installed
 </div>
 </div>
 </div>
-<p><a id="import"></a></p>
 </section>
 </section>
 <section id="step-2-import-cell-types-data">
 <h2>Step 2. Import Cell Types data<a class="headerlink" href="#step-2-import-cell-types-data" title="Link to this heading">#</a></h2>
-<p><strong>Note</strong>:  <em>Steps 2-4 are an optional demonstration of the same cell from the <a class="reference external" href="https://sites.google.com/ucsd.edu/neuroedu/cell-types?authuser=0">web-based activity</a>. These steps can be skipped if you’d like to dive into analyzing populations of cells below.</em></p>
 <p>Now that we have the module that we need, let’s import a raw sweep of the data. The cell below will grab the data for the same experiment you just looked at on the website. This data is in the form of a <a class="reference external" href="https://www.nwb.org/"><strong>Neuroscience Without Borders</strong> (NWB)</a> file.</p>
-<blockquote>
-<div><p><b>Task</b>: Find the cell specimen ID for the first cell you looked at on the Allen Institute website (hint: it’s in the URL), and assign this to <code>cell_id</code> below by replacing the <code>…</code>. Run the cell.</p>
-</div></blockquote>
+<p>You can see this same cell <a class="reference external" href="https://celltypes.brain-map.org/experiment/electrophysiology/474626527">on the Allen Institute website</a>.</p>
 <p>This might take a minute or two. You should wait until the circle in the upper right is <i>not</i> filled (Jupyter Notebook) or you have a green checkmark (Colab) to continue.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enter your cell_id below</span>
-<span class="n">cell_id</span> <span class="o">=</span> <span class="o">...</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the data for one cell (</span>
+<span class="n">cell_id</span> <span class="o">=</span> <span class="mi">474626527</span>
 
 <span class="c1"># Get the electrophysiology (ephys) data for that cell</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_data</span><span class="p">(</span><span class="n">cell_id</span><span class="p">)</span>
@@ -587,52 +558,130 @@ matplotlib already installed
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="ne">JSONDecodeError</span><span class="g g-Whitespace">                           </span>Traceback (most recent call last)
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">cell_id</span> <span class="o">=</span> <span class="o">...</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">cell_id</span> <span class="o">=</span> <span class="mi">474626527</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Get the electrophysiology (ephys) data for that cell</span>
 <span class="ne">----&gt; </span><span class="mi">5</span> <span class="n">data</span> <span class="o">=</span> <span class="n">ctc</span><span class="o">.</span><span class="n">get_ephys_data</span><span class="p">(</span><span class="n">cell_id</span><span class="p">)</span>
 <span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Data retrieved&#39;</span><span class="p">)</span>
 
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/cell_types_cache.py:299,</span> in <span class="ni">CellTypesCache.get_ephys_data</span><span class="nt">(self, specimen_id, file_name)</span>
-<span class="g g-Whitespace">    </span><span class="mi">276</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_ephys_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">277</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">278</span><span class="sd">     Download electrophysiology traces for a single cell in the database.</span>
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/cell_types_cache.py:302,</span> in <span class="ni">CellTypesCache.get_ephys_data</span><span class="nt">(self, specimen_id, file_name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">277</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">278</span><span class="sd"> Download electrophysiology traces for a single cell in the database.</span>
 <span class="g g-Whitespace">    </span><span class="mi">279</span><span class="sd"> </span>
-<span class="sd">   (...)    296         and response traces out of an NWB file.</span>
-<span class="g g-Whitespace">    </span><span class="mi">297</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">299</span>     <span class="n">file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">300</span>         <span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EPHYS_DATA_KEY</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">302</span>     <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">save_ephys_data</span><span class="p">(</span><span class="n">specimen_id</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;lazy&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">304</span>     <span class="k">return</span> <span class="n">NwbDataSet</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+<span class="sd">   (...)    296     and response traces out of an NWB file.</span>
+<span class="g g-Whitespace">    </span><span class="mi">297</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">299</span> <span class="n">file_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cache_path</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">300</span>     <span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EPHYS_DATA_KEY</span><span class="p">,</span> <span class="n">specimen_id</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">302</span> <span class="bp">self</span><span class="o">.</span><span class="n">api</span><span class="o">.</span><span class="n">save_ephys_data</span><span class="p">(</span><span class="n">specimen_id</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;lazy&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">304</span> <span class="k">return</span> <span class="n">NwbDataSet</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
 
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:125,</span> in <span class="ni">Cache.get_cache_path</span><span class="nt">(self, file_name, manifest_key, *args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">123</span>         <span class="k">return</span> <span class="n">file_name</span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span>     <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">manifest</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">125</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">manifest</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="n">manifest_key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">127</span> <span class="k">return</span> <span class="kc">None</span>
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:661,</span> in <span class="ni">cacheable.&lt;locals&gt;.decor.&lt;locals&gt;.w</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">658</span> <span class="k">if</span> <span class="n">decor</span><span class="o">.</span><span class="n">post</span> <span class="ow">and</span> <span class="ow">not</span> <span class="s1">&#39;post in kwargs&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">659</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">decor</span><span class="o">.</span><span class="n">post</span>
+<span class="ne">--&gt; </span><span class="mi">661</span> <span class="n">result</span> <span class="o">=</span> <span class="n">Cache</span><span class="o">.</span><span class="n">cacher</span><span class="p">(</span><span class="n">func</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">662</span>                       <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">663</span>                       <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">664</span> <span class="k">return</span> <span class="n">result</span>
 
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/config/manifest.py:263,</span> in <span class="ni">Manifest.get_path</span><span class="nt">(self, path_key, *args)</span>
-<span class="g g-Whitespace">    </span><span class="mi">260</span> <span class="n">path_spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_info</span><span class="p">[</span><span class="n">path_key</span><span class="p">][</span><span class="s1">&#39;spec&#39;</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">262</span> <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">263</span>     <span class="n">path</span> <span class="o">=</span> <span class="n">path_spec</span> <span class="o">%</span> <span class="n">args</span>
-<span class="g g-Whitespace">    </span><span class="mi">264</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">265</span>     <span class="n">path</span> <span class="o">=</span> <span class="n">path_spec</span>
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/warehouse_cache/cache.py:387,</span> in <span class="ni">Cache.cacher</span><span class="nt">(fn, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span>         <span class="n">writer</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">386</span>     <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">387</span>         <span class="n">data</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">389</span> <span class="k">if</span> <span class="n">reader</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">390</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">reader</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
-<span class="ne">TypeError</span>: %d format: a real number is required, not ellipsis
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/cell_types_api.py:325,</span> in <span class="ni">CellTypesApi.save_ephys_data</span><span class="nt">(self, specimen_id, file_name)</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span> <span class="n">criteria</span> <span class="o">=</span> <span class="s1">&#39;[id$eq</span><span class="si">%d</span><span class="s1">],ephys_result(well_known_files(well_known_file_type[name$eq</span><span class="si">%s</span><span class="s1">]))&#39;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span>     <span class="n">specimen_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">NWB_FILE_TYPE</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span> <span class="n">includes</span> <span class="o">=</span> <span class="s1">&#39;ephys_result(well_known_files(well_known_file_type))&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">325</span> <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_query</span><span class="p">(</span><span class="s1">&#39;Specimen&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span>                            <span class="n">criteria</span><span class="o">=</span><span class="n">criteria</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span>                            <span class="n">include</span><span class="o">=</span><span class="n">includes</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">328</span>                            <span class="n">num_rows</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">330</span> <span class="k">try</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">331</span>     <span class="n">file_url</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;ephys_result&#39;</span><span class="p">][</span>
+<span class="g g-Whitespace">    </span><span class="mi">332</span>         <span class="s1">&#39;well_known_files&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;download_link&#39;</span><span class="p">]</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/queries/rma_api.py:257,</span> in <span class="ni">RmaApi.model_query</span><span class="nt">(self, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">217</span> <span class="k">def</span><span class="w"> </span><span class="nf">model_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">218</span><span class="w">     </span><span class="sd">&#39;&#39;&#39;Construct and execute a model stage of an RMA query string.</span>
+<span class="g g-Whitespace">    </span><span class="mi">219</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">220</span><span class="sd">     Parameters</span>
+<span class="sd">   (...)    255     response, including the normalized query.</span>
+<span class="g g-Whitespace">    </span><span class="mi">256</span><span class="sd">     &#39;&#39;&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">257</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_msg_query</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span>         <span class="bp">self</span><span class="o">.</span><span class="n">build_query_url</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="bp">self</span><span class="o">.</span><span class="n">model_stage</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)))</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:164,</span> in <span class="ni">Api.json_msg_query</span><span class="nt">(self, url, dataframe)</span>
+<span class="g g-Whitespace">    </span><span class="mi">147</span> <span class="k">def</span><span class="w"> </span><span class="nf">json_msg_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">148</span><span class="w">     </span><span class="sd">&#39;&#39;&#39; Common case where the url is fully constructed</span>
+<span class="g g-Whitespace">    </span><span class="mi">149</span><span class="sd">         and the response data is stored in the &#39;msg&#39; field.</span>
+<span class="g g-Whitespace">    </span><span class="mi">150</span><span class="sd"> </span>
+<span class="sd">   (...)    161         returned data; type depends on dataframe option</span>
+<span class="g g-Whitespace">    </span><span class="mi">162</span><span class="sd">     &#39;&#39;&#39;</span>
+<span class="ne">--&gt; </span><span class="mi">164</span>     <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_query</span><span class="p">(</span><span class="k">lambda</span> <span class="o">*</span><span class="n">a</span><span class="p">,</span> <span class="o">**</span><span class="n">k</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">165</span>                          <span class="bp">self</span><span class="o">.</span><span class="n">read_data</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">167</span>     <span class="k">if</span> <span class="n">dataframe</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">168</span>         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;dataframe argument is deprecated&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:204,</span> in <span class="ni">Api.do_query</span><span class="nt">(self, url_builder_fn, json_traversal_fn, *args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span> <span class="n">api_url</span> <span class="o">=</span> <span class="n">url_builder_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span> <span class="n">post</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">204</span> <span class="n">json_parsed_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">retrieve_parsed_json_over_http</span><span class="p">(</span><span class="n">api_url</span><span class="p">,</span> <span class="n">post</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span> <span class="k">return</span> <span class="n">json_traversal_fn</span><span class="p">(</span><span class="n">json_parsed_data</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/api/api.py:369,</span> in <span class="ni">Api.retrieve_parsed_json_over_http</span><span class="nt">(self, url, post)</span>
+<span class="g g-Whitespace">    </span><span class="mi">366</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Downloading URL: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">368</span> <span class="k">if</span> <span class="n">post</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">369</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">json_utilities</span><span class="o">.</span><span class="n">read_url_get</span><span class="p">(</span>
+<span class="g g-Whitespace">    </span><span class="mi">370</span>         <span class="n">requests</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">url</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">371</span>                              <span class="s1">&#39;;/?:@&amp;=+$,&#39;</span><span class="p">))</span>
+<span class="g g-Whitespace">    </span><span class="mi">372</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">373</span>     <span class="n">data</span> <span class="o">=</span> <span class="n">json_utilities</span><span class="o">.</span><span class="n">read_url_post</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/allensdk/core/json_utilities.py:118,</span> in <span class="ni">read_url_get</span><span class="nt">(url)</span>
+<span class="g g-Whitespace">    </span><span class="mi">115</span> <span class="n">response</span> <span class="o">=</span> <span class="n">urllib_request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="n">json_string</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">118</span> <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_string</span><span class="p">)</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/__init__.py:514,</span> in <span class="ni">loads</span><span class="nt">(s, encoding, cls, object_hook, parse_float, parse_int, parse_constant, object_pairs_hook, use_decimal, allow_nan, **kw)</span>
+<span class="g g-Whitespace">    </span><span class="mi">462</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Deserialize ``s`` (a ``str`` or ``unicode`` instance containing a JSON</span>
+<span class="g g-Whitespace">    </span><span class="mi">463</span><span class="sd"> document) to a Python object.</span>
+<span class="g g-Whitespace">    </span><span class="mi">464</span><span class="sd"> </span>
+<span class="sd">   (...)    508 </span>
+<span class="g g-Whitespace">    </span><span class="mi">509</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">510</span> <span class="k">if</span> <span class="p">(</span><span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">encoding</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">object_hook</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
+<span class="g g-Whitespace">    </span><span class="mi">511</span>         <span class="n">parse_int</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">parse_float</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
+<span class="g g-Whitespace">    </span><span class="mi">512</span>         <span class="n">parse_constant</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">object_pairs_hook</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">513</span>         <span class="ow">and</span> <span class="ow">not</span> <span class="n">use_decimal</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">allow_nan</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">kw</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">514</span>     <span class="k">return</span> <span class="n">_default_decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">515</span> <span class="k">if</span> <span class="bp">cls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">516</span>     <span class="bp">cls</span> <span class="o">=</span> <span class="n">JSONDecoder</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/decoder.py:386,</span> in <span class="ni">JSONDecoder.decode</span><span class="nt">(self, s, _w, _PY3)</span>
+<span class="g g-Whitespace">    </span><span class="mi">384</span> <span class="k">if</span> <span class="n">_PY3</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">385</span>     <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">386</span> <span class="n">obj</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">387</span> <span class="n">end</span> <span class="o">=</span> <span class="n">_w</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">388</span> <span class="k">if</span> <span class="n">end</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+
+<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/simplejson/decoder.py:416,</span> in <span class="ni">JSONDecoder.raw_decode</span><span class="nt">(self, s, idx, _w, _PY3)</span>
+<span class="g g-Whitespace">    </span><span class="mi">414</span>     <span class="k">elif</span> <span class="n">ord0</span> <span class="o">==</span> <span class="mh">0xef</span> <span class="ow">and</span> <span class="n">s</span><span class="p">[</span><span class="n">idx</span><span class="p">:</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;</span><span class="se">\xef\xbb\xbf</span><span class="s1">&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">415</span>         <span class="n">idx</span> <span class="o">+=</span> <span class="mi">3</span>
+<span class="ne">--&gt; </span><span class="mi">416</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">scan_once</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="n">_w</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span><span class="o">.</span><span class="n">end</span><span class="p">())</span>
+
+<span class="ne">JSONDecodeError</span>: Expecting value: line 1 column 1 (char 0)
 </pre></div>
 </div>
 </div>
 </div>
 <p>Thankfully, our NWB file has some built-in <strong>methods</strong> to enable us to pull out a recording sweep. We can access methods of objects like our <code class="docutils literal notranslate"><span class="pre">data</span></code> object by adding a period, and then the method. That’s what we’re doing below, with <code class="docutils literal notranslate"><span class="pre">data.get_sweep()</span></code>.</p>
-<blockquote>
-<div><p><b>Task:</b> Choose your favorite sweep below. (<u>Hint</u>: go back to the website to see what the sweep numbers are.)</p>
-</div></blockquote>
-<p><i>Note</i>: You may get an <code class="docutils literal notranslate"><span class="pre">H5pyDeprecationWarning</span></code>, but don’t worry about it. This is out of our control. :)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assign your favorite sweep number to a variable &quot;sweep_number&quot; below.</span>
-<span class="n">sweep_number</span> <span class="o">=</span> <span class="o">...</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ve chosen a sweep with some action potentials</span>
+<span class="n">sweep_number</span> <span class="o">=</span> <span class="mi">28</span>
 
 <span class="n">sweep_data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_sweep</span><span class="p">(</span><span class="n">sweep_number</span><span class="p">)</span> 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sweep obtained&#39;</span><span class="p">)</span>
@@ -640,7 +689,6 @@ matplotlib already installed
 </div>
 </div>
 </div>
-<p><a id="plotsweep"></a></p>
 </section>
 <section id="step-3-plot-a-raw-sweep-of-data">
 <h2>Step 3. Plot a raw sweep of data<a class="headerlink" href="#step-3-plot-a-raw-sweep-of-data" title="Link to this heading">#</a></h2>
@@ -681,7 +729,6 @@ matplotlib already installed
 </div>
 </div>
 </div>
-<p><a id="morphology"></a></p>
 </section>
 <section id="step-4-plot-the-morphology-of-the-cell">
 <h2>Step 4. Plot the morphology of the cell<a class="headerlink" href="#step-4-plot-the-morphology-of-the-cell" title="Link to this heading">#</a></h2>
@@ -724,7 +771,6 @@ matplotlib already installed
 </div>
 </div>
 </div>
-<p><a id="metrics"></a></p>
 </section>
 <section id="step-5-analyze-pre-computed-features">
 <h2>Step 5. Analyze pre-computed features<a class="headerlink" href="#step-5-analyze-pre-computed-features" title="Link to this heading">#</a></h2>
@@ -745,8 +791,8 @@ matplotlib already installed
 </div>
 </div>
 <p>As you can see in the dataframe above, there are many <strong>pre-computed features</strong> available in this dataset. <a class="reference external" href="https://docs.google.com/document/d/1YGLwkMTebwrXd_1E817LFbztMjSTCWh83Mlp3_3ZMEo/edit?usp=sharing">Here’s a glossary</a>, in case you’re curious.</p>
-<p><img alt="" src="https://github.com/ajuavinett/CellTypesLesson/blob/master/docs/ap_features.png?raw=true" />
-Image from the <a href="http://help.brain-map.org/download/attachments/8323525/CellTypes_Ephys_Overview.pdf">Allen Institute Cell Types Database Technical Whitepaper.</a>
+<p><img alt="" src="https://github.com/ajuavinett/CellTypesLesson/blob/master/docs/ap_features.png?raw=true" /></p>
+<p>Image from the <a href="http://help.brain-map.org/download/attachments/8323525/CellTypes_Ephys_Overview.pdf">Allen Institute Cell Types Database Technical Whitepaper.</a>
 <br><br></p>
 <p>Let’s first look at the speed of the trough, and the ratio between the upstroke and downstroke of the action potential:</p>
 <ul class="simple">
@@ -804,7 +850,6 @@ Image from the <a href="http://help.brain-map.org/download/attachments/8323525/C
 </div>
 </div>
 <p>Looks like these two clusters do partially relate to the dendritic type. Cells with spiny dendrites (which are typically excitatory cells) have a big ratio of upstroke:downstroke, and a more shallow trough (less negative). Cells with aspiny dendrites (typically inhibitory cells) are a little bit more varied. But </i>only</i> aspiny cells have a low upstroke:downstroke ratio and a deeper trough (more negative).</p>
-<p><a id="waveforms"></a></p>
 </section>
 <section id="step-6-compare-waveforms">
 <h2>Step 6. Compare waveforms<a class="headerlink" href="#step-6-compare-waveforms" title="Link to this heading">#</a></h2>
@@ -869,7 +914,6 @@ Image from the <a href="http://help.brain-map.org/download/attachments/8323525/C
 <div><p><b>Hint</b>: You only need to change <i>one</i> value in all of the code in this step in order to make this change. How did we arrange our dataframe at first?</p>
 </div></blockquote>
 <p>As you’ll hopefully see, even that one feature, upstroke:downstroke ratio, means the shape of the action potential is dramatically different. The other feature we looked at above, size of the trough, is highly correlated with upstroke:downstroke. You can see that by comparing the two cells here. Cells with high upstroke:downstroke tend to have less negative troughs (undershoots) after the action potential.</p>
-<p><a id="compare"></a></p>
 </section>
 <section id="step-7-compare-cell-types">
 <h2>Step 7. Compare cell types<a class="headerlink" href="#step-7-compare-cell-types" title="Link to this heading">#</a></h2>
@@ -880,6 +924,7 @@ Image from the <a href="http://help.brain-map.org/download/attachments/8323525/C
 <li><p>If you’d like to compare cells from different <strong>species</strong>, the column name is <code class="docutils literal notranslate"><span class="pre">species</span></code>.</p></li>
 <li><p>If you’d like to compare <strong>spiny vs. aspiny cells</strong>, the column name is <code class="docutils literal notranslate"><span class="pre">dendrite_type</span></code>.</p></li>
 <li><p>If you’d like to compare two <strong>transgenic lines</strong> (mouse cells only), the column name is <code class="docutils literal notranslate"><span class="pre">transgenic_line</span></code>. What if we want to know whether different genetically-identified cells have different intrinsic physiology?</p></li>
+<li><p>If you’d like to compare two <strong>disease states</strong> (human cells only; samples taken from people either with epilepsy and brain tumors), the column name is <code class="docutils literal notranslate"><span class="pre">disease_state</span></code>.</p></li>
 </ul>
 <blockquote>
 <div><p><strong>Task</strong>: Assign <code class="docutils literal notranslate"><span class="pre">column_name</span></code> below to the name of your column to see the unique values in that column. Make sure your column is a <strong>string</strong>, in other words, it should be in single  quotes.</p>
@@ -1056,8 +1101,6 @@ Image from the <a href="http://help.brain-map.org/download/attachments/8323525/C
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart">The brain has thousands of different types of cells. How do we even begin to tease them apart?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#before-diving-into-this-notebook">Before diving into this notebook:</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-steps">Tutorial Steps</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-set-up-our-coding-environment">Step 1. Set up our coding environment</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-allensdk">Install the AllenSDK</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-common-packages">Import common packages</a></li>
