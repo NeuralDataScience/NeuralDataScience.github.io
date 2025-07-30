@@ -412,14 +412,13 @@ document.write(`
 <h2>The brain has thousands of different types of cells. How do we even begin to tease them apart?<a class="headerlink" href="#the-brain-has-thousands-of-different-types-of-cells-how-do-we-even-begin-to-tease-them-apart" title="Link to this heading">#</a></h2>
 <p>We can define neurons by their <b>gene expression patterns</b>, <b>electrophysiology features</b>, and <b>structure</b>. Here, we’ll use those three features to compare and contrast cell types in the brain.</p>
 <p>This notebook will help us investigate specific features in the electrophysiology dataset from the Allen Brain Atlas. Along the way, you’ll encounter some concepts about coding in Python.</p>
-<hr><p><a id="setup"></a></p>
-</section>
+<hr></section>
 <section id="step-1-set-up-our-coding-environment">
 <h2>Step 1. Set up our coding environment<a class="headerlink" href="#step-1-set-up-our-coding-environment" title="Link to this heading">#</a></h2>
 <p>Whenever we start an analysis in Python, we need to be sure to import the necessary code packages. If you’re running this notebook on Colab or Binder, the cells below will install packages into your coding environment – we are <em>not</em> installing anything on your computer.</p>
 <section id="install-the-allensdk">
 <h3>Install the AllenSDK<a class="headerlink" href="#install-the-allensdk" title="Link to this heading">#</a></h3>
-<p>The Allen Institute has compiled a set of code and tools called a <strong>Software Development Kit</strong> (SDK). These tools will help us import and analyze the cell types data. See <a class="reference internal" href="#technical"><span class="xref myst">Technical Notes</span></a> at the end of this notebook for more information about working with the AllenSDK.</p>
+<p>The Allen Institute has compiled a set of code and tools called a <strong>Software Development Kit</strong> (SDK). These tools will help us import and analyze the cell types data.</p>
 <blockquote>
 <div><p><b>Task</b>: Run the cell below, which will install the allensdk into your coding environment.</p>
 </div></blockquote>
@@ -499,8 +498,8 @@ matplotlib already installed
 --------------------------------
 allensdk     module    &lt;module &#39;allensdk&#39; from &#39;&lt;...&gt;es/allensdk/__init__.py&#39;&gt;
 matplotlib   module    &lt;module &#39;matplotlib&#39; from&lt;...&gt;/matplotlib/__init__.py&#39;&gt;
-np           module    Shape: &lt;function shape at 0x10439da80&gt;
-numpy        module    Shape: &lt;function shape at 0x10439da80&gt;
+np           module    Shape: &lt;function shape at 0x103e45a80&gt;
+numpy        module    Shape: &lt;function shape at 0x103e45a80&gt;
 pandas       module    &lt;module &#39;pandas&#39; from &#39;/o&lt;...&gt;ages/pandas/__init__.py&#39;&gt;
 pd           module    &lt;module &#39;pandas&#39; from &#39;/o&lt;...&gt;ages/pandas/__init__.py&#39;&gt;
 plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/pyplot.py&#39;&gt;
@@ -557,9 +556,6 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:31:42,285 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/491198297
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data retrieved
 </pre></div>
 </div>
@@ -664,12 +660,6 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:31:58,579 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/491120375
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:31:59,236 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/501275935
-</pre></div>
-</div>
 <img alt="../_images/e3e539d3e4ec5c128bbce872a27edddab6d33686c0347d66a2342cae23ff6452.png" src="../_images/e3e539d3e4ec5c128bbce872a27edddab6d33686c0347d66a2342cae23ff6452.png" />
 </div>
 </div>
@@ -893,7 +883,7 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 <p>Let’s first look at the speed of the trough, and the ratio between the upstroke and downstroke of the action potential:</p>
 <ul class="simple">
 <li><p><strong>Action potential fast trough</strong> (<code>fast_trough_v_long_square</code>): Minimum value of the membrane potential in the interval lasting 5 ms after the peak.</p></li>
-<li><p><strong>Upstroke/downstroke ratio</strong> (<code>upstroke_downstroke_ratio_long_square</code>)</b>: The ratio between the absolute values of the action potential peak upstroke and the action potential peak downstroke.</div></p></li>
+<li><p><strong>Upstroke/downstroke ratio</strong> (<code>upstroke_downstroke_ratio_long_square</code>)</b>: The ratio between the absolute values of the action potential peak upstroke and the action potential peak downstroke.</p></li>
 </ul>
 <p>Above, we created a pandas dataframe of all of these features. Here, we’ll assign the columns we’re interested to two different <strong>variables</strong>, so that they will contain all of the datapoints we’re interested in. We can access different columns of the dataframe by using the syntax <code class="docutils literal notranslate"><span class="pre">dataframe['column_of_interest']</span></code>. The columns of interest here are <code class="docutils literal notranslate"><span class="pre">fast_trough_v_long_square</span></code> and <code class="docutils literal notranslate"><span class="pre">upstroke_downstroke_ratio_long_square</span></code>].</p>
 <blockquote>
@@ -1001,9 +991,6 @@ plt          module    &lt;module &#39;matplotlib.pyplo&lt;...&gt;es/matplotlib/
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2025-07-17 08:32:11,169 allensdk.api.api.retrieve_file_over_http INFO     Downloading URL: http://api.brain-map.org/api/v2/well_known_file_download/567445815
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sweep obtained
 </pre></div>
 </div>
