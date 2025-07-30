@@ -407,92 +407,122 @@ document.write(`
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Data/species_brainmass_neurons.csv&#39;</span><span class="p">)</span>
+<span class="c1"># Get the data from the &quot;raw&quot; version of the file hosted on our GitHub</span>
+<span class="o">!</span>wget<span class="w"> </span>https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
+
+<span class="c1"># Open the csv and assign to a dataframe called &quot;data&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;species_brainmass_neurons.csv&#39;</span><span class="p">)</span>
 <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">8</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;config&#39;</span><span class="p">,</span> <span class="s2">&quot;InlineBackend.figure_format = &#39;retina&#39;&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="ne">----&gt; </span><span class="mi">8</span> <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;Data/species_brainmass_neurons.csv&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/util/_decorators.py:211,</span> in <span class="ni">deprecate_kwarg.&lt;locals&gt;._deprecate_kwarg.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">209</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">210</span>         <span class="n">kwargs</span><span class="p">[</span><span class="n">new_arg_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_arg_value</span>
-<span class="ne">--&gt; </span><span class="mi">211</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/util/_decorators.py:331,</span> in <span class="ni">deprecate_nonkeyword_arguments.&lt;locals&gt;.decorate.&lt;locals&gt;.wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">325</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num_allow_args</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">326</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">327</span>         <span class="n">msg</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arguments</span><span class="o">=</span><span class="n">_format_argument_list</span><span class="p">(</span><span class="n">allow_args</span><span class="p">)),</span>
-<span class="g g-Whitespace">    </span><span class="mi">328</span>         <span class="ne">FutureWarning</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">329</span>         <span class="n">stacklevel</span><span class="o">=</span><span class="n">find_stack_level</span><span class="p">(),</span>
-<span class="g g-Whitespace">    </span><span class="mi">330</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">331</span> <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:950,</span> in <span class="ni">read_csv</span><span class="nt">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, cache_dates, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, encoding_errors, dialect, error_bad_lines, warn_bad_lines, on_bad_lines, delim_whitespace, low_memory, memory_map, float_precision, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">935</span> <span class="n">kwds_defaults</span> <span class="o">=</span> <span class="n">_refine_defaults_read</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">936</span>     <span class="n">dialect</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">937</span>     <span class="n">delimiter</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="mi">946</span>     <span class="n">defaults</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;delimiter&quot;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="p">},</span>
-<span class="g g-Whitespace">    </span><span class="mi">947</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">948</span> <span class="n">kwds</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwds_defaults</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">950</span> <span class="k">return</span> <span class="n">_read</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="n">kwds</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:605,</span> in <span class="ni">_read</span><span class="nt">(filepath_or_buffer, kwds)</span>
-<span class="g g-Whitespace">    </span><span class="mi">602</span> <span class="n">_validate_names</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">604</span> <span class="c1"># Create the parser.</span>
-<span class="ne">--&gt; </span><span class="mi">605</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">TextFileReader</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">607</span> <span class="k">if</span> <span class="n">chunksize</span> <span class="ow">or</span> <span class="n">iterator</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">608</span>     <span class="k">return</span> <span class="n">parser</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1442,</span> in <span class="ni">TextFileReader.__init__</span><span class="nt">(self, f, engine, **kwds)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1439</span>     <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="s2">&quot;has_index_names&quot;</span><span class="p">]</span>
-<span class="g g-Whitespace">   </span><span class="mi">1441</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="p">:</span> <span class="n">IOHandles</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="ne">-&gt; </span><span class="mi">1442</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engine</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_engine</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/parsers/readers.py:1735,</span> in <span class="ni">TextFileReader._make_engine</span><span class="nt">(self, f, engine)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1733</span>     <span class="k">if</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">mode</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1734</span>         <span class="n">mode</span> <span class="o">+=</span> <span class="s2">&quot;b&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1735</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="o">=</span> <span class="n">get_handle</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1736</span>     <span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1737</span>     <span class="n">mode</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1738</span>     <span class="n">encoding</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1739</span>     <span class="n">compression</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;compression&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1740</span>     <span class="n">memory_map</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;memory_map&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1741</span>     <span class="n">is_text</span><span class="o">=</span><span class="n">is_text</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1742</span>     <span class="n">errors</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;encoding_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;strict&quot;</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1743</span>     <span class="n">storage_options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;storage_options&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
-<span class="g g-Whitespace">   </span><span class="mi">1744</span> <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1745</span> <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-<span class="g g-Whitespace">   </span><span class="mi">1746</span> <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">handle</span>
-
-<span class="nn">File /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages/pandas/io/common.py:856,</span> in <span class="ni">get_handle</span><span class="nt">(path_or_buf, mode, encoding, compression, memory_map, is_text, errors, storage_options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">851</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">852</span>     <span class="c1"># Check whether the filename is to be opened in binary mode.</span>
-<span class="g g-Whitespace">    </span><span class="mi">853</span>     <span class="c1"># Binary mode does not support &#39;encoding&#39; and &#39;newline&#39;.</span>
-<span class="g g-Whitespace">    </span><span class="mi">854</span>     <span class="k">if</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span> <span class="ow">and</span> <span class="s2">&quot;b&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">855</span>         <span class="c1"># Encoding</span>
-<span class="ne">--&gt; </span><span class="mi">856</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">857</span>             <span class="n">handle</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">858</span>             <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">859</span>             <span class="n">encoding</span><span class="o">=</span><span class="n">ioargs</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">860</span>             <span class="n">errors</span><span class="o">=</span><span class="n">errors</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">861</span>             <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">862</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">863</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">864</span>         <span class="c1"># Binary mode</span>
-<span class="g g-Whitespace">    </span><span class="mi">865</span>         <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="n">ioargs</span><span class="o">.</span><span class="n">mode</span><span class="p">)</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;Data/species_brainmass_neurons.csv&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2025-07-30 12:21:00--  https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
 </pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8003::154, 2606:50c0:8002::154, 2606:50c0:8001::154, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8003::154|:443... connected.
+HTTP request sent, awaiting response... 
+</pre></div>
 </div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200 OK
+Length: 3649 (3.6K) [text/plain]
+Saving to: ‘species_brainmass_neurons.csv.1’
+
+
+          species_b   0%[                    ]       0  --.-KB/s               
+species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s      
+
+2025-07-30 12:21:00 (8.51 MB/s) - ‘species_brainmass_neurons.csv.1’ saved [3649/3649]
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Species</th>
+      <th>Order</th>
+      <th>cortex_mass_g</th>
+      <th>Neurons</th>
+      <th>Other_cells</th>
+      <th>Neurons_mg</th>
+      <th>Other_cells_mg</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Sorex fumeus</td>
+      <td>Eulipotyphla</td>
+      <td>0.084</td>
+      <td>9730000</td>
+      <td>9290000</td>
+      <td>116727</td>
+      <td>111754</td>
+      <td>Sarko et al., 2009</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mus musculus</td>
+      <td>Glires</td>
+      <td>0.173</td>
+      <td>13688162</td>
+      <td>12061838</td>
+      <td>78672</td>
+      <td>68643</td>
+      <td>Herculano-Houzel et al., 2006</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Blarina brevicauda</td>
+      <td>Eulipotyphla</td>
+      <td>0.197</td>
+      <td>11876000</td>
+      <td>15820000</td>
+      <td>60214</td>
+      <td>80729</td>
+      <td>Sarko et al., 2009</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Heterocephalus glaber</td>
+      <td>Glires</td>
+      <td>0.184</td>
+      <td>6151875</td>
+      <td>8398125</td>
+      <td>33374</td>
+      <td>45894</td>
+      <td>Herculano-Houzel et al., 2011</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Condylura cristata</td>
+      <td>Eulipotyphla</td>
+      <td>0.420</td>
+      <td>17250000</td>
+      <td>32010000</td>
+      <td>40777</td>
+      <td>76995</td>
+      <td>Sarko et al., 2009</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 <p>One of the first steps in data exploration is checking the shape of the dataset:</p>
 <div class="cell docutils container">
@@ -531,7 +561,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/72cdcf2b5eddade4289777d969781c82576f67fcca700a6fdba6baef80f03e9e.png"><img alt="../_images/72cdcf2b5eddade4289777d969781c82576f67fcca700a6fdba6baef80f03e9e.png" src="../_images/72cdcf2b5eddade4289777d969781c82576f67fcca700a6fdba6baef80f03e9e.png" style="width: 605px; height: 272px;" />
+<a class="reference internal image-reference" href="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png"><img alt="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png" src="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png" style="width: 842px; height: 386px;" />
 </a>
 </div>
 </div>
@@ -541,6 +571,10 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<a class="reference internal image-reference" href="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png"><img alt="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png" src="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png" style="width: 1232px; height: 1231px;" />
+</a>
 </div>
 </div>
 <div class="cell docutils container">
@@ -558,7 +592,11 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/756d55da9630f84f67538c4f01f7f6c3361fd76ba44d6dd870244de4675e807c.png"><img alt="../_images/756d55da9630f84f67538c4f01f7f6c3361fd76ba44d6dd870244de4675e807c.png" src="../_images/756d55da9630f84f67538c4f01f7f6c3361fd76ba44d6dd870244de4675e807c.png" style="width: 327px; height: 265px;" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_88540/619943810.py:2: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
+  corr = data.corr()
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png"><img alt="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png" src="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png" style="width: 454px; height: 372px;" />
 </a>
 </div>
 </div>
