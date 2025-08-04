@@ -21,6 +21,7 @@ parts:
       chapters:
       - file: Chapter09/SingleCellEphys
       - file: Chapter09/2pImaging
+      - file: Chapter13/LitMining
     - caption: APPROACHES TO WORKING WITH BIG DATA
       numbered: 0
       chapters:
