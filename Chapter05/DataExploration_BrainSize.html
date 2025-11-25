@@ -405,8 +405,6 @@ document.write(`
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
-
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 
 <span class="c1"># Get the data from the &quot;raw&quot; version of the file hosted on our GitHub</span>
@@ -419,8 +417,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2025-11-25 12:37:55--  https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8002::154, 2606:50c0:8003::154, 2606:50c0:8000::154, ...
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2025-11-25 13:01:03--  https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8002::154, 2606:50c0:8003::154, 2606:50c0:8000::154, ...
 Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8002::154|:443... 
 </pre></div>
 </div>
@@ -432,13 +432,13 @@ Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:80
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200 OK
 Length: 3649 (3.6K) [text/plain]
-Saving to: ‘species_brainmass_neurons.csv.3’
+Saving to: ‘species_brainmass_neurons.csv.6’
 
 
           species_b   0%[                    ]       0  --.-KB/s               
 species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s      
 
-2025-11-25 12:37:55 (17.9 MB/s) - ‘species_brainmass_neurons.csv.3’ saved [3649/3649]
+2025-11-25 13:01:03 (15.5 MB/s) - ‘species_brainmass_neurons.csv.6’ saved [3649/3649]
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -566,8 +566,32 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png"><img alt="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png" src="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png" style="width: 842px; height: 386px;" />
-</a>
+<img alt="../_images/d53c6f0335e60fdb55e44b5b624ab447d6ad4366c6c868508f8841ce90d7cd9f.png" src="../_images/d53c6f0335e60fdb55e44b5b624ab447d6ad4366c6c868508f8841ce90d7cd9f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Order&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Neurons&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ticklabel_format</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;plain&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>  <span class="c1"># Disable scientific notation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/b688ec2f073cb8423d34a7b70896381766ff74183f19c75891325dfd536b1f29.png" src="../_images/b688ec2f073cb8423d34a7b70896381766ff74183f19c75891325dfd536b1f29.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;cortex_mass_g&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Neurons&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ticklabel_format</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;plain&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>  <span class="c1"># Disable scientific notation</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Cortex Mass (g)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/275b894d6dce8527c0d5f15699ab73d6ef5f76dd199614766498328ee909519b.png" src="../_images/275b894d6dce8527c0d5f15699ab73d6ef5f76dd199614766498328ee909519b.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -578,8 +602,7 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
 </div>
 </div>
 <div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png"><img alt="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png" src="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png" style="width: 1232px; height: 1231px;" />
-</a>
+<img alt="../_images/39cd1c5361678f618ae44718493aa05e6bb7fe7db57107ca568261816314f47f.png" src="../_images/39cd1c5361678f618ae44718493aa05e6bb7fe7db57107ca568261816314f47f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -597,12 +620,11 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_82727/619943810.py:2: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_83049/619943810.py:2: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
   corr = data.corr()
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png"><img alt="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png" src="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png" style="width: 454px; height: 372px;" />
-</a>
+<img alt="../_images/e303f18d6fde2ea890058bf719c2de2139d34803281ff52232e19aa0ecf98d7b.png" src="../_images/e303f18d6fde2ea890058bf719c2de2139d34803281ff52232e19aa0ecf98d7b.png" />
 </div>
 </div>
 </section>
