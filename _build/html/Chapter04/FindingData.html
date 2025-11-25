@@ -198,6 +198,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Chapter09/SingleCellEphys.html">Defining cell types by their electrophysiology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter09/2pImaging.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter13/LitMining.html">Literature Mining</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">APPROACHES TO WORKING WITH BIG DATA</span></p>
 <ul class="nav bd-sidenav">
@@ -634,29 +635,29 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;header&#39;: {&#39;type&#39;: &#39;esearch&#39;, &#39;version&#39;: &#39;0.3&#39;},
- &#39;esearchresult&#39;: {&#39;count&#39;: &#39;41435&#39;,
+ &#39;esearchresult&#39;: {&#39;count&#39;: &#39;44748&#39;,
   &#39;retmax&#39;: &#39;20&#39;,
   &#39;retstart&#39;: &#39;0&#39;,
-  &#39;idlist&#39;: [&#39;40638012&#39;,
-   &#39;40637963&#39;,
-   &#39;40637874&#39;,
-   &#39;40637784&#39;,
-   &#39;40637279&#39;,
-   &#39;40637106&#39;,
-   &#39;40637004&#39;,
-   &#39;40636562&#39;,
-   &#39;40636402&#39;,
-   &#39;40636395&#39;,
-   &#39;40636273&#39;,
-   &#39;40635463&#39;,
-   &#39;40635169&#39;,
-   &#39;40634927&#39;,
-   &#39;40634639&#39;,
-   &#39;40634584&#39;,
-   &#39;40634488&#39;,
-   &#39;40634469&#39;,
-   &#39;40634463&#39;,
-   &#39;40634428&#39;],
+  &#39;idlist&#39;: [&#39;41288796&#39;,
+   &#39;41288521&#39;,
+   &#39;41287813&#39;,
+   &#39;41287803&#39;,
+   &#39;41287693&#39;,
+   &#39;41286785&#39;,
+   &#39;41286742&#39;,
+   &#39;41286313&#39;,
+   &#39;41286281&#39;,
+   &#39;41286253&#39;,
+   &#39;41286243&#39;,
+   &#39;41286215&#39;,
+   &#39;41286089&#39;,
+   &#39;41286087&#39;,
+   &#39;41286034&#39;,
+   &#39;41285969&#39;,
+   &#39;41285951&#39;,
+   &#39;41285948&#39;,
+   &#39;41285940&#39;,
+   &#39;41285925&#39;],
   &#39;translationset&#39;: [{&#39;from&#39;: &#39;neural&#39;,
     &#39;to&#39;: &#39;&quot;neural&quot;[All Fields] OR &quot;neuralization&quot;[All Fields] OR &quot;neuralize&quot;[All Fields] OR &quot;neuralized&quot;[All Fields] OR &quot;neuralizes&quot;[All Fields] OR &quot;neuralizing&quot;[All Fields] OR &quot;neurally&quot;[All Fields]&#39;},
    {&#39;from&#39;: &#39;data science&#39;,
@@ -680,7 +681,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Is California On Fire?&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;Yes&lt;/h1&gt;\nupdated: Thu Jul 10 10:53:04 2025 PDT\n&lt;/body&gt;\n&lt;/html&gt;\n&#39;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>b&#39;&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;Is California On Fire?&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n&lt;h1&gt;Yes&lt;/h1&gt;\nupdated: Tue Nov 25 12:34:16 2025 PST\n&lt;/body&gt;\n&lt;/html&gt;\n&#39;
 </pre></div>
 </div>
 </div>
@@ -719,27 +720,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting Biopython
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Downloading biopython-1.85-cp311-cp311-macosx_11_0_arm64.whl.metadata (13 kB)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: numpy in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from Biopython) (1.23.5)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading biopython-1.85-cp311-cp311-macosx_11_0_arm64.whl (2.8 MB)
-?25l   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">0.0/2.8 MB</span> <span class=" -Color -Color-Red">?</span> eta <span class=" -Color -Color-Cyan">-:--:--</span>
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">2.8/2.8 MB</span> <span class=" -Color -Color-Red">30.5 MB/s</span> eta <span class=" -Color -Color-Cyan">0:00:00</span>
-?25h
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Installing collected packages: Biopython
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Successfully installed Biopython-1.85
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: Biopython in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (1.85)
+Requirement already satisfied: numpy in /opt/miniconda3/envs/jb_py311/lib/python3.11/site-packages (from Biopython) (1.26.4)
 </pre></div>
 </div>
 </div>
