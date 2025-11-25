@@ -16,6 +16,7 @@ parts:
       chapters:
       - file: Chapter04/FindingData
       - file: Chapter05/DataExploration_BrainSize
+      - file: Chapter05/ERsimulation
     - caption: KINDS OF NEURAL DATA
       numbered: 0
       chapters:
@@ -26,3 +27,4 @@ parts:
       numbered: 0
       chapters:
       - file: Chapter16/DimensionalityReduction
+  
