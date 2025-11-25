@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Exploring the Data &#8212; Neuroscience in the Age of Data Science</title>
+    <title>Misunderstandings! In the Emergency Room.* &#8212; Neuroscience in the Age of Data Science</title>
   
   
   
@@ -57,11 +57,11 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter05/DataExploration_BrainSize';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Chapter05/ERsimulation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Misunderstandings! In the Emergency Room.*" href="ERsimulation.html" />
-    <link rel="prev" title="Finding Data" href="../Chapter04/FindingData.html" />
+    <link rel="next" title="Defining cell types by their electrophysiology" href="../Chapter09/SingleCellEphys.html" />
+    <link rel="prev" title="Exploring the Data" href="DataExploration_BrainSize.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -191,9 +191,9 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">FINDING &amp; EXPLORING NEURAL DATA</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Chapter04/FindingData.html">Finding Data</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exploring the Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DataExploration_BrainSize.html">Exploring the Data</a></li>
 
-<li class="toctree-l1"><a class="reference internal" href="ERsimulation.html">Misunderstandings! In the Emergency Room.*</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Misunderstandings! In the Emergency Room.*</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">KINDS OF NEURAL DATA</span></p>
 <ul class="nav bd-sidenav">
@@ -258,7 +258,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter05/DataExploration_BrainSize.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/NeuralDataScience/NeuralDataScience.github.io/blob/master/Chapter05/ERsimulation.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -289,7 +289,7 @@
       
       
       
-      <li><a href="../_sources/Chapter05/DataExploration_BrainSize.ipynb" target="_blank"
+      <li><a href="../_sources/Chapter05/ERsimulation.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -373,7 +373,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Exploring the Data</h1>
+    <h1>Misunderstandings! In the Emergency Room.*</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,10 +383,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exploring the Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-challenges">Bonus Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulate-our-dataset">Simulate our dataset</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -397,50 +396,58 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="exploring-the-data">
-<h1>Exploring the Data<a class="headerlink" href="#exploring-the-data" title="Link to this heading">#</a></h1>
-<p>In this notebook, we’ll explore the dataset included with Herculano-Houzel et al. (2015) “Mammalian Brains Are Made of These”.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="misunderstandings-in-the-emergency-room">
+<h1>Misunderstandings! In the Emergency Room.*<a class="headerlink" href="#misunderstandings-in-the-emergency-room" title="Link to this heading">#</a></h1>
+<p>( * A bad Panic! At the Disco Reference. )</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<p>As always, let’s import the packages we need and set a random seed in numpy. If you want to run this with truly random data, just comment out the <code class="docutils literal notranslate"><span class="pre">np.random.seed()</span></code> line.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = &#39;retina&#39;
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="c1"># Set random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="simulate-our-dataset">
+<h2>Simulate our dataset<a class="headerlink" href="#simulate-our-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_patients</span> <span class="o">=</span> <span class="mi">1000</span>
 
-<span class="c1"># Get the data from the &quot;raw&quot; version of the file hosted on our GitHub</span>
-<span class="o">!</span>wget<span class="w"> </span>https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
+<span class="c1"># Generate ages from a gamma distribution, scaled and truncated to 18-99</span>
+<span class="n">ages</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">n_patients</span><span class="p">)</span> <span class="o">+</span> <span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">ages</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">ages</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">98</span><span class="p">)</span>
 
-<span class="c1"># Open the csv and assign to a dataframe called &quot;data&quot;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;species_brainmass_neurons.csv&#39;</span><span class="p">)</span>
-<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">baseline_adverse_rate</span> <span class="o">=</span> <span class="mf">0.20</span>
+<span class="n">adverse_events</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_patients</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">baseline_adverse_rate</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="n">ages</span><span class="p">,</span>
+    <span class="s1">&#39;adverse_event&#39;</span><span class="p">:</span> <span class="n">adverse_events</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1"># Now inject the problematic data: unknown ages coded as 99</span>
+<span class="n">n_unknown</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># 5% of patients have unknown age</span>
+<span class="n">unknown_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">n_unknown</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># The &#39;99&#39; patients have much higher adverse event rate (80%)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">unknown_indices</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">unknown_indices</span><span class="p">,</span> <span class="s1">&#39;adverse_event&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">n_unknown</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.80</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># Look at the first 10 patients</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2025-11-25 12:37:55--  https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
-Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8002::154, 2606:50c0:8003::154, 2606:50c0:8000::154, ...
-Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8002::154|:443... 
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>connected.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HTTP request sent, awaiting response... 
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200 OK
-Length: 3649 (3.6K) [text/plain]
-Saving to: ‘species_brainmass_neurons.csv.3’
-
-
-          species_b   0%[                    ]       0  --.-KB/s               
-species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s      
-
-2025-11-25 12:37:55 (17.9 MB/s) - ‘species_brainmass_neurons.csv.3’ saved [3649/3649]
-</pre></div>
-</div>
 <div class="output text_html"><div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -459,158 +466,138 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Species</th>
-      <th>Order</th>
-      <th>cortex_mass_g</th>
-      <th>Neurons</th>
-      <th>Other_cells</th>
-      <th>Neurons_mg</th>
-      <th>Other_cells_mg</th>
-      <th>Source</th>
+      <th>age</th>
+      <th>adverse_event</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Sorex fumeus</td>
-      <td>Eulipotyphla</td>
-      <td>0.084</td>
-      <td>9730000</td>
-      <td>9290000</td>
-      <td>116727</td>
-      <td>111754</td>
-      <td>Sarko et al., 2009</td>
+      <td>46</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Mus musculus</td>
-      <td>Glires</td>
-      <td>0.173</td>
-      <td>13688162</td>
-      <td>12061838</td>
-      <td>78672</td>
-      <td>68643</td>
-      <td>Herculano-Houzel et al., 2006</td>
+      <td>37</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Blarina brevicauda</td>
-      <td>Eulipotyphla</td>
-      <td>0.197</td>
-      <td>11876000</td>
-      <td>15820000</td>
-      <td>60214</td>
-      <td>80729</td>
-      <td>Sarko et al., 2009</td>
+      <td>36</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Heterocephalus glaber</td>
-      <td>Glires</td>
-      <td>0.184</td>
-      <td>6151875</td>
-      <td>8398125</td>
-      <td>33374</td>
-      <td>45894</td>
-      <td>Herculano-Houzel et al., 2011</td>
+      <td>36</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Condylura cristata</td>
-      <td>Eulipotyphla</td>
-      <td>0.420</td>
-      <td>17250000</td>
-      <td>32010000</td>
-      <td>40777</td>
-      <td>76995</td>
-      <td>Sarko et al., 2009</td>
+      <td>67</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>51</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>99</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>47</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>42</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>22</td>
+      <td>0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>One of the first steps in data exploration is checking the shape of the dataset:</p>
+<p>First, we’ll look to see if we find different rates of adverse events if we bin by age:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">99</span><span class="p">]),</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;adverse_event&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(38, 8)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>age
+(18, 40]    0.198830
+(40, 60]    0.201807
+(60, 80]    0.157303
+(80, 99]    0.723077
+Name: adverse_event, dtype: float64
 </pre></div>
 </div>
 </div>
 </div>
+<p>Wow, looks like people in the 80-99 bucket have a much higher incidence of adverse events! However, the problem becomes obvious when we look at the age distribution:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">columns</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Index([&#39;Species&#39;, &#39;Order&#39;, &#39;cortex_mass_g&#39;, &#39;Neurons&#39;, &#39;Other_cells&#39;,
-       &#39;Neurons_mg&#39;, &#39;Other_cells_mg&#39;, &#39;Source&#39;],
-      dtype=&#39;object&#39;)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Neurons&#39;</span><span class="p">],</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Neurons&#39;</span><span class="p">],</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png"><img alt="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png" src="../_images/98a82d633a74329e067e5df7e1f56afd17f20613f4a9def541ba10c848f40e3b.png" style="width: 842px; height: 386px;" />
-</a>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">pairplot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<a class="reference internal image-reference" href="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png"><img alt="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png" src="../_images/2863f319568176b225a759d2a923d1b4ad00c9b42e1c36c4a3be1fa4bfed6728.png" style="width: 1232px; height: 1231px;" />
-</a>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compute the cross correlation</span>
-<span class="n">corr</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualize the problem</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
-<span class="c1"># Create axes, colormap, and plot a heatmap</span>
-<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">230</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># Age distribution</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Age Distribution&#39;</span><span class="p">)</span>
 
+<span class="c1"># Adverse event rate by age</span>
+<span class="n">age_bins</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">adverse_by_age</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">age_bins</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;adverse_event&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Get the midpoint of each age bin for plotting</span>
+<span class="n">bin_midpoints</span> <span class="o">=</span> <span class="p">[</span><span class="n">interval</span><span class="o">.</span><span class="n">mid</span> <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="n">adverse_by_age</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">bin_midpoints</span><span class="p">,</span> <span class="n">adverse_by_age</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Age&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Adverse Event Rate&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Adverse Event Rate by Age&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_82727/619943810.py:2: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
-  corr = data.corr()
+<img alt="../_images/0453758d66923186e691bc60bd23aaa962d3bfdc5b5d42dc74df2ed06a179e47.png" src="../_images/0453758d66923186e691bc60bd23aaa962d3bfdc5b5d42dc74df2ed06a179e47.png" />
+</div>
+</div>
+<p>In this case, we should exclude all of the patients whose ages are exactly 99. Unfortunately, this means we will also loose people who were legitimately 99 years old – underscoring the importance of smartly choosing ways to encode missing values (e.g., with NaN)!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">99</span><span class="p">]</span> <span class="c1"># filter out anyone whose age is equal to 99</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="p">[</span><span class="mi">18</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">99</span><span class="p">]),</span> <span class="n">observed</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;adverse_event&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 </pre></div>
 </div>
-<a class="reference internal image-reference" href="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png"><img alt="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png" src="../_images/146076ef93b79b537ea58fb4f71ce2903246d7c44e673f255903bc95735afc18.png" style="width: 454px; height: 372px;" />
-</a>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>age
+(18, 40]    0.198830
+(40, 60]    0.201807
+(60, 80]    0.157303
+(80, 99]    0.200000
+Name: adverse_event, dtype: float64
+</pre></div>
 </div>
 </div>
+</div>
+<p>As you can see, now the rate of adverse events is much more even across ages once we exclude those individuals that were erroneously coded with 99.</p>
 </section>
-<section id="bonus-challenges">
-<h1>Bonus Challenges<a class="headerlink" href="#bonus-challenges" title="Link to this heading">#</a></h1>
-<ul class="simple">
-<li><p>Can you use the NCBI esearch tool to look up information about the Herculano-Houzel et al. 2015 paper for this dataset?</p></li>
-</ul>
 </section>
 
     <script type="text/x-thebe-config">
@@ -622,16 +609,16 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "jb_py311"
+            mode: "python"
         },
         kernelOptions: {
-            name: "jb_py311",
+            name: "python3",
             path: "./Chapter05"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'jb_py311'</script>
+    <script>kernelName = 'python3'</script>
 
                 </article>
               
@@ -644,20 +631,20 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../Chapter04/FindingData.html"
+       href="DataExploration_BrainSize.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Finding Data</p>
+        <p class="prev-next-title">Exploring the Data</p>
       </div>
     </a>
     <a class="right-next"
-       href="ERsimulation.html"
+       href="../Chapter09/SingleCellEphys.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Misunderstandings! In the Emergency Room.*</p>
+        <p class="prev-next-title">Defining cell types by their electrophysiology</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -677,10 +664,9 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Exploring the Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#bonus-challenges">Bonus Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulate-our-dataset">Simulate our dataset</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
