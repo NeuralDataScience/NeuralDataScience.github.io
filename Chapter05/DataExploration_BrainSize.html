@@ -198,6 +198,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../Chapter09/SingleCellEphys.html">Defining cell types by their electrophysiology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Chapter09/2pImaging.html">Brain Observatory: <em>What are those cells doing?</em></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Chapter13/LitMining.html">Literature Mining</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">APPROACHES TO WORKING WITH BIG DATA</span></p>
 <ul class="nav bd-sidenav">
@@ -417,23 +418,26 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2025-07-30 12:21:00--  https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2025-11-25 12:34:21--  https://raw.githubusercontent.com/NeuralDataScience/NeuralDataScience.github.io/refs/heads/master/Data/species_brainmass_neurons.csv
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 2606:50c0:8003::154, 2606:50c0:8002::154, 2606:50c0:8001::154, ...
-Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8003::154|:443... connected.
-HTTP request sent, awaiting response... 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2606:50c0:8002::154, 2606:50c0:8003::154, 2606:50c0:8000::154, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|2606:50c0:8002::154|:443... connected.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>HTTP request sent, awaiting response... 
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>200 OK
 Length: 3649 (3.6K) [text/plain]
-Saving to: ‘species_brainmass_neurons.csv.1’
+Saving to: ‘species_brainmass_neurons.csv.2’
 
 
           species_b   0%[                    ]       0  --.-KB/s               
 species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s      
 
-2025-07-30 12:21:00 (8.51 MB/s) - ‘species_brainmass_neurons.csv.1’ saved [3649/3649]
+2025-11-25 12:34:22 (7.57 MB/s) - ‘species_brainmass_neurons.csv.2’ saved [3649/3649]
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -592,7 +596,7 @@ species_brainmass_n 100%[===================&gt;]   3.56K  --.-KB/s    in 0s
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_88540/619943810.py:2: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/xf/zpnqd_3d3m77t0w3b54_8ls80000gp/T/ipykernel_82560/619943810.py:2: FutureWarning: The default value of numeric_only in DataFrame.corr is deprecated. In a future version, it will default to False. Select only valid columns or specify the value of numeric_only to silence this warning.
   corr = data.corr()
 </pre></div>
 </div>
